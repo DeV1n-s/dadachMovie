@@ -26,7 +26,7 @@ namespace dadachAPI
         {
 
             services.AddControllers()
-            .AddNewtonsoftJson();
+                .AddNewtonsoftJson();
 
             // In production, the Vue files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
