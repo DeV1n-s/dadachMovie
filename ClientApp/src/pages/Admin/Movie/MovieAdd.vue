@@ -67,22 +67,35 @@ export default {
       MovieData: {
         title: '',
         rate: '',
-        Release: null,
+        ReleaseDate: null,
         Director: '',
-        Cast: '',
+        Casters: '',
         shortPara: '',
         longPara: '',
-        Genre: '',
-        img: ''
+        GenresIds: '',
+        Picture: ''
       }
     };
   },
   methods: {
     submitData() {
       axios
-        .post('https://dadach-movie.firebaseio.com/News.json', this.MovieData)
+        .post('http://localhost:5000/api/movies', JSON.parse(this.MovieData))
         .then(res => console.log(res));
+    },
+    getPeople() {
+      axios
+        .get('http://localhost:8080/api/people')
+
+        .then(res => console.log(res.data));
     }
+  },
+
+  //get/getPeople
+  mounted() {
+    // this.$store.dispatch('getPeople');
+    // console.log(this.$store.getters.People);
+    this.getPeople();
   }
 };
 </script>

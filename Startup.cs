@@ -59,7 +59,7 @@ namespace dadachAPI
                 app.UseHsts ();
             }
 
-            app.UseHttpsRedirection ();
+            // app.UseHttpsRedirection ();
             
             app.UseSpaStaticFiles ();
 
