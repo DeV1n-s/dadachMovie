@@ -41,7 +41,14 @@
             <label for="fname">کارگردان </label>
             <input type="text" v-model="MovieData.Director" />
             <label for="fname">بازیگران </label>
-            <input type="text" v-model="MovieData.Cast" />
+            <select id="countr" name="country" v-model="MovieData.Genre">
+              <option
+                v-for="People in Peoples"
+                :key="People.id"
+                value="action"
+                >{{ People.name }}</option
+              >
+            </select>
             <label for="fname">تصویر </label>
             <input type="file" class="custom-file-input" />
 
@@ -74,7 +81,8 @@ export default {
         longPara: '',
         GenresIds: '',
         Picture: ''
-      }
+      },
+      Peoples: this.$store.getters.GetPeaple
     };
   },
   methods: {
@@ -93,9 +101,8 @@ export default {
 
   //get/getPeople
   mounted() {
-    // this.$store.dispatch('getPeople');
-    // console.log(this.$store.getters.People);
     this.getPeople();
+    console.log(this.Peoples);
   }
 };
 </script>

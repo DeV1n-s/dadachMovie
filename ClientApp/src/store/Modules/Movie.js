@@ -2,10 +2,7 @@
 import axios from 'axios'
 const state = {
     MovieData: [],
-    PeopleData: [],
-    id: 1
 };
-
 
 const getters = {
     GetMovies(state) {
@@ -23,12 +20,6 @@ const getters = {
 };
 
 const mutations = {
-    // SetPost(state, post) {
-    //     state.post = post;
-    // }
-    SET_People(state, people) {
-        state.PeopleData = people
-    },
     SET_MOVIE(state, movie) {
         state.MovieData = movie
             // state.refreshToken = userData.refreshToken
@@ -43,12 +34,6 @@ const actions = {
                 commit('SET_MOVIE', response.data)
             })
     },
-    getPeople({ commit }) {
-        axios.get('http://localhost:8080/api/people')
-            .then(response => {
-                commit('SET_People', response.data)
-            })
-    }
 }
 
 export default {
