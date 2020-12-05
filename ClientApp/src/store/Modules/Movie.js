@@ -1,4 +1,5 @@
 // import Vue from 'vue'
+import axios from 'axios'
 const state = {
     MovieData: [{
             id: 99999,
@@ -48,20 +49,19 @@ const mutations = {
     // SetPost(state, post) {
     //     state.post = post;
     // }
-    AddPost(state, newPost) {
-        state.MovieData.push(newPost)
+    SET_MOVIE(state, movie) {
+        state.MovieData = movie
             // state.refreshToken = userData.refreshToken
     }
 };
 
 
 const actions = {
-    AddPostAsync({
-        commit
-    }, newPost) {
-        commit('AddPost',
-            newPost
-        )
+    getMovie({ commit }) {
+        axios.get('https://dadach-movie.firebaseio.com/News.json')
+            .then(response => {
+                commit('SET_MOVIE', response.data)
+            })
     }
 }
 

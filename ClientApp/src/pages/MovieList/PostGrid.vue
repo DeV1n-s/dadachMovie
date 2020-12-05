@@ -44,6 +44,10 @@ export default {
     return {
       MovieLists: this.$store.getters.GetMovies
     };
+  },
+
+  mounted() {
+    this.$store.dispatch('getMovie');
   }
 };
 </script>

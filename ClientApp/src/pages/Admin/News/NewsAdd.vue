@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -51,7 +53,9 @@ export default {
   },
   methods: {
     submitData() {
-      console.log(this.NewsData);
+      axios
+        .post('https://dadach-movie.firebaseio.com/Post.json', this.NewsData)
+        .then(res => console.log(res.data));
     }
   }
 };
