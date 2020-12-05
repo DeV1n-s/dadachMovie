@@ -1,0 +1,16 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace dadachAPI.DTOs
+{
+    public class MoviePatchDTO
+    {
+        [Required, StringLength(300)]
+        public string Title { get; set; }
+        public string ShortPara { get; set; }
+        public string LongPara { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public int Rate { get; set; }
+        public bool InTheaters { get; set; }
+    }
+}
