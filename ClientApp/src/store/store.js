@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
-import Movie from './modules/Movie'
-import post from './modules/post'
+import Movie from './Modules/Movie'
+import post from './Modules/post'
 
 
 
