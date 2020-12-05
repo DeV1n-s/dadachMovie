@@ -85,7 +85,7 @@ export default {
     },
     getPeople() {
       axios
-        .get('http://localhost:8080/api/people')
+        .get('http://localhost:5000/api/people')
 
         .then(res => console.log(res.data));
     }

@@ -25,6 +25,30 @@ bin/
 Bin/
 obj/
 Obj/
+.vscode/
+.DS_Store
+ClientApp/.DS_Store
+ClientApp/node_modules
+ClientApp/dist
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # Visual Studio 2015 cache/options directory
 .vs/
