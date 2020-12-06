@@ -34,11 +34,6 @@ namespace dadachAPI
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MoviesAPI", Version = "v1" });
-            });
-
             services.AddDbContextPool<AppDbContext>( options =>
             {
                 options.UseSqlite(Configuration.GetConnectionString("SqliteConnection"));
@@ -49,6 +44,7 @@ namespace dadachAPI
             services.AddTransient<IFileStorageService, InAppStorageService>();
             services.AddTransient<IHostedService, MovieInTheaterService>();
             services.AddHttpContextAccessor();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,9 +56,16 @@ namespace dadachAPI
                 app.UseHsts ();
             }
 
+            app.UseSwagger();
+
             // app.UseHttpsRedirection ();
             
             app.UseSpaStaticFiles ();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseRouting ();
 
