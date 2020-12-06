@@ -1,16 +1,22 @@
 <template>
   <div class="topbar-filter">
-    <p>درکل <span>1,608 بازیگر</span> پیدا شد</p>
-    <label>چینش به ترتیب:</label>
-    <select>
-      <option value="popularity">محبوبیت</option>
-      <option value="popularity">رنکینگ</option>
-    </select>
+    <p>
+      درکل <span>{{ Peoples.length }} بازیگر</span> پیدا شد
+    </p>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      Peoples: this.$store.getters.GetPeaple
+    };
+  },
+  mounted() {
+    this.$store.dispatch('GetPeoples');
+  }
+};
 </script>
 
 <style></style>
