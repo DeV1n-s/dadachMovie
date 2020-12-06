@@ -2,10 +2,15 @@
   <div>
     <div class="celebrity-items">
       <div class="ceb-item" v-for="People in Peoples" :key="People.id">
-        <a href="celebritysingle.html"><img :src="People.picture" alt=""/></a>
+        <router-link :to="{ name: 'ActorSingle', params: { id: People.id } }"
+          ><img :src="People.picture" alt=""
+        /></router-link>
         <div class="ceb-infor">
           <h2>
-            <a href="celebritylist.html">{{ People.name }}</a>
+            <router-link
+              :to="{ name: 'ActorSingle', params: { id: People.id } }"
+              >{{ People.name }}</router-link
+            >
           </h2>
           <span>{{ People.biography }}</span>
         </div>
