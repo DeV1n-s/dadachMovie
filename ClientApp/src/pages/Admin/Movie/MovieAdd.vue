@@ -91,12 +91,12 @@ export default {
   methods: {
     submitData() {
       axios
-        .post('http://localhost:5000/api/movies', JSON.parse(this.MovieData))
+        .post('http://localhost:8080/api/movies', JSON.parse(this.MovieData))
         .then(res => console.log(res));
     },
     getGenre() {
       axios
-        .get('http://localhost:5000/api/genres')
+        .get('http://localhost:8080/api/genres')
         .then(res => (this.Genres = res.data));
     }
   },
