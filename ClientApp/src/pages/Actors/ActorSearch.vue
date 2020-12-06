@@ -2,7 +2,7 @@
   <div class="col-md-3 col-xs-12 col-sm-12">
     <div class="sidebar">
       <div class="searh-form">
-        <h4 class="sb-title">Search celebrity</h4>
+        <h4 class="sb-title">جست و جوی بازیگر</h4>
         <form class="form-style-1 celebrity-form" action="#">
           <div class="row">
             <div class="col-md-12 form-it">
