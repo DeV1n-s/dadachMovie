@@ -33,7 +33,7 @@ namespace dadachAPI
             // In production, the Vue files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                configuration.RootPath = "wwwroot";
             });
 
             services.AddDbContextPool<AppDbContext>( options =>
