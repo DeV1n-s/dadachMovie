@@ -91,7 +91,7 @@
                 </li>
                 <li><router-link to="/NewsPanel">مدیریت اخبار</router-link></li>
                 <li class="it-last">
-                  <a href="comingsoon.html">Coming soon</a>
+                  <router-link to="/CastPanel">مدیریت بازیگران</router-link>
                 </li>
               </ul>
             </li>
