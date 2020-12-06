@@ -13,12 +13,12 @@ namespace dadachAPI.DTOs
         public IFormFile Picture { get; set; }
 
         [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]
-        public List<int> GenresIds { get; set; }
+        public List<int> GenresId { get; set; }
 
         [ModelBinder(BinderType = typeof(TypeBinder<List<CasterCreationDTO>>))]
         public List<CasterCreationDTO> Casters { get; set; }
 
         [ModelBinder(BinderType = typeof(TypeBinder<List<DirectorCreationDTO>>))]
-        public List<CasterCreationDTO> Directors { get; set; }
+        public List<DirectorCreationDTO> Directors { get; set; }
     }
 }

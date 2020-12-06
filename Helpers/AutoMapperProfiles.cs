@@ -69,7 +69,7 @@ namespace dadachAPI.Helpers
         private List<MoviesGenres> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie)
         {
             var result = new List<MoviesGenres>();
-            foreach (var id in movieCreationDTO.GenresIds)
+            foreach (var id in movieCreationDTO.GenresId)
             {
                 result.Add(new MoviesGenres() { GenreId = id });
             }

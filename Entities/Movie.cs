@@ -11,7 +11,7 @@ namespace dadachAPI.Entities
         public string ShortPara { get; set; }
         public string LongPara { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public int Rate { get; set; }
+        public float Rate { get; set; }
         public bool InTheaters { get; set; }
         public string Picture { get; set; }
         public List<MoviesActors> Casters { get; set; }
