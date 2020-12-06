@@ -72,7 +72,8 @@ namespace dadachAPI
                 endpoints.MapToVueCliProxy (
                     "{*path}",
                     new SpaOptions { SourcePath = "ClientApp" },
-                    npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                    // npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                    npmScript: "serve",
                     regex: "Compiled successfully",
                     forceKill : true
                 );
