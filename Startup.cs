@@ -27,6 +27,8 @@ namespace dadachAPI
 
             services.AddControllers()
                 .AddNewtonsoftJson();
+            
+            services.AddCors();
 
             // In production, the Vue files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -51,12 +53,11 @@ namespace dadachAPI
        public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
+                app.UseSwagger();
             } else {
                 app.UseExceptionHandler ("/Error");
                 app.UseHsts ();
             }
-
-            app.UseSwagger();
 
             // app.UseHttpsRedirection ();
             
@@ -68,6 +69,8 @@ namespace dadachAPI
             });
 
             app.UseRouting ();
+
+            app.UseCors(builder => builder.WithOrigins("http://localhost:8080").WithOrigins("http://localhost:5000").AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllers ();
