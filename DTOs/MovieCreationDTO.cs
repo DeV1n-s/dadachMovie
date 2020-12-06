@@ -18,7 +18,7 @@ namespace dadachAPI.DTOs
         [ModelBinder(BinderType = typeof(TypeBinder<List<CasterCreationDTO>>))]
         public List<CasterCreationDTO> Casters { get; set; }
 
-        [ModelBinder(BinderType = typeof(TypeBinder<List<DirectorCreationDTO>>))]
-        public List<DirectorCreationDTO> Directors { get; set; }
+        [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]
+        public List<int> DirectorsId { get; set; }
     }
 }

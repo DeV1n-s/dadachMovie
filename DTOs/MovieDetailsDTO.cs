@@ -6,6 +6,6 @@ namespace dadachAPI.DTOs
     {
         public List<GenreDTO> Genres { get; set; }
         public List<CasterDTO> Casters { get; set; }
-        public List<PersonDTO> Directors { get; set; }
+        public List<DirectorDTO> Directors { get; set; }
     }
 }

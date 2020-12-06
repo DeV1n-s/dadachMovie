@@ -106,6 +106,7 @@ namespace dadachAPI.Controllers
             var movie = await dbContext.Movies
                 .Include(m => m.Casters).ThenInclude(m => m.Person)
                 .Include(m => m.Genres).ThenInclude(m => m.Genre)
+                .Include(m => m.Directors).ThenInclude(m => m.Person)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {

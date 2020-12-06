@@ -8,17 +8,20 @@
         <div>
           <form action="/action_page.php">
             <label for="fname">نام فیلم </label>
-            <input type="text" id="fname" v-model="MovieData.title" />
+            <input type="text" id="fname" v-model="MovieData.Title" />
 
             <label for="lname">توضیحات کوتاه</label>
-            <input type="text" v-model="MovieData.shortPara" />
+            <input type="text" v-model="MovieData.ShortPara" />
             <label for="lname">شرح کامل</label>
-            <textarea v-model="MovieData.longPara"></textarea>
+            <textarea v-model="MovieData.LongPara"></textarea>
             <label for="country">سبک</label>
-            <select id="country" name="country" v-model="MovieData.Genre">
-              <option v-for="Genre in Genres" :key="Genre.id" value="action">{{
-                Genre.name
-              }}</option>
+            <select id="country" name="country" v-model="MovieData.GenresIds">
+              <option
+                v-for="Genre in Genres"
+                :key="Genre.id"
+                :value="Genre.id"
+                >{{ Genre.name }}</option
+              >
             </select>
             <label for="tentacles">نمره فیلم از 10</label>
 
@@ -28,7 +31,7 @@
               name="tentacles"
               min="0"
               max="10"
-              v-model="MovieData.rate"
+              v-model="MovieData.Rate"
             />
             <label for="start">تاریخ انتشار</label>
 
@@ -41,18 +44,29 @@
               v-model="MovieData.Release"
             />
             <label for="fname">کارگردان </label>
-            <input type="text" v-model="MovieData.Director" />
-            <label for="fname">بازیگران </label>
-            <select id="countr" name="country" v-model="MovieData.Genre">
+            <select name="country" v-model="MovieData.Directors">
               <option
                 v-for="People in Peoples"
                 :key="People.id"
-                value="action"
+                :value="People.id"
+                >{{ People.name }}</option
+              >
+            </select>
+            <label for="fname">بازیگران </label>
+            <select id="countr" name="country" v-model="MovieData.Casters">
+              <option
+                v-for="People in Peoples"
+                :key="People.id"
+                :value="People.id"
                 >{{ People.name }}</option
               >
             </select>
             <label for="fname">تصویر </label>
-            <input type="file" class="custom-file-input" />
+            <input
+              type="file"
+              class="custom-file-input"
+              @change="onFileSelected"
+            />
 
             <button
               type="submit"
@@ -74,15 +88,15 @@ export default {
   data() {
     return {
       MovieData: {
-        title: '',
-        rate: '',
+        Title: '',
+        Rate: '',
         ReleaseDate: null,
-        Director: '',
+        Directors: '',
         Casters: '',
-        shortPara: '',
-        longPara: '',
+        ShortPara: '',
+        LongPara: '',
         GenresIds: '',
-        Picture: ''
+        Picture: null
       },
       Peoples: this.$store.getters.GetPeaple,
       Genres: []
@@ -91,13 +105,21 @@ export default {
   methods: {
     submitData() {
       axios
-        .post('http://localhost:8080/api/movies', JSON.parse(this.MovieData))
+        .post(
+          'http://localhost:8080/api/Movies',
+          JSON.stringify(this.MovieData)
+        )
         .then(res => console.log(res));
+      console.log(JSON.stringify(this.MovieData));
     },
     getGenre() {
       axios
         .get('http://localhost:8080/api/genres')
         .then(res => (this.Genres = res.data));
+    },
+    onFileSelected(event) {
+      this.MovieData.Picture = event.target.files[0];
+      // this.$refs.file.files[0];
     }
   },
 
