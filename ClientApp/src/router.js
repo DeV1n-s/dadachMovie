@@ -10,6 +10,7 @@ import NewsSingle from './pages/News/NewsSingle'
 import NewsPanel from './pages/Admin/News/NewsPanel.vue'
 import NewsAdd from './pages/Admin/News/NewsAdd.vue'
 import ActorSingle from './pages/Actors/ActorSingle.vue'
+import CastPanel from './pages/Admin/Cast/CastPanel.vue'
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -25,7 +26,7 @@ const router = createRouter({
         { path: '/NewsPanel', component: NewsPanel },
         { path: '/NewsAdd', component: NewsAdd },
         { path: '/ActorSingle/:id', name: 'ActorSingle', component: ActorSingle },
-
+        { path: '/CastPanel', component: CastPanel }
 
         // { path: '/PostData', component: PostData, meta: { requiresAuth: true } },
     ],
