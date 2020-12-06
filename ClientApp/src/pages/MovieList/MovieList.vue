@@ -1,27 +1,29 @@
 <template>
-  <div class="hero common-hero">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="hero-ct">
-            <h1>
-              لیست فیلم ها
-            </h1>
-            <ul class="breadcumb"></ul>
+  <div>
+    <div class="hero common-hero">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="hero-ct">
+              <h1>
+                لیست فیلم ها
+              </h1>
+              <ul class="breadcumb"></ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="page-single movie_list">
-    <div class="container">
-      <div class="row ipad-width2">
-        <div class="col-md-8 col-sm-12 col-xs-12">
-          <movieSort />
-          <postGrid />
+    <div class="page-single movie_list">
+      <div class="container">
+        <div class="row ipad-width2">
+          <div class="col-md-8 col-sm-12 col-xs-12">
+            <movieSort />
+            <postGrid />
+          </div>
+          <searchBox />
+          <!--  -->
         </div>
-        <searchBox />
-        <!--  -->
       </div>
     </div>
   </div>

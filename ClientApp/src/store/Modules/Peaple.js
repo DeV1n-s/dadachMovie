@@ -9,13 +9,13 @@ const getters = {
     GetPeaple(state) {
         return state.PeopleData;
     },
-    Movie: state => id => {
-        return state.MovieData.find(Movie => Movie.id === id)
-    },
+    // Movie: state => id => {
+    //     return state.MovieData.find(Movie => Movie.id === id)
+    // },
 };
 
 const mutations = {
-    SET_People(state, people) {
+    SET_PEOPLE(state, people) {
         state.PeopleData = people
     },
 
@@ -23,12 +23,12 @@ const mutations = {
 
 
 const actions = {
-    getPeople({ commit }) {
-        axios.get('https://localhost:5001/api/people')
+    GetPeoples({ commit }) {
+        axios.get('http://localhost:5000/api/People')
             .then(response => {
-                commit('SET_People', response.data)
+                commit('SET_PEOPLE', response.data)
             })
-    }
+    },
 }
 
 export default {

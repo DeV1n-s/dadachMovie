@@ -3,12 +3,14 @@ import createPersistedState from "vuex-persistedstate";
 import Movie from './Modules/Movie'
 import post from './Modules/post'
 
+import Peaple from './Modules/Peaple'
 
 
 const store = createStore({
     modules: {
         post,
-        Movie
+        Movie,
+        Peaple
     },
 
     plugins: [createPersistedState()],

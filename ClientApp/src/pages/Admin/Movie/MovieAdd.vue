@@ -16,7 +16,9 @@
             <textarea v-model="MovieData.longPara"></textarea>
             <label for="country">سبک</label>
             <select id="country" name="country" v-model="MovieData.Genre">
-              <option value="action">اکشن</option>
+              <option v-for="Genre in Genres" :key="Genre.id" value="action">{{
+                Genre.name
+              }}</option>
             </select>
             <label for="tentacles">نمره فیلم از 10</label>
 
@@ -82,7 +84,8 @@ export default {
         GenresIds: '',
         Picture: ''
       },
-      Peoples: this.$store.getters.GetPeaple
+      Peoples: this.$store.getters.GetPeaple,
+      Genres: []
     };
   },
   methods: {
@@ -91,18 +94,17 @@ export default {
         .post('http://localhost:5000/api/movies', JSON.parse(this.MovieData))
         .then(res => console.log(res));
     },
-    getPeople() {
+    getGenre() {
       axios
-        .get('http://localhost:5000/api/people')
-
-        .then(res => console.log(res.data));
+        .get('http://localhost:5000/api/genres')
+        .then(res => (this.Genres = res.data));
     }
   },
 
   //get/getPeople
   mounted() {
-    this.getPeople();
-    console.log(this.Peoples);
+    this.$store.dispatch('GetPeoples');
+    this.getGenre();
   }
 };
 </script>
@@ -144,7 +146,6 @@ label {
 input[type='text'],
 select {
   width: 100%;
-  padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
