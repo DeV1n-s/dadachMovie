@@ -5,7 +5,6 @@ namespace dadachAPI.DTOs
 {
     public class MoviePatchDTO
     {
-        [Required, StringLength(300)]
         public string Title { get; set; }
         public string ShortPara { get; set; }
         public string LongPara { get; set; }

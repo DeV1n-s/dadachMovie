@@ -7,8 +7,6 @@ namespace dadachAPI.Entities
     public class Movie
     {
         public int Id { get; set; }
-
-        [Required, StringLength(300)]
         public string Title { get; set; }
         public string ShortPara { get; set; }
         public string LongPara { get; set; }
