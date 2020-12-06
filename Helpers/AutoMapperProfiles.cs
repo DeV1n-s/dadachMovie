@@ -25,11 +25,13 @@ namespace dadachAPI.Helpers
             CreateMap<MovieCreationDTO, Movie>()
                 .ForMember(x => x.Picture, options => options.Ignore())
                 .ForMember(x => x.Genres, options => options.MapFrom(MapMoviesGenres))
-                .ForMember(x => x.Casters, options => options.MapFrom(MapMovieCasters));
+                .ForMember(x => x.Casters, options => options.MapFrom(MapMovieCasters))
+                .ForMember(x => x.Directors, options => options.MapFrom(MapMovieDirectors));
 
             CreateMap<Movie, MovieDetailsDTO>()
                .ForMember(x => x.Genres, options => options.MapFrom(MapMoviesGenres))
-               .ForMember(x => x.Casters, options => options.MapFrom(MapMovieCasters));
+               .ForMember(x => x.Casters, options => options.MapFrom(MapMovieCasters))
+               .ForMember(x => x.Directors, options => options.MapFrom(MapMovieDirectors));
 
             CreateMap<Movie, MoviePatchDTO>().ReverseMap();
         }
@@ -54,6 +56,16 @@ namespace dadachAPI.Helpers
             return result;
         }
 
+        private List<DirectorDTO> MapMovieDirectors(Movie movie, MovieDetailsDTO movieDetailsDTO)
+        {
+            var result = new List<DirectorDTO>();
+            foreach (var director in movie.Directors)
+            {
+                result.Add(new DirectorDTO() { PersonId = director.PersonId,  PersonName = director.Person.Name });
+            }
+            return result;
+        }
+
         private List<MoviesGenres> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie)
         {
             var result = new List<MoviesGenres>();
@@ -70,6 +82,16 @@ namespace dadachAPI.Helpers
             foreach (var caster in movieCreationDTO.Casters)
             {
                 result.Add(new MoviesActors() { PersonId = caster.PersonId, Character = caster.Character });
+            }
+            return result;
+        }
+
+        private List<MoviesDirectors> MapMovieDirectors(MovieCreationDTO movieCreationDTO, Movie movie)
+        {
+            var result = new List<MoviesDirectors>();
+            foreach (var director in movieCreationDTO.Directors)
+            {
+                result.Add(new MoviesDirectors() { PersonId = director.PersonId });
             }
             return result;
         }
