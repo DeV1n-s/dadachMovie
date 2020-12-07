@@ -870,7 +870,6 @@
                 <div class="col-md-4">
                     <div class="sidebar">
                         <div class="ads">
-                            <img src="images/uploads/ads1.png" alt="" width="336" height="296">
                         </div>
                         <div class="celebrities">
                             <h4 class="sb-title">Spotlight Celebrities</h4>

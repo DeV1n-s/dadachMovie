@@ -46,9 +46,7 @@
           <li><a href="#">Beauty</a></li>
         </ul>
       </div>
-      <div class="ads">
-        <img src="images/uploads/ads1.png" alt="" />
-      </div>
+      <div class="ads"></div>
     </div>
   </div>
 </template>

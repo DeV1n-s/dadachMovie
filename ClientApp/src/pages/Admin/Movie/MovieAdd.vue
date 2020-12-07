@@ -15,7 +15,7 @@
             <label for="lname">شرح کامل</label>
             <textarea v-model="MovieData.LongPara"></textarea>
             <label for="country">سبک</label>
-            <select id="country" name="country" v-model="MovieData.GenresIds">
+            <select id="country" name="country" v-model="GenresIds">
               <option
                 v-for="Genre in Genres"
                 :key="Genre.id"
@@ -44,7 +44,7 @@
               v-model="MovieData.Release"
             />
             <label for="fname">کارگردان </label>
-            <select name="country" v-model="MovieData.Directors">
+            <select name="country" v-model="Directors">
               <option
                 v-for="People in Peoples"
                 :key="People.id"
@@ -57,7 +57,10 @@
               <option
                 v-for="People in Peoples"
                 :key="People.id"
-                :value="People.id"
+                :value="{
+                  PersonId: People.id,
+                  Character: People.name
+                }"
                 >{{ People.name }}</option
               >
             </select>
@@ -66,6 +69,12 @@
               type="file"
               class="custom-file-input"
               @change="onFileSelected"
+            />
+            <label for="checkbox">روی پرده سینما </label>
+            <input
+              type="checkbox"
+              id="checkbox"
+              v-model="MovieData.InTheaters"
             />
 
             <button
@@ -91,26 +100,42 @@ export default {
         Title: '',
         Rate: '',
         ReleaseDate: null,
-        Directors: '',
-        Casters: '',
+        Directors: [],
+        Casters: [],
         ShortPara: '',
         LongPara: '',
-        GenresIds: '',
-        Picture: null
+        GenresIds: [],
+        Picture: null,
+        InTheaters: false
       },
+      Directors: '',
+      GenresIds: '',
+
+      preCasters: [],
       Peoples: this.$store.getters.GetPeaple,
       Genres: []
     };
   },
   methods: {
     submitData() {
-      axios
-        .post(
-          'http://localhost:8080/api/Movies',
-          JSON.stringify(this.MovieData)
-        )
-        .then(res => console.log(res));
-      console.log(JSON.stringify(this.MovieData));
+      this.MovieData.Directors.push(this.Directors);
+      this.MovieData.GenresIds.push(this.GenresIds);
+
+      console.log(this.MovieData);
+      const form = new FormData();
+      form.append('Title', this.MovieData.Title);
+      form.append('Rate', this.MovieData.Rate);
+      form.append('DirectorsId', JSON.stringify(this.MovieData.Directors));
+      form.append('ShortPara', this.MovieData.ShortPara);
+      form.append('LongPara', this.MovieData.LongPara);
+      form.append('GenresId', JSON.stringify(this.MovieData.GenresIds));
+      form.append('Casters', JSON.stringify([this.MovieData.Casters]));
+      form.append('Picture', this.MovieData.Picture);
+      form.append('InTheaters', this.MovieData.InTheaters);
+      axios.post('http://localhost:8080/api/Movies', form).then(res => {
+        console.log(res);
+        this.$route.push('/MoviePanel');
+      });
     },
     getGenre() {
       axios
