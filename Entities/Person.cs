@@ -16,5 +16,18 @@ namespace dadachAPI.Entities
         public string Picture { get; set; }
         public List<MoviesActors> Casters { get; set; }
         public List<MoviesDirectors> Directors { get; set; }
+
+        public Person()
+        {
+            Casters = new List<MoviesActors>();
+            Directors = new List<MoviesDirectors>();
+        }
+    }
+
+    public enum PersonTypes : int
+    {
+        Director = 1,
+        Actor = 2,
+        Other = 3
     }
 }

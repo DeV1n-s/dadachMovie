@@ -18,5 +18,12 @@ namespace dadachAPI.Entities
         public List<MoviesGenres> Genres { get; set; }
         public List<MoviesDirectors> Directors { get; set; }
 
+        public Movie()
+        {
+            Casters = new List<MoviesActors>();
+            Genres = new List<MoviesGenres>();
+            Directors = new List<MoviesDirectors>();
+        }
     }
+    
 }

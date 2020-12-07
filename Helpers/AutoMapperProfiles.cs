@@ -22,6 +22,10 @@ namespace dadachAPI.Helpers
 
             CreateMap<Movie, MovieDTO>().ReverseMap();
 
+            CreateMap<MoviesGenres, GenreDTO>()
+            .ForMember(x => x.Id, options => options.MapFrom(x => x.GenreId))
+            .ForMember(x => x.Name, options => options.MapFrom(x => x.Genre.Name));
+
             CreateMap<MovieCreationDTO, Movie>()
                 .ForMember(x => x.Picture, options => options.Ignore())
                 .ForMember(x => x.Genres, options => options.MapFrom(MapMoviesGenres))
@@ -29,7 +33,7 @@ namespace dadachAPI.Helpers
                 .ForMember(x => x.Directors, options => options.MapFrom(MapMoviesDirectors));
 
             CreateMap<Movie, MovieDetailsDTO>()
-               .ForMember(x => x.Genres, options => options.MapFrom(MapMoviesGenres))
+               //.ForMember(x => x.Genres, options => options.MapFrom(MapMoviesGenres))
                .ForMember(x => x.Casters, options => options.MapFrom(MapMovieCasters))
                .ForMember(x => x.Directors, options => options.MapFrom(MapMoviesDirectors));
 

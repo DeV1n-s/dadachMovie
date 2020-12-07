@@ -43,7 +43,7 @@ namespace dadachAPI.Controllers
         }
 
         [HttpGet("top")]
-        public async Task<ActionResult<IndexMoviePageDTO>> Get([FromQuery] int top)
+        public async Task<ActionResult<IndexMoviePageDTO>> GetTop([FromQuery] int top)
         {
             if (top == 0)
             {
