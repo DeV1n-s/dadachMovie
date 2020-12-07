@@ -20,7 +20,12 @@
               <td>{{ People.dateOfBirth }}</td>
               <td>
                 <button class="btn btn-lg btn-warning">ویرایش</button>
-                <button class="btn btn-lg btn-danger">حذف</button>
+                <button
+                  class="btn btn-lg btn-danger"
+                  @click="deleteButton(People.id)"
+                >
+                  حذف
+                </button>
               </td>
             </tr>
           </tbody>
@@ -36,11 +41,20 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
       Peoples: this.$store.getters.GetPeaple
     };
+  },
+  methods: {
+    deleteButton(id) {
+      console.log(id);
+      axios
+        .delete('http://localhost:8080/api/people/' + id)
+        .then(res => console.log(res));
+    }
   },
   mounted() {
     this.$store.dispatch('GetPeoples');
