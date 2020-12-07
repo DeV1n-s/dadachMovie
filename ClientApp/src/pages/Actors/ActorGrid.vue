@@ -12,7 +12,7 @@
               >{{ People.name }}</router-link
             >
           </h2>
-          <span>{{ People.biography }}</span>
+          <span>{{ People.shortBio }}</span>
         </div>
       </div>
     </div>

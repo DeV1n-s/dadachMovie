@@ -25,7 +25,7 @@
             </tr>
           </tbody>
         </table>
-        <router-link to="/MovieAdd">
+        <router-link to="/CastAdd">
           <button class="btn btn-success btn-block m-x">
             افزودن بازیگر جدید
           </button>
