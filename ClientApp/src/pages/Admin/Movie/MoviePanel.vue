@@ -22,7 +22,12 @@
               <td>{{ Movie.Release }}</td>
               <td>
                 <button class="btn btn-lg btn-warning">ویرایش</button>
-                <button class="btn btn-lg btn-danger">حذف</button>
+                <button
+                  class="btn btn-lg btn-danger"
+                  @click="deleteButton(Movie.id)"
+                >
+                  حذف
+                </button>
               </td>
             </tr>
           </tbody>
@@ -38,11 +43,19 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
       MovieLists: this.$store.getters.GetMovies
     };
+  },
+  methods: {
+    deleteButton(id) {
+      axios
+        .delete('http://localhost:8080/api/Movies/' + id)
+        .then(res => console.log(res));
+    }
   },
   mounted() {
     this.$store.dispatch('getMovie');
