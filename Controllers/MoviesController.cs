@@ -33,9 +33,22 @@ namespace dadachAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IndexMoviePageDTO>> Get()
+        public async Task<ActionResult<List<MovieDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
         {
-            var top = 10;
+            var queryable = dbContext.Movies.AsQueryable();
+            await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
+            var movies = await queryable.Paginate(paginationDTO).OrderByDescending(m => m.Id).ToListAsync();
+
+            return mapper.Map<List<MovieDTO>>(movies);
+        }
+
+        [HttpGet("top")]
+        public async Task<ActionResult<IndexMoviePageDTO>> Get([FromQuery] int top)
+        {
+            if (top == 0)
+            {
+                top = 10;
+            }
             var today = DateTime.Today;
             var upcomingReleases = await dbContext.Movies
                 .Where(m => m.ReleaseDate > today)
@@ -116,24 +129,24 @@ namespace dadachAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromForm] MovieCreationDTO movieCreation)
+        public async Task<ActionResult> Post([FromForm] MovieCreationDTO movieCreationDTO)
         {
-            var movie = mapper.Map<Movie>(movieCreation);
+            var movie = mapper.Map<Movie>(movieCreationDTO);
 
-            if (movieCreation.Picture != null)
+            if (movieCreationDTO.Picture != null)
             {
                 using (var memoryStream = new MemoryStream())
                 {
-                    await movieCreation.Picture.CopyToAsync(memoryStream);
+                    await movieCreationDTO.Picture.CopyToAsync(memoryStream);
                     var content = memoryStream.ToArray();
-                    var extension = Path.GetExtension(movieCreation.Picture.FileName);
+                    var extension = Path.GetExtension(movieCreationDTO.Picture.FileName);
                     movie.Picture = 
                         await fileStorageService.SaveFile(content, extension, containerName,
-                                                            movieCreation.Picture.ContentType);
+                                                            movieCreationDTO.Picture.ContentType);
                 }
             }
 
-            //AnnotateActorsOrder(movie);
+            AnnotateCastersOrder(movie);
 
             dbContext.Add(movie);
             await dbContext.SaveChangesAsync();
@@ -143,7 +156,7 @@ namespace dadachAPI.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put(int id, [FromForm] MovieCreationDTO movieCreation)
+        public async Task<ActionResult> Put(int id, [FromForm] MovieCreationDTO movieCreationDTO)
         {
             var movieDb = await dbContext.Movies.FirstOrDefaultAsync(m => m.Id == id);
             if (movieDb == null)
@@ -151,25 +164,25 @@ namespace dadachAPI.Controllers
                 return NotFound();
             }
 
-            movieDb = mapper.Map(movieCreation, movieDb);
+            movieDb = mapper.Map(movieCreationDTO, movieDb);
 
-            if (movieCreation.Picture == null)
+            if (movieCreationDTO.Picture != null)
             {
                 using (var memoryStream = new MemoryStream())
                 {
-                    await movieCreation.Picture.CopyToAsync(memoryStream);
+                    await movieCreationDTO.Picture.CopyToAsync(memoryStream);
                     var content = memoryStream.ToArray();
-                    var extension = Path.GetExtension(movieCreation.Picture.FileName);
+                    var extension = Path.GetExtension(movieCreationDTO.Picture.FileName);
                     movieDb.Picture = 
                         await fileStorageService.EditFile(content, extension, containerName,
                                                             movieDb.Picture,
-                                                            movieCreation.Picture.ContentType);
+                                                            movieCreationDTO.Picture.ContentType);
                 }
             }
+            
+            await dbContext.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM MoviesActors WHERE MovieId = {movieDb.Id}; DELETE FROM MoviesGenres WHERE MovieId = {movieDb.Id}; DELETE FROM MoviesDirectors WHERE MovieId = {movieDb.Id};");
 
-            await dbContext.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM MoviesActors WHERE MovieId = {movieDb.Id}; DELETE FROM MoviesGenres WHERE MovieId = {movieDb.Id};");
-
-            AnnotateActorsOrder(movieDb);
+            AnnotateCastersOrder(movieDb);
 
             await dbContext.SaveChangesAsync();
             return NoContent();
@@ -221,7 +234,7 @@ namespace dadachAPI.Controllers
 
         }
 
-        private static void AnnotateActorsOrder(Movie movie)
+        private static void AnnotateCastersOrder(Movie movie)
         {
             if (movie.Casters != null)
             {
