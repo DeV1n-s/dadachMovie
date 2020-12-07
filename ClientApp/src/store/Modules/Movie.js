@@ -29,7 +29,7 @@ const mutations = {
 
 const actions = {
     getMovie({ commit }) {
-        axios.get('https://dadach-movie.firebaseio.com/News.json')
+        axios.get('http://localhost:8080//api/Movies')
             .then(response => {
                 commit('SET_MOVIE', response.data)
             })
