@@ -65,7 +65,7 @@ export default {
       form.append('Name', this.CastData.Name);
       form.append('ShortBio', this.CastData.ShortBio);
       form.append('Biography', this.CastData.Biography);
-      form.append('Biography', this.CastData.Biography);
+      form.append('DateOfBirth', this.CastData.DateOfBirth);
       form.append('Picture', this.CastData.Picture);
 
       axios
