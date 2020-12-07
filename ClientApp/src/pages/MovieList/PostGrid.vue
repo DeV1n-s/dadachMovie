@@ -5,7 +5,7 @@
       v-for="MovieList in MovieLists"
       :key="MovieList"
     >
-      <img :src="MovieList.img" alt="" />
+      <img :src="MovieList.picture" alt="" />
       <div class="mv-item-infor">
         <h6>
           <router-link
@@ -21,7 +21,7 @@
           {{ MovieList.shortPara }}
         </p>
         <p class="run-time">
-          <span>سال انتشار :{{ MovieList.Release }}</span>
+          <span>سال انتشار :{{ MovieList.releaseDate }}</span>
         </p>
         <p>کارگردان : {{ MovieList.Director }}</p>
         <p>ستاره ها : {{ MovieList.Cast }}</p>

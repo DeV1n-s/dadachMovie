@@ -13,7 +13,7 @@
         <div class="row ipad-width2">
           <div class="col-md-4 col-sm-12 col-xs-12">
             <div class="movie-img sticky-sb">
-              <img :src="Movie.img" alt="" />
+              <img :src="Movie.picture" alt="" />
               <div class="movie-btn">
                 <div class="btn-transform transform-vertical red">
                   <div>
