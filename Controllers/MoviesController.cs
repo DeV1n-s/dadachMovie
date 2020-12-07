@@ -33,13 +33,20 @@ namespace dadachAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MovieDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
+        public async Task<ActionResult<List<MovieDetailsDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
         {
-            var queryable = dbContext.Movies.AsQueryable();
+            var queryable = dbContext.Movies
+                                    .Include(m => m.Casters).ThenInclude(m => m.Person)
+                                    .Include(m => m.Genres).ThenInclude(m => m.Genre)
+                                    .Include(m => m.Directors).ThenInclude(m => m.Person)
+                                    .AsQueryable();
+                                    
             await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
-            var movies = await queryable.Paginate(paginationDTO).OrderByDescending(m => m.Id).ToListAsync();
+            var movies = await queryable
+                                .Paginate(paginationDTO)
+                                .OrderByDescending(m => m.Id).ToListAsync();
 
-            return mapper.Map<List<MovieDTO>>(movies);
+            return mapper.Map<List<MovieDetailsDTO>>(movies);
         }
 
         [HttpGet("top")]
