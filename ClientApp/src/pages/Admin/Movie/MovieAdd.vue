@@ -134,7 +134,7 @@ export default {
       form.append('InTheaters', this.MovieData.InTheaters);
       axios.post('http://localhost:8080/api/Movies', form).then(res => {
         console.log(res);
-        this.$route.push('/MoviePanel');
+        this.$router.push('/Moviepanel');
       });
     },
     getGenre() {
