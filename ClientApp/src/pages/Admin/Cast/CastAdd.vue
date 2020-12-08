@@ -68,10 +68,10 @@ export default {
       form.append('DateOfBirth', this.CastData.DateOfBirth);
       form.append('Picture', this.CastData.Picture);
 
-      axios
-        .post('http://localhost:8080/api/people', form)
-        .then(res => console.log(res));
-      console.log(JSON.stringify(this.CastData));
+      axios.post('http://localhost:8080/api/people', form).then(res => {
+        console.log(res);
+        this.$router.push('/CastPanel');
+      });
     },
     onFileSelected(event) {
       this.CastData.Picture = event.target.files[0];

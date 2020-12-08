@@ -50,7 +50,6 @@ export default {
   },
   methods: {
     deleteButton(id) {
-      console.log(id);
       axios
         .delete('http://localhost:8080/api/people/' + id)
         .then(res => console.log(res));
