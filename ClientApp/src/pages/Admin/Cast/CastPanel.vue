@@ -119,14 +119,15 @@ export default {
     },
     async submitEdit(id) {
       const form = new FormData();
-      form.append('id ', this.castEdit.id);
-      form.append('Name  ', this.castEdit.name);
-      form.append('ShortBio ', this.castEdit.shortBio);
-      form.append('Biography ', this.castEdit.biography);
-      form.append('DateOfBirth ', this.castEdit.dateOfBirth);
-      form.append('Picture ', this.castEdit.picture);
-
+      form.append('id', this.castEdit.id);
+      form.append('Name', this.castEdit.name);
+      form.append('ShortBio', this.castEdit.shortBio);
+      form.append('Biography', this.castEdit.biography);
+      form.append('DateOfBirth', this.castEdit.dateOfBirth);
+      form.append('Picture', this.castEdit.picture);
+      console.log(this.castEdit);
       await axios.put('http://localhost:8080/api/people/' + id, form);
+
       this.isEditMode = false;
     },
     onFileSelected(event) {
