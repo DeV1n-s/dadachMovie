@@ -50,7 +50,6 @@ export default {
       Diractor: this.$store.getters.GetMovies[0].directors[0].personName
     };
   },
-  method: {},
   mounted() {
     this.$store.dispatch('getMovie');
   }

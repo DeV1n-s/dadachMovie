@@ -92,13 +92,13 @@
                           <div class="sb-it">
                             <h6>کارگردان</h6>
                             <p>
-                              <a href="#">{{ Movie.Director }}</a>
+                              <a href="#">{{ Diractor }}</a>
                             </p>
                           </div>
                           <div class="sb-it">
                             <h6>ستاره ها</h6>
-                            <p>
-                              {{ Movie.Cast }}
+                            <p v-for="cast in Cast" :key="cast">
+                              {{ cast.personName }}
                             </p>
                           </div>
                           <div class="sb-it">
@@ -127,10 +127,20 @@
 
 <script>
 export default {
+  data() {
+    return {
+      Diractor: '',
+      Cast: ''
+    };
+  },
   computed: {
     Movie() {
       return this.$store.getters.Movie(parseInt(this.$route.params.id));
     }
+  },
+  mounted() {
+    this.Diractor = this.Movie.directors[0].personName;
+    this.Cast = this.Movie.casters;
   }
 };
 </script>
@@ -144,5 +154,8 @@ h5 {
 }
 i {
   margin: 5px;
+}
+h6 {
+  margin-top: 0.38rem;
 }
 </style>
