@@ -23,8 +23,11 @@
         <p class="run-time">
           <span>سال انتشار :{{ MovieList.releaseDate }}</span>
         </p>
-        <p>کارگردان : {{ MovieList.Director }}</p>
-        <p>ستاره ها : {{ MovieList.Cast }}</p>
+        <p>کارگردان : {{ Diractor }}</p>
+        <p>
+          ستاره ها :
+          <span v-for="cast in Cast" :key="cast">{{ cast.personName }}</span>
+        </p>
       </div>
     </div>
     <div class="topbar-filter">
@@ -42,10 +45,12 @@
 export default {
   data() {
     return {
-      MovieLists: this.$store.getters.GetMovies
+      MovieLists: this.$store.getters.GetMovies,
+      Cast: this.$store.getters.GetMovies[0].casters,
+      Diractor: this.$store.getters.GetMovies[0].directors[0].personName
     };
   },
-
+  method: {},
   mounted() {
     this.$store.dispatch('getMovie');
   }
