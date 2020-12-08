@@ -1,6 +1,8 @@
 <template>
   <div class="topbar-filter">
-    <p>درکل <span>1,608 فیلم</span> پیدا شد</p>
+    <p>
+      : تعداد فیلم <span>{{ MovieLists.length }} </span>
+    </p>
     <label>چینش بر اساس :</label>
     <select>
       <option value="popularity">تاریخ</option>
@@ -11,7 +13,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      MovieLists: this.$store.getters.GetMovies
+    };
+  },
+  mounted() {
+    this.$store.dispatch('getMovie');
+  }
+};
 </script>
 
 <style></style>
