@@ -53,7 +53,7 @@
               >
             </select>
             <label for="fname">بازیگران </label>
-            <select id="countr" name="country" v-model="MovieData.Casters">
+            <select id="countr" name="country" v-model="preCasters">
               <option
                 v-for="People in Peoples"
                 :key="People.id"
@@ -64,13 +64,33 @@
                 >{{ People.name }}</option
               >
             </select>
+            <button class="btn-success btn-add" @click.prevent="castPush">
+              اضافه کردن بازیگر
+            </button>
+            <div class="table-c">
+              <tbody>
+                <tr v-for="(Cast, index) in MovieData.Casters" :key="Cast">
+                  <td>
+                    <p class="td-p">{{ Cast.Character }}</p>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-lg btn-danger"
+                      @click.prevent="castDelete(index)"
+                    >
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </div>
             <label for="fname">تصویر </label>
             <input
               type="file"
               class="custom-file-input"
               @change="onFileSelected"
             />
-            <label for="checkbox">روی پرده سینما </label>
+            <label for="checkbox" class="cinema-carpet">روی پرده سینما </label>
             <input
               type="checkbox"
               id="checkbox"
@@ -113,7 +133,7 @@ export default {
         Picture: null,
         InTheaters: false
       },
-      Directors: '',
+      Directors: [],
       GenresIds: '',
 
       preCasters: [],
@@ -122,6 +142,13 @@ export default {
     };
   },
   methods: {
+    castDelete(id) {
+      this.MovieData.Casters.splice(id, 1);
+    },
+
+    castPush() {
+      this.MovieData.Casters.push(this.preCasters);
+    },
     submitData() {
       this.MovieData.Directors.push(this.Directors);
       this.MovieData.GenresIds.push(this.GenresIds);
@@ -134,7 +161,7 @@ export default {
       form.append('ShortPara', this.MovieData.ShortPara);
       form.append('LongPara', this.MovieData.LongPara);
       form.append('GenresId', JSON.stringify(this.MovieData.GenresIds));
-      form.append('Casters', JSON.stringify([this.MovieData.Casters]));
+      form.append('Casters', JSON.stringify(this.MovieData.Casters));
       form.append('Picture', this.MovieData.Picture);
       form.append('InTheaters', this.MovieData.InTheaters);
       axios.post('http://localhost:8080/api/Movies', form).then(res => {
@@ -162,6 +189,42 @@ export default {
 </script>
 
 <style scoped>
+.cinema-carpet {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-left: 0.5rem;
+}
+
+.table-c {
+  padding: 0 !important;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+.td-p {
+  margin: 1rem;
+}
+th,
+td {
+  padding: 0 !important;
+}
+button.btn-success.btn-add {
+  padding: 0.25rem;
+  border-radius: 5px;
+  width: 20%;
+  margin-bottom: 0.75rem;
+}
+table,
+th,
+td {
+  border: 0.05px solid rgb(129, 129, 129);
+}
+
+td {
+  width: 80%;
+}
+td {
+  color: #e3e3e3;
+}
 btn-danger {
   color: #e3e3e3 !important;
 }
