@@ -14,12 +14,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="People in Peoples" :key="People.id">
-              <td class="t-num">{{ People.id }}</td>
+            <tr v-for="(People, index) in Peoples" :key="People.id">
+              <td class="t-num">{{ index }}</td>
               <td>{{ People.name }}</td>
               <td>{{ People.dateOfBirth }}</td>
               <td>
-                <button class="btn btn-lg btn-warning">ویرایش</button>
+                <button
+                  class="btn btn-lg btn-warning"
+                  @click.prevent="editBtn(People.id)"
+                >
+                  ویرایش
+                </button>
                 <button
                   class="btn btn-lg btn-danger"
                   @click="deleteButton(People.id)"
@@ -36,6 +41,51 @@
           </button>
         </router-link>
       </div>
+      <div v-if="isEditMode">
+        <form action="/action_page.php">
+          <label for="fname">نام بازیگر </label>
+          <input type="text" id="fname" v-model="castEdit.name" />
+
+          <label for="lname">توضیحات کوتاه</label>
+          <input type="text" v-model="castEdit.shortBio" />
+          <label for="lname">بیوگرافی</label>
+          <textarea v-model="castEdit.biography"></textarea>
+          <label for="start">تاریخ تولد</label>
+
+          <input
+            type="date"
+            id="start"
+            name="trip-start"
+            min="0000-11-11"
+            max="2020-12-30"
+            v-model="castEdit.dateOfBirth"
+          />
+          <img class="edit-img" :src="castEdit.picture" alt="" />
+
+          <input
+            type="file"
+            class="custom-file-input"
+            @change="onFileSelected"
+          />
+
+          <button
+            type="submit"
+            @click.prevent="submitEdit(castEdit.id)"
+            class="btn btn-success btn-block"
+          >
+            ثبت
+          </button>
+          <router-link to="/CastPanel">
+            <button
+              type="submit"
+              class="btn btn-danger btn-block"
+              @click="isEditMode = false"
+            >
+              لغو
+            </button>
+          </router-link>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -45,10 +95,44 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      isEditMode: false,
+      castEdit: {
+        id: null,
+        name: '',
+        shortBio: '',
+        biography: '',
+        dateOfBirth: '',
+        picture: ''
+      },
+
       Peoples: this.$store.getters.GetPeaple
     };
   },
   methods: {
+    editBtn(id) {
+      this.isEditMode = true;
+      this.castEdit.id = id;
+      axios
+        .get('http://localhost:8080/api/people/' + id)
+        .then(res => (this.castEdit = res.data))
+        .then(console.log(this.castEdit));
+    },
+    async submitEdit(id) {
+      const form = new FormData();
+      form.append('id ', this.castEdit.id);
+      form.append('Name  ', this.castEdit.name);
+      form.append('ShortBio ', this.castEdit.shortBio);
+      form.append('Biography ', this.castEdit.biography);
+      form.append('DateOfBirth ', this.castEdit.dateOfBirth);
+      form.append('Picture ', this.castEdit.picture);
+
+      await axios.put('http://localhost:8080/api/people/' + id, form);
+      this.isEditMode = false;
+    },
+    onFileSelected(event) {
+      this.castEdit.picture = event.target.files[0];
+      // this.$refs.file.files[0];
+    },
     deleteButton(id) {
       axios
         .delete('http://localhost:8080/api/people/' + id)
@@ -57,11 +141,44 @@ export default {
   },
   mounted() {
     this.$store.dispatch('GetPeoples');
+    // console.log(object);
   }
 };
 </script>
 
 <style scoped>
+.custom-file-input::-webkit-file-upload-button {
+  background-color: antiquewhite;
+  visibility: hidden;
+}
+.custom-file-input::before {
+  background-color: antiquewhite;
+  content: 'تصویری را انتخاب کنید';
+  display: inline-block;
+  /* background: linear-gradient(top, #f9f9f9, #e3e3e3); */
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+.edit-img {
+  margin: 2rem;
+  width: 350px;
+  height: 350px;
+}
+
 .row.ipad-width {
   margin-top: 30rem;
 }
