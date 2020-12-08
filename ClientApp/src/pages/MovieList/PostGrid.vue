@@ -26,7 +26,9 @@
         <p>کارگردان : {{ Diractor }}</p>
         <p>
           ستاره ها :
-          <span v-for="cast in Cast" :key="cast">{{ cast.personName }}</span>
+          <span v-for="cast in Cast" :key="cast"
+            >{{ cast.personName }} {{ ' ' }}</span
+          >
         </p>
       </div>
     </div>
@@ -57,6 +59,13 @@ export default {
 </script>
 
 <style scoped>
+.movie_list .movie-item-style-2 img,
+.movie_single .movie-item-style-2 img,
+.userfav_list .movie-item-style-2 img {
+  width: 170px !important;
+  height: 250px !important;
+}
+
 .movie-item-style-2 {
   font-size: 1.75rem;
 }

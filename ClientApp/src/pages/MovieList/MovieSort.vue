@@ -1,7 +1,7 @@
 <template>
   <div class="topbar-filter">
     <p>
-      : تعداد فیلم <span>{{ MovieLists.length }} </span>
+      تعداد فیلم <span>:{{ MovieLists.length }} </span>
     </p>
     <label>چینش بر اساس :</label>
     <select>

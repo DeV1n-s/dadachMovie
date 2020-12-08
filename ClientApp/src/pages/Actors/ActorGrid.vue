@@ -48,6 +48,6 @@ export default {
 <style scoped>
 img {
   height: 200px !important;
-  max-width: 230px !important;
+  width: 230px !important;
 }
 </style>

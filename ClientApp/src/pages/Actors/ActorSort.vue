@@ -1,7 +1,7 @@
 <template>
   <div class="topbar-filter">
     <p>
-      درکل <span>{{ Peoples.length }} بازیگر</span> پیدا شد
+      <span>{{ Peoples.length }} بازیگر</span> پیدا شد
     </p>
   </div>
 </template>
