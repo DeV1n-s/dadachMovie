@@ -38,6 +38,11 @@
             >
               ثبت
             </button>
+            <router-link to="/CastPanel">
+              <button type="submit" class="btn btn-danger btn-block">
+                بازگشت
+              </button>
+            </router-link>
           </form>
         </div>
       </div>

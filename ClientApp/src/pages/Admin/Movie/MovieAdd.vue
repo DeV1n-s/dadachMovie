@@ -84,6 +84,11 @@
             >
               ثبت
             </button>
+            <router-link to="/MoviePanel">
+              <button type="submit" class="btn btn-danger btn-block">
+                بازگشت
+              </button>
+            </router-link>
           </form>
         </div>
       </div>
@@ -157,6 +162,9 @@ export default {
 </script>
 
 <style scoped>
+btn-danger {
+  color: #e3e3e3 !important;
+}
 textarea {
   height: 150px !important;
 }
