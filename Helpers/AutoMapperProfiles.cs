@@ -16,58 +16,37 @@ namespace dadachAPI.Helpers
             CreateMap<Person, PersonDTO>().ReverseMap();
 
             CreateMap<PersonCreationDTO, Person>()
-                .ForMember(x => x.Picture, options => options.Ignore());
+                .ForMember(x => x.Picture, opt => opt.Ignore());
 
             CreateMap<Person, PersonPatchDTO>().ReverseMap();
 
             CreateMap<Movie, MovieDTO>().ReverseMap();
 
             CreateMap<MoviesGenres, GenreDTO>()
-            .ForMember(x => x.Id, options => options.MapFrom(x => x.GenreId))
-            .ForMember(x => x.Name, options => options.MapFrom(x => x.Genre.Name));
+                .ForMember(x => x.Id, opt => opt.MapFrom(x => x.GenreId))
+                .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Genre.Name));
+            
+            CreateMap<MoviesCasters, CasterDTO>()
+                .ForMember(x => x.PersonId, opt => opt.MapFrom(x => x.PersonId))
+                .ForMember(x => x.Character, opt => opt.MapFrom(x => x.Character))
+                .ForMember(x => x.PersonName, opt => opt.MapFrom(x => x.Person.Name));
+
+            CreateMap<MoviesDirectors, DirectorDTO>()
+                .ForMember(x => x.PersonId, opt => opt.MapFrom(x => x.PersonId))
+                .ForMember(x => x.PersonName, opt => opt.MapFrom(x => x.Person.Name));
+
+            CreateMap<CasterCreationDTO, MoviesCasters>()
+                .ForMember(x => x.PersonId, opt => opt.MapFrom(x => x.PersonId))
+                .ForMember(x => x.Character, opt => opt.MapFrom(x => x.Character));
 
             CreateMap<MovieCreationDTO, Movie>()
-                .ForMember(x => x.Picture, options => options.Ignore())
-                .ForMember(x => x.Genres, options => options.MapFrom(MapMoviesGenres))
-                .ForMember(x => x.Casters, options => options.MapFrom(MapMovieCasters))
-                .ForMember(x => x.Directors, options => options.MapFrom(MapMoviesDirectors));
+                .ForMember(x => x.Picture, opt => opt.Ignore())
+                .ForMember(x => x.Genres, opt => opt.MapFrom(MapMoviesGenres))
+                .ForMember(x => x.Directors, opt => opt.MapFrom(MapMoviesDirectors));
 
-            CreateMap<Movie, MovieDetailsDTO>()
-               //.ForMember(x => x.Genres, options => options.MapFrom(MapMoviesGenres))
-               .ForMember(x => x.Casters, options => options.MapFrom(MapMovieCasters))
-               .ForMember(x => x.Directors, options => options.MapFrom(MapMoviesDirectors));
+            CreateMap<Movie, MovieDetailsDTO>();
 
             CreateMap<Movie, MoviePatchDTO>().ReverseMap();
-        }
-
-        private List<GenreDTO> MapMoviesGenres(Movie movie, MovieDetailsDTO movieDetailsDTO)
-        {
-            var result = new List<GenreDTO>();
-            foreach (var moviegenre in movie.Genres)
-            {
-                result.Add(new GenreDTO() { Id = moviegenre.GenreId, Name = moviegenre.Genre.Name });
-            }
-            return result;
-        }
-
-        private List<CasterDTO> MapMovieCasters(Movie movie, MovieDetailsDTO movieDetailsDTO)
-        {
-            var result = new List<CasterDTO>();
-            foreach (var caster in movie.Casters)
-            {
-                result.Add(new CasterDTO() { PersonId = caster.PersonId, Character = caster.Character, PersonName = caster.Person.Name });
-            }
-            return result;
-        }
-
-        private List<DirectorDTO> MapMoviesDirectors(Movie movie, MovieDetailsDTO movieDetailsDTO)
-        {
-            var result = new List<DirectorDTO>();
-            foreach (var director in movie.Directors)
-            {
-                result.Add(new DirectorDTO() { PersonId = director.PersonId, PersonName = director.Person.Name });
-            }
-            return result;
         }
 
         private List<MoviesGenres> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie)
@@ -76,16 +55,6 @@ namespace dadachAPI.Helpers
             foreach (var id in movieCreationDTO.GenresId)
             {
                 result.Add(new MoviesGenres() { GenreId = id });
-            }
-            return result;
-        }
-
-        private List<MoviesActors> MapMovieCasters(MovieCreationDTO movieCreationDTO, Movie movie)
-        {
-            var result = new List<MoviesActors>();
-            foreach (var caster in movieCreationDTO.Casters)
-            {
-                result.Add(new MoviesActors() { PersonId = caster.PersonId, Character = caster.Character });
             }
             return result;
         }

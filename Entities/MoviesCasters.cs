@@ -1,6 +1,6 @@
 namespace dadachAPI.Entities
 {
-    public class MoviesActors
+    public class MoviesCasters
     {
         public int PersonId { get; set; }
         public int MovieId { get; set; }
