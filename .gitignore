@@ -9,6 +9,7 @@
 *.db-*
 *.zip
 ClientApp/package-lock.json
+movies.db
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
