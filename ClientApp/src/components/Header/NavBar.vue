@@ -72,7 +72,8 @@
               <a
                 class="btn btn-default dropdown-toggle lv1"
                 href="userprofile.html"
-                >> پروفایل کاربری
+              >
+                پروفایل کاربری
               </a>
             </li>
           </ul>
@@ -83,7 +84,7 @@
                 data-toggle="dropdown"
                 data-hover="dropdown"
               >
-                پنل ادمین <i class="fas fa-user" aria-hidden="true"></i>
+                پنل ادمین
               </a>
               <ul class="dropdown-menu level1">
                 <li>
