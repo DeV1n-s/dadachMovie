@@ -2,17 +2,10 @@
 
 namespace dadachMovie.Migrations
 {
-    public partial class AddedPersonType : Migration
+    public partial class AddedPersonTypesToPersonTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "PersonTypes",
-                table: "People",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "");
-
             migrationBuilder.AlterColumn<string>(
                 name: "Title",
                 table: "Movies",
@@ -29,30 +22,10 @@ namespace dadachMovie.Migrations
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "INTEGER");
-
-            migrationBuilder.CreateTable(
-                name: "PersonType",
-                columns: table => new
-                {
-                    PersonId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PersonTypes = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonType", x => x.PersonId);
-                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "PersonType");
-
-            migrationBuilder.DropColumn(
-                name: "PersonTypes",
-                table: "People");
-
             migrationBuilder.AlterColumn<string>(
                 name: "Title",
                 table: "Movies",

@@ -14,13 +14,6 @@ namespace dadachMovie
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // var converter = new EnumToStringConverter<PersonTypes>();
-
-            // modelBuilder
-            //     .Entity<Person>()
-            //     .Property(e => e.PersonTypes)
-            //     .HasConversion(converter);
-
             modelBuilder.Entity<MoviesGenres>()
                 .HasKey(x => new {x.GenreId, x.MovieId});
             
@@ -30,9 +23,6 @@ namespace dadachMovie
             modelBuilder.Entity<MoviesDirectors>()
                 .HasKey(x => new {x.MovieId, x.PersonId});
             
-            modelBuilder.Entity<PersonType>()
-                .HasKey(x => new {x.PersonId});
-
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Genre> Genres { get; set; }
@@ -41,6 +31,5 @@ namespace dadachMovie
         public DbSet<MoviesGenres> MoviesGenres { get; set; }
         public DbSet<MoviesCasters> MoviesActors { get; set; }
         public DbSet<MoviesDirectors> MoviesDirectors { get; set; }
-        public DbSet<PersonType> PersonType { get; set; }
     }
 }

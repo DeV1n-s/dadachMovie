@@ -10,6 +10,7 @@
 *.zip
 ClientApp/package-lock.json
 *.db
+package-lock.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

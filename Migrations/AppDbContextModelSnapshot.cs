@@ -143,20 +143,6 @@ namespace dadachMovie.Migrations
                     b.ToTable("People");
                 });
 
-            modelBuilder.Entity("dadachMovie.Entities.PersonType", b =>
-                {
-                    b.Property<int>("PersonId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PersonTypes")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("PersonId");
-
-                    b.ToTable("PersonType");
-                });
-
             modelBuilder.Entity("dadachMovie.Entities.MoviesCasters", b =>
                 {
                     b.HasOne("dadachMovie.Entities.Movie", "Movie")

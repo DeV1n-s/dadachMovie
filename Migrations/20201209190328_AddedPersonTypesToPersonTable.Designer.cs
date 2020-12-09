@@ -9,8 +9,8 @@ using dadachMovie;
 namespace dadachMovie.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20201209100715_AddedPersonType")]
-    partial class AddedPersonType
+    [Migration("20201209190328_AddedPersonTypesToPersonTable")]
+    partial class AddedPersonTypesToPersonTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,10 +134,6 @@ namespace dadachMovie.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PersonTypes")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Picture")
                         .HasColumnType("TEXT");
 
@@ -147,20 +143,6 @@ namespace dadachMovie.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("People");
-                });
-
-            modelBuilder.Entity("dadachMovie.Entities.PersonType", b =>
-                {
-                    b.Property<int>("PersonId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PersonTypes")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("PersonId");
-
-                    b.ToTable("PersonType");
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.MoviesCasters", b =>
