@@ -16,7 +16,7 @@ namespace dadachMovie.Entities
         public string Picture { get; set; }
         public List<MoviesCasters> Casters { get; set; }
         public List<MoviesDirectors> Directors { get; set; }
-        //public PersonTypes PersonTypes { get; set; }
+        public PersonTypes PersonTypes { get; set; }
 
         public Person()
         {
@@ -27,8 +27,8 @@ namespace dadachMovie.Entities
 
     public enum PersonTypes : int
     {
-        Actor = 1,
-        Director = 2,
-        Other = 3
+        NotSet = 0,
+        Director = 1,
+        Other = 2
     }
 }

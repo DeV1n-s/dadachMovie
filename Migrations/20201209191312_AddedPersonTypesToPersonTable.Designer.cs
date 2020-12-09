@@ -9,7 +9,7 @@ using dadachMovie;
 namespace dadachMovie.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20201209190328_AddedPersonTypesToPersonTable")]
+    [Migration("20201209191312_AddedPersonTypesToPersonTable")]
     partial class AddedPersonTypesToPersonTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,6 +133,9 @@ namespace dadachMovie.Migrations
                         .IsRequired()
                         .HasMaxLength(120)
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("PersonTypes")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Picture")
                         .HasColumnType("TEXT");

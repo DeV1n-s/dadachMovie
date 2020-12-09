@@ -132,6 +132,9 @@ namespace dadachMovie.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("PersonTypes")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Picture")
                         .HasColumnType("TEXT");
 

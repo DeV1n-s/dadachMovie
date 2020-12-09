@@ -6,6 +6,13 @@ namespace dadachMovie.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<int>(
+                name: "PersonTypes",
+                table: "People",
+                type: "INTEGER",
+                nullable: false,
+                defaultValue: 0);
+
             migrationBuilder.AlterColumn<string>(
                 name: "Title",
                 table: "Movies",
@@ -26,6 +33,10 @@ namespace dadachMovie.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "PersonTypes",
+                table: "People");
+
             migrationBuilder.AlterColumn<string>(
                 name: "Title",
                 table: "Movies",
