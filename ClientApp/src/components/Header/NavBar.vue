@@ -69,12 +69,12 @@
               </router-link>
             </li>
             <li class="dropdown first">
-              <a
+              <router-link
                 class="btn btn-default dropdown-toggle lv1"
-                href="userprofile.html"
+                to="/UserProfile"
               >
                 پروفایل کاربری
-              </a>
+              </router-link>
             </li>
           </ul>
           <ul class="nav navbar-nav flex-child-menu menu-right">

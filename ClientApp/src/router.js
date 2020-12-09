@@ -12,11 +12,13 @@ import NewsAdd from './pages/Admin/News/NewsAdd.vue'
 import ActorSingle from './pages/Actors/ActorSingle.vue'
 import CastPanel from './pages/Admin/Cast/CastPanel.vue'
 import CastAdd from './pages/Admin/Cast/CastAdd.vue'
+import UserProfile from './pages/UserProfile/UserProfile'
 const router = createRouter({
     history: createWebHistory(),
     routes: [
 
         { path: '/', component: Home },
+        { path: '/UserProfile', component: UserProfile },
         { path: '/MovieList', component: MovieList },
         { path: '/ActorList', component: ActorList },
         { path: '/News', component: News },
@@ -28,7 +30,8 @@ const router = createRouter({
         { path: '/NewsAdd', component: NewsAdd },
         { path: '/ActorSingle/:id', name: 'ActorSingle', component: ActorSingle },
         { path: '/CastPanel', component: CastPanel },
-        { path: '/CastAdd', component: CastAdd }
+        { path: '/CastAdd', component: CastAdd },
+
 
         // { path: '/PostData', component: PostData, meta: { requiresAuth: true } },
     ],
