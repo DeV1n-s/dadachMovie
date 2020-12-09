@@ -236,10 +236,13 @@ export default {
       form.append('Casters', JSON.stringify(this.MovieEditData.casters));
       form.append('Picture', this.MovieEditData.picture);
       form.append('InTheaters', this.MovieEditData.inTheaters);
-      axios.put('http://localhost:8080/api/Movies/' + id, form).then(res => {
-        console.log(res);
-        this.$router.push('/Moviepanel');
-      });
+      axios
+        .put('http://localhost:8080/api/Movies/' + id, form)
+        .then(res => {
+          console.log(res);
+          this.$router.push('/Moviepanel');
+        })
+        .then((this.isEditMode = false));
     }
   },
   mounted() {
