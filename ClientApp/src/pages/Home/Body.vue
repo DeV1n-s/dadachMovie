@@ -1239,20 +1239,11 @@
 export default {
   data() {
     return {
-      moviesInTheater: this.$store.getters.getTop.inTheaters
+      moviesInTheater: this.$store.getters.getTop.inTheaters,
+      movies: this.$store.getters.getTop
     };
   },
-  methods: {
-    // GetTopMovie() {
-    //   axios
-    //     .get('http://localhost:8080/api/Movies/top')
-    //     // .then(res => this.moviesTop === res.data.inTheaters);
-    //     .then(res => {
-    //       console.log(res.data.inTheaters);
-    //       this.moviesTop = res.data.inTheaters;
-    //     });
-    // }
-  },
+  methods: {},
   mounted() {
     this.$store.dispatch('getTopMovie');
   }
@@ -1261,6 +1252,6 @@ export default {
 
 <style>
 img.img-t {
-  height: 210px;
+  height: 250px;
 }
 </style>

@@ -17,9 +17,15 @@
           <tbody>
             <tr v-for="(Movie, index) in MovieLists" :key="Movie">
               <td class="t-num">{{ index }}</td>
-              <td>{{ Movie.title }}</td>
-              <td>{{ Movie.Director }}</td>
-              <td>{{ Movie.Release }}</td>
+              <td>
+                <router-link
+                  :to="{ name: 'MovieSingle', params: { id: Movie.id } }"
+                >
+                  {{ Movie.title }}</router-link
+                >
+              </td>
+              <td>{{ Movie.director }}</td>
+              <td>{{ Movie.releaseDate }}</td>
               <td>
                 <button class="btn btn-lg btn-warning">ویرایش</button>
                 <button
