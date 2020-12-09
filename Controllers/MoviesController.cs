@@ -54,17 +54,18 @@ namespace dadachMovie.Controllers
         {
             if (amount == 0)
             {
-                amount = 10;
+                amount = 5;
             }
             var today = DateTime.Today;
             var upcomingReleases = await dbContext.Movies
                 .Where(m => m.ReleaseDate > today)
-                .OrderBy(m => m.ReleaseDate)
+                .OrderByDescending(m => m.ReleaseDate)
                 .Take(amount)
                 .ToListAsync();
 
             var inTheaters = await dbContext.Movies
                 .Where(m => m.InTheaters)
+                .OrderByDescending(m => m.Id)
                 .Take(amount)
                 .ToListAsync();
 
