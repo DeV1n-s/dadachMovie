@@ -9,8 +9,8 @@ using dadachMovie;
 namespace dadachMovie.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20201206093105_AddedPeopleShortBio")]
-    partial class AddedPeopleShortBio
+    [Migration("20201209100715_AddedPersonType")]
+    partial class AddedPersonType
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,8 +49,8 @@ namespace dadachMovie.Migrations
                     b.Property<string>("Picture")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Rate")
-                        .HasColumnType("INTEGER");
+                    b.Property<float>("Rate")
+                        .HasColumnType("REAL");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("TEXT");
@@ -59,8 +59,6 @@ namespace dadachMovie.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(300)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -68,7 +66,7 @@ namespace dadachMovie.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("dadachMovie.Entities.MoviesActors", b =>
+            modelBuilder.Entity("dadachMovie.Entities.MoviesCasters", b =>
                 {
                     b.Property<int>("MovieId")
                         .HasColumnType("INTEGER");
@@ -136,6 +134,10 @@ namespace dadachMovie.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PersonTypes")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Picture")
                         .HasColumnType("TEXT");
 
@@ -147,7 +149,21 @@ namespace dadachMovie.Migrations
                     b.ToTable("People");
                 });
 
-            modelBuilder.Entity("dadachMovie.Entities.MoviesActors", b =>
+            modelBuilder.Entity("dadachMovie.Entities.PersonType", b =>
+                {
+                    b.Property<int>("PersonId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PersonTypes")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("PersonId");
+
+                    b.ToTable("PersonType");
+                });
+
+            modelBuilder.Entity("dadachMovie.Entities.MoviesCasters", b =>
                 {
                     b.HasOne("dadachMovie.Entities.Movie", "Movie")
                         .WithMany("Casters")

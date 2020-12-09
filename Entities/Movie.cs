@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace dadachAPI.Entities
+namespace dadachMovie.Entities
 {
     public class Movie
     {

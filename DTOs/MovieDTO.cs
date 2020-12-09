@@ -1,6 +1,6 @@
 using System;
 
-namespace dadachAPI.DTOs
+namespace dadachMovie.DTOs
 {
     public class MovieDTO
     {

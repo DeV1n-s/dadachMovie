@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace dadachAPI.Helpers
+namespace dadachMovie.Helpers
 {
     public static class HttpContextExtensions
     {

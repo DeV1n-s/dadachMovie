@@ -1,4 +1,4 @@
-namespace dadachAPI.Entities
+namespace dadachMovie.Entities
 {
     public class MoviesGenres
     {

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 
-namespace dadachAPI.Validations
+namespace dadachMovie.Validations
 {
     public class ContentTypeValidator : ValidationAttribute
     {

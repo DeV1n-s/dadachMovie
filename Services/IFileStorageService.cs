@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace dadachAPI.Services
+namespace dadachMovie.Services
 {
     public interface IFileStorageService
     {

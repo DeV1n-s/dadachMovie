@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace dadachAPI.DTOs
+namespace dadachMovie.DTOs
 {
     public class MoviePatchDTO
     {

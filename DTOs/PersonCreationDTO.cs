@@ -1,12 +1,18 @@
-using dadachAPI.Validations;
+using System.Collections.Generic;
+using dadachMovie.Helpers;
+using dadachMovie.Validations;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
-namespace dadachAPI.DTOs
+namespace dadachMovie.DTOs
 {
     public class PersonCreationDTO: PersonPatchDTO
     {
         [FileSizeValidator(maxFileSizeInMbs: 4)]
         [ContentTypeValidator(ContentTypeGroup.Image)]
         public IFormFile Picture { get; set; }
+
+        [ModelBinder(BinderType = typeof(TypeBinder<int>))]
+        public int PersonTypes { get; set; }
     }
 }

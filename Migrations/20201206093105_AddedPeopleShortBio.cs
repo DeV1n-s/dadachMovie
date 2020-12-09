@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace dadachAPI.Migrations
+namespace dadachMovie.Migrations
 {
     public partial class AddedPeopleShortBio : Migration
     {

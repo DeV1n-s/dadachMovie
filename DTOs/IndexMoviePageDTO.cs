@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace dadachAPI.DTOs
+namespace dadachMovie.DTOs
 {
     public class IndexMoviePageDTO
     {

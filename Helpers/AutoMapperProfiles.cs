@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
-using dadachAPI.DTOs;
-using dadachAPI.Entities;
+using dadachMovie.DTOs;
+using dadachMovie.Entities;
 
-namespace dadachAPI.Helpers
+namespace dadachMovie.Helpers
 {
     public class AutoMapperProfiles : Profile
     {
@@ -16,33 +17,33 @@ namespace dadachAPI.Helpers
             CreateMap<Person, PersonDTO>().ReverseMap();
 
             CreateMap<PersonCreationDTO, Person>()
-                .ForMember(x => x.Picture, opt => opt.Ignore());
+                .ForMember(dest => dest.Picture, opt => opt.Ignore());
 
             CreateMap<Person, PersonPatchDTO>().ReverseMap();
 
             CreateMap<Movie, MovieDTO>().ReverseMap();
 
             CreateMap<MoviesGenres, GenreDTO>()
-                .ForMember(x => x.Id, opt => opt.MapFrom(x => x.GenreId))
-                .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Genre.Name));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GenreId))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Genre.Name));
             
             CreateMap<MoviesCasters, CasterDTO>()
-                .ForMember(x => x.PersonId, opt => opt.MapFrom(x => x.PersonId))
-                .ForMember(x => x.Character, opt => opt.MapFrom(x => x.Character))
-                .ForMember(x => x.PersonName, opt => opt.MapFrom(x => x.Person.Name));
+                .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.PersonId))
+                .ForMember(dest => dest.Character, opt => opt.MapFrom(src => src.Character))
+                .ForMember(dest => dest.PersonName, opt => opt.MapFrom(src => src.Person.Name));
 
             CreateMap<MoviesDirectors, DirectorDTO>()
-                .ForMember(x => x.PersonId, opt => opt.MapFrom(x => x.PersonId))
-                .ForMember(x => x.PersonName, opt => opt.MapFrom(x => x.Person.Name));
+                .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.PersonId))
+                .ForMember(dest => dest.PersonName, opt => opt.MapFrom(src => src.Person.Name));
 
             CreateMap<CasterCreationDTO, MoviesCasters>()
-                .ForMember(x => x.PersonId, opt => opt.MapFrom(x => x.PersonId))
-                .ForMember(x => x.Character, opt => opt.MapFrom(x => x.Character));
+                .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.PersonId))
+                .ForMember(dest => dest.Character, opt => opt.MapFrom(src => src.Character));
 
             CreateMap<MovieCreationDTO, Movie>()
-                .ForMember(x => x.Picture, opt => opt.Ignore())
-                .ForMember(x => x.Genres, opt => opt.MapFrom(MapMoviesGenres))
-                .ForMember(x => x.Directors, opt => opt.MapFrom(MapMoviesDirectors));
+                .ForMember(dest => dest.Picture, opt => opt.Ignore())
+                .ForMember(dest => dest.Genres, opt => opt.MapFrom(MapMoviesGenres))
+                .ForMember(dest => dest.Directors, opt => opt.MapFrom(MapMoviesDirectors));
 
             CreateMap<Movie, MovieDetailsDTO>();
 

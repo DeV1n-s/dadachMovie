@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using dadachAPI;
-using dadachAPI.DTOs;
-using dadachAPI.Entities;
+using dadachMovie;
+using dadachMovie.DTOs;
+using dadachMovie.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 
-namespace dadachAPI.Helpers
+namespace dadachMovie.Helpers
 {
     public class TypeBinder<T> : IModelBinder
     {

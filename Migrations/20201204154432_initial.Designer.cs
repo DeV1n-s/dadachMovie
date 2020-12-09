@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using dadachAPI;
+using dadachMovie;
 
-namespace dadachAPI.Migrations
+namespace dadachMovie.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20201204154432_initial")]
@@ -18,7 +18,7 @@ namespace dadachAPI.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("dadachAPI.Entities.Genre", b =>
+            modelBuilder.Entity("dadachMovie.Entities.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace dadachAPI.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("dadachAPI.Entities.Movie", b =>
+            modelBuilder.Entity("dadachMovie.Entities.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,7 +68,7 @@ namespace dadachAPI.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("dadachAPI.Entities.MoviesActors", b =>
+            modelBuilder.Entity("dadachMovie.Entities.MoviesActors", b =>
                 {
                     b.Property<int>("MovieId")
                         .HasColumnType("INTEGER");
@@ -89,7 +89,7 @@ namespace dadachAPI.Migrations
                     b.ToTable("MoviesActors");
                 });
 
-            modelBuilder.Entity("dadachAPI.Entities.MoviesDirectors", b =>
+            modelBuilder.Entity("dadachMovie.Entities.MoviesDirectors", b =>
                 {
                     b.Property<int>("MovieId")
                         .HasColumnType("INTEGER");
@@ -104,7 +104,7 @@ namespace dadachAPI.Migrations
                     b.ToTable("MoviesDirectors");
                 });
 
-            modelBuilder.Entity("dadachAPI.Entities.MoviesGenres", b =>
+            modelBuilder.Entity("dadachMovie.Entities.MoviesGenres", b =>
                 {
                     b.Property<int>("GenreId")
                         .HasColumnType("INTEGER");
@@ -119,7 +119,7 @@ namespace dadachAPI.Migrations
                     b.ToTable("MoviesGenres");
                 });
 
-            modelBuilder.Entity("dadachAPI.Entities.Person", b =>
+            modelBuilder.Entity("dadachMovie.Entities.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,15 +144,15 @@ namespace dadachAPI.Migrations
                     b.ToTable("People");
                 });
 
-            modelBuilder.Entity("dadachAPI.Entities.MoviesActors", b =>
+            modelBuilder.Entity("dadachMovie.Entities.MoviesActors", b =>
                 {
-                    b.HasOne("dadachAPI.Entities.Movie", "Movie")
+                    b.HasOne("dadachMovie.Entities.Movie", "Movie")
                         .WithMany("Casters")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("dadachAPI.Entities.Person", "Person")
+                    b.HasOne("dadachMovie.Entities.Person", "Person")
                         .WithMany("Casters")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -163,15 +163,15 @@ namespace dadachAPI.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("dadachAPI.Entities.MoviesDirectors", b =>
+            modelBuilder.Entity("dadachMovie.Entities.MoviesDirectors", b =>
                 {
-                    b.HasOne("dadachAPI.Entities.Movie", "Movie")
+                    b.HasOne("dadachMovie.Entities.Movie", "Movie")
                         .WithMany("Directors")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("dadachAPI.Entities.Person", "Person")
+                    b.HasOne("dadachMovie.Entities.Person", "Person")
                         .WithMany("Directors")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -182,15 +182,15 @@ namespace dadachAPI.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("dadachAPI.Entities.MoviesGenres", b =>
+            modelBuilder.Entity("dadachMovie.Entities.MoviesGenres", b =>
                 {
-                    b.HasOne("dadachAPI.Entities.Genre", "Genre")
+                    b.HasOne("dadachMovie.Entities.Genre", "Genre")
                         .WithMany("Genres")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("dadachAPI.Entities.Movie", "Movie")
+                    b.HasOne("dadachMovie.Entities.Movie", "Movie")
                         .WithMany("Genres")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -201,12 +201,12 @@ namespace dadachAPI.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("dadachAPI.Entities.Genre", b =>
+            modelBuilder.Entity("dadachMovie.Entities.Genre", b =>
                 {
                     b.Navigation("Genres");
                 });
 
-            modelBuilder.Entity("dadachAPI.Entities.Movie", b =>
+            modelBuilder.Entity("dadachMovie.Entities.Movie", b =>
                 {
                     b.Navigation("Casters");
 
@@ -215,7 +215,7 @@ namespace dadachAPI.Migrations
                     b.Navigation("Genres");
                 });
 
-            modelBuilder.Entity("dadachAPI.Entities.Person", b =>
+            modelBuilder.Entity("dadachMovie.Entities.Person", b =>
                 {
                     b.Navigation("Casters");
 

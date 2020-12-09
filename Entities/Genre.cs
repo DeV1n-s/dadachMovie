@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using dadachMovie.Entities;
 
-namespace dadachAPI.Entities
+namespace dadachMovie.Entities
 {
     public class Genre
     {

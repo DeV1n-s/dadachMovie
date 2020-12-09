@@ -1,5 +1,5 @@
 using AutoMapper;
-using dadachAPI.Services;
+using dadachMovie.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using VueCliMiddleware;
 
-namespace dadachAPI
+namespace dadachMovie
 {
     public class Startup
     {

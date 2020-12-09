@@ -5,15 +5,15 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using AutoMapper;
-using dadachAPI.DTOs;
-using dadachAPI.Entities;
-using dadachAPI.Helpers;
-using dadachAPI.Services;
+using dadachMovie.DTOs;
+using dadachMovie.Entities;
+using dadachMovie.Helpers;
+using dadachMovie.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace dadachAPI.Controllers
+namespace dadachMovie.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -50,22 +50,22 @@ namespace dadachAPI.Controllers
         }
 
         [HttpGet("top")]
-        public async Task<ActionResult<IndexMoviePageDTO>> GetTop([FromQuery] int top)
+        public async Task<ActionResult<IndexMoviePageDTO>> GetTop([FromQuery] int amount)
         {
-            if (top == 0)
+            if (amount == 0)
             {
-                top = 10;
+                amount = 10;
             }
             var today = DateTime.Today;
             var upcomingReleases = await dbContext.Movies
                 .Where(m => m.ReleaseDate > today)
                 .OrderBy(m => m.ReleaseDate)
-                .Take(top)
+                .Take(amount)
                 .ToListAsync();
 
             var inTheaters = await dbContext.Movies
                 .Where(m => m.InTheaters)
-                .Take(top)
+                .Take(amount)
                 .ToListAsync();
 
             var result = new IndexMoviePageDTO();

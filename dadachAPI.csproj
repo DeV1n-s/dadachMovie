@@ -5,7 +5,7 @@
     <SpaRoot>ClientApp\</SpaRoot>
     <IsPackable>true</IsPackable>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-    <RootNamespace>dadachAPI</RootNamespace>
+    <RootNamespace>dadachMovie</RootNamespace>
     <BuildDependsOn>
         BeforeBuild;
         CoreBuild;

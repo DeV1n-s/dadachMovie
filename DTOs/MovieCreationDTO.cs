@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using dadachAPI.Helpers;
-using dadachAPI.Validations;
+using dadachMovie.Helpers;
+using dadachMovie.Validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dadachAPI.DTOs
+namespace dadachMovie.DTOs
 {
     public class MovieCreationDTO : MoviePatchDTO
     {

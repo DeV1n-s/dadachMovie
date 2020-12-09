@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
-namespace dadachAPI.Validations
+namespace dadachMovie.Validations
 {
     public class FileSizeValidator : ValidationAttribute
     {

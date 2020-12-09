@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace dadachAPI.Services
+namespace dadachMovie.Services
 {
     public class MovieInTheaterService : IHostedService, IDisposable
     {

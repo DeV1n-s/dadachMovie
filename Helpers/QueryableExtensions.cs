@@ -1,7 +1,7 @@
 using System.Linq;
-using dadachAPI.DTOs;
+using dadachMovie.DTOs;
 
-namespace dadachAPI.Helpers
+namespace dadachMovie.Helpers
 {
     public static class QueryableExtensions
     {

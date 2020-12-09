@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
-namespace dadachAPI.Services
+namespace dadachMovie.Services
 {
     public class InAppStorageService : IFileStorageService
     {

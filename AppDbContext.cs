@@ -1,8 +1,11 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
-using dadachAPI.Entities;
+using System.Linq;
+using dadachMovie.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace dadachAPI
+namespace dadachMovie
 {
     public class AppDbContext : DbContext
     {
@@ -11,6 +14,13 @@ namespace dadachAPI
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // var converter = new EnumToStringConverter<PersonTypes>();
+
+            // modelBuilder
+            //     .Entity<Person>()
+            //     .Property(e => e.PersonTypes)
+            //     .HasConversion(converter);
+
             modelBuilder.Entity<MoviesGenres>()
                 .HasKey(x => new {x.GenreId, x.MovieId});
             
@@ -19,6 +29,9 @@ namespace dadachAPI
             
             modelBuilder.Entity<MoviesDirectors>()
                 .HasKey(x => new {x.MovieId, x.PersonId});
+            
+            modelBuilder.Entity<PersonType>()
+                .HasKey(x => new {x.PersonId});
 
             base.OnModelCreating(modelBuilder);
         }
@@ -28,6 +41,6 @@ namespace dadachAPI
         public DbSet<MoviesGenres> MoviesGenres { get; set; }
         public DbSet<MoviesCasters> MoviesActors { get; set; }
         public DbSet<MoviesDirectors> MoviesDirectors { get; set; }
-
+        public DbSet<PersonType> PersonType { get; set; }
     }
 }

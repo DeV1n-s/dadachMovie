@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using dadachAPI;
-using dadachAPI.DTOs;
-using dadachAPI.Entities;
-using dadachAPI.Helpers;
-using dadachAPI.Services;
+using dadachMovie;
+using dadachMovie.DTOs;
+using dadachMovie.Entities;
+using dadachMovie.Helpers;
+using dadachMovie.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,16 @@ namespace dadachMovie.Controllers
 
             return mapper.Map<List<PersonDTO>>(people);
         }
+
+        // [HttpGet("type")]
+        // public async Task<ActionResult<PersonType>> GetByType([FromBody] PersonType personType)
+        // {
+        //     var personsByType = await dbContext.PersonType
+        //                                 .Where(x => x.PersonTypes == personType.PersonTypes)
+        //                                 .Select(x => x.PersonId)
+        //                                 .ToListAsync();
+        //     return Ok(personsByType);
+        // }
 
         [HttpGet("{id}", Name = "getPerson")]
         public async Task<ActionResult<PersonDTO>> GetById(int id)

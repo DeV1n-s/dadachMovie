@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace dadachAPI.Entities
+namespace dadachMovie.Entities
 {
     public class Person
     {
@@ -16,6 +16,7 @@ namespace dadachAPI.Entities
         public string Picture { get; set; }
         public List<MoviesCasters> Casters { get; set; }
         public List<MoviesDirectors> Directors { get; set; }
+        //public PersonTypes PersonTypes { get; set; }
 
         public Person()
         {
@@ -26,8 +27,8 @@ namespace dadachAPI.Entities
 
     public enum PersonTypes : int
     {
-        Director = 1,
-        Actor = 2,
+        Actor = 1,
+        Director = 2,
         Other = 3
     }
 }

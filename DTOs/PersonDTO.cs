@@ -1,6 +1,6 @@
 using System;
 
-namespace dadachAPI.DTOs
+namespace dadachMovie.DTOs
 {
     public class PersonDTO
     {
@@ -10,5 +10,6 @@ namespace dadachAPI.DTOs
         public string Biography { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Picture { get; set; }
+        public int PersonType { get; set; }
     }
 }
