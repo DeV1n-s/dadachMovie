@@ -58,7 +58,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('getMovie');
+    this.$store.dispatch('getTopMovie');
   }
 };
 </script>

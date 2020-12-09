@@ -1,7 +1,9 @@
 <template>
-  <appHeader />
-  <appBody />
-  <appNews />
+  <div>
+    <appHeader />
+    <appBody />
+    <appNews />
+  </div>
 </template>
 
 <script>
