@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using dadachMovie.Entities;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 
@@ -23,7 +24,7 @@ namespace dadachMovie.Helpers
             }
             catch
             {
-                bindingContext.ModelState.TryAddModelError(propertyName, $"Value is invalid for type {typeof(T).Name}");
+                bindingContext.ModelState.TryAddModelError(propertyName, $@"Value is invalid for type {typeof(T).Name}");
             }
 
             return Task.CompletedTask;

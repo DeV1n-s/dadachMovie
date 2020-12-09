@@ -25,10 +25,11 @@ namespace dadachMovie.Entities
         }
     }
 
+    [Flags]
     public enum PersonTypes : int
     {
         NotSet = 0,
-        Director = 1,
-        Other = 2
+        Caster = 1,
+        Director = 2
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using dadachMovie.Entities;
 using dadachMovie.Helpers;
 using dadachMovie.Validations;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,7 @@ namespace dadachMovie.DTOs
         [ContentTypeValidator(ContentTypeGroup.Image)]
         public IFormFile Picture { get; set; }
 
-        [ModelBinder(BinderType = typeof(TypeBinder<int>))]
-        public int PersonTypes { get; set; }
+        [ModelBinder(BinderType = typeof(TypeBinder<PersonTypes>))]
+        public PersonTypes PersonTypes { get; set; }
     }
 }
