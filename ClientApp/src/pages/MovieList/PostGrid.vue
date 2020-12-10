@@ -30,6 +30,9 @@
             >{{ cast.personName }} {{ ' ' }}</span
           >
         </p>
+        <p>
+          ژانر : <span> {{ MovieList.genres[0].name }} </span>
+        </p>
       </div>
     </div>
     <div class="topbar-filter">

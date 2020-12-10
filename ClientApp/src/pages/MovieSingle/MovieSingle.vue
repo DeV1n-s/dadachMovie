@@ -104,12 +104,12 @@
                           <div class="sb-it">
                             <h6>ژانر</h6>
                             <p>
-                              {{ Movie.Genre }}
+                              {{ Movie.genres[0].name }}
                             </p>
                           </div>
                           <div class="sb-it">
                             <h6>تاریخ انتشار</h6>
-                            <p>{{ Movie.Release }}</p>
+                            <p>{{ Movie.releaseDate }}</p>
                           </div>
                         </div>
                       </div>
