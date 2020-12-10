@@ -44,6 +44,58 @@
                           </div>
                         </div>
                       </div>
+                      <div class="title-hd-sm">
+                        <h3 class="fimographi">فیلموگرافی</h3>
+                        <a href="#" class="time"
+                          ><i class="ion-ios-arrow-right"></i
+                        ></a>
+                      </div>
+                      <!-- movie cast -->
+                      <div class="mvcast-item">
+                        <div class="cast-it">
+                          <div class="cast-left cebleb-film">
+                            <img
+                              class="cast-movie-img"
+                              src="http://localhost:5000/movies/ddf170a3-eddb-4731-8e1f-4a0d5a223169.jpg"
+                              alt=""
+                            />
+                            <div>
+                              <a href="#"> نام فیلم </a>
+                            </div>
+                            <p>تاریخ</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mvcast-item">
+                        <div class="cast-it">
+                          <div class="cast-left cebleb-film">
+                            <img
+                              class="cast-movie-img"
+                              src="http://localhost:5000/movies/ddf170a3-eddb-4731-8e1f-4a0d5a223169.jpg"
+                              alt=""
+                            />
+                            <div>
+                              <a href="#"> نام فیلم </a>
+                            </div>
+                            <p>تاریخ</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mvcast-item">
+                        <div class="cast-it">
+                          <div class="cast-left cebleb-film">
+                            <img
+                              class="cast-movie-img"
+                              src="http://localhost:5000/movies/ddf170a3-eddb-4731-8e1f-4a0d5a223169.jpg"
+                              alt=""
+                            />
+                            <div>
+                              <a href="#"> نام فیلم </a>
+                            </div>
+                            <p>تاریخ</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     <div id="mediaceb" class="tab">
@@ -74,4 +126,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+img.cast-movie-img {
+  width: 65px;
+  height: 100px;
+}
+.fimographi {
+  margin-top: 2rem;
+}
+</style>
