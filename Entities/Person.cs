@@ -16,20 +16,11 @@ namespace dadachMovie.Entities
         public string Picture { get; set; }
         public List<MoviesCasters> Casters { get; set; }
         public List<MoviesDirectors> Directors { get; set; }
-        public PersonTypes PersonTypes { get; set; }
 
         public Person()
         {
             Casters = new List<MoviesCasters>();
             Directors = new List<MoviesDirectors>();
         }
-    }
-
-    [Flags]
-    public enum PersonTypes : int
-    {
-        NotSet = 0,
-        Caster = 1,
-        Director = 2
     }
 }

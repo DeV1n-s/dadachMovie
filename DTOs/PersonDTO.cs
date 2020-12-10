@@ -1,5 +1,8 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using dadachMovie.Entities;
+using Newtonsoft.Json.Converters;
 
 namespace dadachMovie.DTOs
 {
@@ -11,6 +14,5 @@ namespace dadachMovie.DTOs
         public string Biography { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Picture { get; set; }
-        public PersonTypes PersonTypes { get; set; }
     }
 }

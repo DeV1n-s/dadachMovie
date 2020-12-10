@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using AutoMapper;
-using dadachMovie;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
 using dadachMovie.Helpers;
@@ -40,14 +41,16 @@ namespace dadachMovie.Controllers
             return mapper.Map<List<PersonDTO>>(people);
         }
 
-        // [HttpGet("type")]
-        // public async Task<ActionResult<PersonType>> GetByType([FromBody] PersonType personType)
+        // [HttpGet("Casters")]
+        // public async Task<ActionResult<List<PersonDTO>>> GetCasters([FromQuery]PaginationDTO paginationDTO)
         // {
-        //     var personsByType = await dbContext.PersonType
-        //                                 .Where(x => x.PersonTypes == personType.PersonTypes)
-        //                                 .Select(x => x.PersonId)
-        //                                 .ToListAsync();
-        //     return Ok(personsByType);
+        //     var queryable = dbContext.MoviesCasters.AsQueryable();
+        //     await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
+        //     var casters = await queryable.Paginate(paginationDTO)
+        //                             //.OrderByDescending(x => x.PersonId)
+        //                             .ToListAsync();
+
+        //     return mapper.Map<List<PersonDTO>>(casters);
         // }
 
         [HttpGet("{id}", Name = "getPerson")]
@@ -61,7 +64,7 @@ namespace dadachMovie.Controllers
 
             return mapper.Map<PersonDTO>(person);
         }
-
+        
         [HttpPost]
         public async Task<ActionResult> Post([FromForm] PersonCreationDTO personCreationDTO)
         {

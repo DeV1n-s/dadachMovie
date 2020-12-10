@@ -82,7 +82,7 @@ namespace dadachMovie.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("MoviesActors");
+                    b.ToTable("MoviesCasters");
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.MoviesDirectors", b =>
@@ -131,9 +131,6 @@ namespace dadachMovie.Migrations
                         .IsRequired()
                         .HasMaxLength(120)
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("PersonTypes")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Picture")
                         .HasColumnType("TEXT");

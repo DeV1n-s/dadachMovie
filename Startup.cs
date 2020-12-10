@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Converters;
 using VueCliMiddleware;
 
 namespace dadachMovie
@@ -27,7 +28,7 @@ namespace dadachMovie
 
             services.AddControllers()
                 .AddNewtonsoftJson();
-            
+                
             services.AddCors();
 
             // In production, the Vue files will be served from this directory
@@ -70,7 +71,11 @@ namespace dadachMovie
 
             app.UseRouting ();
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:8080").WithOrigins("http://localhost:5000").AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(builder => builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("http://localhost:8080")
+                .WithOrigins("http://localhost:5000"));
 
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllers ();

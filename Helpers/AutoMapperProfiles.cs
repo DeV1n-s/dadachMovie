@@ -48,6 +48,10 @@ namespace dadachMovie.Helpers
             CreateMap<Movie, MovieDetailsDTO>();
 
             CreateMap<Movie, MoviePatchDTO>().ReverseMap();
+
+            CreateMap<MoviesCasters, PersonDTO>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId))
+                .ReverseMap();
         }
 
         private List<MoviesGenres> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie)
