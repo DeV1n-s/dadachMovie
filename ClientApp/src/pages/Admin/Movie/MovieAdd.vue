@@ -41,7 +41,7 @@
               name="trip-start"
               min="0000-11-11"
               max="2020-12-30"
-              v-model="MovieData.Release"
+              v-model="MovieData.ReleaseDate"
             />
             <label for="fname">کارگردان </label>
             <select name="country" v-model="Directors">
@@ -124,7 +124,7 @@ export default {
       MovieData: {
         Title: '',
         Rate: '',
-        ReleaseDate: null,
+        ReleaseDate: '',
         Directors: [],
         Casters: [],
         ShortPara: '',
@@ -164,6 +164,7 @@ export default {
       form.append('Casters', JSON.stringify(this.MovieData.Casters));
       form.append('Picture', this.MovieData.Picture);
       form.append('InTheaters', this.MovieData.InTheaters);
+      form.append('ReleaseDate', this.MovieData.ReleaseDate);
       axios.post('http://localhost:8080/api/Movies', form).then(res => {
         console.log(res);
         this.$router.push('/Moviepanel');
