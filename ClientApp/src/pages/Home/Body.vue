@@ -521,7 +521,6 @@
         </div>
         <div class="col-md-4">
           <div class="sidebar">
-            <div class="ads"></div>
             <div class="celebrities">
               <h4 class="sb-title">بازیگران پیشنهادی</h4>
               <div class="celeb-item">
@@ -608,5 +607,18 @@ export default {
 <style>
 img.img-t {
   height: 250px;
+}
+.latestnew {
+  padding: 0;
+}
+.movie-items {
+  padding: 70px 0 0 !important;
+  background-color: #020d18;
+}
+.latestnew .tabs .blog-item-style-1 {
+  padding-right: 0 !important;
+}
+.blog-it-infor {
+  margin: 1rem;
 }
 </style>

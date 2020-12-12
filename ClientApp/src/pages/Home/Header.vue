@@ -181,4 +181,8 @@
 export default {};
 </script>
 
-<style></style>
+<style>
+.social-link {
+  margin: 1.5rem;
+}
+</style>

@@ -3,7 +3,6 @@
     <div class="container">
       <div class="row ipad-width">
         <div class="col-md-8">
-          <div class="ads"></div>
           <div class="title-hd">
             <h2>آخرین اخبار</h2>
           </div>
