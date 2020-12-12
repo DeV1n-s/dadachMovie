@@ -41,51 +41,53 @@
           </button>
         </router-link>
       </div>
-      <div v-if="isEditMode">
-        <form action="/action_page.php">
-          <label for="fname">نام بازیگر </label>
-          <input type="text" id="fname" v-model="castEdit.name" />
+      <transition name="slide" mode="out-in">
+        <div v-if="isEditMode">
+          <form action="/action_page.php">
+            <label for="fname">نام بازیگر </label>
+            <input type="text" id="fname" v-model="castEdit.name" />
 
-          <label for="lname">توضیحات کوتاه</label>
-          <input type="text" v-model="castEdit.shortBio" />
-          <label for="lname">بیوگرافی</label>
-          <textarea v-model="castEdit.biography"></textarea>
-          <label for="start">تاریخ تولد</label>
+            <label for="lname">توضیحات کوتاه</label>
+            <input type="text" v-model="castEdit.shortBio" />
+            <label for="lname">بیوگرافی</label>
+            <textarea v-model="castEdit.biography"></textarea>
+            <label for="start">تاریخ تولد</label>
 
-          <input
-            type="date"
-            id="start"
-            name="trip-start"
-            min="0000-11-11"
-            max="2020-12-30"
-            v-model="castEdit.dateOfBirth"
-          />
-          <img class="edit-img" :src="castEdit.picture" alt="" />
+            <input
+              type="date"
+              id="start"
+              name="trip-start"
+              min="0000-11-11"
+              max="2020-12-30"
+              v-model="castEdit.dateOfBirth"
+            />
+            <img class="edit-img" :src="castEdit.picture" alt="" />
 
-          <input
-            type="file"
-            class="custom-file-input"
-            @change="onFileSelected"
-          />
+            <input
+              type="file"
+              class="custom-file-input"
+              @change="onFileSelected"
+            />
 
-          <button
-            type="submit"
-            @click.prevent="submitEdit(castEdit.id)"
-            class="btn btn-success btn-block"
-          >
-            ثبت
-          </button>
-          <router-link to="/CastPanel">
             <button
               type="submit"
-              class="btn btn-danger btn-block"
-              @click="isEditMode = false"
+              @click.prevent="submitEdit(castEdit.id)"
+              class="btn btn-success btn-block"
             >
-              لغو
+              ثبت
             </button>
-          </router-link>
-        </form>
-      </div>
+            <router-link to="/CastPanel">
+              <button
+                type="submit"
+                class="btn btn-danger btn-block"
+                @click="isEditMode = false"
+              >
+                لغو
+              </button>
+            </router-link>
+          </form>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -204,5 +206,32 @@ h2 {
 }
 .btn {
   margin: 0.5rem;
+}
+/*  */
+.slide-enter-active {
+  animation: slide-in 200ms ease-out forwards;
+}
+.slide-leave-active {
+  animation: slide-out 200ms ease-out forwards;
+}
+@keyframes slide-in {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
 }
 </style>
