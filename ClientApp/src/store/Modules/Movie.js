@@ -2,7 +2,8 @@
 import axios from 'axios'
 const state = {
     MovieData: [],
-    InTheater: ""
+    InTheater: "",
+    Genres: ""
 };
 
 const getters = {
@@ -12,25 +13,30 @@ const getters = {
     getTop(state) {
         return state.InTheater;
     },
+    GetGenres(state) {
+        return state.Genres;
+    },
     Movie: state => id => {
         return state.MovieData.find(Movie => Movie.id === id)
     },
     People: state => {
-            return state.PeopleData
-        }
-        // groupSort: state => badge => {
-        //     return state.MovieData.find(groupSort => groupSort.badge === badge)
-        // }
+        return state.PeopleData
+    },
+
+    // groupSort: state => badge => {
+    //     return state.MovieData.find(groupSort => groupSort.badge === badge)
+    // }
 };
 
 const mutations = {
     SET_MOVIE(state, movie) {
         state.MovieData = movie
-            // state.refreshToken = userData.refreshToken
     },
     SET_TOP_MOVIE(state, topMovie) {
         state.InTheater = topMovie
-            // state.refreshToken = userData.refreshToken
+    },
+    SET_GENRES(state, Genres) {
+        state.Genres = Genres
     }
 };
 
@@ -47,6 +53,12 @@ const actions = {
         axios.get('http://localhost:8080/api/Movies/top')
             .then(response => {
                 commit('SET_TOP_MOVIE', response.data)
+            })
+    },
+    GetGenres({ commit }) {
+        axios.get('http://localhost:8080/api/Genres')
+            .then(response => {
+                commit('SET_GENRES', response.data)
             })
     },
 }

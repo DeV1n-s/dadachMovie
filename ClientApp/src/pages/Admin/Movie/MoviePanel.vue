@@ -48,128 +48,145 @@
             افزودن فیلم جدید
           </button>
         </router-link>
+        <button
+          class="btn btn-success btn-block m-x"
+          @click="isGenreMdoe = !isGenreMdoe"
+        >
+          مدیریت ژانر ها
+        </button>
       </div>
-      <div v-if="isEditMode">
-        <form action="/action_page.php">
-          <label for="fname">نام فیلم </label>
-          <input type="text" id="fname" v-model="MovieEditData.title" />
+      <transition name="slide" mode="out-in">
+        <genre-panel class="genre-panel" v-if="isGenreMdoe" />
+      </transition>
+      <transition name="slide" mode="out-in">
+        <div v-if="isEditMode">
+          <form action="/action_page.php">
+            <label for="fname">نام فیلم </label>
+            <input type="text" id="fname" v-model="MovieEditData.title" />
 
-          <label for="lname">توضیحات کوتاه</label>
-          <input type="text" v-model="MovieEditData.shortPara" />
-          <label for="lname">شرح کامل</label>
-          <textarea v-model="MovieEditData.longPara"></textarea>
-          <label for="country">سبک</label>
-          <select id="country" name="country" v-model="Genres">
-            <option
-              v-for="Genre in Genress"
-              :key="Genre.id"
-              :value="Genre.id"
-              >{{ Genre.name }}</option
-            >
-          </select>
-          <label for="tentacles">نمره فیلم از 10</label>
+            <label for="lname">توضیحات کوتاه</label>
+            <input type="text" v-model="MovieEditData.shortPara" />
+            <label for="lname">شرح کامل</label>
+            <textarea v-model="MovieEditData.longPara"></textarea>
+            <label for="country">سبک</label>
+            <select id="country" name="country" v-model="Genres">
+              <option
+                v-for="Genre in Genress"
+                :key="Genre.id"
+                :value="Genre.id"
+                >{{ Genre.name }}</option
+              >
+            </select>
+            <label for="tentacles">نمره فیلم از 10</label>
 
-          <input
-            type="number"
-            id="tentacles"
-            name="tentacles"
-            min="0"
-            max="10"
-            v-model="MovieEditData.rate"
-          />
-          <label for="start">تاریخ انتشار</label>
+            <input
+              type="number"
+              id="tentacles"
+              name="tentacles"
+              min="0"
+              max="10"
+              v-model="MovieEditData.rate"
+            />
+            <label for="start">تاریخ انتشار</label>
 
-          <input
-            type="date"
-            id="start"
-            name="trip-start"
-            min="0000-11-11"
-            max="2020-12-30"
-            v-model="MovieEditData.release"
-          />
-          <label for="fname">کارگردان </label>
-          <select name="country" v-model="Directors">
-            <option
-              v-for="People in Peoples"
-              :key="People.id"
-              :value="People.id"
-              >{{ People.name }}</option
-            >
-          </select>
-          <label for="fname">بازیگران </label>
-          <select id="countr" name="country" v-model="preCasters">
-            <option
-              v-for="People in Peoples"
-              :key="People.id"
-              :value="{
-                PersonId: People.id,
-                Character: People.name
-              }"
-              >{{ People.name }}</option
-            >
-          </select>
-          <button class="btn-success btn-add" @click.prevent="castPush">
-            اضافه کردن بازیگر
-          </button>
-          <div class="table-c">
-            <tbody>
-              <tr v-for="(Cast, index) in MovieEditData.casters" :key="Cast">
-                <td class="t-num">
-                  <p class="td-p">{{ Cast.character }}</p>
-                  <p class="td-p">{{ Cast.Character }}</p>
-                </td>
-                <td>
-                  <button
-                    class="btn btn-lg btn-danger dl-cast"
-                    @click.prevent="castDelete(index)"
-                  >
-                    حذف
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </div>
-          <img class="edit-img" :src="MovieEditData.picture" alt="" />
+            <input
+              type="date"
+              id="start"
+              name="trip-start"
+              min="0000-11-11"
+              max="2020-12-30"
+              v-model="MovieEditData.release"
+            />
+            <label for="fname">کارگردان </label>
+            <select name="country" v-model="Directors">
+              <option
+                v-for="People in Peoples"
+                :key="People.id"
+                :value="People.id"
+                >{{ People.name }}</option
+              >
+            </select>
+            <label for="fname">بازیگران </label>
+            <select id="countr" name="country" v-model="preCasters">
+              <option
+                v-for="People in Peoples"
+                :key="People.id"
+                :value="{
+                  PersonId: People.id,
+                  Character: People.name
+                }"
+                >{{ People.name }}</option
+              >
+            </select>
+            <button class="btn-success btn-add" @click.prevent="castPush">
+              اضافه کردن بازیگر
+            </button>
+            <div class="table-c">
+              <tbody>
+                <tr v-for="(Cast, index) in MovieEditData.casters" :key="Cast">
+                  <td class="t-num">
+                    <p class="td-p">{{ Cast.character }}</p>
+                    <p class="td-p">{{ Cast.Character }}</p>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-lg btn-danger dl-cast"
+                      @click.prevent="castDelete(index)"
+                    >
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </div>
+            <img class="edit-img" :src="MovieEditData.picture" alt="" />
 
-          <input
-            type="file"
-            class="custom-file-input"
-            @change="onFileSelected"
-          />
-          <label for="checkbox" class="cinema-carpet">روی پرده سینما </label>
-          <input
-            type="checkbox"
-            id="checkbox"
-            v-model="MovieEditData.inTheaters"
-          />
+            <input
+              type="file"
+              class="custom-file-input"
+              @change="onFileSelected"
+            />
+            <label for="checkbox" class="cinema-carpet">روی پرده سینما </label>
+            <input
+              type="checkbox"
+              id="checkbox"
+              v-model="MovieEditData.inTheaters"
+            />
 
-          <button
-            type="submit"
-            @click.prevent="submitEdit(MovieEditData.id)"
-            class="btn btn-success btn-block"
-          >
-            ثبت
-          </button>
-          <router-link to="/MoviePanel">
             <button
               type="submit"
-              class="btn btn-danger btn-block"
-              @click="isEditMode = false"
+              @click.prevent="submitEdit(MovieEditData.id)"
+              class="btn btn-success btn-block"
             >
-              لغو
+              ثبت
             </button>
-          </router-link>
-        </form>
-      </div>
+            <router-link to="/MoviePanel">
+              <button
+                type="submit"
+                class="btn btn-danger btn-block"
+                @click="isEditMode = false"
+              >
+                لغو
+              </button>
+            </router-link>
+          </form>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import GenrePanel from './GenrePanel';
 export default {
+  components: {
+    GenrePanel
+  },
   data() {
+    GenrePanel;
     return {
+      isGenreMdoe: false,
       isEditMode: false,
       MovieEditData: {
         id: null,
@@ -254,6 +271,9 @@ export default {
 </script>
 
 <style scoped>
+.genre-panel {
+  margin-top: 4rem;
+}
 label {
   color: #fff;
   margin-bottom: 0.5rem;
@@ -346,5 +366,33 @@ h2 {
 }
 .btn {
   margin: 0.5rem;
+}
+
+/*  */
+.slide-enter-active {
+  animation: slide-in 200ms ease-out forwards;
+}
+.slide-leave-active {
+  animation: slide-out 200ms ease-out forwards;
+}
+@keyframes slide-in {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
 }
 </style>
