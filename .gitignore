@@ -11,6 +11,7 @@
 ClientApp/package-lock.json
 *.db
 package-lock.json
+.vscode
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
