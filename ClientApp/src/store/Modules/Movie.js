@@ -3,7 +3,8 @@ import axios from 'axios'
 const state = {
     MovieData: [],
     InTheater: "",
-    Genres: ""
+    Genres: "",
+    TopImbd: "",
 };
 
 const getters = {
@@ -15,6 +16,9 @@ const getters = {
     },
     GetGenres(state) {
         return state.Genres;
+    },
+    GetTopImbd(state) {
+        return state.TopImbd;
     },
     Movie: state => id => {
         return state.MovieData.find(Movie => Movie.id === id)
@@ -37,6 +41,9 @@ const mutations = {
     },
     SET_GENRES(state, Genres) {
         state.Genres = Genres
+    },
+    SET_TOP_IMBD(state, TopImbd) {
+        state.TopImbd = TopImbd
     }
 };
 
@@ -59,6 +66,13 @@ const actions = {
         axios.get('http://localhost:8080/api/Genres')
             .then(response => {
                 commit('SET_GENRES', response.data)
+            })
+    },
+    // 
+    Top250Movies({ commit }) {
+        axios.get('https://imdb-api.com/en/API/Top250Movies/k_l3dksm3b')
+            .then(response => {
+                commit('SET_TOP_IMBD', response.data)
             })
     },
 }

@@ -7,7 +7,7 @@
             <router-link to="/MovieList" class="viewall"
               >مشاهده همه <i class="ion-ios-arrow-right"></i
             ></router-link>
-            <h2>اکران شده</h2>
+            <h2>روی پرده سینما</h2>
           </div>
           <div class="tabs">
             <div class="tab-content">
@@ -115,7 +115,7 @@
             <router-link to="/MoiveList" class="viewall"
               >مشاهده همه <i class="ion-ios-arrow-right"></i
             ></router-link>
-            <h2>در حال اکران</h2>
+            <h2>.. به زودی</h2>
           </div>
           <div class="tabs">
             <div class="tab-content">

@@ -163,6 +163,27 @@
                 </div>
               </div>
             </div>
+            <div class="celebrities">
+              <h4 class="sb-title">IMDB برترین فیلم های</h4>
+              <div
+                class="celeb-item"
+                v-for="(imbd, index) in topImbds"
+                :key="index"
+              >
+                <a href="#"
+                  ><img :src="imbd.image" alt="" width="70" height="70"
+                /></a>
+                <div class="celeb-author">
+                  <h6>
+                    <a href="#">{{ imbd.title }}</a>
+                  </h6>
+                  <span>{{ imbd.year }}</span>
+                </div>
+              </div>
+              <router-link to="/actorlist" class="btn"
+                >مشاهده همه فیلم ها<i class="ion-ios-arrow-right"></i
+              ></router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -171,7 +192,28 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      topImbds: []
+    };
+  },
+  methods: {
+    filterImbd() {
+      for (let i = 0; i < 5; i++) {
+        this.topImbds.push(this.$store.getters.GetTopImbd.items[i]);
+      }
+    }
+  },
+  mounted() {
+    this.$store.dispatch('Top250Movies');
+    this.filterImbd();
+  }
+};
 </script>
 
-<style></style>
+<style>
+.celebrities {
+  padding-bottom: 6rem;
+}
+</style>
