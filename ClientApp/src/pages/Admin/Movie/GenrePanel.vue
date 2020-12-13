@@ -80,9 +80,7 @@ export default {
       });
     },
     submitGenre() {
-      const form = new FormData();
-      form.append('name', this.Genre);
-      axios.post('http://localhost:8080/api/Genres', form);
+      axios.post('http://localhost:8080/api/Genres', { name: this.Genre });
     },
     deleteButton(id) {
       axios
@@ -90,9 +88,7 @@ export default {
         .then(res => console.log(res.data));
     },
     subEditGenre(id) {
-      const form = new FormData();
-      form.append('name', this.Genre);
-      axios.put('http://localhost:8080/api/Genres/' + id, form);
+      axios.put('http://localhost:8080/api/Genres/' + id, { name: this.Genre });
     }
   },
   mounted() {
