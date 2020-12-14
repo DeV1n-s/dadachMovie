@@ -23,6 +23,9 @@ const getters = {
     Movie: state => id => {
         return state.MovieData.find(Movie => Movie.id === id)
     },
+    TMovie: state => id => {
+        return state.TopImbd.find(TMovie => TMovie.id === id)
+    },
     People: state => {
         return state.PeopleData
     },
@@ -43,7 +46,7 @@ const mutations = {
         state.Genres = Genres
     },
     SET_TOP_IMBD(state, TopImbd) {
-        state.TopImbd = TopImbd
+        state.TopImbd = TopImbd.items
     }
 };
 

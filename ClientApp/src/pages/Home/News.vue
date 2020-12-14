@@ -175,12 +175,16 @@
                 /></a>
                 <div class="celeb-author">
                   <h6>
-                    <a href="#">{{ imbd.title }}</a>
+                    <router-link
+                      :to="{ name: 'Top250Single', params: { id: imbd.id } }"
+                    >
+                      <a href="#">{{ imbd.title }}</a>
+                    </router-link>
                   </h6>
                   <span>{{ imbd.year }}</span>
                 </div>
               </div>
-              <router-link to="/actorlist" class="btn"
+              <router-link to="/Top250Movies" class="btn"
                 >مشاهده همه فیلم ها<i class="ion-ios-arrow-right"></i
               ></router-link>
             </div>
@@ -201,7 +205,7 @@ export default {
   methods: {
     filterImbd() {
       for (let i = 0; i < 5; i++) {
-        this.topImbds.push(this.$store.getters.GetTopImbd.items[i]);
+        this.topImbds.push(this.$store.getters.GetTopImbd[i]);
       }
     }
   },
