@@ -35,13 +35,9 @@
               <a href="#page-top"></a>
             </li>
             <li class="dropdown first">
-              <router-link
-                class="btn btn-default"
-                data-toggle="dropdown"
-                to="/"
-              >
+              <a href="http://localhost:8080/" class="btn btn-default">
                 خانه
-              </router-link>
+              </a>
             </li>
             <li class="dropdown first">
               <router-link
