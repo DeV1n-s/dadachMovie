@@ -41,18 +41,6 @@ namespace dadachMovie.Controllers
             return mapper.Map<List<PersonDTO>>(people);
         }
 
-        // [HttpGet("Casters")]
-        // public async Task<ActionResult<List<PersonDTO>>> GetCasters([FromQuery]PaginationDTO paginationDTO)
-        // {
-        //     var queryable = dbContext.MoviesCasters.AsQueryable();
-        //     await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
-        //     var casters = await queryable.Paginate(paginationDTO)
-        //                             //.OrderByDescending(x => x.PersonId)
-        //                             .ToListAsync();
-
-        //     return mapper.Map<List<PersonDTO>>(casters);
-        // }
-
         [HttpGet("{id}", Name = "getPerson")]
         public async Task<ActionResult<PersonDTO>> GetById(int id)
         {
@@ -63,6 +51,53 @@ namespace dadachMovie.Controllers
             }
 
             return mapper.Map<PersonDTO>(person);
+        }
+
+        [HttpGet("filter")]
+        public async Task<ActionResult<List<PersonDTO>>> Filter([FromQuery] FilterPersonDTO filterPersonDTO)
+        {
+            var peopleQueryable = dbContext.People.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filterPersonDTO.Name))
+            {
+                peopleQueryable = peopleQueryable.Where(p => p.Name.Contains(filterPersonDTO.Name));
+            }
+
+            if (filterPersonDTO.IsCaster)
+            {
+                peopleQueryable = peopleQueryable.Where(p => p.IsCaster);
+            }
+
+            if (filterPersonDTO.IsDirector)
+            {
+                peopleQueryable = peopleQueryable.Where(p => p.IsDirector);
+            }
+
+            if (!string.IsNullOrWhiteSpace(filterPersonDTO.MinDateOfBirth.ToString()))
+            {
+                peopleQueryable = peopleQueryable.Where(p => 
+                                                    (p.DateOfBirth >= filterPersonDTO.MinDateOfBirth) && 
+                                                    (p.DateOfBirth <= filterPersonDTO.MaxDateOfBirth));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filterPersonDTO.OrderingField))
+            {
+                try
+                {
+                    peopleQueryable = peopleQueryable
+                        .OrderBy($"{filterPersonDTO.OrderingField} {(filterPersonDTO.AscendingOrder ? "ascending" : "descending")}");
+                }
+                catch
+                {
+
+                }
+            }
+
+            await HttpContext.InsertPaginationParametersInResponse(peopleQueryable, filterPersonDTO.RecordsPerPage);
+
+            var people = await peopleQueryable.Paginate(filterPersonDTO.Pagination).ToListAsync();
+
+            return mapper.Map<List<PersonDTO>>(people);
         }
         
         [HttpPost]

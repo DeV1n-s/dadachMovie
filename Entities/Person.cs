@@ -14,15 +14,9 @@ namespace dadachMovie.Entities
         public string Biography { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Picture { get; set; }
-        public List<MoviesCasters> Casters { get; set; }
-        public List<MoviesDirectors> Directors { get; set; }
         public bool IsCaster { get; set; }
         public bool IsDirector { get; set; }
-
-        public Person()
-        {
-            Casters = new List<MoviesCasters>();
-            Directors = new List<MoviesDirectors>();
-        }
+        public List<MoviesCasters> Casters { get; set; } = new List<MoviesCasters>();
+        public List<MoviesDirectors> Directors { get; set; } = new List<MoviesDirectors>();
     }
 }
