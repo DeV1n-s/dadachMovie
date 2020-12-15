@@ -13,6 +13,8 @@ namespace dadachMovie.DTOs
         public string ShortBio { get; set; }
         public string Biography { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public bool IsCaster { get; set; }
+        public bool IsDirector { get; set; }
         public string Picture { get; set; }
     }
 }

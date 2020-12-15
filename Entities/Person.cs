@@ -16,6 +16,8 @@ namespace dadachMovie.Entities
         public string Picture { get; set; }
         public List<MoviesCasters> Casters { get; set; }
         public List<MoviesDirectors> Directors { get; set; }
+        public bool IsCaster { get; set; }
+        public bool IsDirector { get; set; }
 
         public Person()
         {

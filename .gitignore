@@ -7,9 +7,9 @@
 *.userosscache
 *.sln.docstates
 *.db-*
+*.db
 *.zip
 ClientApp/package-lock.json
-*.db
 package-lock.json
 .vscode
 
