@@ -11,6 +11,7 @@ namespace dadachMovie.DTOs
         public DateTime ReleaseDate { get; set; }
         public float Rate { get; set; }
         public bool InTheaters { get; set; }
+        public string ImdbId { get; set; }
         public string Picture { get; set; }
     }
 }

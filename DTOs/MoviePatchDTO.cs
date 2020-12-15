@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using dadachMovie.Validations;
 
 namespace dadachMovie.DTOs
 {
@@ -12,5 +13,8 @@ namespace dadachMovie.DTOs
         public DateTime ReleaseDate { get; set; }
         public float Rate { get; set; }
         public bool InTheaters { get; set; }
+        
+        [ImdbIdValidator]
+        public string ImdbId { get; set; }
     }
 }

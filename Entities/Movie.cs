@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using dadachMovie.Validations;
 
 namespace dadachMovie.Entities
 {
@@ -15,6 +16,9 @@ namespace dadachMovie.Entities
         public DateTime ReleaseDate { get; set; }
         public float Rate { get; set; }
         public bool InTheaters { get; set; }
+
+        [ImdbIdValidator]
+        public string ImdbId { get; set; }
         public string Picture { get; set; }
         public List<MoviesCasters> Casters { get; set; } = new List<MoviesCasters>();
         public List<MoviesGenres> Genres { get; set; } = new List<MoviesGenres>();
