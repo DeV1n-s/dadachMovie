@@ -9615,7 +9615,7 @@ function(e, t, n, i) {
 
         function i(t) { if (r(t)) return RegExp.$1 }
 
-        function o(t, e) { var n = b.decodeURL(t); if (e = e || !1, n.screen_name = i(t), n.screen_name) return b.url("https://twitter.com/intent/" + (e ? "follow" : "user"), n) }
+        function o(t, e) { var n = b.decodeURL(t); if (e = e || !1, n.screen_name = i(t), n.screen_name) return b.url("" + (e ? "follow" : "user"), n) }
 
         function a(t) { return o(t, !0) }
 
