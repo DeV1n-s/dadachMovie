@@ -14,7 +14,7 @@
             <input type="text" v-model="CastData.ShortBio" />
             <label for="lname">بیوگرافی</label>
             <textarea v-model="CastData.Biography"></textarea>
-            <label for="start">تاریخ تولد</label>
+            <label for="start">تاریخ تولد </label>
 
             <input
               type="date"
@@ -60,8 +60,8 @@ export default {
         ShortBio: '',
         Biography: '',
         DateOfBirth: '',
-        Picture: null
-      }
+        Picture: null,
+      },
     };
   },
   methods: {
@@ -73,7 +73,7 @@ export default {
       form.append('DateOfBirth', this.CastData.DateOfBirth);
       form.append('Picture', this.CastData.Picture);
 
-      axios.post('http://localhost:8080/api/people', form).then(res => {
+      axios.post('http://localhost:8080/api/people', form).then((res) => {
         console.log(res);
         this.$router.push('/CastPanel');
       });
@@ -81,13 +81,13 @@ export default {
     onFileSelected(event) {
       this.CastData.Picture = event.target.files[0];
       // this.$refs.file.files[0];
-    }
+    },
   },
 
   //get/getPeople
   mounted() {
     this.$store.dispatch('GetPeoples');
-  }
+  },
 };
 </script>
 

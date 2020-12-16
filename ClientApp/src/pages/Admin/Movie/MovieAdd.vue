@@ -158,8 +158,8 @@ export default {
       form.append('Title', this.MovieData.Title);
       form.append('Rate', this.MovieData.Rate);
       form.append('DirectorsId', JSON.stringify(this.MovieData.Directors));
-      form.append('ShortPara', this.MovieData.ShortPara);
-      form.append('LongPara', this.MovieData.LongPara);
+      form.append('ShortDescription', this.MovieData.ShortPara);
+      form.append('Description', this.MovieData.LongPara);
       form.append('GenresId', JSON.stringify(this.MovieData.GenresIds));
       form.append('Casters', JSON.stringify(this.MovieData.Casters));
       form.append('Picture', this.MovieData.Picture);

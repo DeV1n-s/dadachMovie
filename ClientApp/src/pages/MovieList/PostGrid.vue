@@ -18,7 +18,7 @@
           <i class="ion-android-star"></i><span>{{ MovieList.rate }}</span> /10
         </p>
         <p class="describe">
-          {{ MovieList.shortPara }}
+          {{ MovieList.shortDescription }}
         </p>
         <p class="run-time">
           <span>سال انتشار :{{ MovieList.releaseDate }}</span>
@@ -31,7 +31,7 @@
           >
         </p>
         <p>
-          ژانر : <span> {{ MovieList.genres[0].name }} </span>
+          ژانر : <span> {{ MovieList.genres }} </span>
         </p>
       </div>
     </div>
@@ -51,8 +51,8 @@ export default {
   data() {
     return {
       MovieLists: this.$store.getters.GetMovies,
-      Cast: this.$store.getters.GetMovies[0].casters,
-      Diractor: this.$store.getters.GetMovies[0].directors[0].personName
+      Cast: this.$store.getters.GetMovies,
+      Diractor: this.$store.getters.GetMovies[0].directors
     };
   },
   mounted() {

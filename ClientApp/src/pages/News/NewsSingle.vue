@@ -25,7 +25,7 @@
               </h3>
               <hr />
               <p>
-                {{ News.longPara }}
+                {{ News.description }}
               </p>
 
               <!-- share link -->
