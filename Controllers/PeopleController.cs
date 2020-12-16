@@ -53,6 +53,22 @@ namespace dadachMovie.Controllers
             return mapper.Map<PersonDTO>(person);
         }
 
+        [HttpGet("{id:int}/Movies")]
+        public async Task<ActionResult<List<MovieDetailsDTO>>> GetActorMovies(int id)
+        {
+            // var caster = dbContext.People.Where(x => x.Id == id).Any(x => x.IsCaster);
+            // if (caster)
+            // {
+            //     var moviesCasters = await dbContext.MoviesCasters.Where(m => m.PersonId == id).Select(x => x.Movie).ToListAsync();
+            //     return mapper.Map<List<MovieDetailsDTO>>(moviesCasters);
+            // }
+
+            // var moviesDirectors = await dbContext.MoviesDirectors.Where(m => m.PersonId == id).Select(x => x.Movie).ToListAsync();
+            // return mapper.Map<List<MovieDetailsDTO>>(moviesDirectors);
+            var movies = await dbContext.MoviesCasters.Where(m => m.PersonId == id).Select(x => x.Movie).ToListAsync();
+            return mapper.Map<List<MovieDetailsDTO>>(movies);
+        }
+
         [HttpGet("filter")]
         public async Task<ActionResult<List<PersonDTO>>> Filter([FromQuery] FilterPersonDTO filterPersonDTO)
         {
