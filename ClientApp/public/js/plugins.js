@@ -9127,12 +9127,7 @@ function(e, t, n, i) {
         return e.e = function(t, e) {}, e.e = function(t, n) {
             if (0 === i[t]) return n.call(null, null, e);
             if (void 0 !== i[t]) i[t].push(n);
-            else {
-                i[t] = [n];
-                var r = document.getElementsByTagName("head")[0],
-                    o = document.createElement("script");
-                o.type = "text/javascript", o.charset = "utf-8", o.async = !0, o.onerror = function() { var e = i[t]; for (o.onerror = null, delete i[t]; e.length;) e.shift().call(null, new Error("failed to load chunk")) }, o.src = e.p + "js/" + ({ 1: "dm_button", 2: "button", 3: "grid", 4: "moment", 5: "periscope_on_air", 6: "timeline", 7: "tweet" }[t] || t) + "." + { 1: "3733ff42632ef21c7251703b97a713dd", 2: "b731e6c82269f70f6fc53634e044a4c6", 3: "26ff87ca8c644a52f77b9e26799b9466", 4: "aa12283a515e15576926dc1c0d9faccc", 5: "454b953cf569d605ec3530b6b38b09aa", 6: "49f24b3ed4b1be2d087c97aca497c0d1", 7: "6352a9eebf6f1aa3bcc0a57d66d2a72d" }[t] + ".js", r.appendChild(o)
-            }
+            
         }, e.m = t, e.c = r, e.p = "", e(0)
     }([function(t, e, n) {
         var r, i = n(1),
