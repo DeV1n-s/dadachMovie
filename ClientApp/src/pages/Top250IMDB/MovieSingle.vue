@@ -229,6 +229,10 @@ export default {
 </script>
 
 <style scoped>
+h5 {
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+}
 .rw-btn {
   margin-left: 1.7rem;
   margin-bottom: 1.9rem;

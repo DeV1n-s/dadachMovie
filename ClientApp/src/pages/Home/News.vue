@@ -178,7 +178,7 @@
                     <router-link
                       :to="{ name: 'Top250Single', params: { id: imbd.id } }"
                     >
-                      <a href="#">{{ imbd.title }}</a>
+                      {{ imbd.title }}
                     </router-link>
                   </h6>
                   <span>{{ imbd.year }}</span>
