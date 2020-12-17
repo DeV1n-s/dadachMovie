@@ -24,6 +24,26 @@
               max="2020-12-30"
               v-model="CastData.DateOfBirth"
             />
+            <label for="fname">ملیت </label>
+            <input type="text" v-model="CastData.Nationality" />
+            <div class="types">
+              <h6>سمت ها :</h6>
+              <label class="container"
+                >بازیگر
+                <input
+                  type="checkbox"
+                  checked="checked"
+                  v-model="CastData.isCast"
+                />
+                <span class="checkmark"></span>
+              </label>
+              <label class="container"
+                >کاردگردان
+                <input type="checkbox" v-model="CastData.isDiractor" />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+
             <label for="fname">تصویر </label>
             <input
               type="file"
@@ -61,7 +81,10 @@ export default {
         Biography: '',
         DateOfBirth: '',
         Picture: null,
-      },
+        isCast: false,
+        isDiractor: false,
+        Nationality: ''
+      }
     };
   },
   methods: {
@@ -72,8 +95,12 @@ export default {
       form.append('Biography', this.CastData.Biography);
       form.append('DateOfBirth', this.CastData.DateOfBirth);
       form.append('Picture', this.CastData.Picture);
+      form.append('isCast', this.CastData.isCast);
 
-      axios.post('http://localhost:8080/api/people', form).then((res) => {
+      form.append('IsDirector', this.CastData.isDiractor);
+      form.append('Nationality', this.CastData.Nationality);
+
+      axios.post('http://localhost:8080/api/people', form).then(res => {
         console.log(res);
         this.$router.push('/CastPanel');
       });
@@ -81,17 +108,72 @@ export default {
     onFileSelected(event) {
       this.CastData.Picture = event.target.files[0];
       // this.$refs.file.files[0];
-    },
+    }
   },
 
   //get/getPeople
   mounted() {
     this.$store.dispatch('GetPeoples');
-  },
+  }
 };
 </script>
 
 <style scoped>
+input[type='checkbox'] {
+  /* padding: 2rem; */
+  margin-right: 1rem;
+}
+.types h6 {
+  padding-bottom: 0.5rem;
+  color: #ccc;
+}
+.types label {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
 textarea {
   height: 150px !important;
 }

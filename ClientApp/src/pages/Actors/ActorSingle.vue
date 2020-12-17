@@ -44,7 +44,7 @@
                           </div>
                           <div class="sb-it">
                             <h6>سمت ها :</h6>
-                            <p v-if="People.isCaster">بازیگر</p>
+                            <p v-if="People.isCast">بازیگر</p>
                             <p v-if="People.isDirector">کارگردان</p>
                           </div>
                         </div>

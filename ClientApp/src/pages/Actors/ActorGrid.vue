@@ -13,11 +13,13 @@
             >
           </h2>
           <span
-            >{{ People.nationality }}
-            <span v-if="People.isCaster"> بازیگر</span>
+            >{{ People.nationality }}/
+            <span v-if="People.isCast"> بازیگر</span>
+            <span v-if="People.isCast && People.isDirector">--</span>
             <span v-if="People.isDirector">کارگردان</span>
           </span>
-          <span>{{ People.shortBio }}</span>
+
+          <p>{{ People.shortBio }}</p>
         </div>
       </div>
     </div>

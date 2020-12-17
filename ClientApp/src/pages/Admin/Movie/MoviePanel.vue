@@ -250,7 +250,7 @@ export default {
       form.append('ShortPara', this.MovieEditData.shortPara);
       form.append('Description', this.MovieEditData.longPara);
       form.append('GenresId', JSON.stringify(this.MovieEditData.genres));
-      form.append('Casters', JSON.stringify(this.MovieEditData.casters));
+      form.append('Cast', JSON.stringify(this.MovieEditData.casters));
       form.append('Picture', this.MovieEditData.picture);
       form.append('InTheaters', this.MovieEditData.inTheaters);
       axios

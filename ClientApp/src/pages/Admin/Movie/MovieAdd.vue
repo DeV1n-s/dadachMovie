@@ -161,7 +161,7 @@ export default {
       form.append('ShortDescription', this.MovieData.ShortPara);
       form.append('Description', this.MovieData.LongPara);
       form.append('GenresId', JSON.stringify(this.MovieData.GenresIds));
-      form.append('Casters', JSON.stringify(this.MovieData.Casters));
+      form.append('Cast', JSON.stringify(this.MovieData.Casters));
       form.append('Picture', this.MovieData.Picture);
       form.append('InTheaters', this.MovieData.InTheaters);
       form.append('ReleaseDate', this.MovieData.ReleaseDate);
