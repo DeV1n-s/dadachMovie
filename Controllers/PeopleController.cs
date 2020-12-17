@@ -56,6 +56,7 @@ namespace dadachMovie.Controllers
         [HttpGet("{id:int}/Movies")]
         public async Task<ActionResult<List<MovieDetailsDTO>>> GetActorMovies(int id)
         {
+            
             // var caster = dbContext.People.Where(x => x.Id == id).Any(x => x.IsCaster);
             // if (caster)
             // {
@@ -65,7 +66,14 @@ namespace dadachMovie.Controllers
 
             // var moviesDirectors = await dbContext.MoviesDirectors.Where(m => m.PersonId == id).Select(x => x.Movie).ToListAsync();
             // return mapper.Map<List<MovieDetailsDTO>>(moviesDirectors);
-            var movies = await dbContext.MoviesCasters.Where(m => m.PersonId == id).Select(x => x.Movie).ToListAsync();
+            var movies = await dbContext.MoviesCasters
+                                            .Include(m => m.Movie).ThenInclude(c => c.Casters).ThenInclude(x => x.Person)
+                                            .Include(m => m.Movie).ThenInclude(d => d.Directors).ThenInclude(x => x.Person)
+                                            .Include(m => m.Movie).ThenInclude(g => g.Genres).ThenInclude(x => x.Genre)
+                                            .Where(m => m.PersonId == id)
+                                            .Select(m => m.Movie)
+                                            .ToListAsync();
+
             return mapper.Map<List<MovieDetailsDTO>>(movies);
         }
 

@@ -45,7 +45,7 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(MapMoviesGenres))
                 .ForMember(dest => dest.Directors, opt => opt.MapFrom(MapMoviesDirectors));
 
-            CreateMap<Movie, MovieDetailsDTO>();
+            CreateMap<Movie, MovieDetailsDTO>().ReverseMap();
 
             CreateMap<Movie, MoviePatchDTO>().ReverseMap();
 

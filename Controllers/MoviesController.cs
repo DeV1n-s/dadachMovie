@@ -44,7 +44,8 @@ namespace dadachMovie.Controllers
             await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
             var movies = await queryable
                                 .Paginate(paginationDTO)
-                                .OrderByDescending(m => m.Id).ToListAsync();
+                                .OrderByDescending(m => m.Id)
+                                .ToListAsync();
 
             return mapper.Map<List<MovieDetailsDTO>>(movies);
         }
