@@ -12,6 +12,11 @@
               >{{ People.name }}</router-link
             >
           </h2>
+          <span
+            >{{ People.nationality }}
+            <span v-if="People.isCaster"> بازیگر</span>
+            <span v-if="People.isDirector">کارگردان</span>
+          </span>
           <span>{{ People.shortBio }}</span>
         </div>
       </div>

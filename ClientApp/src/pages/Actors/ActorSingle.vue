@@ -42,6 +42,11 @@
                             <h6>تاریخ تولد</h6>
                             <p>{{ People.dateOfBirth }}</p>
                           </div>
+                          <div class="sb-it">
+                            <h6>سمت ها :</h6>
+                            <p v-if="People.isCaster">بازیگر</p>
+                            <p v-if="People.isDirector">کارگردان</p>
+                          </div>
                         </div>
                       </div>
                       <div class="title-hd-sm">
