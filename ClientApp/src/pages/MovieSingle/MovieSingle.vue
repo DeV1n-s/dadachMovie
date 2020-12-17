@@ -95,9 +95,9 @@
                     <div id="overview" class="tab active">
                       <div class="row">
                         <div class="col-md-8 col-sm-12 col-xs-12">
-                          <h5>{{ Movie.shortPara }}</h5>
+                          <h5>{{ Movie.shortDescription }}</h5>
                           <hr />
-                          <p>{{ Movie.longPara }}</p>
+                          <p>{{ Movie.description }}</p>
                           <!-- movie user review -->
                           <div id="reviews">
                             <div class="row">

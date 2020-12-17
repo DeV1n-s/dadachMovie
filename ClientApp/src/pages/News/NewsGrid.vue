@@ -14,7 +14,7 @@
             <h3>
               <router-link
                 :to="{ name: 'NewsSingle', params: { id: Post.id } }"
-                >{{ Post.shortPara }}</router-link
+                >{{ Post.shortDescription }}</router-link
               >
             </h3>
             <span class="time">تاریخ</span>

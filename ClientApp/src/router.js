@@ -15,6 +15,9 @@ import CastAdd from './pages/Admin/Cast/CastAdd.vue'
 import UserProfile from './pages/UserProfile/UserProfile'
 import Top250Movies from './pages/Top250IMDB/Top250IMDB.vue'
 import Top250Single from './pages/Top250IMDB/MovieSingle.vue'
+import MovieListGenre from './pages/MovieListGenre/MovieListGenre.vue'
+// import MovieSortGenre from './pages/MovieList/MovieSortGenre.vue '
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -34,7 +37,11 @@ const router = createRouter({
         { path: '/CastPanel', component: CastPanel },
         { path: '/CastAdd', component: CastAdd },
         { path: '/Top250Movies', component: Top250Movies },
-        { path: '/Top250Single/:id', name: 'Top250Single', component: Top250Single }
+        { path: '/Top250Single/:id', name: 'Top250Single', component: Top250Single },
+        { path: '/MovieListGenre/:id', name: 'MovieListGenre', component: MovieListGenre },
+
+        // { path: '/MovieSortGenre/:id', name: 'MovieSortGenre', component: MovieSortGenre }
+        
 
         // { path: '/PostData', component: PostData, meta: { requiresAuth: true } },
     ],

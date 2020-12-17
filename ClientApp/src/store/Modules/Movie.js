@@ -5,6 +5,7 @@ const state = {
     InTheater: "",
     Genres: "",
     TopImbd: "",
+    genreId:"",
 };
 
 const getters = {
@@ -78,6 +79,8 @@ const actions = {
                 commit('SET_TOP_IMBD', response.data)
             })
     },
+    
+
 }
 
 export default {
