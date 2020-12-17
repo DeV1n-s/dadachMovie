@@ -1,6 +1,6 @@
 namespace dadachMovie.DTOs
 {
-    public class CasterDTO
+    public class CastDTO
     {
         public int PersonId { get; set; }
         public string Character { get; set; }

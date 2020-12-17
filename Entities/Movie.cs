@@ -20,7 +20,7 @@ namespace dadachMovie.Entities
         [ImdbIdValidator]
         public string ImdbId { get; set; }
         public string Picture { get; set; }
-        public List<MoviesCasters> Casters { get; set; } = new List<MoviesCasters>();
+        public List<MoviesCasts> Casts { get; set; } = new List<MoviesCasts>();
         public List<MoviesGenres> Genres { get; set; } = new List<MoviesGenres>();
         public List<MoviesDirectors> Directors { get; set; } = new List<MoviesDirectors>();
     }

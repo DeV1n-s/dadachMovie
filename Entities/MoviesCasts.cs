@@ -1,6 +1,6 @@
 namespace dadachMovie.Entities
 {
-    public class MoviesCasters
+    public class MoviesCasts
     {
         public int PersonId { get; set; }
         public int MovieId { get; set; }

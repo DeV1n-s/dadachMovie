@@ -66,15 +66,23 @@ namespace dadachMovie.Controllers
 
             // var moviesDirectors = await dbContext.MoviesDirectors.Where(m => m.PersonId == id).Select(x => x.Movie).ToListAsync();
             // return mapper.Map<List<MovieDetailsDTO>>(moviesDirectors);
-            var movies = await dbContext.MoviesCasters
-                                            .Include(m => m.Movie).ThenInclude(c => c.Casters).ThenInclude(x => x.Person)
-                                            .Include(m => m.Movie).ThenInclude(d => d.Directors).ThenInclude(x => x.Person)
-                                            .Include(m => m.Movie).ThenInclude(g => g.Genres).ThenInclude(x => x.Genre)
-                                            .Where(m => m.PersonId == id)
-                                            .Select(m => m.Movie)
-                                            .ToListAsync();
+            // var movies = await dbContext.MoviesCasters
+            //                                 .Include(m => m.Movie).ThenInclude(c => c.Casters).ThenInclude(x => x.Person)
+            //                                 .Include(m => m.Movie).ThenInclude(d => d.Directors).ThenInclude(x => x.Person)
+            //                                 .Include(m => m.Movie).ThenInclude(g => g.Genres).ThenInclude(x => x.Genre)
+            //                                 .Where(m => m.PersonId == id)
+            //                                 .Select(m => m.Movie)
+            //                                 .ToListAsync();
 
-            return mapper.Map<List<MovieDetailsDTO>>(movies);
+            var movies = dbContext.Movies
+                                    .Include(m => m.Casts).ThenInclude(m => m.Person)
+                                    .Include(m => m.Genres).ThenInclude(m => m.Genre)
+                                    .Include(m => m.Directors).ThenInclude(m => m.Person)
+                                    .AsQueryable();
+
+            var films = await movies.Where(x => x.Casts.Any(x => x.PersonId == id)).ToListAsync();
+
+            return mapper.Map<List<MovieDetailsDTO>>(films);
         }
 
         [HttpGet("filter")]
@@ -87,9 +95,9 @@ namespace dadachMovie.Controllers
                 peopleQueryable = peopleQueryable.Where(p => p.Name.Contains(filterPersonDTO.Name));
             }
 
-            if (filterPersonDTO.IsCaster)
+            if (filterPersonDTO.IsCast)
             {
-                peopleQueryable = peopleQueryable.Where(p => p.IsCaster);
+                peopleQueryable = peopleQueryable.Where(p => p.IsCast);
             }
 
             if (filterPersonDTO.IsDirector)

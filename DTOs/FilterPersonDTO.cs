@@ -11,7 +11,7 @@ namespace dadachMovie.DTOs
             get { return new PaginationDTO() { Page = Page, RecordsPerPage = RecordsPerPage };}
         }
         public string Name { get; set; }
-        public bool IsCaster { get; set; }
+        public bool IsCast { get; set; }
         public bool IsDirector { get; set; }
         public DateTime MinDateOfBirth { get; set; }
         public DateTime MaxDateOfBirth { get; set; } = DateTime.Now;

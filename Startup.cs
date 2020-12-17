@@ -2,6 +2,7 @@ using AutoMapper;
 using dadachMovie.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,15 +38,21 @@ namespace dadachMovie
                 configuration.RootPath = "wwwroot";
             });
 
-            services.AddDbContextPool<AppDbContext>( options =>
+            services.AddDbContextPool<AppDbContext>( opt =>
             {
-                options.UseSqlite(Configuration.GetConnectionString("SqliteConnection"));
+                opt.UseMySql(Configuration.GetConnectionString("MariaDbConnection"),
+                            new MariaDbServerVersion(new System.Version(10, 5, 0)));
             });
 
             services.AddAutoMapper(typeof(Startup));
 
             services.AddTransient<IFileStorageService, InAppStorageService>();
             services.AddTransient<IHostedService, MovieInTheaterService>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddHttpContextAccessor();
             services.AddSwaggerGen();
         }

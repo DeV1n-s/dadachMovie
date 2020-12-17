@@ -27,7 +27,7 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GenreId))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Genre.Name));
             
-            CreateMap<MoviesCasters, CasterDTO>()
+            CreateMap<MoviesCasts, CastDTO>()
                 .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.PersonId))
                 .ForMember(dest => dest.Character, opt => opt.MapFrom(src => src.Character))
                 .ForMember(dest => dest.PersonName, opt => opt.MapFrom(src => src.Person.Name));
@@ -36,7 +36,7 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.PersonId))
                 .ForMember(dest => dest.PersonName, opt => opt.MapFrom(src => src.Person.Name));
 
-            CreateMap<CasterCreationDTO, MoviesCasters>()
+            CreateMap<CastCreationDTO, MoviesCasts>()
                 .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.PersonId))
                 .ForMember(dest => dest.Character, opt => opt.MapFrom(src => src.Character));
 
@@ -49,7 +49,7 @@ namespace dadachMovie.Helpers
 
             CreateMap<Movie, MoviePatchDTO>().ReverseMap();
 
-            CreateMap<MoviesCasters, PersonDTO>()
+            CreateMap<MoviesCasts, PersonDTO>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId))
                 .ReverseMap();
         }

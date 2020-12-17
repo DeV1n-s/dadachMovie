@@ -15,8 +15,8 @@ namespace dadachMovie.DTOs
         [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]
         public List<int> GenresId { get; set; }
 
-        [ModelBinder(BinderType = typeof(TypeBinder<List<CasterCreationDTO>>))]
-        public List<CasterCreationDTO> Casters { get; set; }
+        [ModelBinder(BinderType = typeof(TypeBinder<List<CastCreationDTO>>))]
+        public List<CastCreationDTO> Casts { get; set; }
 
         [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]
         public List<int> DirectorsId { get; set; }

@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using dadachMovie.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -17,7 +18,7 @@ namespace dadachMovie
             modelBuilder.Entity<MoviesGenres>()
                 .HasKey(x => new {x.GenreId, x.MovieId});
             
-            modelBuilder.Entity<MoviesCasters>()
+            modelBuilder.Entity<MoviesCasts>()
                 .HasKey(x => new {x.MovieId, x.PersonId});
             
             modelBuilder.Entity<MoviesDirectors>()
@@ -29,7 +30,7 @@ namespace dadachMovie
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<MoviesGenres> MoviesGenres { get; set; }
-        public DbSet<MoviesCasters> MoviesCasters { get; set; }
+        public DbSet<MoviesCasts> MoviesCasts { get; set; }
         public DbSet<MoviesDirectors> MoviesDirectors { get; set; }
     }
 }

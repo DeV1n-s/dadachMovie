@@ -36,7 +36,7 @@ namespace dadachMovie.Controllers
         public async Task<ActionResult<List<MovieDetailsDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
         {
             var queryable = dbContext.Movies
-                                    .Include(m => m.Casters).ThenInclude(m => m.Person)
+                                    .Include(m => m.Casts).ThenInclude(m => m.Person)
                                     .Include(m => m.Genres).ThenInclude(m => m.Genre)
                                     .Include(m => m.Directors).ThenInclude(m => m.Person)
                                     .AsQueryable();
@@ -126,7 +126,7 @@ namespace dadachMovie.Controllers
         public async Task<ActionResult<MovieDetailsDTO>> GetById(int id)
         {
             var movie = await dbContext.Movies
-                .Include(m => m.Casters).ThenInclude(m => m.Person)
+                .Include(m => m.Casts).ThenInclude(m => m.Person)
                 .Include(m => m.Genres).ThenInclude(m => m.Genre)
                 .Include(m => m.Directors).ThenInclude(m => m.Person)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -155,7 +155,7 @@ namespace dadachMovie.Controllers
                 }
             }
 
-            AnnotateCastersOrder(movie);
+            AnnotateCastsOrder(movie);
 
             dbContext.Add(movie);
             await dbContext.SaveChangesAsync();
@@ -191,7 +191,7 @@ namespace dadachMovie.Controllers
             
             await dbContext.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM MoviesActors WHERE MovieId = {movieDb.Id}; DELETE FROM MoviesGenres WHERE MovieId = {movieDb.Id}; DELETE FROM MoviesDirectors WHERE MovieId = {movieDb.Id};");
 
-            AnnotateCastersOrder(movieDb);
+            AnnotateCastsOrder(movieDb);
 
             await dbContext.SaveChangesAsync();
             return NoContent();
@@ -243,13 +243,13 @@ namespace dadachMovie.Controllers
 
         }
 
-        private static void AnnotateCastersOrder(Movie movie)
+        private static void AnnotateCastsOrder(Movie movie)
         {
-            if (movie.Casters != null)
+            if (movie.Casts != null)
             {
-                for (int i = 0; i < movie.Casters.Count; i++)
+                for (int i = 0; i < movie.Casts.Count; i++)
                 {
-                    movie.Casters[i].Order = i;
+                    movie.Casts[i].Order = i;
                 }
             }
         }

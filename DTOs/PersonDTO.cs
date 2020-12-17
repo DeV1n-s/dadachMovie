@@ -9,7 +9,7 @@ namespace dadachMovie.DTOs
         public string Biography { get; set; }
         public string Nationality { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public bool IsCaster { get; set; }
+        public bool IsCast { get; set; }
         public bool IsDirector { get; set; }
         public string Picture { get; set; }
     }
