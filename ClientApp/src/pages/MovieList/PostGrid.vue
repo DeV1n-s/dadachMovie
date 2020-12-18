@@ -7,22 +7,20 @@
     >
       <img :src="MovieList.picture" alt="" />
       <div class="mv-item-infor">
-        <h6>
+        <h5>
           <router-link
             :to="{ name: 'MovieSingle', params: { id: MovieList.id } }"
           >
             {{ MovieList.title }}
           </router-link>
-        </h6>
+        </h5>
         <p class="rate">
           <i class="ion-android-star"></i><span>{{ MovieList.rate }}</span> /10
         </p>
         <p class="describe">
           {{ MovieList.shortDescription }}
         </p>
-        <p class="run-time">
-          <span>سال انتشار :{{ MovieList.releaseDate }}</span>
-        </p>
+        <p class="run-time">سال انتشار :{{ MovieList.releaseDate }}</p>
         <p>کارگردان : {{ Diractor }}</p>
         <p>
           ستاره ها :
@@ -31,7 +29,7 @@
           >
         </p>
         <p>
-          ژانر : <span> {{ MovieList.genres }} </span>
+          ژانر : <span> {{ MovieList.genres[0].name }} </span>
         </p>
       </div>
     </div>
@@ -52,7 +50,7 @@ export default {
     return {
       MovieLists: this.$store.getters.GetMovies,
       Cast: this.$store.getters.GetMovies,
-      Diractor: this.$store.getters.GetMovies[0].directors
+      Diractor: this.$store.getters.GetMovies[0].directors[0].personName
     };
   },
   mounted() {
@@ -62,6 +60,10 @@ export default {
 </script>
 
 <style scoped>
+h5 a {
+  color: rgba(149, 165, 3, 0.897) !important;
+  margin-bottom: 5px !important;
+}
 .movie_list .movie-item-style-2 img,
 .movie_single .movie-item-style-2 img,
 .userfav_list .movie-item-style-2 img {
@@ -73,6 +75,6 @@ export default {
   font-size: 1.75rem;
 }
 img {
-  margin-left: 0.5em;
+  margin-left: 1em;
 }
 </style>

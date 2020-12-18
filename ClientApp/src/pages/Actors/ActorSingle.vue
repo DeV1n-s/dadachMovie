@@ -132,6 +132,9 @@ export default {
 </script>
 
 <style>
+h5 {
+  line-height: 1.4;
+}
 img.cast-movie-img {
   width: 65px;
   height: 100px;
