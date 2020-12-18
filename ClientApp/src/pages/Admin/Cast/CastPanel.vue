@@ -61,6 +61,25 @@
               max="2020-12-30"
               v-model="castEdit.dateOfBirth"
             />
+            <label for="fname">ملیت </label>
+            <input type="text" v-model="castEdit.nationality" />
+            <div class="types">
+              <h6>سمت ها :</h6>
+              <label class="container"
+                >بازیگر
+                <input
+                  type="checkbox"
+                  checked="checked"
+                  v-model="castEdit.isCast"
+                />
+                <span class="checkmark"></span>
+              </label>
+              <label class="container"
+                >کاردگردان
+                <input type="checkbox" v-model="castEdit.isDiractor" />
+                <span class="checkmark"></span>
+              </label>
+            </div>
             <img class="edit-img" :src="castEdit.picture" alt="" />
 
             <input
@@ -104,7 +123,10 @@ export default {
         shortBio: '',
         biography: '',
         dateOfBirth: '',
-        picture: ''
+        picture: '',
+        nationality: '',
+        isCast: '',
+        isDirector: ''
       },
 
       Peoples: this.$store.getters.GetPeaple
@@ -127,6 +149,9 @@ export default {
       form.append('Biography', this.castEdit.biography);
       form.append('DateOfBirth', this.castEdit.dateOfBirth);
       form.append('Picture', this.castEdit.picture);
+      form.append('Nationality', this.castEdit.nationality);
+      form.append('IsCast', this.castEdit.isCast);
+      form.append('IsDirector', this.castEdit.isDirector);
       console.log(this.castEdit);
       await axios.put('http://localhost:8080/api/people/' + id, form);
 
@@ -150,6 +175,61 @@ export default {
 </script>
 
 <style scoped>
+input[type='checkbox'] {
+  /* padding: 2rem; */
+  margin-right: 1rem;
+}
+.types h6 {
+  padding-bottom: 0.5rem;
+  color: #ccc;
+}
+.types label {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
 .custom-file-input::-webkit-file-upload-button {
   background-color: antiquewhite;
   visibility: hidden;
