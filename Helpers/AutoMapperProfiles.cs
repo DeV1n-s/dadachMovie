@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace dadachMovie.Helpers
 {
@@ -52,6 +53,10 @@ namespace dadachMovie.Helpers
             CreateMap<MoviesCasts, PersonDTO>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId))
                 .ReverseMap();
+            
+            CreateMap<IdentityUser, UserDTO>()
+                .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id));
         }
 
         private List<MoviesGenres> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie)

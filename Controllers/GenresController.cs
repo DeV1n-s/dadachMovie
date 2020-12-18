@@ -4,6 +4,8 @@ using AutoMapper;
 using dadachMovie;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,6 +45,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPost]
+        // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Post([FromBody] GenreCreationDTO genreCreationDTO)
         {
             var genre = mapper.Map<Genre>(genreCreationDTO);

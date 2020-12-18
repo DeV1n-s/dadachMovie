@@ -1,5 +1,8 @@
+using System;
+using System.Text;
 using AutoMapper;
 using dadachMovie.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using VueCliMiddleware;
@@ -53,6 +57,20 @@ namespace dadachMovie
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(Configuration["jwt:key"])),
+                        ClockSkew = TimeSpan.Zero
+                    }
+                );
+
             services.AddHttpContextAccessor();
             services.AddSwaggerGen();
         }
@@ -77,6 +95,10 @@ namespace dadachMovie
             });
 
             app.UseRouting ();
+
+            app.UseAuthentication();
+            
+            app.UseAuthorization();
 
             app.UseCors(builder => builder
                 .AllowAnyMethod()
