@@ -50,42 +50,12 @@
                         </div>
                       </div>
                       <div class="title-hd-sm">
-                        <h3 class="fimographi">فیلموگرافی</h3>
+                        <h3 class="fimographi">فیلم گرافی</h3>
                         <a href="#" class="time"
                           ><i class="ion-ios-arrow-right"></i
                         ></a>
                       </div>
                       <!-- movie cast -->
-                      <div class="mvcast-item">
-                        <div class="cast-it">
-                          <div class="cast-left cebleb-film">
-                            <img
-                              class="cast-movie-img"
-                              src="http://localhost:5000/movies/ddf170a3-eddb-4731-8e1f-4a0d5a223169.jpg"
-                              alt=""
-                            />
-                            <div>
-                              <a href="#"> نام فیلم </a>
-                            </div>
-                            <p>تاریخ</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="mvcast-item">
-                        <div class="cast-it">
-                          <div class="cast-left cebleb-film">
-                            <img
-                              class="cast-movie-img"
-                              src="http://localhost:5000/movies/ddf170a3-eddb-4731-8e1f-4a0d5a223169.jpg"
-                              alt=""
-                            />
-                            <div>
-                              <a href="#"> نام فیلم </a>
-                            </div>
-                            <p>تاریخ</p>
-                          </div>
-                        </div>
-                      </div>
                       <div class="mvcast-item">
                         <div class="cast-it">
                           <div class="cast-left cebleb-film">
@@ -122,7 +92,24 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+  data() {
+    return {
+      id: this.$route.params.id
+    };
+  },
+  methods: {
+    castMoiveGet() {
+      axios
+        .get('http://localhost:8080/api/People/' + this.id + '/Movies')
+        .then(res => console.log(res.data));
+    }
+  },
+  mounted() {
+    this.castMoiveGet();
+    console.log(this.id);
+  },
   computed: {
     People() {
       return this.$store.getters.Peoples(parseInt(this.$route.params.id));

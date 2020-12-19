@@ -101,19 +101,58 @@
 
       <!-- top search form -->
       <div class="top-search">
-        <input type="text" placeholder="جست و جو در بین فیلم ها و سریال ها" />
+        <input
+          dir="ltr"
+          type="text"
+          :placeholder="
+            isSearchValid
+              ? 'جست و جو در بین فیلم ها '
+              : 'لطفا نام فیلم را وارد کنید'
+          "
+          v-model="searchTitle"
+        />
+
+        <router-link
+          :to="{ name: 'MovieListTitleSearch', params: { id: pSearchTitle } }"
+        >
+          <button class="btn btn-blue" @click="search">جست و جو</button>
+        </router-link>
       </div>
     </div>
   </header>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      isSearchValid: true,
+      searchTitle: '',
+      pSearchTitle: '$'
+    };
+  },
+  methods: {
+    search() {
+      if (this.searchTitle === '') {
+        this.isSearchValid = false;
+        this.$router.push('/');
+        return;
+      } else this.pSearchTitle = this.searchTitle;
+    }
+  }
+};
 </script>
 
 <style>
 .dropdown-menu {
   float: right !important;
   text-align: center !important;
+}
+.btn-blue {
+  background-color: #abb7c4;
+}
+button.btn.btn-blue {
+  margin-bottom: 0;
+  height: 45px;
 }
 </style>
