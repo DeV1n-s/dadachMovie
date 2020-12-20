@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 v-if="Peoples == ''" class="not-found">متاسفانه موردی یافت نشد :(</h1>
     <div class="celebrity-items">
       <div class="ceb-item" v-for="People in Peoples" :key="People.id">
         <router-link :to="{ name: 'ActorSingle', params: { id: People.id } }"
@@ -40,14 +41,19 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
-      Peoples: this.$store.getters.GetPeaple
+      id: this.$route.params.id,
+
+      Peoples: []
     };
   },
   mounted() {
-    this.$store.dispatch('GetPeoples');
+    axios
+      .get('http://localhost:8080/api/People/filter?Name=' + this.id)
+      .then(res => (this.Peoples = res.data));
   }
 };
 </script>
@@ -59,5 +65,9 @@ img {
 }
 .short-bio {
   width: 280px;
+}
+.not-found {
+  margin-bottom: 8rem;
+  color: aliceblue;
 }
 </style>

@@ -82,7 +82,6 @@ export default {
         this.isSearchValid = false;
         return;
       } else this.cSearchTitle = this.searchTitle;
-      console.log(this.searchTitle);
     }
   }
 };

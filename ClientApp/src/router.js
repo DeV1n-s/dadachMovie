@@ -18,6 +18,7 @@ import Top250Single from './pages/Top250IMDB/MovieSingle.vue'
 import MovieListGenre from './pages/MovieListGenre/MovieListGenre.vue'
 import NotFound from './pages/404/404.vue'
 import MovieListTitleSearch from './pages/MovieListTitleSearch/MovieListTitleSearch.vue'
+import ActorListsSearch from './pages/ActorsSearch/ActorListsSearch.vue'
 // import MovieSortGenre from './pages/MovieList/MovieSortGenre.vue '
 
 const router = createRouter({
@@ -42,6 +43,8 @@ const router = createRouter({
         { path: '/Top250Single/:id', name: 'Top250Single', component: Top250Single },
         { path: '/MovieListGenre/:id', name: 'MovieListGenre', component: MovieListGenre },
         { path: '/MovieListTitleSearch/:id', name: 'MovieListTitleSearch', component: MovieListTitleSearch },
+        { path: '/ActorListsSearch/:id', name: 'ActorListsSearch', component: ActorListsSearch },
+
 
         { path: '/404', component: NotFound },  
         {
