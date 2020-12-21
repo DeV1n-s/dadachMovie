@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import HomeContainer from './HomeContainer.vue'
 import Home from './pages/Home/Home.vue'
 import MovieList from './pages/MovieList/MovieList.vue'
 import ActorList from './pages/Actors/ActorList.vue'
@@ -25,6 +26,9 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
 
+        {
+          path:'/', component:HomeContainer,
+      children:[
         { path: '/', component: Home },
         { path: '/UserProfile', component: UserProfile },
         { path: '/MovieList', component: MovieList },
@@ -44,7 +48,9 @@ const router = createRouter({
         { path: '/MovieListGenre/:id', name: 'MovieListGenre', component: MovieListGenre },
         { path: '/MovieListTitleSearch/:id', name: 'MovieListTitleSearch', component: MovieListTitleSearch },
         { path: '/ActorListsSearch/:id', name: 'ActorListsSearch', component: ActorListsSearch },
-
+      ]
+      },
+        
 
         { path: '/404', component: NotFound },  
         {
@@ -76,4 +82,4 @@ const router = createRouter({
 //     // }
 // })
 
-export default router;
+export default router;``

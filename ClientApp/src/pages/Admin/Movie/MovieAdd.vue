@@ -165,7 +165,7 @@ export default {
       form.append('Picture', this.MovieData.Picture);
       form.append('InTheaters', this.MovieData.InTheaters);
       form.append('ReleaseDate', this.MovieData.ReleaseDate);
-      axios.post('http://localhost:8080/api/Movies', form).then(res => {
+      axios.post('/api/Movies', form).then(res => {
         console.log(res);
         this.$router.push('/Moviepanel');
       });
