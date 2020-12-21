@@ -23,6 +23,6 @@ namespace dadachMovie.Entities
         public List<MoviesCasts> Casts { get; set; } = new List<MoviesCasts>();
         public List<MoviesGenres> Genres { get; set; } = new List<MoviesGenres>();
         public List<MoviesDirectors> Directors { get; set; } = new List<MoviesDirectors>();
-    }
-    
+        public List<MoviesCountries> Countries { get; set; } = new List<MoviesCountries>();
+    } 
 }
