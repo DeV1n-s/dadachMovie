@@ -41,20 +41,13 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   data() {
     return {
-      id: this.$route.params.id,
-
-      Peoples: []
+      Peoples: this.$store.getters.GetSearchTitlePeople
     };
   },
-  mounted() {
-    axios
-      .get('http://localhost:8080/api/People/filter?Name=' + this.id)
-      .then(res => (this.Peoples = res.data));
-  }
+  mounted() {}
 };
 </script>
 

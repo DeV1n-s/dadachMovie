@@ -3,6 +3,9 @@ import axios from 'axios'
 const state = {
     movieTitle: '',
     searchMovieTitle: [],
+    peopleTitle: '',
+    searchCastTitle: [],
+
 };
 
 const getters = {
@@ -11,6 +14,9 @@ const getters = {
     },
     getMovieTitle(state) {
         return state.movieTitle;
+    },
+    GetSearchTitlePeople(state) {
+        return state.searchCastTitle;
     }
 };
 
@@ -18,7 +24,9 @@ const mutations = {
     SEARCH_MOVIE_TITLE(state, movie) {
         state.searchMovieTitle = movie
     },
-
+    SEARCH_PEOPLE_TITLE(state, people) {
+        state.searchCastTitle = people;
+    }
 
 };
 
@@ -33,6 +41,14 @@ const actions = {
             })
     },
 
+    PeopleSearchTitle({ commit }, searchTitle) {
+        axios
+            .get('http://localhost:8080/api/People/filter?Name=' + searchTitle)
+            .then(response => {
+                commit('SEARCH_PEOPLE_TITLE', response.data);
+            })
+
+    }
 }
 
 export default {

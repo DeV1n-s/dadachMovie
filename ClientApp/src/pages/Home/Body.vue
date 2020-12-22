@@ -537,13 +537,6 @@
                 </div>
               </div>
               <div class="celeb-item">
-                <a href="#"
-                  ><img
-                    src="images/uploads/ava2.jpg"
-                    alt=""
-                    width="70"
-                    height="70"
-                /></a>
                 <div class="celeb-author">
                   <h6><a href="#">Benjamin Carroll</a></h6>
                   <span>Actor</span>
