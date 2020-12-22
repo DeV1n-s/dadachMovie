@@ -52,24 +52,22 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
   data() {
     return {
-      movieData: [],
-      id: this.$route.params.id,
+      movieData: this.$store.getters.GetSearchTitleMovie,
+      // id: this.$route.params.id,
       MovieLists: this.$store.getters.GetMovies,
       Cast: this.$store.getters.GetMovies,
       Diractor: this.$store.getters.GetMovies[0].directors
     };
   },
   mounted() {
-    axios
-      .get('http://localhost:5000/api/Movies/filter?Title=' + this.id)
-      .then(res => (this.movieData = res.data));
-    console.log(this.movieData);
-    console.log(this.id);
+    // console.log(this.movieData);
+    // this.$store.dispatch('MovieSearchTitle');
+    // console.log(this.movieData);
   }
 };
 </script>

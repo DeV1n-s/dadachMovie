@@ -137,7 +137,11 @@ export default {
         this.isSearchValid = false;
         this.$router.push('/');
         return;
-      } else this.pSearchTitle = this.searchTitle;
+      } else {
+        this.pSearchTitle = this.searchTitle;
+        console.log(this.$store.getters.GetSearchTitleMovie);
+        this.$store.dispatch('MovieSearchTitle', this.searchTitle);
+      }
     }
   }
 };
