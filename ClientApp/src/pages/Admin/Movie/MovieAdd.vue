@@ -7,7 +7,7 @@
         <movie-form
           :Peoples="Peoples"
           :Genres="Genres"
-          v-on:submitData="submitData($event)"
+          @submitData="SubmitData($event)"
         />
       </div>
     </div>
@@ -29,16 +29,15 @@ export default {
     };
   },
   methods: {
-    submitData(form) {
-      axios.post('/api/Movies', form).then(res => {
-        console.log(res);
+    SubmitData(event) {
+      axios.post('/api/Movies', event).then(res => {
+        console.log(res.data);
+        console.log(event);
         this.$router.push('/Moviepanel');
       });
     },
     getGenre() {
-      axios
-        .get('http://localhost:8080/api/genres')
-        .then(res => (this.Genres = res.data));
+      axios.get('/api/genres').then(res => (this.Genres = res.data));
     },
     onFileSelected(event) {
       this.MovieData.Picture = event.target.files[0];

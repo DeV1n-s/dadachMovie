@@ -128,7 +128,6 @@ export default {
       this.MovieData.Directors.push(this.Directors);
       this.MovieData.GenresIds.push(this.GenresIds);
 
-      console.log(this.MovieData);
       const form = new FormData();
       // this.formAppender('Title', this.MovieData.Title);
       form.append('Title', this.MovieData.Title);
@@ -141,7 +140,10 @@ export default {
       form.append('Picture', this.MovieData.Picture);
       form.append('InTheaters', this.MovieData.InTheaters);
       form.append('ReleaseDate', this.MovieData.ReleaseDate);
-      this.$emit('submitData', 'form');
+      this.$emit('SubmitData', form);
+    },
+    onFileSelected(event) {
+      this.MovieData.Picture = event.target.files[0];
     }
   }
 };
