@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
 using dadachMovie.Helpers;
@@ -36,53 +37,54 @@ namespace dadachMovie.Controllers
         {
             var queryable = dbContext.People.AsQueryable();
             await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
-            var people = await queryable.Paginate(paginationDTO).ToListAsync();
+            var people = await queryable.Paginate(paginationDTO).ProjectTo<PersonDTO>(mapper.ConfigurationProvider).ToListAsync();
 
-            return mapper.Map<List<PersonDTO>>(people);
+            return people;
         }
 
         [HttpGet("{id}", Name = "getPerson")]
         public async Task<ActionResult<PersonDTO>> GetById(int id)
         {
-            var person = await dbContext.People.FirstOrDefaultAsync(p => p.Id == id);
+            // var person = await dbContext.People.Include(x => x.Country)
+            //                                 .ThenInclude(x => x.Country)
+            //                                 .FirstOrDefaultAsync(p => p.Id == id);
+            var person = await dbContext.People.ProjectTo<PersonDTO>(mapper.ConfigurationProvider)
+                                            .FirstOrDefaultAsync(p => p.Id == id);
+
             if (person == null)
             {
                 return NotFound();
             }
 
-            return mapper.Map<PersonDTO>(person);
+            return person;
         }
 
-        [HttpGet("{id:int}/Movies")]
-        public async Task<ActionResult<List<MovieDetailsDTO>>> GetActorMovies(int id)
+        [HttpGet("{id:int}/CastMovies")]
+        public async Task<ActionResult<List<MovieDetailsDTO>>> GetCastMovies(int id)
         {
             
-            // var caster = dbContext.People.Where(x => x.Id == id).Any(x => x.IsCaster);
-            // if (caster)
-            // {
-            //     var moviesCasters = await dbContext.MoviesCasters.Where(m => m.PersonId == id).Select(x => x.Movie).ToListAsync();
-            //     return mapper.Map<List<MovieDetailsDTO>>(moviesCasters);
-            // }
+            var person = dbContext.People.Any(x => x.Id == id);
+            if (!person)
+            {
+                return NotFound();
+            }
 
-            // var moviesDirectors = await dbContext.MoviesDirectors.Where(m => m.PersonId == id).Select(x => x.Movie).ToListAsync();
-            // return mapper.Map<List<MovieDetailsDTO>>(moviesDirectors);
-            // var movies = await dbContext.MoviesCasters
-            //                                 .Include(m => m.Movie).ThenInclude(c => c.Casters).ThenInclude(x => x.Person)
-            //                                 .Include(m => m.Movie).ThenInclude(d => d.Directors).ThenInclude(x => x.Person)
-            //                                 .Include(m => m.Movie).ThenInclude(g => g.Genres).ThenInclude(x => x.Genre)
-            //                                 .Where(m => m.PersonId == id)
-            //                                 .Select(m => m.Movie)
-            //                                 .ToListAsync();
+            return await dbContext.Movies.ProjectTo<MovieDetailsDTO>(mapper.ConfigurationProvider)
+                                        .Where(x => x.Casts.Any(x => x.PersonId == id)).ToListAsync();
+        }
 
-            var movies = dbContext.Movies
-                                    .Include(m => m.Casts).ThenInclude(m => m.Person)
-                                    .Include(m => m.Genres).ThenInclude(m => m.Genre)
-                                    .Include(m => m.Directors).ThenInclude(m => m.Person)
-                                    .AsQueryable();
+        [HttpGet("{id:int}/DirectorMovies")]
+        public async Task<ActionResult<List<MovieDetailsDTO>>> GetDirectorMovies(int id)
+        {
+            
+            var person = dbContext.People.Any(x => x.Id == id);
+            if (!person)
+            {
+                return NotFound();
+            }
 
-            var films = await movies.Where(x => x.Casts.Any(x => x.PersonId == id)).ToListAsync();
-
-            return mapper.Map<List<MovieDetailsDTO>>(films);
+            return await dbContext.Movies.ProjectTo<MovieDetailsDTO>(mapper.ConfigurationProvider)
+                                        .Where(x => x.Directors.Any(x => x.PersonId == id)).ToListAsync();
         }
 
         [HttpGet("filter")]

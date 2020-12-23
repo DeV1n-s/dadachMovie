@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using dadachMovie.Entities;
 
 namespace dadachMovie.DTOs
 {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using dadachMovie.Entities;
 using dadachMovie.Helpers;
 using dadachMovie.Validations;
 using Microsoft.AspNetCore.Http;
@@ -20,5 +21,8 @@ namespace dadachMovie.DTOs
 
         [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]
         public List<int> DirectorsId { get; set; }
+
+        [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]
+        public List<int> CountriesId { get; set; }
     }
 }

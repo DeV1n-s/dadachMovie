@@ -14,5 +14,6 @@ namespace dadachMovie.DTOs
         public bool UpcomingReleases { get; set; }
         public string OrderingField { get; set; }
         public bool AscendingOrder { get; set; } = true;
+        public int CountryId { get; set; }
     }
 }

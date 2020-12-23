@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
 using dadachMovie.Helpers;
@@ -35,19 +36,20 @@ namespace dadachMovie.Controllers
         [HttpGet]
         public async Task<ActionResult<List<MovieDetailsDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
         {
-            var queryable = dbContext.Movies
-                                    .Include(m => m.Casts).ThenInclude(m => m.Person)
-                                    .Include(m => m.Genres).ThenInclude(m => m.Genre)
-                                    .Include(m => m.Directors).ThenInclude(m => m.Person)
-                                    .AsQueryable();
+            // var queryable = dbContext.Movies
+            //                         .Include(m => m.Casts).ThenInclude(m => m.Person)
+            //                         .Include(m => m.Genres).ThenInclude(m => m.Genre)
+            //                         .Include(m => m.Directors).ThenInclude(m => m.Person)
+            //                         .AsQueryable();
                                     
+            var queryable = dbContext.Movies.ProjectTo<MovieDetailsDTO>(mapper.ConfigurationProvider).AsQueryable();
             await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
             var movies = await queryable
                                 .Paginate(paginationDTO)
                                 .OrderByDescending(m => m.Id)
                                 .ToListAsync();
 
-            return mapper.Map<List<MovieDetailsDTO>>(movies);
+            return movies;
         }
 
         [HttpGet("top")]
@@ -125,16 +127,19 @@ namespace dadachMovie.Controllers
         [HttpGet("{id:int}", Name = "getMovie")]
         public async Task<ActionResult<MovieDetailsDTO>> GetById(int id)
         {
-            var movie = await dbContext.Movies
-                .Include(m => m.Casts).ThenInclude(m => m.Person)
-                .Include(m => m.Genres).ThenInclude(m => m.Genre)
-                .Include(m => m.Directors).ThenInclude(m => m.Person)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            // var movie = await dbContext.Movies
+            //     .Include(m => m.Casts).ThenInclude(m => m.Person)
+            //     .Include(m => m.Genres).ThenInclude(m => m.Genre)
+            //     .Include(m => m.Directors).ThenInclude(m => m.Person)
+            //     .FirstOrDefaultAsync(m => m.Id == id);
+            var movie = await dbContext.Movies.ProjectTo<MovieDetailsDTO>(mapper.ConfigurationProvider)
+                                            .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (movie == null)
             {
                 return NotFound();
             }
-            return mapper.Map<MovieDetailsDTO>(movie);
+            return movie;
         }
 
         [HttpPost]

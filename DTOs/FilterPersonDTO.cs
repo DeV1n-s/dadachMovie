@@ -17,5 +17,6 @@ namespace dadachMovie.DTOs
         public DateTime MaxDateOfBirth { get; set; } = DateTime.Now;
         public string OrderingField { get; set; }
         public bool AscendingOrder { get; set; } = true;
+        public int CountryId { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace dadachMovie.DTOs
 {
@@ -13,5 +14,6 @@ namespace dadachMovie.DTOs
         public bool InTheaters { get; set; }
         public string ImdbId { get; set; }
         public string Picture { get; set; }
+        public List<string> Countries { get; set; }
     }
 }
