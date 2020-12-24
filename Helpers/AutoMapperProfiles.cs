@@ -17,7 +17,8 @@ namespace dadachMovie.Helpers
 
             CreateMap<Person, PersonDTO>()
                 .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Countries.Country.Name))
-                .ForMember(dest => dest.Nationality, opt => opt.MapFrom(src => src.Countries.Country.Nationality));
+                .ForMember(dest => dest.Nationality, opt => opt.MapFrom(src => src.Countries.Country.Nationality))
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.Date));
 
             CreateMap<PersonCreationDTO, Person>()
                 .ForMember(dest => dest.Picture, opt => opt.Ignore());
@@ -25,7 +26,8 @@ namespace dadachMovie.Helpers
             CreateMap<Person, PersonPatchDTO>().ReverseMap();
 
             CreateMap<Movie, MovieDTO>()
-                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Countries.Select(x => x.Country.Name).ToList()));
+                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Countries.Select(x => x.Country.Name).ToList()))
+                .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate.Date));
 
             CreateMap<MoviesGenres, GenreDTO>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GenreId))
@@ -51,7 +53,7 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.Countries, opt => opt.MapFrom(MapMoviesCountries));
 
             CreateMap<PersonCreationDTO, Person>()
-                .ForPath(dest => dest.Countries.CountryId, member => member.MapFrom(src => src.CountryId));
+                .ForPath(dest => dest.Countries.CountryId, opt => opt.MapFrom(src => src.CountryId));
 
             CreateMap<MoviesCountries, CountryDTO>().ReverseMap();
 
