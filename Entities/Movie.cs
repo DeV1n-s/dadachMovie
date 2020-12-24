@@ -14,9 +14,10 @@ namespace dadachMovie.Entities
         public string Title { get; set; }
         public string ShortDescription { get; set; }
         public string Description { get; set; }
-        
+
         [Column(TypeName = "date")]
         public DateTime ReleaseDate { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
         public float Rate { get; set; }
         public bool InTheaters { get; set; }
 
