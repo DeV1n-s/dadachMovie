@@ -10,6 +10,7 @@ namespace dadachMovie.DTOs
         public string ShortDescription { get; set; }
         public string Description { get; set; }
         public string ReleaseDate { get; set; }
+        public string ReleaseDatePersian { get; set; }
         public string CreatedAt { get; set; }
         public float Rate { get; set; }
         public bool InTheaters { get; set; }

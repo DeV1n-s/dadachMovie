@@ -18,7 +18,8 @@ namespace dadachMovie.Helpers
             CreateMap<Person, PersonDTO>()
                 .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Countries.Country.Name))
                 .ForMember(dest => dest.Nationality, opt => opt.MapFrom(src => src.Countries.Country.Nationality))
-                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.Date));
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.Date))
+                .ForMember(dest => dest.DateOfBirthPersian, opt => opt.MapFrom(src => src.DateOfBirth.ToPeString()));
 
             CreateMap<PersonCreationDTO, Person>()
                 .ForMember(dest => dest.Picture, opt => opt.Ignore());
@@ -65,7 +66,8 @@ namespace dadachMovie.Helpers
             CreateMap<PeopleCountries, PersonDTO>().ReverseMap();
 
             CreateMap<Movie, MovieDetailsDTO>()
-                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Countries.Select(x => x.Country.Name).ToList()));
+                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Countries.Select(x => x.Country.Name).ToList()))
+                .ForMember(dest => dest.ReleaseDatePersian, opt => opt.MapFrom(src => src.ReleaseDate.ToPeString()));
 
             CreateMap<Movie, MoviePatchDTO>().ReverseMap();
 
