@@ -160,10 +160,12 @@ namespace dadachMovie.Controllers
                 }
             }
 
+            movie.CreatedAt = DateTimeOffset.Now;
             AnnotateCastsOrder(movie);
 
             dbContext.Add(movie);
             await dbContext.SaveChangesAsync();
+            
             var movieDTO = mapper.Map<MovieDTO>(movie);
 
             return new CreatedAtRouteResult("getMovie", new { Id = movieDTO.Id }, movieDTO);
