@@ -8,6 +8,7 @@
           :Peoples="Peoples"
           :Genres="Genres"
           @submitData="SubmitData($event)"
+          :IsEditMode="isEditMode"
         />
       </div>
     </div>
@@ -24,15 +25,16 @@ export default {
   },
   data() {
     return {
+      isEditMode: false,
       Peoples: this.$store.getters.GetPeaple,
       Genres: []
     };
   },
   methods: {
-    SubmitData(event) {
-      axios.post('/api/Movies', event).then(res => {
+    SubmitData($event) {
+      axios.post('/api/Movies', $event).then(res => {
         console.log(res.data);
-        console.log(event);
+        console.log($event);
         this.$router.push('/Moviepanel');
       });
     },
