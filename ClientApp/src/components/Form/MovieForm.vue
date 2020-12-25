@@ -73,6 +73,7 @@
         </tbody>
       </div>
       <div class="country-select">
+        <label> کشور</label>
         <input list="brow" v-model="countries" />
         <datalist id="brow">
           <option
@@ -186,12 +187,10 @@ export default {
   padding-top: 2rem;
   padding-bottom: 2rem;
   width: 50%;
-  text-align: center;
 }
 .country-select input,
 .country-select option {
   width: 100%;
-  text-align: center;
 }
 .img-show {
   max-height: 330px;

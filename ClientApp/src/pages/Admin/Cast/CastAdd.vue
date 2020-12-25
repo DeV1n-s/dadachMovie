@@ -6,64 +6,7 @@
         <h3>برا ثبت بازیگر فیلد های زیر را تکمیل کنید</h3>
 
         <div>
-          <form action="/action_page.php">
-            <label for="fname">نام بازیگر </label>
-            <input type="text" id="fname" v-model="CastData.Name" />
-
-            <label for="lname">توضیحات کوتاه</label>
-            <input type="text" v-model="CastData.ShortBio" />
-            <label for="lname">بیوگرافی</label>
-            <textarea v-model="CastData.Biography"></textarea>
-            <label for="start">تاریخ تولد </label>
-
-            <input
-              type="date"
-              id="start"
-              name="trip-start"
-              min="0000-11-11"
-              max="2020-12-30"
-              v-model="CastData.DateOfBirth"
-            />
-            <label for="fname">ملیت </label>
-            <input type="text" v-model="CastData.Nationality" />
-            <div class="types">
-              <h6>سمت ها :</h6>
-              <label class="container"
-                >بازیگر
-                <input
-                  type="checkbox"
-                  checked="checked"
-                  v-model="CastData.isCast"
-                />
-                <span class="checkmark"></span>
-              </label>
-              <label class="container"
-                >کاردگردان
-                <input type="checkbox" v-model="CastData.isDiractor" />
-                <span class="checkmark"></span>
-              </label>
-            </div>
-
-            <label for="fname">تصویر </label>
-            <input
-              type="file"
-              class="custom-file-input"
-              @change="onFileSelected"
-            />
-
-            <button
-              type="submit"
-              @click.prevent="submitData"
-              class="btn btn-success btn-block"
-            >
-              ثبت
-            </button>
-            <router-link to="/CastPanel">
-              <button type="submit" class="btn btn-danger btn-block">
-                بازگشت
-              </button>
-            </router-link>
-          </form>
+          <people-from @submitData="SubmitData($event)" />
         </div>
       </div>
     </div>
@@ -72,7 +15,9 @@
 
 <script>
 import axios from 'axios';
+import PeopleFrom from '../../../components/Form/PeopleFrom.vue';
 export default {
+  components: { PeopleFrom },
   data() {
     return {
       CastData: {
@@ -87,27 +32,13 @@ export default {
       }
     };
   },
+
   methods: {
-    submitData() {
-      const form = new FormData();
-      form.append('Name', this.CastData.Name);
-      form.append('ShortBio', this.CastData.ShortBio);
-      form.append('Biography', this.CastData.Biography);
-      form.append('DateOfBirth', this.CastData.DateOfBirth);
-      form.append('Picture', this.CastData.Picture);
-      form.append('isCast', this.CastData.isCast);
-
-      form.append('IsDirector', this.CastData.isDiractor);
-      form.append('Nationality', this.CastData.Nationality);
-
-      axios.post('http://localhost:8080/api/people', form).then(res => {
-        console.log(res);
+    SubmitData($event) {
+      axios.post('/api/people', $event).then(res => {
+        console.log(res.data);
         this.$router.push('/CastPanel');
       });
-    },
-    onFileSelected(event) {
-      this.CastData.Picture = event.target.files[0];
-      // this.$refs.file.files[0];
     }
   },
 
