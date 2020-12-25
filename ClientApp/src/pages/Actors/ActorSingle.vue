@@ -47,6 +47,10 @@
                             <p v-if="People.isCast">بازیگر</p>
                             <p v-if="People.isDirector">کارگردان</p>
                           </div>
+                          <div class="sb-it">
+                            <h6>ملیت:</h6>
+                            <p v-if="People.isCast">{{ People.nationality }}</p>
+                          </div>
                         </div>
                       </div>
                       <div class="title-hd-sm">
