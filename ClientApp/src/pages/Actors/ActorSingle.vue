@@ -57,17 +57,28 @@
                       </div>
                       <!-- movie cast -->
                       <div class="mvcast-item">
-                        <div class="cast-it">
+                        <div
+                          class="cast-it"
+                          v-for="dirMovie in dirMovies"
+                          :key="dirMovie"
+                        >
                           <div class="cast-left cebleb-film">
                             <img
                               class="cast-movie-img"
-                              src="http://localhost:5000/movies/ddf170a3-eddb-4731-8e1f-4a0d5a223169.jpg"
+                              :src="dirMovie.picture"
                               alt=""
                             />
                             <div>
-                              <a href="#"> نام فیلم </a>
+                              <router-link
+                                :to="{
+                                  name: 'MovieSingle',
+                                  params: { id: dirMovie.id }
+                                }"
+                              >
+                                {{ dirMovie.title }}
+                              </router-link>
                             </div>
-                            <p>تاریخ</p>
+                            <p>{{ dirMovie.releaseDate }}</p>
                           </div>
                         </div>
                       </div>
@@ -96,18 +107,30 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      id: this.$route.params.id
+      id: this.$route.params.id,
+      castMovies: [],
+      dirMovies: []
     };
   },
   methods: {
     castMoiveGet() {
       axios
-        .get('http://localhost:8080/api/People/' + this.id + '/Movies')
-        .then(res => console.log(res.data));
+        .get('http://localhost:8080/api/People/' + this.id + '/CastMovies')
+        .then(res => {
+          this.castMovies = res.data;
+        });
+    },
+    dirtMoiveGet() {
+      axios
+        .get('http://localhost:8080/api/People/' + this.id + '/DirectorMovies')
+        .then(res => {
+          this.dirMovies = res.data;
+        });
     }
   },
   mounted() {
     this.castMoiveGet();
+    this.dirtMoiveGet();
     console.log(this.id);
   },
   computed: {
