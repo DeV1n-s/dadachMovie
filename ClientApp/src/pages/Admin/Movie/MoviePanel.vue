@@ -89,17 +89,7 @@ export default {
       isGenreMdoe: false,
       isEditMode: false,
       MovieEditData: {
-        id: null,
-        title: '',
-        rate: '',
-        releaseDate: null,
-        directors: [],
-        casters: [],
-        shortPara: '',
-        longPara: '',
-        genres: [],
-        picture: null,
-        inTheaters: false
+        id: null
       },
       Directors: [],
       Genres: '',
@@ -132,27 +122,13 @@ export default {
         .get('http://localhost:8080/api/genres')
         .then(res => (this.Genress = res.data));
     },
-    onFileSelected(event) {
-      this.MovieEditData.picture = event.target.files[0];
-      // this.$refs.file.files[0];
-    },
-    submitEdit(id) {
-      this.MovieEditData.directors = [];
-      this.MovieEditData.genres = [];
-      this.MovieEditData.directors.push(this.Directors);
-      this.MovieEditData.genres.push(this.Genres);
-      const form = new FormData();
-      form.append('Title', this.MovieEditData.title);
-      form.append('Rate', this.MovieEditData.rate);
-      form.append('DirectorsId', JSON.stringify(this.MovieEditData.directors));
-      form.append('ShortPara', this.MovieEditData.shortPara);
-      form.append('Description', this.MovieEditData.longPara);
-      form.append('GenresId', JSON.stringify(this.MovieEditData.genres));
-      form.append('Cast', JSON.stringify(this.MovieEditData.casters));
-      form.append('Picture', this.MovieEditData.picture);
-      form.append('InTheaters', this.MovieEditData.inTheaters);
+
+    SubmitData($event) {
       axios
-        .put('http://localhost:8080/api/Movies/' + id, form)
+        .put(
+          'http://localhost:8080/api/Movies/' + this.MovieEditData.id,
+          $event
+        )
         .then(res => {
           console.log(res);
           this.$router.push('/Moviepanel');
