@@ -72,6 +72,17 @@
           </tr>
         </tbody>
       </div>
+      <div class="country-select">
+        <input list="brow" v-model="countries" />
+        <datalist id="brow">
+          <option
+            v-for="Country in Countries"
+            :key="Country"
+            :value="Country.id"
+            >{{ Country.name }}
+          </option>
+        </datalist>
+      </div>
       <label for="fname">تصویر </label>
       <div class="img-show" v-if="IsEditMode">
         <img :src="MovieData.picture" alt="" />
@@ -113,12 +124,15 @@ export default {
         description: '',
         genres: [],
         picture: null,
-        inTheaters: false
+        inTheaters: false,
+        countries: []
       },
+      countries: '',
       genres: '',
       directors: [],
       GenresIds: '',
-      preCasters: []
+      preCasters: [],
+      Countries: this.$store.getters.GetCountry
     };
   },
   methods: {
@@ -130,6 +144,7 @@ export default {
       this.MovieData.casts.push(this.preCasters);
     },
     submitData() {
+      this.MovieData.countries.push(this.countries);
       this.MovieData.directors.push(this.directors);
       this.MovieData.genres.push(this.genres);
 
@@ -141,10 +156,11 @@ export default {
       form.append('ShortDescription', this.MovieData.shortDescription);
       form.append('Description', this.MovieData.description);
       form.append('GenresId', JSON.stringify(this.MovieData.genres));
-      form.append('Cast', JSON.stringify(this.MovieData.Casters));
+      form.append('Cast', JSON.stringify(this.MovieData.casts));
       form.append('Picture', this.MovieData.picture);
       form.append('InTheaters', this.MovieData.inTheaters);
       form.append('releaseDate', this.MovieData.releaseDate);
+      form.append('CountriesId', JSON.stringify(this.MovieData.countries));
       this.$emit('SubmitData', form);
     },
     onFileSelected(event) {
@@ -160,11 +176,23 @@ export default {
         console.log(this.genres);
       });
     }
+    this.$store.dispatch('GetCountry');
   }
 };
 </script>
 
 <style>
+.country-select {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 50%;
+  text-align: center;
+}
+.country-select input,
+.country-select option {
+  width: 100%;
+  text-align: center;
+}
 .img-show {
   max-height: 330px;
   max-width: 250px;
