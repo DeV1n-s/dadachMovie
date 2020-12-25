@@ -43,68 +43,11 @@
       </div>
       <transition name="slide" mode="out-in">
         <div v-if="isEditMode">
-          <form action="/action_page.php">
-            <label for="fname">نام بازیگر </label>
-            <input type="text" id="fname" v-model="castEdit.name" />
-
-            <label for="lname">توضیحات کوتاه</label>
-            <input type="text" v-model="castEdit.shortBio" />
-            <label for="lname">بیوگرافی</label>
-            <textarea v-model="castEdit.biography"></textarea>
-            <label for="start">تاریخ تولد</label>
-
-            <input
-              type="date"
-              id="start"
-              name="trip-start"
-              min="0000-11-11"
-              max="2020-12-30"
-              v-model="castEdit.dateOfBirth"
-            />
-            <label for="fname">ملیت </label>
-            <input type="text" v-model="castEdit.nationality" />
-            <div class="types">
-              <h6>سمت ها :</h6>
-              <label class="container"
-                >بازیگر
-                <input
-                  type="checkbox"
-                  checked="checked"
-                  v-model="castEdit.isCast"
-                />
-                <span class="checkmark"></span>
-              </label>
-              <label class="container"
-                >کاردگردان
-                <input type="checkbox" v-model="castEdit.isDiractor" />
-                <span class="checkmark"></span>
-              </label>
-            </div>
-            <img class="edit-img" :src="castEdit.picture" alt="" />
-
-            <input
-              type="file"
-              class="custom-file-input"
-              @change="onFileSelected"
-            />
-
-            <button
-              type="submit"
-              @click.prevent="submitEdit(castEdit.id)"
-              class="btn btn-success btn-block"
-            >
-              ثبت
-            </button>
-            <router-link to="/CastPanel">
-              <button
-                type="submit"
-                class="btn btn-danger btn-block"
-                @click="isEditMode = false"
-              >
-                لغو
-              </button>
-            </router-link>
-          </form>
+          <people-from
+            :ID="id"
+            :IsEditMode="isEditMode"
+            @submitData="SubmitData($event)"
+          />
         </div>
       </transition>
     </div>
@@ -113,47 +56,25 @@
 
 <script>
 import axios from 'axios';
+import PeopleFrom from '../../../components/Form/PeopleFrom.vue';
 export default {
+  components: { PeopleFrom },
   data() {
     return {
       isEditMode: false,
-      castEdit: {
-        id: null,
-        name: '',
-        shortBio: '',
-        biography: '',
-        dateOfBirth: '',
-        picture: '',
-        nationality: '',
-        isCast: '',
-        isDirector: ''
-      },
-
+      id: null,
       Peoples: this.$store.getters.GetPeaple
     };
   },
   methods: {
     editBtn(id) {
       this.isEditMode = true;
-      this.castEdit.id = id;
-      axios
-        .get('http://localhost:8080/api/people/' + id)
-        .then(res => (this.castEdit = res.data))
-        .then(console.log(this.castEdit));
+      this.id = id;
     },
-    async submitEdit(id) {
-      const form = new FormData();
-      form.append('id', this.castEdit.id);
-      form.append('Name', this.castEdit.name);
-      form.append('ShortBio', this.castEdit.shortBio);
-      form.append('Biography', this.castEdit.biography);
-      form.append('DateOfBirth', this.castEdit.dateOfBirth);
-      form.append('Picture', this.castEdit.picture);
-      form.append('Nationality', this.castEdit.nationality);
-      form.append('IsCast', this.castEdit.isCast);
-      form.append('IsDirector', this.castEdit.isDirector);
-      console.log(this.castEdit);
-      await axios.put('http://localhost:8080/api/people/' + id, form);
+    async SubmitData($event) {
+      await axios
+        .put('http://localhost:8080/api/people/' + this.id, $event)
+        .then(res => console.log(res.data));
 
       this.isEditMode = false;
     },

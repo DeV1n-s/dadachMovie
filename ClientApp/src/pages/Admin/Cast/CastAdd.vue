@@ -6,7 +6,11 @@
         <h3>برا ثبت بازیگر فیلد های زیر را تکمیل کنید</h3>
 
         <div>
-          <people-from @submitData="SubmitData($event)" />
+          <people-from
+            :IsEditMode="isEditMode"
+            :ID="id"
+            @submitData="SubmitData($event)"
+          />
         </div>
       </div>
     </div>
@@ -20,16 +24,8 @@ export default {
   components: { PeopleFrom },
   data() {
     return {
-      CastData: {
-        Name: '',
-        ShortBio: '',
-        Biography: '',
-        DateOfBirth: '',
-        Picture: null,
-        isCast: false,
-        isDiractor: false,
-        Nationality: ''
-      }
+      isEditMode: false,
+      id: 0
     };
   },
 

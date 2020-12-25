@@ -40,9 +40,6 @@ export default {
     },
     getGenre() {
       axios.get('/api/genres').then(res => (this.Genres = res.data));
-    },
-    onFileSelected(event) {
-      this.MovieData.Picture = event.target.files[0];
     }
   },
 

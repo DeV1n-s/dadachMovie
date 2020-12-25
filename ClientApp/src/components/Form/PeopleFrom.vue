@@ -1,12 +1,12 @@
 <template>
   <form action="/action_page.php">
     <label for="fname">نام بازیگر </label>
-    <input type="text" id="fname" v-model="CastData.Name" />
+    <input type="text" id="fname" v-model="CastData.name" />
 
     <label for="lname">توضیحات کوتاه</label>
-    <input type="text" v-model="CastData.ShortBio" />
+    <input type="text" v-model="CastData.shortBio" />
     <label for="lname">بیوگرافی</label>
-    <textarea v-model="CastData.Biography"></textarea>
+    <textarea v-model="CastData.biography"></textarea>
     <label for="start">تاریخ تولد </label>
 
     <input
@@ -15,12 +15,12 @@
       name="trip-start"
       min="0000-11-11"
       max="2020-12-30"
-      v-model="CastData.DateOfBirth"
+      v-model="CastData.dateOfBirth"
     />
     <div class="country-select">
       <label for="fname">ملیت </label>
 
-      <input list="brow" v-model="CastData.Nationality" />
+      <input list="brow" v-model="CastData.nationality" />
       <datalist id="brow">
         <option v-for="Country in Countries" :key="Country" :value="Country.id"
           >{{ Country.name }}
@@ -60,35 +60,36 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+  props: ['ID', 'IsEditMode'],
   data() {
     return {
       CastData: {
-        Name: '',
-        ShortBio: '',
-        Biography: '',
-        DateOfBirth: '',
-        Picture: null,
+        name: '',
+        shortBio: '',
+        biography: '',
+        dateOfBirth: '',
+        picture: null,
         isCast: false,
         isDiractor: false,
-        Nationality: ''
+        nationality: ''
       },
-      countries: '',
       Countries: this.$store.getters.GetCountry
     };
   },
   methods: {
     submitData() {
       const form = new FormData();
-      form.append('Name', this.CastData.Name);
-      form.append('ShortBio', this.CastData.ShortBio);
-      form.append('Biography', this.CastData.Biography);
-      form.append('DateOfBirth', this.CastData.DateOfBirth);
-      form.append('Picture', this.CastData.Picture);
+      form.append('Name', this.CastData.name);
+      form.append('ShortBio', this.CastData.shortBio);
+      form.append('Biography', this.CastData.biography);
+      form.append('DateOfBirth', this.CastData.dateOfBirth);
+      form.append('Picture', this.CastData.picture);
       form.append('isCast', this.CastData.isCast);
 
       form.append('IsDirector', this.CastData.isDiractor);
-      form.append('CountryId', this.CastData.Nationality);
+      form.append('CountryId', this.CastData.nationality);
       this.$emit('SubmitData', form);
     },
     onFileSelected(event) {
@@ -97,6 +98,12 @@ export default {
     }
   },
   mounted() {
+    if (this.IsEditMode) {
+      axios
+        .get('http://localhost:8080/api/people/' + this.ID)
+        .then(res => (this.CastData = res.data))
+        .then(console.log(this.CastData));
+    }
     this.$store.dispatch('GetCountry');
   }
 };
