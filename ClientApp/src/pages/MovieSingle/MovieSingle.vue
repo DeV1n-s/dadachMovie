@@ -95,7 +95,7 @@
                     <div id="overview" class="tab active">
                       <div class="row">
                         <div class="col-md-8 col-sm-12 col-xs-12">
-                          <h5>{{ Movie.shortDescription }}</h5>
+                          <p>{{ Movie.shortDescription }}</p>
                           <hr />
                           <p>{{ Movie.description }}</p>
                           <!-- movie user review -->
@@ -182,25 +182,35 @@
 
                         <div class="col-md-4 col-xs-12 col-sm-12">
                           <div class="sb-it">
-                            <h6>کارگردان</h6>
+                            <h5>کارگردان :</h5>
                             <p>
                               <a href="#">{{ Diractor }}</a>
                             </p>
                           </div>
                           <div class="sb-it">
-                            <h6>ستاره ها</h6>
+                            <h5>ستاره ها :</h5>
                             <p v-for="cast in Cast" :key="cast">
                               {{ cast.personName }}
                             </p>
                           </div>
                           <div class="sb-it">
-                            <h6>ژانر</h6>
+                            <h5>ژانر :</h5>
                             <p>
                               {{ Movie.genres[0].name }}
                             </p>
                           </div>
                           <div class="sb-it">
-                            <h6>تاریخ انتشار</h6>
+                            <h5>کشور های سازنده :</h5>
+                            <p
+                              v-for="Country in Movie.countries"
+                              :key="Country"
+                            >
+                              {{ Country }}
+                            </p>
+                          </div>
+
+                          <div class="sb-it">
+                            <h5>تاریخ انتشار :</h5>
                             <p>{{ Movie.releaseDate }}</p>
                           </div>
                         </div>
@@ -251,8 +261,10 @@ h5 {
 i {
   margin: 5px;
 }
-h6 {
+h5 {
   margin-top: 0.38rem;
+  margin-bottom: 0.38rem;
+  color: #a7818c;
 }
 
 #reviews {
