@@ -93,7 +93,7 @@ export default {
       this.$emit('SubmitData', form);
     },
     onFileSelected(event) {
-      this.CastData.Picture = event.target.files[0];
+      this.CastData.picture = event.target.files[0];
       // this.$refs.file.files[0];
     }
   },
