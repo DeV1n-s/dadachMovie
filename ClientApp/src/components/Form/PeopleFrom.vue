@@ -79,17 +79,19 @@ export default {
     };
   },
   methods: {
+    capFstLet(str) {
+      const capitalized = str.charAt(0).toUpperCase() + str.slice(1);
+
+      return capitalized;
+    },
+
     submitData() {
       const form = new FormData();
-      form.append('Name', this.CastData.name);
-      form.append('ShortBio', this.CastData.shortBio);
-      form.append('Biography', this.CastData.biography);
-      form.append('DateOfBirth', this.CastData.dateOfBirth);
-      form.append('Picture', this.CastData.picture);
-      form.append('isCast', this.CastData.isCast);
 
-      form.append('IsDirector', this.CastData.isDiractor);
-      form.append('CountryId', this.CastData.nationality);
+      for (const property in this.CastData) {
+        console.log(`${this.capFstLet(property)}: ${this.CastData[property]}`);
+        form.append(`${this.capFstLet(property)}`, this.CastData[property]);
+      }
       this.$emit('SubmitData', form);
     },
     onFileSelected(event) {
