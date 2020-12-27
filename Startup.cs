@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using AutoMapper;
+using dadachMovie.Contracts;
 using dadachMovie.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -52,6 +53,10 @@ namespace dadachMovie
 
             services.AddTransient<IFileStorageService, InAppStorageService>();
             services.AddTransient<IHostedService, MovieInTheaterService>();
+            services.AddScoped<IGenresService, GenresService>();
+            services.AddScoped<ICountriesService, CountriesService>();
+            services.AddScoped<IMoviesService, MoviesService>();
+            services.AddScoped<IPeopleService, PeopleService>();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()

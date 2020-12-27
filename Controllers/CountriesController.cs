@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
 using dadachMovie.Helpers;
@@ -13,33 +14,36 @@ namespace dadachMovie.Controllers
     [Route("api/[controller]")]
     public class CountriesController : ControllerBase
     {
-        private readonly AppDbContext dbContext;
+        private readonly AppDbContext _dbContext;
+        private readonly ICountriesService _countriesService;
 
-        public CountriesController(AppDbContext dbContext)
+        public CountriesController(AppDbContext dbContext,
+                                ICountriesService countriesService)
         {
-            this.dbContext = dbContext;
+            _dbContext = dbContext;
+            _countriesService = countriesService;
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<List<Country>>> Get([FromQuery] PaginationDTO paginationDTO)
         {
-            var queryable = dbContext.Countries.AsQueryable();
-            await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
-            var countries = await queryable.Paginate(paginationDTO)
-                                    .OrderBy(c => c.Id)
-                                    .ToListAsync();
-            return countries;
+            var countriesQueryable = _countriesService.GetCountriesQueryable();
+            if( countriesQueryable == null)
+                return UnprocessableEntity("Failed to get CountriesList from service.");
+
+            await HttpContext.InsertPaginationParametersInResponse(countriesQueryable, paginationDTO.RecordsPerPage);
+            return await countriesQueryable.Paginate(paginationDTO).ToListAsync();
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Country>> GetById(int id)
         {
-            var country = await dbContext.Countries.SingleOrDefaultAsync(c => c.Id == id);
+            var country = await _countriesService.GetCountryByIdAsync(id);
             if (country == null)
             {
                 return NotFound();
             }
-            
+
             return country;
         }
 

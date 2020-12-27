@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie;
+using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,55 +16,52 @@ namespace dadachMovie.Controllers
     [Route("api/[controller]")]
     public class GenresController : ControllerBase
     {
-        private readonly AppDbContext dbContext;
-        private readonly IMapper mapper;
+        private readonly AppDbContext _dbContext;
+        private readonly IMapper _mapper;
+        private readonly IGenresService _genresService;
 
-        public GenresController(AppDbContext dbContext, IMapper mapper)
+        public GenresController(AppDbContext dbContext,
+                                IMapper mapper, 
+                                IGenresService genresService)
         {
-            this.dbContext = dbContext;
-            this.mapper = mapper;
+            _dbContext = dbContext;
+            _mapper = mapper;
+            _genresService = genresService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<GenreDTO>>> Get()
         {
-            var genres = await dbContext.Genres.ToListAsync();
+            var genres = await _genresService.GetGenresListAsync();
+            if( genres == null)
+                return UnprocessableEntity("Failed to get GenresList from service.");
 
-            return mapper.Map<List<GenreDTO>>(genres);
+            return Ok(genres);
         }
 
         [HttpGet("{id}", Name = "getGenre")]
         public async Task<ActionResult<GenreDTO>> GetById(int id)
         {
-            var genre = await dbContext.Genres.FirstOrDefaultAsync(g => g.Id == id);
-            if (genre == null)
-            {
+            var genreDTO = await _genresService.GetGenreByIdAsync(id);
+            if (genreDTO == null)
                 return NotFound();
-            }
-            
-            return mapper.Map<GenreDTO>(genre);
+
+            return genreDTO;
         }
 
         [HttpPost]
         // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Post([FromBody] GenreCreationDTO genreCreationDTO)
         {
-            var genre = mapper.Map<Genre>(genreCreationDTO);
-            dbContext.Add(genre);
-            await dbContext.SaveChangesAsync();
-            var genreDTO = mapper.Map<GenreDTO>(genre);
-
-            return new CreatedAtRouteResult("getGenre", new {genreDTO.Id}, genreDTO);
+            var genreDTO = await _genresService.AddGenreAsync(genreCreationDTO);
+            return new CreatedAtRouteResult("getGenre", new { genreDTO.Id }, genreDTO);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] GenreCreationDTO genreCreationDTO)
         {
-            var genre = mapper.Map<Genre>(genreCreationDTO);
-            genre.Id = id;
-            dbContext.Entry(genre).State = EntityState.Modified;
-
-            await dbContext.SaveChangesAsync();
+            if (!await _genresService.UpdateGenreAsync(id, genreCreationDTO))
+                return NotFound();
 
             return NoContent();
         }
@@ -71,14 +69,8 @@ namespace dadachMovie.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var exists = await dbContext.Genres.AnyAsync(g => g.Id == id);
-
-            if (!exists)
-            {
-                NotFound();
-            }
-            dbContext.Remove(new Genre { Id = id });
-            await dbContext.SaveChangesAsync();
+            if (!await _genresService.DeleteGenreAsync(id))
+                return NotFound();
 
             return NoContent();
         }
