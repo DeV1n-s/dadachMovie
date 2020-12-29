@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 import HomeContainer from './HomeContainer.vue'
 import Home from './pages/Home/Home.vue'
 import MovieList from './pages/MovieList/MovieList.vue'
@@ -21,54 +22,56 @@ import NotFound from './pages/404/404.vue'
 import MovieListTitleSearch from './pages/MovieListTitleSearch/MovieListTitleSearch.vue'
 import ActorListsSearch from './pages/ActorsSearch/ActorListsSearch.vue'
 // import MovieSortGenre from './pages/MovieList/MovieSortGenre.vue '
+Vue.use(VueRouter)
 
-const router = createRouter({
-    history: createWebHistory(),
-    routes: [
+export const Routes = [
+    // history: createWebHistory(),
 
-        {
-          path:'/', component:HomeContainer,
-      children:[
-        { path: '/', component: Home },
-        { path: '/UserProfile', component: UserProfile },
-        { path: '/MovieList', component: MovieList },
-        { path: '/ActorList', component: ActorList },
-        { path: '/News', component: News },
-        { path: '/MovieSingle/:id', name: 'MovieSingle', component: MovieSingle },
-        { path: '/MoviePanel', component: MoviePanel },
-        { path: '/MovieAdd', component: MovieAdd },
-        { path: '/NewsSingle/:id', name: 'NewsSingle', component: NewsSingle },
-        { path: '/NewsPanel', component: NewsPanel },
-        { path: '/NewsAdd', component: NewsAdd },
-        { path: '/ActorSingle/:id', name: 'ActorSingle', component: ActorSingle },
-        { path: '/CastPanel', component: CastPanel },
-        { path: '/CastAdd', component: CastAdd },
-        { path: '/Top250Movies', component: Top250Movies },
-        { path: '/Top250Single/:id', name: 'Top250Single', component: Top250Single },
-        { path: '/MovieListGenre/:id', name: 'MovieListGenre', component: MovieListGenre },
-        { path: '/MovieListTitleSearch/:id', name: 'MovieListTitleSearch', component: MovieListTitleSearch },
-        { path: '/ActorListsSearch/:id', name: 'ActorListsSearch', component: ActorListsSearch },
-      ]
-      },
-        
 
-        { path: '/404', component: NotFound },  
-        {
-            // path: "*",
-            path: "/:catchAll(.*)",
-            name: "NotFound",
-            component: NotFound,
-            meta: {
-              requiresAuth: false
-            }
-          }
-        // { path: '/MovieSortGenre/:id', name: 'MovieSortGenre', component: MovieSortGenre }
-        
+    {
+        path: '/',
+        component: HomeContainer,
+        children: [
+            { path: '/', component: Home },
+            { path: '/UserProfile', component: UserProfile },
+            { path: '/MovieList', component: MovieList },
+            { path: '/ActorList', component: ActorList },
+            { path: '/News', component: News },
+            { path: '/MovieSingle/:id', name: 'MovieSingle', component: MovieSingle },
+            { path: '/MoviePanel', component: MoviePanel },
+            { path: '/MovieAdd', component: MovieAdd },
+            { path: '/NewsSingle/:id', name: 'NewsSingle', component: NewsSingle },
+            { path: '/NewsPanel', component: NewsPanel },
+            { path: '/NewsAdd', component: NewsAdd },
+            { path: '/ActorSingle/:id', name: 'ActorSingle', component: ActorSingle },
+            { path: '/CastPanel', component: CastPanel },
+            { path: '/CastAdd', component: CastAdd },
+            { path: '/Top250Movies', component: Top250Movies },
+            { path: '/Top250Single/:id', name: 'Top250Single', component: Top250Single },
+            { path: '/MovieListGenre/:id', name: 'MovieListGenre', component: MovieListGenre },
+            { path: '/MovieListTitleSearch/:id', name: 'MovieListTitleSearch', component: MovieListTitleSearch },
+            { path: '/ActorListsSearch/:id', name: 'ActorListsSearch', component: ActorListsSearch },
+        ]
+    },
 
-        // { path: '/PostData', component: PostData, meta: { requiresAuth: true } },
-    ],
 
-});
+    { path: '/404', component: NotFound },
+    {
+        // path: "*",
+        path: "/:catchAll(.*)",
+        name: "NotFound",
+        component: NotFound,
+        meta: {
+            requiresAuth: false
+        }
+    }
+    // { path: '/MovieSortGenre/:id', name: 'MovieSortGenre', component: MovieSortGenre }
+
+
+    // { path: '/PostData', component: PostData, meta: { requiresAuth: true } },
+
+
+];
 // router.beforeEach(function(to, _, next) {
 //     if (to.meta.requiresAuth && !store.state.auth.isAuth) {
 //         next('/');
@@ -81,5 +84,3 @@ const router = createRouter({
 //     //     next()
 //     // }
 // })
-
-export default router;``

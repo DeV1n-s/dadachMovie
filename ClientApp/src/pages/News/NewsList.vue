@@ -1,21 +1,23 @@
 <template>
-  <div class="hero common-hero">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="hero-ct">
-            <h1>اخبار</h1>
+  <div>
+    <div class="hero common-hero">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="hero-ct">
+              <h1>اخبار</h1>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="page-single">
-    <div class="container">
-      <div class="row">
-        <news-grid />
-        <search-news />
+    <div class="page-single">
+      <div class="container">
+        <div class="row">
+          <news-grid />
+          <search-news />
+        </div>
       </div>
     </div>
   </div>
