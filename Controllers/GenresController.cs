@@ -1,14 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using dadachMovie;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
-using dadachMovie.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Controllers
 {
@@ -36,7 +31,7 @@ namespace dadachMovie.Controllers
             if( genres == null)
                 return UnprocessableEntity("Failed to get GenresList from service.");
 
-            return Ok(genres);
+            return genres;
         }
 
         [HttpGet("{id}", Name = "getGenre")]

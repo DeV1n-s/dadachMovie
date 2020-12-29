@@ -1,10 +1,7 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using dadachMovie.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace dadachMovie
 {

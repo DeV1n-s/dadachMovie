@@ -1,6 +1,3 @@
-using System;
-using dadachMovie.Entities;
-
 namespace dadachMovie.DTOs
 {
     public class PersonDTO

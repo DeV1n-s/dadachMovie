@@ -5,7 +5,6 @@ using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
 using dadachMovie.Helpers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Services

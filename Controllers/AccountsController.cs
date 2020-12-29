@@ -22,11 +22,11 @@ namespace dadachMovie.Controllers
     [Route("api/[controller]")]
     public class AccountsController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
-        private readonly IConfiguration configuration;
-        private readonly AppDbContext dbContext;
-        private readonly IMapper mapper;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IConfiguration _configuration;
+        private readonly AppDbContext _dbContext;
+        private readonly IMapper _mapper;
 
         public AccountsController(UserManager<IdentityUser> userManager,
                                 SignInManager<IdentityUser> signInManager,
@@ -34,18 +34,18 @@ namespace dadachMovie.Controllers
                                 AppDbContext dbContext,
                                 IMapper mapper)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.configuration = configuration;
-            this.dbContext = dbContext;
-            this.mapper = mapper;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _configuration = configuration;
+            _dbContext = dbContext;
+            _mapper = mapper;
         }
         
         [HttpPost("Create")]
         public async Task<ActionResult<UserToken>> CreateUser([FromBody] UserInfo userInfo)
         {
             var user = new IdentityUser { UserName = userInfo.EmailAddress, Email = userInfo.EmailAddress };
-            var result = await userManager.CreateAsync(user, userInfo.Password);
+            var result = await _userManager.CreateAsync(user, userInfo.Password);
 
             if (result.Succeeded)
             {
@@ -60,7 +60,7 @@ namespace dadachMovie.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult<UserToken>> Login([FromBody] UserInfo userInfo)
         {
-            var result = await signInManager.PasswordSignInAsync(userInfo.EmailAddress,userInfo.Password,
+            var result = await _signInManager.PasswordSignInAsync(userInfo.EmailAddress,userInfo.Password,
                                                                 isPersistent: false, lockoutOnFailure: false);
 
             if (result.Succeeded)
@@ -88,42 +88,42 @@ namespace dadachMovie.Controllers
         [HttpGet("Users")]
         public async Task<ActionResult<List<UserDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
         {
-            var queryable = dbContext.Users.AsQueryable().OrderBy(u => u.Email);
+            var queryable = _dbContext.Users.AsQueryable().OrderBy(u => u.Email);
             await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
             var users = queryable.Paginate(paginationDTO).ToListAsync();
 
-            return mapper.Map<List<UserDTO>>(users);
+            return _mapper.Map<List<UserDTO>>(users);
         }
 
         [HttpGet("Roles")]
         public async Task<ActionResult<List<string>>> GetRoles()
         {
-            return await dbContext.Roles.Select(x => x.Name).ToListAsync();
+            return await _dbContext.Roles.Select(x => x.Name).ToListAsync();
         }
 
         [HttpPost("AssignRole")]
         public async Task<ActionResult> AssignRole(EditRoleDTO editRoleDTO)
         {
-            var user = await userManager.FindByIdAsync(editRoleDTO.UserId);
+            var user = await _userManager.FindByIdAsync(editRoleDTO.UserId);
             if (user == null)
             {
                 return NotFound();
             }
             
-            await userManager.AddToRoleAsync(user, editRoleDTO.RoleName);
+            await _userManager.AddToRoleAsync(user, editRoleDTO.RoleName);
             return NoContent();
         }
 
         [HttpPost("RemoveRole")]
         public async Task<ActionResult> RemoveRole(EditRoleDTO editRoleDTO)
         {
-            var user = await userManager.FindByIdAsync(editRoleDTO.UserId);
+            var user = await _userManager.FindByIdAsync(editRoleDTO.UserId);
             if (user == null)
             {
                 return NotFound();
             }
             
-            await userManager.RemoveFromRoleAsync(user, editRoleDTO.RoleName);
+            await _userManager.RemoveFromRoleAsync(user, editRoleDTO.RoleName);
             return NoContent();
         }
 
@@ -135,12 +135,12 @@ namespace dadachMovie.Controllers
                 new Claim(ClaimTypes.Email, userInfo.EmailAddress)
             };
 
-            var identityUser = await userManager.FindByEmailAsync(userInfo.EmailAddress);
-            var claimsDB = await userManager.GetClaimsAsync(identityUser);
+            var identityUser = await _userManager.FindByEmailAsync(userInfo.EmailAddress);
+            var claimsDB = await _userManager.GetClaimsAsync(identityUser);
 
             claims.AddRange(claimsDB);
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["jwt:key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwt:key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var expiration = DateTime.Now.AddYears(1);

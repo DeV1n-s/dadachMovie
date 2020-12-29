@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
-using Microsoft.AspNetCore.JsonPatch;
 
 namespace dadachMovie.Contracts
 {

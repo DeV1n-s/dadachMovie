@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
@@ -8,9 +6,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
-using dadachMovie.Entities;
 using dadachMovie.Helpers;
-using dadachMovie.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,8 +36,8 @@ namespace dadachMovie.Controllers
 
             await HttpContext.InsertPaginationParametersInResponse(peopleQueryable, paginationDTO.RecordsPerPage);
             var people = await peopleQueryable.Paginate(paginationDTO)
-                                        .ProjectTo<PersonDTO>(_mapper.ConfigurationProvider)
-                                        .ToListAsync();
+                                            .ProjectTo<PersonDTO>(_mapper.ConfigurationProvider)
+                                            .ToListAsync();
 
             return people;
         }

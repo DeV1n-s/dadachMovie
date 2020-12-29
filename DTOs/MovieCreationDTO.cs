@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using dadachMovie.Entities;
 using dadachMovie.Helpers;
 using dadachMovie.Validations;
 using Microsoft.AspNetCore.Http;
