@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
+using Gridify;
 
 namespace dadachMovie.Contracts
 {
@@ -12,8 +13,8 @@ namespace dadachMovie.Contracts
         Task<MovieDetailsDTO> GetMovieByIdAsync(int id);
         Task<IndexMoviePageDTO> GetTopMoviesAsync(int amount);
         IQueryable<MovieDetailsDTO> GetMoviesDetailsQueryable();
-        public IQueryable<Movie> GetMoviesQueryable();
-        //IQueryable<Movie> FilterMoviesListAsync(FilterMoviesDTO filterMoviesDTO);
+        IQueryable<Movie> GetMoviesQueryable();
+        Task<Paging<MovieDetailsDTO>> FilterMoviesListAsync(GridifyQuery gridifyQuery);
         Task<MovieDTO> AddMovieAsync(MovieCreationDTO movieCreationDTO);
         Task<bool> UpdateMovieAsync(int id, MovieCreationDTO movieCreationDTO);
         //Task<bool> PatchMovieAsync(int id, JsonPatchDocument<MoviePatchDTO> patchDocument);

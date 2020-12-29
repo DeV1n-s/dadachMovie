@@ -8,6 +8,8 @@ using AutoMapper.QueryableExtensions;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
+using Gridify;
+using Gridify.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Services
@@ -72,6 +74,13 @@ namespace dadachMovie.Services
         
         public IQueryable<Movie> GetMoviesQueryable() =>
             _dbContext.Movies.AsNoTracking().AsQueryable();
+
+        public async Task<Paging<MovieDetailsDTO>> FilterMoviesListAsync(GridifyQuery gridifyQuery)
+        {
+            var queryable = await _dbContext.Movies.GridifyQueryableAsync(gridifyQuery,null);
+            return new Paging<MovieDetailsDTO> {Items = queryable.Query.ProjectTo<MovieDetailsDTO>(_mapper.ConfigurationProvider).ToList(),
+                                                TotalItems = queryable.TotalItems};
+        }
 
         public async Task<MovieDTO> AddMovieAsync(MovieCreationDTO movieCreationDTO)
         {

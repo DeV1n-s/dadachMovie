@@ -7,6 +7,7 @@ using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using dadachMovie.Helpers;
+using Gridify;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -44,38 +45,9 @@ namespace dadachMovie.Controllers
         public async Task<ActionResult<IndexMoviePageDTO>> GetTop([FromQuery] int amount) =>
             await _moviesService.GetTopMoviesAsync(amount);
 
-        [HttpGet("filter")]
-        public async Task<ActionResult<List<MovieDTO>>> Filter([FromQuery] FilterMoviesDTO filterMoviesDTO)
-        {
-            var moviesQueryable = _moviesService.GetMoviesQueryable();
-            if (!string.IsNullOrWhiteSpace(filterMoviesDTO.Title))
-                moviesQueryable = moviesQueryable.Where(m => m.Title.Contains(filterMoviesDTO.Title));
-
-            if (filterMoviesDTO.InTheaters)
-                moviesQueryable = moviesQueryable.Where(m => m.InTheaters);
-
-            if (filterMoviesDTO.UpcomingReleases)
-                moviesQueryable = moviesQueryable.Where(m => m.ReleaseDate > DateTime.Today);
-
-            if (filterMoviesDTO.GenreId != 0)
-                moviesQueryable = moviesQueryable.Where(m => m.Genres.Select(x => x.GenreId)
-                                                .Contains(filterMoviesDTO.GenreId));
-
-            if (!string.IsNullOrWhiteSpace(filterMoviesDTO.OrderingField))
-            {
-                try
-                {
-                    moviesQueryable = moviesQueryable
-                        .OrderBy($"{filterMoviesDTO.OrderingField} {(filterMoviesDTO.AscendingOrder ? "ascending" : "descending")}");
-                }
-                catch
-                { }
-            }
-
-            await HttpContext.InsertPaginationParametersInResponse(moviesQueryable, filterMoviesDTO.RecordsPerPage);
-            var movies = await moviesQueryable.Paginate(filterMoviesDTO.Pagination).ToListAsync();
-            return _mapper.Map<List<MovieDTO>>(movies);
-        }
+        [HttpGet("FilterMovies")]
+        public async Task<ActionResult<Paging<MovieDetailsDTO>>> Filter([FromQuery] GridifyQuery gridifyQuery) =>
+            await _moviesService.FilterMoviesListAsync(gridifyQuery);
 
         [HttpGet("{id:int}", Name = "getMovie")]
         public async Task<ActionResult<MovieDetailsDTO>> GetById(int id)

@@ -6,7 +6,10 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
+using dadachMovie.Entities;
 using dadachMovie.Helpers;
+using Gridify;
+using Gridify.EntityFramework;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +22,15 @@ namespace dadachMovie.Controllers
     {
         private readonly IPeopleService _peopleService;
         private readonly IMapper _mapper;
+        private readonly AppDbContext _dbContext;
 
         public PeopleController(IPeopleService peopleService,
-                                IMapper mapper)
+                                IMapper mapper,
+                                AppDbContext dbContext)
         {
             _peopleService = peopleService;
             _mapper = mapper;
+            _dbContext = dbContext;
         }
 
         [HttpGet]
@@ -72,41 +78,9 @@ namespace dadachMovie.Controllers
             return await _peopleService.GetDirectorMoviesListAsync(id);
         }
 
-        [HttpGet("filter")]
-        public async Task<ActionResult<List<PersonDTO>>> Filter([FromQuery] FilterPersonDTO filterPersonDTO)
-        {
-            var peopleQueryable = _peopleService.GetPeopleQueryable();
-
-            if (!string.IsNullOrWhiteSpace(filterPersonDTO.Name))
-                peopleQueryable = peopleQueryable.Where(p => p.Name.Contains(filterPersonDTO.Name));
-
-            if (filterPersonDTO.IsCast)
-                peopleQueryable = peopleQueryable.Where(p => p.IsCast);
-
-            if (filterPersonDTO.IsDirector)
-                peopleQueryable = peopleQueryable.Where(p => p.IsDirector);
-
-            if (!string.IsNullOrWhiteSpace(filterPersonDTO.MinDateOfBirth.ToString()))
-                peopleQueryable = peopleQueryable.Where(p => 
-                                                    (p.DateOfBirth >= filterPersonDTO.MinDateOfBirth) && 
-                                                    (p.DateOfBirth <= filterPersonDTO.MaxDateOfBirth));
-
-            if (!string.IsNullOrWhiteSpace(filterPersonDTO.OrderingField))
-            {
-                try
-                {
-                    peopleQueryable = peopleQueryable
-                        .OrderBy($"{filterPersonDTO.OrderingField} {(filterPersonDTO.AscendingOrder ? "ascending" : "descending")}");
-                }
-                catch
-                { }
-            }
-
-            await HttpContext.InsertPaginationParametersInResponse(peopleQueryable, filterPersonDTO.RecordsPerPage);
-            var people = await peopleQueryable.Paginate(filterPersonDTO.Pagination).ToListAsync();
-
-            return _mapper.Map<List<PersonDTO>>(people);
-        }
+        [HttpGet("FilterPeople")]
+        public async Task<ActionResult<Paging<PersonDTO>>> Filter([FromQuery] GridifyQuery gridifyQuery) =>
+            await _peopleService.FilterPeopleListAsync(gridifyQuery);
         
         [HttpPost]
         public async Task<ActionResult> Post([FromForm] PersonCreationDTO personCreationDTO)
