@@ -30,10 +30,11 @@ namespace dadachMovie.Services
             _fileStorageService = fileStorageService;
         }
 
-        public async Task<List<PersonDTO>> GetPeopleListAsync(PaginationDTO paginationDTO)
+        public async Task<Paging<PersonDTO>> GetPeoplePagingAsync(GridifyQuery gridifyQuery)
         {
-            var people = await _dbContext.People.AsNoTracking().ToListAsync();
-            return _mapper.Map<List<PersonDTO>>(people);
+            var queryable = await _dbContext.People.GridifyQueryableAsync(gridifyQuery,null);
+            return new Paging<PersonDTO> {Items = queryable.Query.ProjectTo<PersonDTO>(_mapper.ConfigurationProvider).ToList(),
+                                        TotalItems = queryable.TotalItems};
         }
 
         public async Task<PersonDTO> GetPersonByIdAsync(int id)
@@ -54,13 +55,6 @@ namespace dadachMovie.Services
             await _dbContext.Movies.ProjectTo<MovieDetailsDTO>(_mapper.ConfigurationProvider)
                                 .Where(x => x.Directors.Any(x => x.PersonId == id))
                                 .ToListAsync();
-        
-        public async Task<Paging<PersonDTO>> FilterPeopleListAsync(GridifyQuery gridifyQuery)
-        {
-            var queryable = await _dbContext.People.GridifyQueryableAsync(gridifyQuery,null);
-            return new Paging<PersonDTO> {Items = queryable.Query.ProjectTo<PersonDTO>(_mapper.ConfigurationProvider).ToList(),
-                                        TotalItems = queryable.TotalItems};
-        }
 
         public async Task<PersonDTO> AddPersonAsync(PersonCreationDTO personCreationDTO)
         {

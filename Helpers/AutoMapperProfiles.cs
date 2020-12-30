@@ -56,6 +56,7 @@ namespace dadachMovie.Helpers
             CreateMap<PersonCreationDTO, Person>()
                 .ForPath(dest => dest.Countries.CountryId, opt => opt.MapFrom(src => src.CountryId));
 
+            CreateMap<Country, CountryDTO>();
             CreateMap<MoviesCountries, CountryDTO>().ReverseMap();
 
             CreateMap<MoviesCountries, MovieDetailsDTO>()

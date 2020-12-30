@@ -30,19 +30,8 @@ namespace dadachMovie.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<PersonDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
-        {
-            var peopleQueryable = _peopleService.GetPeopleQueryable();
-            if( peopleQueryable == null)
-                return UnprocessableEntity("Failed to get GenresList from service.");
-
-            await HttpContext.InsertPaginationParametersInResponse(peopleQueryable, paginationDTO.RecordsPerPage);
-            var people = await peopleQueryable.Paginate(paginationDTO)
-                                            .ProjectTo<PersonDTO>(_mapper.ConfigurationProvider)
-                                            .ToListAsync();
-
-            return people;
-        }
+        public async Task<ActionResult<Paging<PersonDTO>>> Get([FromQuery] GridifyQuery gridifyQuery) =>
+            await _peopleService.GetPeoplePagingAsync(gridifyQuery);
 
         [HttpGet("{id}", Name = "getPerson")]
         public async Task<ActionResult<PersonDTO>> GetById(int id)
@@ -73,10 +62,6 @@ namespace dadachMovie.Controllers
 
             return await _peopleService.GetDirectorMoviesListAsync(id);
         }
-
-        [HttpGet("FilterPeople")]
-        public async Task<ActionResult<Paging<PersonDTO>>> Filter([FromQuery] GridifyQuery gridifyQuery) =>
-            await _peopleService.FilterPeopleListAsync(gridifyQuery);
         
         [HttpPost]
         public async Task<ActionResult> Post([FromForm] PersonCreationDTO personCreationDTO)

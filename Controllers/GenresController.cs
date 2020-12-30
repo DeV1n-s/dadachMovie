@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
+using Gridify;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dadachMovie.Controllers
@@ -25,11 +26,11 @@ namespace dadachMovie.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GenreDTO>>> Get()
+        public async Task<ActionResult<Paging<GenreDTO>>> Get([FromQuery] GridifyQuery gridifyQuery)
         {
-            var genres = await _genresService.GetGenresListAsync();
+            var genres = await _genresService.GetGenresPagingAsync(gridifyQuery);
             if( genres == null)
-                return UnprocessableEntity("Failed to get GenresList from service.");
+                return UnprocessableEntity("Failed to get Genres from service.");
 
             return genres;
         }

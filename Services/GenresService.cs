@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
+using Gridify;
+using Gridify.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Services
@@ -21,10 +25,11 @@ namespace dadachMovie.Services
             _mapper = mapper;
         }
 
-        public async Task<List<GenreDTO>> GetGenresListAsync()
+        public async Task<Paging<GenreDTO>> GetGenresPagingAsync(GridifyQuery gridifyQuery)
         {
-            var genres = await _dbContext.Genres.AsNoTracking().ToListAsync();
-            return _mapper.Map<List<GenreDTO>>(genres);
+            var queryable = await _dbContext.Genres.GridifyQueryableAsync(gridifyQuery,null);
+            return new Paging<GenreDTO> {Items = queryable.Query.ProjectTo<GenreDTO>(_mapper.ConfigurationProvider).ToList(),
+                                        TotalItems = queryable.TotalItems};
         }
 
         public async Task<GenreDTO> GetGenreByIdAsync(int id)

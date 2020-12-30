@@ -1,14 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
-using dadachMovie.Helpers;
 using Gridify;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Controllers
 {
@@ -27,25 +23,12 @@ namespace dadachMovie.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MovieDetailsDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
-        {                           
-            var moviesQueryable = _moviesService.GetMoviesDetailsQueryable();
-            if( moviesQueryable == null)
-                return UnprocessableEntity("Failed to get MoviesDetailsList from service.");
-
-            await HttpContext.InsertPaginationParametersInResponse(moviesQueryable, paginationDTO.RecordsPerPage);
-            return await moviesQueryable.Paginate(paginationDTO)
-                                .OrderByDescending(m => m.Id)
-                                .ToListAsync();
-        }
+        public async Task<ActionResult<Paging<MovieDetailsDTO>>> Get([FromQuery] GridifyQuery gridifyQuery) =>
+            await _moviesService.GetMoviesDetailsPagingAsync(gridifyQuery);
 
         [HttpGet("top")]
         public async Task<ActionResult<IndexMoviePageDTO>> GetTop([FromQuery] int amount) =>
             await _moviesService.GetTopMoviesAsync(amount);
-
-        [HttpGet("FilterMovies")]
-        public async Task<ActionResult<Paging<MovieDetailsDTO>>> Filter([FromQuery] GridifyQuery gridifyQuery) =>
-            await _moviesService.FilterMoviesListAsync(gridifyQuery);
 
         [HttpGet("{id:int}", Name = "getMovie")]
         public async Task<ActionResult<MovieDetailsDTO>> GetById(int id)

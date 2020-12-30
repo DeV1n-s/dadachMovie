@@ -9,12 +9,11 @@ namespace dadachMovie.Contracts
 {
     public interface IPeopleService : IBaseService
     {
-        Task<List<PersonDTO>> GetPeopleListAsync(PaginationDTO paginationDTO);
+        Task<Paging<PersonDTO>> GetPeoplePagingAsync(GridifyQuery gridifyQuery);
         Task<PersonDTO> GetPersonByIdAsync(int id);
         IQueryable<Person> GetPeopleQueryable();
         Task<List<MovieDetailsDTO>> GetCastMoviesListAsync(int id);
         Task<List<MovieDetailsDTO>> GetDirectorMoviesListAsync(int id);
-        Task<Paging<PersonDTO>> FilterPeopleListAsync(GridifyQuery gridifyQuery);
         Task<PersonDTO> AddPersonAsync(PersonCreationDTO personCreationDTO);
         Task<bool> UpdatePersonAsync(int id, PersonCreationDTO personCreationDTO);
         Task<bool> DeletePersonAsync(int id);
