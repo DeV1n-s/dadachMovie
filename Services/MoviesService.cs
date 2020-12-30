@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Services
 {
-    public class MoviesService : IMoviesService
+    public class MoviesService : BaseService, IMoviesService
     {
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -24,6 +24,7 @@ namespace dadachMovie.Services
         public MoviesService(AppDbContext dbContext,
                             IMapper mapper,
                             IFileStorageService fileStorageService)
+            : base(dbContext)
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -112,9 +113,7 @@ namespace dadachMovie.Services
         {
             var movieDb = await _dbContext.Movies.FirstOrDefaultAsync(m => m.Id == id);
             if (movieDb == null)
-            {
                 return false;
-            }
 
             movieDb = _mapper.Map(movieCreationDTO, movieDb);
 
@@ -163,11 +162,5 @@ namespace dadachMovie.Services
                 }
             }
         }
-
-        public void SaveChanges() =>
-            _dbContext.SaveChanges();
-
-        public async Task SaveChangesAsync() =>
-            await _dbContext.SaveChangesAsync();
     }
 }

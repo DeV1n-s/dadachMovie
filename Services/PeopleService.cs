@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Services
 {
-    public class PeopleService : IPeopleService
+    public class PeopleService : BaseService, IPeopleService
     {
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -23,6 +23,7 @@ namespace dadachMovie.Services
         public PeopleService(AppDbContext dbContext, 
                             IMapper mapper,
                             IFileStorageService fileStorageService)
+            : base(dbContext)
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -121,11 +122,5 @@ namespace dadachMovie.Services
             await this.SaveChangesAsync();
             return true;
         }
-
-        public void SaveChanges() =>
-            _dbContext.SaveChanges();
-
-        public async Task SaveChangesAsync() =>
-            await _dbContext.SaveChangesAsync();
     }
 }

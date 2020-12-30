@@ -6,7 +6,7 @@ using dadachMovie.Entities;
 
 namespace dadachMovie.Contracts
 {
-    public interface ICountriesService
+    public interface ICountriesService : IBaseService
     {
         Task<List<Country>> GetCountriesListAsync(PaginationDTO paginationDTO);
         IQueryable<Country> GetCountriesQueryable();

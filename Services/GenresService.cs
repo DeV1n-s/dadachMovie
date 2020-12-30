@@ -8,13 +8,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Services
 {
-    public class GenresService : IGenresService
+    public class GenresService : BaseService, IGenresService
     {
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
 
         public GenresService(AppDbContext dbContext,
                             IMapper mapper)
+            : base(dbContext)
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -23,21 +24,19 @@ namespace dadachMovie.Services
         public async Task<List<GenreDTO>> GetGenresListAsync()
         {
             var genres = await _dbContext.Genres.AsNoTracking().ToListAsync();
-
             return _mapper.Map<List<GenreDTO>>(genres);
         }
 
         public async Task<GenreDTO> GetGenreByIdAsync(int id)
         {
             var genre = await _dbContext.Genres.AsNoTracking().FirstOrDefaultAsync(g => g.Id == id);
-
             return _mapper.Map<GenreDTO>(genre);
         }
         public async Task<GenreDTO> AddGenreAsync(GenreCreationDTO genreCreationDTO)
         {
             var genre = _mapper.Map<Genre>(genreCreationDTO);
             _dbContext.Add(genre);
-            await _dbContext.SaveChangesAsync();
+            await this.SaveChangesAsync();
             return _mapper.Map<GenreDTO>(genre);
         }
 
@@ -47,10 +46,9 @@ namespace dadachMovie.Services
             genre.Id = id;
 
             _dbContext.Entry(genre).State = EntityState.Modified;
-
             try
             {
-                await _dbContext.SaveChangesAsync();
+                await this.SaveChangesAsync();
                 return true;
             }
             catch
@@ -62,14 +60,11 @@ namespace dadachMovie.Services
         public async Task<bool> DeleteGenreAsync(int id)
         {
             var exists = await _dbContext.Genres.AnyAsync(g => g.Id == id);
-
             if (!exists)
-            {
                 return false;
-            }
 
             _dbContext.Remove(new Genre { Id = id });
-            await _dbContext.SaveChangesAsync();
+            await this.SaveChangesAsync();
             return true;
         }
     }
