@@ -3,7 +3,7 @@
     <div
       class="movie-item-style-2"
       v-for="MovieList in MovieLists"
-      :key="MovieList"
+      :key="MovieList.id"
     >
       <img :src="MovieList.picture" alt="" />
       <div class="mv-item-infor">
@@ -24,7 +24,7 @@
         <p>کارگردان : {{ Diractor }}</p>
         <p>
           ستاره ها :
-          <span v-for="cast in Cast" :key="cast"
+          <span v-for="cast in Cast" :key="cast.id"
             >{{ cast.personName }} {{ ' ' }}</span
           >
         </p>

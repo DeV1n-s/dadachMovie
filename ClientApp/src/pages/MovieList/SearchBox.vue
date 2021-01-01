@@ -55,7 +55,7 @@
         <div class="sb-cate sb-it">
           <h4 class="sb-title">ژانر ها</h4>
           <ul>
-            <li v-for="GenreList of GenreLists" :key="GenreList">
+            <li v-for="GenreList of GenreLists" :key="GenreList.id">
               <router-link
                 :to="{ name: 'MovieListGenre', params: { id: GenreList.id } }"
                 >{{ GenreList.name }}</router-link
