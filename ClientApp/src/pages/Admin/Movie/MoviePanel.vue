@@ -4,45 +4,48 @@
       <div class="row ipad-width">
         <div class="col-md-8"></div>
         <h2>لیست فیلم ها</h2>
+        <vue-good-table
+          :sort-options="{
+            enabled: true
+          }"
+          :columns="columns"
+          :rows="MovieLists"
+          :rtl="true"
+          :lineNumbers="true"
+          :pagination-options="{
+            enabled: true,
+            prevLabel: 'قبل',
+            nextLabel: 'بعد',
+            rowsPerPageLabel: 'تعداد رکورد'
+          }"
+        >
+          <template slot="table-row" slot-scope="props">
+            <span v-if="props.column.field == 'actions'">
+              <button
+                class="btn btn-lg btn-table-warning"
+                @click="editMovie(props.row.id)"
+              >
+                ویرایش
+              </button>
+              <button
+                class="btn btn-lg btn-table-danger"
+                @click="deleteButton(props.row.id)"
+              >
+                حذف
+              </button>
+            </span>
+            <span v-else>
+              {{ props.formattedRow[props.column.field] }}
+            </span>
+          </template>
 
-        <table class="table table-hover">
-          <thead class="font-size">
-            <tr>
-              <th>#</th>
-              <th>نام فیلم</th>
-              <th>کارگردان</th>
-              <th>تاریخ انتشار</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(Movie, index) in MovieLists" :key="Movie">
-              <td class="t-num">{{ index + 1 }}</td>
-              <td>
-                <router-link
-                  :to="{ name: 'MovieSingle', params: { id: Movie.id } }"
-                >
-                  {{ Movie.title }}</router-link
-                >
-              </td>
-              <td>{{ Movie.director }}</td>
-              <td>{{ Movie.releaseDate }}</td>
-              <td>
-                <button
-                  class="btn btn-lg btn-warning"
-                  @click.prevent="editMovie(Movie.id)"
-                >
-                  ویرایش
-                </button>
-                <button
-                  class="btn btn-lg btn-danger"
-                  @click="deleteButton(Movie.id)"
-                >
-                  حذف
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+          <div slot="emptystate">
+            <p class="text-center">
+              هیچگونه داده ای وجود ندارد :)
+            </p>
+          </div>
+        </vue-good-table>
+
         <router-link to="/MovieAdd">
           <button class="btn btn-success btn-block m-x">
             افزودن فیلم جدید
@@ -63,7 +66,6 @@
           <movie-form
             :Peoples="Peoples"
             :Genres="Genres"
-            @submitData="SubmitData($event)"
             :IsEditMode="isEditMode"
             :ID="MovieEditData.id"
           />
@@ -86,6 +88,23 @@ export default {
   data() {
     GenrePanel;
     return {
+      columns: [
+        {
+          label: 'نام بازیگر',
+          field: 'title'
+        },
+
+        {
+          label: 'تاریخ انتشار',
+          field: 'releaseDate'
+        },
+
+        {
+          label: '',
+          field: 'actions',
+          sortable: false
+        }
+      ],
       isGenreMdoe: false,
       isEditMode: false,
       MovieEditData: {
@@ -94,10 +113,16 @@ export default {
       Directors: [],
       Genres: '',
       preCasters: [],
-      Peoples: this.$store.getters.GetPeaple,
-      Genress: [],
-      MovieLists: this.$store.getters.GetMovies
+      Genress: []
     };
+  },
+  computed: {
+    Peoples: function() {
+      return this.$store.getters.GetPeaple;
+    },
+    MovieLists: function() {
+      return this.$store.getters.GetMovies;
+    }
   },
   methods: {
     castDelete(id) {
@@ -117,23 +142,11 @@ export default {
 
       // console.log(this.MovieEditData);
     },
-    getGenre() {
-      axios
-        .get('http://localhost:8080/api/genres')
-        .then(res => (this.Genress = res.data));
-    },
-
-    SubmitData($event) {
-      axios
-        .put(
-          'http://localhost:8080/api/Movies/' + this.MovieEditData.id,
-          $event
-        )
-        .then(res => {
-          console.log(res);
-          this.$router.push('/Moviepanel');
-        })
-        .then((this.isEditMode = false));
+    async getGenre() {
+      await axios.get('http://localhost:8080/api/genres').then(res => {
+        this.Genress = res.data;
+        console.log(res.data);
+      });
     }
   },
   mounted() {

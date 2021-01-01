@@ -1,13 +1,13 @@
 // import Vue from 'vue'
 import axios from 'axios'
 const state = {
-    CountryData: [],
+    GenreData: [],
 };
 
 
 const getters = {
-    GetCountry(state) {
-        return state.CountryData;
+    GetGenres(state) {
+        return state.GenreData;
     },
     // Movie: state => id => {
     //     return state.MovieData.find(Movie => Movie.id === id)
@@ -16,18 +16,18 @@ const getters = {
 };
 
 const mutations = {
-    SET_COUNTRY(state, Country) {
-        state.CountryData = Country.items
+    SET_GENRES(state, Genres) {
+        state.GenreData = Genres.items
     },
 
 };
 
 
 const actions = {
-    GetCountry({ commit }) {
-        axios.get('/api/Countries')
+    GetGenres({ commit }) {
+        axios.get('/api/Genres')
             .then(response => {
-                commit('SET_COUNTRY', response.data)
+                commit('SET_GENRES', response.data)
             })
     },
 }

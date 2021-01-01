@@ -1,22 +1,34 @@
 <template>
   <div>
     <form action="/action_page.php">
-      <label for="fname">نام فیلم </label>
-      <input type="text" id="fname" v-model="MovieData.title" />
+      <form-input
+        label="نام فیلم"
+        :required="true"
+        id="name"
+        v-model="MovieData.title"
+      />
 
-      <label for="lname">توضیحات کوتاه</label>
-      <input type="text" v-model="MovieData.shortDescription" />
-      <label for="lname">شرح کامل</label>
-      <textarea v-model="MovieData.description"></textarea>
+      <form-input
+        label="توضیحات کوتاه"
+        :required="true"
+        id="name"
+        v-model="MovieData.shortDescription"
+      />
+      <form-input
+        label="توضیحات کامل"
+        :required="true"
+        id="name"
+        v-model="MovieData.description"
+      />
+
       <label for="country">سبک</label>
       <select id="country" name="country" v-model="genres">
         <option v-for="Genre in Genres" :key="Genre.id" :value="Genre.id">{{
           Genre.name
         }}</option>
       </select>
-      <label for="tentacles">نمره فیلم از 10</label>
-
-      <input
+      <form-input
+        label="نمره فیلم از 10"
         type="number"
         id="tentacles"
         name="tentacles"
@@ -24,6 +36,7 @@
         max="10"
         v-model="MovieData.rate"
       />
+
       <label for="start">تاریخ انتشار</label>
 
       <input
@@ -57,7 +70,7 @@
       </button>
       <div class="table-c">
         <tbody>
-          <tr v-for="(Cast, index) in MovieData.casts" :key="Cast">
+          <tr v-for="(Cast, index) in MovieData.casts" :key="Cast.Character">
             <td>
               <p class="td-p">{{ Cast.Character }}</p>
             </td>
@@ -72,18 +85,15 @@
           </tr>
         </tbody>
       </div>
-      <div class="country-select">
-        <label> کشور</label>
-        <input list="brow" v-model="countries" />
-        <datalist id="brow">
-          <option
-            v-for="Country in Countries"
-            :key="Country"
-            :value="Country.id"
-            >{{ Country.name }}
-          </option>
-        </datalist>
-      </div>
+
+      <model-select
+        class="nationality"
+        :options="options"
+        v-model="countries"
+        placeholder="کشور"
+      >
+      </model-select>
+
       <label for="fname">تصویر </label>
       <div class="img-show" v-if="IsEditMode">
         <img :src="MovieData.picture" alt="" />
@@ -94,7 +104,7 @@
 
       <button
         type="submit"
-        @click.prevent="submitData"
+        @click.prevent="sendData"
         class="btn btn-success btn-block"
       >
         ثبت
@@ -110,11 +120,15 @@
 
 <script>
 import axios from 'axios';
+import FormInput from './FormInput';
 export default {
   props: ['Peoples', 'Genres', 'IsEditMode', 'ID'],
-
+  components: {
+    FormInput
+  },
   data() {
     return {
+      options: [],
       MovieData: {
         title: '',
         rate: '',
@@ -132,11 +146,26 @@ export default {
       genres: '',
       directors: [],
       GenresIds: '',
-      preCasters: [],
-      Countries: this.$store.getters.GetCountry
+      preCasters: []
     };
   },
   methods: {
+    countryMaker() {
+      this.Countries.forEach(c => {
+        let cData = { value: '', text: '' };
+        cData.value = c.id;
+        cData.text = c.nationality;
+        this.options.push(cData);
+      });
+    },
+    dataSync() {
+      axios.get('http://localhost:8080/api/Movies/' + this.ID).then(res => {
+        this.MovieData = res.data;
+        console.log(res.data);
+        this.genres = this.MovieData.genres[0].name;
+        console.log(this.genres);
+      });
+    },
     castDelete(id) {
       this.MovieData.casts.splice(id, 1);
     },
@@ -144,13 +173,32 @@ export default {
     castPush() {
       this.MovieData.casts.push(this.preCasters);
     },
-    submitData() {
+    submitData(event) {
+      axios.post('/api/Movies', event).then(res => {
+        console.log(res.data);
+        console.log(event);
+        this.$router.push('/Moviepanel');
+      });
+    },
+    editData($event) {
+      axios
+        .put(
+          'http://localhost:8080/api/Movies/' + this.MovieEditData.id,
+          $event
+        )
+        .then(res => {
+          console.log(res);
+          this.$router.push('/Moviepanel');
+        })
+        .then((this.isEditMode = false));
+    },
+    sendData() {
       this.MovieData.countries.push(this.countries);
       this.MovieData.directors.push(this.directors);
       this.MovieData.genres.push(this.genres);
 
-      const form = new FormData();
-      // this.formAppender('Title', this.MovieData.Title);
+      let form = new FormData();
+
       form.append('Title', this.MovieData.title);
       form.append('Rate', this.MovieData.rate);
       form.append('DirectorsId', JSON.stringify(this.MovieData.directors));
@@ -162,27 +210,36 @@ export default {
       form.append('InTheaters', this.MovieData.inTheaters);
       form.append('releaseDate', this.MovieData.releaseDate);
       form.append('CountriesId', JSON.stringify(this.MovieData.countries));
-      this.$emit('SubmitData', form);
+      if (!this.IsEditMode) this.submitData(form);
+      else this.editData(form);
+      // this.$emit('SubmitData', form);
     },
     onFileSelected(event) {
       this.MovieData.picture = event.target.files[0];
     }
   },
   mounted() {
+    this.countryMaker();
     if (this.IsEditMode) {
-      axios.get('http://localhost:8080/api/Movies/' + this.ID).then(res => {
-        this.MovieData = res.data;
-        console.log(res.data);
-        this.genres = this.MovieData.genres[0].name;
-        console.log(this.genres);
-      });
+      this.dataSync();
     }
     this.$store.dispatch('GetCountry');
+  },
+  computed: {
+    Countries: function() {
+      return this.$store.getters.GetCountry;
+    }
   }
 };
 </script>
 
 <style>
+.nationality {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  float: right;
+  direction: rtl;
+}
 .country-select {
   padding-top: 2rem;
   padding-bottom: 2rem;

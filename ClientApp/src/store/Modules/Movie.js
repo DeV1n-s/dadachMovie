@@ -4,8 +4,8 @@ const state = {
     MovieData: [],
     InTheater: "",
     Genres: "",
-    TopImbd: "",
-    genreId:"",
+    TopImbd: [],
+
 };
 
 const getters = {
@@ -15,18 +15,16 @@ const getters = {
     getTop(state) {
         return state.InTheater;
     },
-    GetGenres(state) {
-        return state.Genres;
-    },
+
     GetTopImbd(state) {
         return state.TopImbd;
     },
-    Movie: state => id => {
-        return state.MovieData.find(Movie => Movie.id === id)
-    },
-    TMovie: state => id => {
-        return state.TopImbd.find(TMovie => TMovie.id === id)
-    },
+    // Movie: state => id => {
+    //     return state.MovieData.find(Movie => Movie.id === id)
+    // },
+    // TMovie: state => id => {
+    //     return state.TopImbd.find(TMovie => TMovie.id === id)
+    // },
     People: state => {
         return state.PeopleData
     },
@@ -38,16 +36,15 @@ const getters = {
 
 const mutations = {
     SET_MOVIE(state, movie) {
-        state.MovieData = movie
+        state.MovieData = movie.items
     },
     SET_TOP_MOVIE(state, topMovie) {
         state.InTheater = topMovie
     },
-    SET_GENRES(state, Genres) {
-        state.Genres = Genres
-    },
+
     SET_TOP_IMBD(state, TopImbd) {
-        state.TopImbd = TopImbd.items
+        // for (let i = 0; i < 5; i++)
+        state.TopImbd.push(TopImbd.items)
     }
 };
 
@@ -61,17 +58,12 @@ const actions = {
     },
 
     getTopMovie({ commit }) {
-        axios.get('http://localhost:8080/api/Movies/top')
+        axios.get('/api/Movies/top')
             .then(response => {
                 commit('SET_TOP_MOVIE', response.data)
             })
     },
-    GetGenres({ commit }) {
-        axios.get('http://localhost:8080/api/Genres')
-            .then(response => {
-                commit('SET_GENRES', response.data)
-            })
-    },
+
     // 
     Top250Movies({ commit }) {
         axios.get('https://imdb-api.com/en/API/Top250Movies/k_l3dksm3b')
@@ -79,7 +71,7 @@ const actions = {
                 commit('SET_TOP_IMBD', response.data)
             })
     },
-    
+
 
 }
 

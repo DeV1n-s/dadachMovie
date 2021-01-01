@@ -6,11 +6,7 @@
         <h3>برا ثبت بازیگر فیلد های زیر را تکمیل کنید</h3>
 
         <div>
-          <people-from
-            :IsEditMode="isEditMode"
-            :ID="id"
-            @submitData="SubmitData($event)"
-          />
+          <people-from :IsEditMode="isEditMode" :ID="id" />
         </div>
       </div>
     </div>
@@ -18,7 +14,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import PeopleFrom from '../../../components/Form/PeopleFrom.vue';
 export default {
   components: { PeopleFrom },
@@ -29,14 +24,7 @@ export default {
     };
   },
 
-  methods: {
-    SubmitData($event) {
-      axios.post('/api/people', $event).then(res => {
-        console.log(res.data);
-        this.$router.push('/CastPanel');
-      });
-    }
-  },
+  methods: {},
 
   //get/getPeople
   mounted() {

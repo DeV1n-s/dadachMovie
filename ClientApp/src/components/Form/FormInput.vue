@@ -9,16 +9,21 @@
         :placeholder="label"
         :value="value"
         :required="required"
-        @input="$emit('input', $event.target.value)"
+        v-on:input="updateValue($event.target.value)"
       />
     </p>
+    <small class="warn-input" v-if="!isValid"
+      >{{ label }} نمیتواند خالی باشد
+    </small>
   </div>
 </template>
 
 <script>
 export default {
-  model: {
-    event: 'changed'
+  data() {
+    return {
+      isValid: true
+    };
   },
   props: {
     id: {
@@ -35,12 +40,21 @@ export default {
       type: Boolean,
       default: false
     }
-  }
+  },
 
-  // methods: {
-  //   updateValue: function(value) {
-  //     this.$emit('input', value);
-  //   }
-  // }
+  methods: {
+    updateValue: function(value) {
+      this.$emit('input', value);
+      if (value == '') {
+        this.isValid = false;
+        console.log(this.isValid);
+      }
+    }
+  }
 };
 </script>
+<style scoped>
+.warn-input {
+  color: brown;
+}
+</style>

@@ -5,6 +5,7 @@ import post from './Modules/post'
 import Peaple from './Modules/Peaple'
 import Search from './Modules/Search.js'
 import Country from './Modules/Country.js'
+import Genres from './Modules/Genres.js'
 Vue.use(Vuex)
 export const store = new Vuex.Store({
     modules: {
@@ -12,7 +13,8 @@ export const store = new Vuex.Store({
         Movie,
         Peaple,
         Search,
-        Country
+        Country,
+        Genres
     },
 
 

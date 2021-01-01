@@ -2,6 +2,19 @@ import Vue from 'vue'
 import App from './App.vue'
 // import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
+import VueGoodTablePlugin from 'vue-good-table';
+Vue.use(VueGoodTablePlugin);
+import 'vue-good-table/dist/vue-good-table.css'
+import 'vue-multiselect/dist/vue-multiselect.min.css'
+import 'vue-search-select/dist/VueSearchSelect.css'
+import { ModelSelect } from 'vue-search-select'
+
+import Multiselect from 'vue-multiselect'
+Vue.component('multiselect', Multiselect)
+Vue.component('ModelSelect', ModelSelect)
+
+
+
 
 import {
     Routes

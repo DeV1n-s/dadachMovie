@@ -9,7 +9,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(genres, index) in genresData" :key="genres">
+          <tr v-for="(genres, index) in genresData" :key="genres.id">
             <td class="t-num">{{ index + 1 }}</td>
             <td>
               {{ genres.name }}
@@ -32,11 +32,17 @@
         </tbody>
       </table>
       <div class="row d-flex">
-        <label for="">نام ژانر :</label>
-        <input type="text" v-model="Genre" />
+        <form-input
+          label="نام ژانر"
+          :required="true"
+          id="name"
+          v-model="Genre"
+          class="form-input"
+        />
+
         <button
           v-if="!isEditMode"
-          class="btn btn-lg btn-success mr-1"
+          class="btn btn-lg btn-success mr-1 btn-cstm"
           @click="submitGenre"
         >
           افزودن
@@ -61,14 +67,19 @@
 </template>
 
 <script>
+import FormInput from '../../../components/Form/FormInput';
+
 import axios from 'axios';
+
 export default {
+  components: {
+    FormInput
+  },
   data() {
     return {
       isEditMode: false,
       Genre: '',
-      GenreId: '',
-      genresData: this.$store.getters.GetGenres
+      GenreId: ''
     };
   },
   methods: {
@@ -93,11 +104,23 @@ export default {
   },
   mounted() {
     this.$store.dispatch('GetGenres');
+  },
+  computed: {
+    genresData: function() {
+      return this.$store.getters.GetGenres;
+    }
   }
 };
 </script>
 
 <style scoped>
+.form-input {
+  margin-bottom: 2rem;
+}
+.btn-cstm {
+  height: 35px;
+  margin-top: 2.55rem;
+}
 table.table.table-hover {
   width: 55%;
 }

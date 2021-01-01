@@ -584,15 +584,25 @@
 export default {
   data() {
     return {
-      moviesInTheater: this.$store.getters.getTop.inTheaters,
-      movies: this.$store.getters.getTop,
-      moviesUpcomming: this.$store.getters.getTop.upcomingReleases
+      // moviesInTheater: this.$store.getters.getTop.inTheaters,
+      // movies: this.$store.getters.getTop,
+      // moviesUpcomming: this.$store.getters.getTop.upcomingReleases
     };
   },
   methods: {},
   mounted() {
     this.$store.dispatch('getTopMovie');
-    console.log(this.moviesUpcomming);
+  },
+  computed: {
+    moviesInTheater: function() {
+      return this.$store.getters.getTop.inTheaters;
+    },
+    movies: function() {
+      return this.$store.getters.getTop;
+    },
+    moviesUpcomming: function() {
+      return this.$store.getters.getTop.upcomingReleases;
+    }
   }
 };
 </script>

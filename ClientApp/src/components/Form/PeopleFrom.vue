@@ -1,16 +1,21 @@
 <template>
   <form action="/action_page.php">
-    <label for="fname">نام بازیگر </label>
-    <input type="text" v-model="CastData.name" />
+    <form-input
+      label="نام بازیگر"
+      :required="true"
+      id="name"
+      v-model="CastData.name"
+    />
 
-    <label for="lname">توضیحات کوتاه</label>
-    <input type="text" v-model="CastData.shortBio" />
-    <form-input label="تست" :required="true" id="name" />;
-
+    <form-input
+      label="توضیحات کوتاه"
+      :required="true"
+      id="name"
+      v-model="CastData.shortBio"
+    />
     <label for="lname">بیوگرافی</label>
     <textarea v-model="CastData.biography"></textarea>
     <label for="start">تاریخ تولد </label>
-
     <input
       type="date"
       id="start"
@@ -19,16 +24,14 @@
       max="2020-12-30"
       v-model="CastData.dateOfBirth"
     />
-    <div class="country-select">
-      <label for="fname">ملیت </label>
+    <model-select
+      class="nationality"
+      :options="options"
+      v-model="CastData.nationality"
+      placeholder="ملیت"
+    >
+    </model-select>
 
-      <input list="brow" v-model="CastData.nationality" />
-      <datalist id="brow">
-        <option v-for="Country in Countries" :key="Country" :value="Country.id"
-          >{{ Country.name }}
-        </option>
-      </datalist>
-    </div>
     <div class="types">
       <h6>سمت ها :</h6>
       <label class="container"
@@ -42,13 +45,12 @@
         <span class="checkmark"></span>
       </label>
     </div>
-
     <label for="fname">تصویر </label>
     <input type="file" class="custom-file-input" @change="onFileSelected" />
-    <small v-for="message in valMessage" :key="message">{{ message }}</small>
+
     <button
       type="submit"
-      @click.prevent="submitData"
+      @click.prevent="sendData"
       class="btn btn-success btn-block"
     >
       ثبت
@@ -62,18 +64,18 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 import FormInput from './FormInput';
 // import { dictionary } from '../../components/dic';
 export default {
   props: ['ID', 'IsEditMode'],
   data() {
     return {
-      dictionary: {
-        name: 'نام بازیگر'
+      options: [],
+      item: {
+        value: '',
+        text: ''
       },
-
-      // name: '',
       CastData: {
         name: '',
         shortBio: '',
@@ -84,8 +86,7 @@ export default {
         isDiractor: false,
         nationality: ''
       },
-      valMessage: [],
-      Countries: this.$store.getters.GetCountry
+      valMessage: []
     };
   },
   components: {
@@ -97,44 +98,67 @@ export default {
 
       return capitalized;
     },
-    // UpdateValue($event){
-    valChecker() {
-      console.log(this.CastData);
-      // for (const property in this.CastData) {
-      //   if (this.CastData[property] === '' && property == 'name') {
-      this.valMessage.push('نمیتواند خالی باشد ' + this.dictionary['name']);
-      //   }
-      //}
+    SubmitData(form) {
+      axios.post('/api/people', form).then(res => {
+        console.log(res.data);
+        this.$router.push('/CastPanel');
+      });
     },
-    // },
-    submitData() {
-      this.valChecker();
-      const form = new FormData();
+    EdittData($event) {
+      axios
+        .put('/api/people/' + this.id, $event)
+        .then(res => console.log(res.data));
 
+      this.isEditMode = false;
+    },
+
+    sendData() {
+      const form = new FormData();
       for (const property in this.CastData) {
-        // console.log(`${this.capFstLet(property)}: ${this.CastData[property]}`);
         form.append(`${this.capFstLet(property)}`, this.CastData[property]);
       }
-      this.$emit('SubmitData', form);
+      if (!this.IsEditMode) this.SubmitData(form);
+      else this.EdittData(form);
     },
     onFileSelected(event) {
       this.CastData.picture = event.target.files[0];
       // this.$refs.file.files[0];
+    },
+    countryMaker() {
+      this.Countries.forEach(c => {
+        let cData = { value: '', text: '' };
+        cData.value = c.id;
+        cData.text = c.nationality;
+        this.options.push(cData);
+      });
     }
   },
   mounted() {
-    // if (this.IsEditMode) {
-    //   axios
-    //     .get('http://localhost:8080/api/people/' + this.ID)
-    //     .then(res => (this.CastData = res.data))
-    //     .then(console.log(this.CastData));
-    // }
+    if (this.IsEditMode) {
+      axios.get('/api/people/' + this.ID).then(res => {
+        this.CastData = res.data;
+        console.log(res.data);
+      });
+    }
     this.$store.dispatch('GetCountry');
+
+    this.countryMaker();
+  },
+  computed: {
+    Countries: function() {
+      return this.$store.getters.GetCountry;
+    }
   }
 };
 </script>
 
 <style scoped>
+.nationality {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  float: right;
+  direction: rtl;
+}
 small {
   display: block;
   color: brown;

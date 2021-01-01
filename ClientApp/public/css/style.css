@@ -7,6 +7,18 @@
     font-family: 'IRANSans' !important;
 }
 
+.btn-table-warning {
+    background-color: rgb(236 220 129);
+}
+
+.btn-table-danger {
+    background-color: #e06361c7;
+}
+
+btn-table-danger:hover {
+    background-color: #fc0400c7;
+}
+
 @media print {
     *,
     *:before,

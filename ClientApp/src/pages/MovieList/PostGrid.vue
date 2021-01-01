@@ -48,13 +48,21 @@
 export default {
   data() {
     return {
-      MovieLists: this.$store.getters.GetMovies,
-      Cast: this.$store.getters.GetMovies,
-      Diractor: this.$store.getters.GetMovies[0].directors[0].personName
+      // MovieLists: this.$store.getters.GetMovies,
+      // Cast: this.$store.getters.GetMovies,
+      Diractor: []
     };
   },
   mounted() {
     this.$store.dispatch('getMovie');
+  },
+  computed: {
+    MovieLists: function() {
+      return this.$store.getters.GetMovies;
+    },
+    Cast: function() {
+      return this.$store.getters.GetMovies;
+    }
   }
 };
 </script>

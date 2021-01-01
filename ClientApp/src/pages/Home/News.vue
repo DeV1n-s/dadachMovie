@@ -198,9 +198,7 @@
 <script>
 export default {
   data() {
-    return {
-      topImbds: []
-    };
+    return {};
   },
   methods: {
     filterImbd() {
@@ -212,6 +210,11 @@ export default {
   mounted() {
     this.$store.dispatch('Top250Movies');
     this.filterImbd();
+  },
+  computed: {
+    topImbds: function() {
+      return this.$store.getters.GetTopImbd;
+    }
   }
 };
 </script>

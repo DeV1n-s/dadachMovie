@@ -7,7 +7,6 @@
         <movie-form
           :Peoples="Peoples"
           :Genres="Genres"
-          @submitData="SubmitData($event)"
           :IsEditMode="isEditMode"
         />
       </div>
@@ -25,19 +24,10 @@ export default {
   },
   data() {
     return {
-      isEditMode: false,
-      Peoples: this.$store.getters.GetPeaple,
-      Genres: []
+      isEditMode: false
     };
   },
   methods: {
-    SubmitData($event) {
-      axios.post('/api/Movies', $event).then(res => {
-        console.log(res.data);
-        console.log($event);
-        this.$router.push('/Moviepanel');
-      });
-    },
     getGenre() {
       axios.get('/api/genres').then(res => (this.Genres = res.data));
     }
@@ -45,7 +35,16 @@ export default {
 
   mounted() {
     this.$store.dispatch('GetPeoples');
+    this.$store.dispatch('GetGenres');
     this.getGenre();
+  },
+  computed: {
+    Peoples: function() {
+      return this.$store.getters.GetPeaple;
+    },
+    Genres: function() {
+      return this.$store.getters.GetGenres;
+    }
   }
 };
 </script>

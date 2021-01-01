@@ -29,7 +29,7 @@ const actions = {
     GetPeoples({ commit }) {
         axios.get('http://localhost:8080/api/People')
             .then(response => {
-                commit('SET_PEOPLE', response.data)
+                commit('SET_PEOPLE', response.data.items)
             })
     },
 }

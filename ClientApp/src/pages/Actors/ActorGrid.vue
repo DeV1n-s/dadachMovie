@@ -42,12 +42,15 @@
 <script>
 export default {
   data() {
-    return {
-      Peoples: this.$store.getters.GetPeaple
-    };
+    return {};
   },
   mounted() {
     this.$store.dispatch('GetPeoples');
+  },
+  computed: {
+    Peoples: function() {
+      return this.$store.getters.GetPeaple;
+    }
   }
 };
 </script>

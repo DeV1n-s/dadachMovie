@@ -3,38 +3,50 @@
     <div class="container">
       <div class="row ipad-width">
         <div class="col-md-8"></div>
-        <h2>لیست فیلم ها</h2>
+        <h2>لیست بازیگران</h2>
 
-        <table class="table table-hover">
-          <thead class="font-size">
-            <tr>
-              <th>#</th>
-              <th>نام بازیگر</th>
-              <th>تاریخ تولد</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(People, index) in Peoples" :key="People.id">
-              <td class="t-num">{{ index + 1 }}</td>
-              <td>{{ People.name }}</td>
-              <td>{{ People.dateOfBirth }}</td>
-              <td>
-                <button
-                  class="btn btn-lg btn-warning"
-                  @click.prevent="editBtn(People.id)"
-                >
-                  ویرایش
-                </button>
-                <button
-                  class="btn btn-lg btn-danger"
-                  @click="deleteButton(People.id)"
-                >
-                  حذف
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <vue-good-table
+          :sort-options="{
+            enabled: true
+          }"
+          :columns="columns"
+          :rows="Peoples"
+          :rtl="true"
+          :lineNumbers="true"
+          :pagination-options="{
+            enabled: true,
+            prevLabel: 'قبل',
+            nextLabel: 'بعد',
+            rowsPerPageLabel: 'تعداد رکورد'
+          }"
+        >
+          <template slot="table-row" slot-scope="props">
+            <span v-if="props.column.field == 'actions'">
+              <button
+                class="btn btn-lg btn-table-warning"
+                @click="editBtn(props.row.id)"
+              >
+                ویرایش
+              </button>
+              <button
+                class="btn btn-lg btn-table-danger"
+                @click="deleteButton(props.row.id)"
+              >
+                حذف
+              </button>
+            </span>
+            <span v-else>
+              {{ props.formattedRow[props.column.field] }}
+            </span>
+          </template>
+
+          <div slot="emptystate">
+            <p class="text-center">
+              هیچگونه داده ای وجود ندارد :)
+            </p>
+          </div>
+        </vue-good-table>
+
         <router-link to="/CastAdd">
           <button class="btn btn-success btn-block m-x">
             افزودن بازیگر جدید
@@ -43,11 +55,7 @@
       </div>
       <transition name="slide" mode="out-in">
         <div v-if="isEditMode">
-          <people-from
-            :ID="id"
-            :IsEditMode="isEditMode"
-            @submitData="SubmitData($event)"
-          />
+          <people-from :ID="id" :IsEditMode="isEditMode" />
         </div>
       </transition>
     </div>
@@ -61,9 +69,25 @@ export default {
   components: { PeopleFrom },
   data() {
     return {
+      columns: [
+        {
+          label: 'نام بازیگر',
+          field: 'name'
+        },
+
+        {
+          label: 'تاریخ تولد',
+          field: 'dateOfBirth'
+        },
+        {
+          label: '',
+          field: 'actions',
+          sortable: false
+        }
+      ],
+
       isEditMode: false,
-      id: null,
-      Peoples: this.$store.getters.GetPeaple
+      id: null
     };
   },
   methods: {
@@ -71,26 +95,22 @@ export default {
       this.isEditMode = true;
       this.id = id;
     },
-    async SubmitData($event) {
-      await axios
-        .put('http://localhost:8080/api/people/' + this.id, $event)
-        .then(res => console.log(res.data));
 
-      this.isEditMode = false;
-    },
     onFileSelected(event) {
       this.castEdit.picture = event.target.files[0];
       // this.$refs.file.files[0];
     },
     deleteButton(id) {
-      axios
-        .delete('http://localhost:8080/api/people/' + id)
-        .then(res => console.log(res));
+      axios.delete('/api/people/' + id).then(res => console.log(res));
     }
   },
-  mounted() {
-    this.$store.dispatch('GetPeoples');
-    // console.log(object);
+  async mounted() {
+    await this.$store.dispatch('GetPeoples');
+  },
+  computed: {
+    Peoples: function() {
+      return this.$store.getters.GetPeaple;
+    }
   }
 };
 </script>
