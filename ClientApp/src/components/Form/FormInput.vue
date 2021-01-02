@@ -2,27 +2,42 @@
   <div>
     <label>{{ label }}</label>
     <p>
-      <input
-        class="input"
-        type="text"
-        :id="id"
-        :placeholder="label"
-        :value="value"
-        :required="required"
-        v-on:input="updateValue($event.target.value)"
-      />
+      <validation-provider rules="required" v-slot="{ errors }">
+        <input
+          class="input"
+          type="text"
+          :id="id"
+          :placeholder="label"
+          :value="value"
+          :required="required"
+          v-on:input="updateValue($event.target.value)"
+        />
+        <span class="warn-input ">
+          <small>{{ errors[0] }} </small></span
+        >
+      </validation-provider>
     </p>
-    <small class="warn-input" v-if="!isValid"
-      >{{ label }} نمیتواند خالی باشد
-    </small>
   </div>
 </template>
 
 <script>
+import { ValidationProvider, extend } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
+extend('required', {
+  ...required,
+  message: `  این فیلد نیمتواند خالی باشد `
+});
+
 export default {
+  inject: {
+    $validator: '$validator'
+  },
+  components: {
+    ValidationProvider
+  },
   data() {
     return {
-      isValid: true
+      isValid: false
     };
   },
   props: {
@@ -45,10 +60,6 @@ export default {
   methods: {
     updateValue: function(value) {
       this.$emit('input', value);
-      if (value == '') {
-        this.isValid = false;
-        console.log(this.isValid);
-      }
     }
   }
 };
