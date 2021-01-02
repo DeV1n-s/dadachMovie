@@ -11,7 +11,7 @@ namespace dadachMovie.Contracts
         Task<List<string>> GetRolesListAsync();
         Task<bool> AssignUserRoleAsync(EditRoleDTO editRoleDTO);
         Task<bool> RemoveUserRoleAsync(EditRoleDTO editRoleDTO);
-        Task<UserToken> CreateUserAsync(UserInfo userInfo);
+        Task<UserToken> RegisterUserAsync(UserInfo userInfo);
         Task<UserToken> UserLoginAsync(UserInfo userInfo);
         Task<UserToken> RenewUserBearerTokenAsync(UserInfo userInfo);
     }

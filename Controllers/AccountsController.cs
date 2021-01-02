@@ -31,10 +31,10 @@ namespace dadachMovie.Controllers
             _accountsService = accountsService;
         }
         
-        [HttpPost("Create")]
-        public async Task<ActionResult<UserToken>> CreateUser([FromBody] UserInfo userInfo)
+        [HttpPost("Register")]
+        public async Task<ActionResult<UserToken>> Register([FromBody] UserInfo userInfo)
         {
-            var userToken = await _accountsService.CreateUserAsync(userInfo);
+            var userToken = await _accountsService.RegisterUserAsync(userInfo);
             if (userToken == null)
                 return BadRequest();
 

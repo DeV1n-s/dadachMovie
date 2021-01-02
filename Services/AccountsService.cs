@@ -47,7 +47,7 @@ namespace dadachMovie.Services
                                         TotalItems = queryable.TotalItems};
         }
 
-        public async Task<UserToken> CreateUserAsync(UserInfo userInfo)
+        public async Task<UserToken> RegisterUserAsync(UserInfo userInfo)
         {
             var user = new IdentityUser { UserName = userInfo.EmailAddress, Email = userInfo.EmailAddress };
             var result = await _userManager.CreateAsync(user, userInfo.Password);
