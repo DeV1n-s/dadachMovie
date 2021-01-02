@@ -3,13 +3,15 @@ using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using Gridify;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dadachMovie.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/movies")]
     public class MoviesController : ControllerBase
     {
         private readonly IMoviesService _moviesService;
@@ -41,6 +43,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Post([FromForm] MovieCreationDTO movieCreationDTO)
         {
             var movieDTO = await _moviesService.AddMovieAsync(movieCreationDTO);
@@ -48,6 +51,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPut("{id:int}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Put(int id, [FromForm] MovieCreationDTO movieCreationDTO)
         {
             if (!await _moviesService.UpdateMovieAsync(id, movieCreationDTO))
@@ -57,6 +61,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPatch("{id:int}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<MoviePatchDTO> patchDocument)
         {
             if (patchDocument == null)
@@ -80,6 +85,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             if (!await _moviesService.DeleteMovieAsync(id))

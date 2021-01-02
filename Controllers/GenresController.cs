@@ -4,12 +4,14 @@ using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using Gridify;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dadachMovie.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/genres")]
     public class GenresController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
@@ -46,7 +48,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPost]
-        // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Post([FromBody] GenreCreationDTO genreCreationDTO)
         {
             var genreDTO = await _genresService.AddGenreAsync(genreCreationDTO);
@@ -54,6 +56,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Put(int id, [FromBody] GenreCreationDTO genreCreationDTO)
         {
             if (!await _genresService.UpdateGenreAsync(id, genreCreationDTO))
@@ -63,6 +66,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             if (!await _genresService.DeleteGenreAsync(id))

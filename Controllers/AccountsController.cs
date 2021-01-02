@@ -6,8 +6,10 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using dadachMovie.Helpers;
+using Gridify;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,58 +21,34 @@ using Microsoft.IdentityModel.Tokens;
 namespace dadachMovie.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/accounts")]
     public class AccountsController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IConfiguration _configuration;
-        private readonly AppDbContext _dbContext;
-        private readonly IMapper _mapper;
+        private readonly IAccountsService _accountsService;
 
-        public AccountsController(UserManager<IdentityUser> userManager,
-                                SignInManager<IdentityUser> signInManager,
-                                IConfiguration configuration,
-                                AppDbContext dbContext,
-                                IMapper mapper)
+        public AccountsController(IAccountsService accountsService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _configuration = configuration;
-            _dbContext = dbContext;
-            _mapper = mapper;
+            _accountsService = accountsService;
         }
         
         [HttpPost("Create")]
         public async Task<ActionResult<UserToken>> CreateUser([FromBody] UserInfo userInfo)
         {
-            var user = new IdentityUser { UserName = userInfo.EmailAddress, Email = userInfo.EmailAddress };
-            var result = await _userManager.CreateAsync(user, userInfo.Password);
+            var userToken = await _accountsService.CreateUserAsync(userInfo);
+            if (userToken == null)
+                return BadRequest();
 
-            if (result.Succeeded)
-            {
-                return await BuildToken(userInfo);
-            }
-            else
-            {
-                return BadRequest(result.Errors);
-            }
+            return userToken;
         }
 
         [HttpPost("Login")]
         public async Task<ActionResult<UserToken>> Login([FromBody] UserInfo userInfo)
         {
-            var result = await _signInManager.PasswordSignInAsync(userInfo.EmailAddress,userInfo.Password,
-                                                                isPersistent: false, lockoutOnFailure: false);
-
-            if (result.Succeeded)
-            {
-                return await BuildToken(userInfo);
-            }
-            else
-            {
+            var userToken = await _accountsService.UserLoginAsync(userInfo);
+            if (userToken == null)
                 return BadRequest("Invalid login attempt");
-            }
+            
+            return userToken;
         }
 
         [HttpPost("RenewToken")]
@@ -82,83 +60,37 @@ namespace dadachMovie.Controllers
                 EmailAddress = HttpContext.User.Identity.Name
             };
 
-            return await BuildToken(userInfo);
+            return await _accountsService.RenewUserBearerTokenAsync(userInfo);
         }
 
         [HttpGet("Users")]
-        public async Task<ActionResult<List<UserDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
-        {
-            var queryable = _dbContext.Users.AsQueryable().OrderBy(u => u.Email);
-            await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage);
-            var users = queryable.Paginate(paginationDTO).ToListAsync();
-
-            return _mapper.Map<List<UserDTO>>(users);
-        }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        public async Task<ActionResult<Paging<UserDTO>>> Get([FromQuery] GridifyQuery gridifyQuery) =>
+            await _accountsService.GetUsersPagingAsync(gridifyQuery);
 
         [HttpGet("Roles")]
-        public async Task<ActionResult<List<string>>> GetRoles()
-        {
-            return await _dbContext.Roles.Select(x => x.Name).ToListAsync();
-        }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        public async Task<ActionResult<List<string>>> GetRoles() =>
+            await _accountsService.GetRolesListAsync();
 
         [HttpPost("AssignRole")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> AssignRole(EditRoleDTO editRoleDTO)
         {
-            var user = await _userManager.FindByIdAsync(editRoleDTO.UserId);
-            if (user == null)
-            {
+            if (!await _accountsService.AssignUserRoleAsync(editRoleDTO))
                 return NotFound();
-            }
-            
-            await _userManager.AddToRoleAsync(user, editRoleDTO.RoleName);
+
             return NoContent();
         }
 
         [HttpPost("RemoveRole")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> RemoveRole(EditRoleDTO editRoleDTO)
         {
-            var user = await _userManager.FindByIdAsync(editRoleDTO.UserId);
-            if (user == null)
-            {
+            if (!await _accountsService.RemoveUserRoleAsync(editRoleDTO))
                 return NotFound();
-            }
-            
-            await _userManager.RemoveFromRoleAsync(user, editRoleDTO.RoleName);
+
             return NoContent();
-        }
-
-        private async Task<UserToken> BuildToken(UserInfo userInfo)
-        {
-            var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Name, userInfo.EmailAddress),
-                new Claim(ClaimTypes.Email, userInfo.EmailAddress)
-            };
-
-            var identityUser = await _userManager.FindByEmailAsync(userInfo.EmailAddress);
-            var claimsDB = await _userManager.GetClaimsAsync(identityUser);
-
-            claims.AddRange(claimsDB);
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwt:key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var expiration = DateTime.Now.AddYears(1);
-
-            JwtSecurityToken token = new JwtSecurityToken
-            (
-                issuer: null,
-                audience: null,
-                claims: claims,
-                expires: expiration,
-                signingCredentials: creds
-            );
-
-            return new UserToken()
-            {
-                Token = new JwtSecurityTokenHandler().WriteToken(token),
-                Expiration = expiration
-            };
         }
     }
 }

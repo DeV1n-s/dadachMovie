@@ -6,6 +6,8 @@ using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using dadachMovie.Helpers;
 using Gridify;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 namespace dadachMovie.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/people")]
     public class PeopleController : ControllerBase
     {
         private readonly IPeopleService _peopleService;
@@ -64,6 +66,7 @@ namespace dadachMovie.Controllers
         }
         
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Post([FromForm] PersonCreationDTO personCreationDTO)
         {
             var personDTO = await _peopleService.AddPersonAsync(personCreationDTO);
@@ -71,6 +74,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Put(int id, [FromForm] PersonCreationDTO personCreationDTO)
         {
             if (!await _peopleService.UpdatePersonAsync(id, personCreationDTO))
@@ -80,6 +84,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPatch("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<PersonPatchDTO> patchDocument)
         {
             if (patchDocument == null)
@@ -104,6 +109,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             if (!await _peopleService.DeletePersonAsync(id))

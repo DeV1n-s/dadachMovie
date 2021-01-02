@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace dadachMovie.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/countries")]
     public class CountriesController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
