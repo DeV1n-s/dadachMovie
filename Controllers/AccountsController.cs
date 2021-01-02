@@ -1,22 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
-using dadachMovie.Helpers;
 using Gridify;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 
 namespace dadachMovie.Controllers
 {
@@ -53,7 +42,7 @@ namespace dadachMovie.Controllers
 
         [HttpPost("RenewToken")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<UserToken>> Renew()
+        public async Task<ActionResult<UserToken>> RenewToken()
         {
             var userInfo = new UserInfo
             {
@@ -65,7 +54,7 @@ namespace dadachMovie.Controllers
 
         [HttpGet("Users")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
-        public async Task<ActionResult<Paging<UserDTO>>> Get([FromQuery] GridifyQuery gridifyQuery) =>
+        public async Task<ActionResult<Paging<UserDTO>>> GetUsers([FromQuery] GridifyQuery gridifyQuery) =>
             await _accountsService.GetUsersPagingAsync(gridifyQuery);
 
         [HttpGet("Roles")]

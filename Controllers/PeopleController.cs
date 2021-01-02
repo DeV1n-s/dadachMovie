@@ -1,16 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
-using dadachMovie.Helpers;
 using Gridify;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Controllers
 {

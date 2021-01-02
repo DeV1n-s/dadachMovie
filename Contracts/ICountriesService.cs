@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using dadachMovie.DTOs;
-using dadachMovie.Entities;
 using Gridify;
 
 namespace dadachMovie.Contracts

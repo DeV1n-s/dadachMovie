@@ -1,12 +1,8 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
-using dadachMovie.Entities;
-using dadachMovie.Helpers;
 using Gridify;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Controllers
 {

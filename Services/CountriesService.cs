@@ -1,12 +1,9 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
-using dadachMovie.Entities;
-using dadachMovie.Helpers;
 using Gridify;
 using Gridify.EntityFramework;
 using Microsoft.EntityFrameworkCore;
