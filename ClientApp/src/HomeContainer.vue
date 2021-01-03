@@ -14,6 +14,15 @@ export default {
   components: {
     appHeader,
     appFooter
+  },
+  methods: {
+    log() {
+      console.log('hello');
+      this.$store.dispatch('autoLog');
+    }
+  },
+  created() {
+    this.log();
   }
 };
 </script>

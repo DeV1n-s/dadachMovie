@@ -6,8 +6,13 @@
       <form method="post" action="#">
         <div class="row">
           <label for="username">
-            نام کاربری:
-            <input type="text" name="username" id="username" />
+            پست الکترونیکی
+            <input
+              type="text"
+              name="username"
+              id="username"
+              v-model="loginData.emailAddress"
+            />
           </label>
         </div>
 
@@ -15,6 +20,7 @@
           <label for="password">
             رمز عبور:
             <input
+              v-model="loginData.password"
               type="password"
               name="password"
               id="password"
@@ -33,7 +39,9 @@
           </div>
         </div>
         <div class="row">
-          <button type="submit">وارد شوید</button>
+          <button type="submit" @click.prevent="switchAuthMode">
+            وارد شوید
+          </button>
         </div>
       </form>
       <div class="row">
@@ -48,7 +56,31 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      loginData: {
+        emailAddress: '',
+        password: ''
+      }
+    };
+  },
+  methods: {
+    // submitForm() {
+    //   this.formIsValid = false;
+    //   if (!this.username && !this.password && this.password.length < 6) {
+    //     this.formIsValid = false;
+    //     return;
+    //   }
+    // },
+    switchAuthMode() {
+      this.$store.dispatch('login', this.loginData);
+      console.log(this.$store.getters.isAuthGet);
+      this.$router.push('/');
+      this.$router.reload('/');
+    }
+  }
+};
 </script>
 
 <style></style>

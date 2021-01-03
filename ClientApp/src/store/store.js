@@ -6,6 +6,7 @@ import Peaple from './Modules/Peaple'
 import Search from './Modules/Search.js'
 import Country from './Modules/Country.js'
 import Genres from './Modules/Genres.js'
+import Auth from './Modules/Auth.js'
 Vue.use(Vuex)
 export const store = new Vuex.Store({
     modules: {
@@ -14,7 +15,8 @@ export const store = new Vuex.Store({
         Peaple,
         Search,
         Country,
-        Genres
+        Genres,
+        Auth
     },
 
 

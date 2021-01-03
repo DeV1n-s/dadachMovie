@@ -72,9 +72,7 @@
                 پروفایل کاربری
               </router-link>
             </li>
-          </ul>
-          <ul class="nav navbar-nav flex-child-menu menu-right">
-            <li class="dropdown first">
+            <li class="dropdown first" v-if="isLogin">
               <a
                 class="btn btn-default dropdown-toggle lv1"
                 data-toggle="dropdown"
@@ -92,8 +90,17 @@
                 </li>
               </ul>
             </li>
-            <li class="loginLink"><a href="#">ورود</a></li>
-            <li class="btn signupLink"><a href="#">ثبت نام</a></li>
+          </ul>
+          <ul class="nav navbar-nav flex-child-menu menu-right">
+            <li v-if="!isLogin" class="loginLink"><a href="#">ورود</a></li>
+            <li v-if="!isLogin" class="btn signupLink">
+              <a href="#">ثبت نام</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav flex-child-menu menu-right">
+            <li v-if="isLogin" class="btn " @click="logOut">
+              <a href="#">خروج</a>
+            </li>
           </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -132,6 +139,12 @@ export default {
     };
   },
   methods: {
+    logOut() {
+      this.$store.dispatch('logOut');
+      this.$store.state.Auth.isAuth = false;
+      this.$router.replace('/');
+      console.log(this.$store.getters.isAuthGet);
+    },
     search() {
       if (this.searchTitle === '') {
         this.isSearchValid = false;
@@ -142,6 +155,11 @@ export default {
         console.log(this.$store.getters.GetSearchTitleMovie);
         this.$store.dispatch('MovieSearchTitle', this.searchTitle);
       }
+    }
+  },
+  computed: {
+    isLogin: function() {
+      return this.$store.getters.isAuthGet;
     }
   }
 };

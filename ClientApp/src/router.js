@@ -54,7 +54,7 @@ export const Routes = [
         ]
     },
 
-
+    { path: '/#', redirect: '/' },
     { path: '/404', component: NotFound },
     {
         // path: "*",

@@ -7,8 +7,8 @@
         <span></span>
       </div>
     </div>
-    <loginForm />
-    <signUp />
+    <loginForm v-if="!isLog" />
+    <signUp v-if="!isLog" />
     <navBar />
   </div>
 </template>
@@ -22,6 +22,11 @@ export default {
     loginForm,
     signUp,
     navBar
+  },
+  computed: {
+    isLog: function() {
+      return this.$store.getters.isAuthGet;
+    }
   }
 };
 </script>
