@@ -92,14 +92,14 @@
             </li>
           </ul>
           <ul class="nav navbar-nav flex-child-menu menu-right">
-            <li v-if="!isLogin" class="loginLink"><a href="#">ورود</a></li>
+            <li v-if="!isLogin" class="loginLink"><a href="">ورود</a></li>
             <li v-if="!isLogin" class="btn signupLink">
               <a href="#">ثبت نام</a>
             </li>
           </ul>
           <ul class="nav navbar-nav flex-child-menu menu-right">
             <li v-if="isLogin" class="btn " @click="logOut">
-              <a href="#">خروج</a>
+              <a type="submit" href="http://localhost:8080/">خروج</a>
             </li>
           </ul>
         </div>

@@ -13,6 +13,9 @@
               id="username"
               v-model="loginData.emailAddress"
             />
+            <small class="t-warning" v-if="isEmailEmpty"
+              >لطفا پست الکترونیکی را وارد کنید
+            </small>
           </label>
         </div>
 
@@ -24,8 +27,10 @@
               type="password"
               name="password"
               id="password"
-              placeholder="******"
             />
+            <small class="t-warning" v-if="isPassEmpty"
+              >لطفا رمز عبور را وارد کنید
+            </small>
           </label>
         </div>
         <div class="row">
@@ -42,6 +47,9 @@
           <button type="submit" @click.prevent="switchAuthMode">
             وارد شوید
           </button>
+          <small class="t-warning" v-if="isLogFaile">
+            نام کاربری یا رمز عبور اشتباه است</small
+          >
         </div>
       </form>
       <div class="row">
@@ -59,6 +67,9 @@
 export default {
   data() {
     return {
+      isPassEmpty: false,
+      isEmailEmpty: false,
+      isLogFaile: false,
       loginData: {
         emailAddress: '',
         password: ''
@@ -66,16 +77,27 @@ export default {
     };
   },
   methods: {
-    // submitForm() {
-    //   this.formIsValid = false;
-    //   if (!this.username && !this.password && this.password.length < 6) {
-    //     this.formIsValid = false;
-    //     return;
-    //   }
-    // },
-    switchAuthMode() {
+    logInVal() {
+      if (this.loginData.emailAddress === '') {
+        this.isEmailEmpty = true;
+        return;
+      }
+      if (this.loginData.password === '') {
+        this.isPassEmpty = true;
+        return;
+      }
+    },
+    logCheck() {
+      if (!this.$store.getters.isAuthGet) {
+        this.isLogFaile = true;
+        return;
+      }
+    },
+    async switchAuthMode() {
+      this.logInVal();
       this.$store.dispatch('login', this.loginData);
-      console.log(this.$store.getters.isAuthGet);
+      await console.log(this.$store.getters.isAuthGet);
+      this.logCheck();
       this.$router.push('/');
       this.$router.reload('/');
     }
@@ -83,4 +105,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.t-warning {
+  color: brown;
+}
+</style>
