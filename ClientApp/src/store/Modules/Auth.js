@@ -34,7 +34,6 @@ const actions = {
             password: payload.password
         }
         const response = await axios.post('/api/accounts/Login', lg)
-        console.log(response);
         console.log(response.statusText);
         // const responseData = await response.json()
         if (response.statusText != 'OK') {
@@ -79,7 +78,6 @@ const actions = {
     autoLog(context) {
         const Token = localStorage.getItem('token');
         const TokenExpiration = localStorage.getItem('tokenExpiration')
-        console.log(Token);
         if (Token) {
             context.commit('setUser', {
                 token: Token,

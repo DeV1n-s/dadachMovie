@@ -12,9 +12,9 @@ const getters = {
     // Movie: state => id => {
     //     return state.MovieData.find(Movie => Movie.id === id)
     // },
-    Peoples: state => id => {
-        return state.PeopleData.find(People => People.id === id)
-    },
+    // Peoples: state => id => {
+    //     return state.PeopleData.find(People => People.id === id)
+    // },
 };
 
 const mutations = {

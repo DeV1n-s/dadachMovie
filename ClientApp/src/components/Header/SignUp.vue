@@ -12,7 +12,6 @@
           <form-input
             label="پست الکترونیکی"
             :required="true"
-            id="name"
             v-model="regData.emailAddress"
           />
         </div>
@@ -20,7 +19,6 @@
           <form-input
             label="رمز عبور"
             :required="true"
-            id="name"
             v-model="regData.password"
           />
           <small>رمز عبور باید شامل حروف کوچک و بزرگ و سیمبول ها باشد</small>
@@ -29,9 +27,7 @@
           <form-input
             label="تکرار رمز عبور"
             :required="true"
-            id="name"
             v-model="cPassword"
-            :fr="password"
           />
 
           <small class="s-warning" v-if="!isPassSame"

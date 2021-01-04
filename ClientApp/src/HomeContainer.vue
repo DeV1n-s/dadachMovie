@@ -17,7 +17,6 @@ export default {
   },
   methods: {
     log() {
-      console.log('hello');
       this.$store.dispatch('autoLog');
     }
   },

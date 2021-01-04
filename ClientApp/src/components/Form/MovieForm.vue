@@ -123,11 +123,11 @@ import axios from 'axios';
 import FormInput from './FormInput';
 export default {
   props: ['Peoples', 'Genres', 'IsEditMode', 'ID'],
-  provide() {
-    return {
-      $validator: this.$validator
-    };
-  },
+  // provide() {
+  //   return {
+  //     $validator: this.$validator
+  //   };
+  // },
   components: {
     FormInput
   },

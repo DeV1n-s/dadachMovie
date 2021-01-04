@@ -29,9 +29,9 @@ extend('required', {
 });
 
 export default {
-  inject: {
-    $validator: '$validator'
-  },
+  // inject: {
+  //   $validator: '$validator'
+  // },
   components: {
     ValidationProvider
   },
