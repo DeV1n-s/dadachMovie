@@ -64,7 +64,7 @@
                 اخبار
               </router-link>
             </li>
-            <li class="dropdown first">
+            <li class="dropdown first" v-if="isLogin">
               <router-link
                 class="btn btn-default dropdown-toggle lv1"
                 to="/UserProfile"
