@@ -1,36 +1,49 @@
 <template>
   <div>
     <div class="row">
-      <table class="table table-hover">
-        <thead class="font-size">
-          <tr>
-            <th>#</th>
-            <th>عنوان ژانر</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(genres, index) in genresData" :key="genres.id">
-            <td class="t-num">{{ index + 1 }}</td>
-            <td>
-              {{ genres.name }}
-            </td>
-            <td>
-              <button
-                class="btn btn-lg btn-danger"
-                @click="deleteButton(genres.id)"
-              >
-                حذف
-              </button>
-              <button
-                class="btn btn-lg btn-warning mr-1"
-                @click.prevent="editGenre(genres.id)"
-              >
-                ویرایش
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <vue-good-table
+        class="vue-good-table"
+        :sort-options="{
+          enabled: true
+        }"
+        :columns="columns"
+        :rows="genresData"
+        :rtl="true"
+        :lineNumbers="true"
+        :pagination-options="{
+          enabled: true,
+          prevLabel: 'قبل',
+          nextLabel: 'بعد',
+          rowsPerPageLabel: 'تعداد رکورد'
+        }"
+      >
+        <template slot="table-row" slot-scope="props">
+          <span v-if="props.column.field == 'actions'">
+            <button
+              class="btn btn-lg btn-table-warning"
+              @click="editGenre(props.row.id)"
+            >
+              ویرایش
+            </button>
+            <button
+              class="btn btn-lg btn-table-danger"
+              @click="deleteButton(props.row.id)"
+            >
+              حذف
+            </button>
+          </span>
+          <span v-else>
+            {{ props.formattedRow[props.column.field] }}
+          </span>
+        </template>
+
+        <div slot="emptystate">
+          <p class="text-center">
+            هیچگونه داده ای وجود ندارد :)
+          </p>
+        </div>
+      </vue-good-table>
+
       <div class="row d-flex">
         <form-input
           label="نام ژانر"
@@ -49,14 +62,14 @@
         </button>
         <button
           v-if="isEditMode"
-          class="btn btn-lg btn-success mr-1"
+          class="btn btn-lg btn-success mr-1 btn-cstm"
           @click="subEditGenre(GenreId)"
         >
           ویرایش
         </button>
         <button
           v-if="isEditMode"
-          class="btn btn-lg btn-danger mr-1"
+          class="btn btn-lg btn-danger mr-1 btn-cstm"
           @click="(isEditMode = false), (Genre = '')"
         >
           لفو
@@ -77,6 +90,17 @@ export default {
   },
   data() {
     return {
+      columns: [
+        {
+          label: 'عنوان ژانر',
+          field: 'name'
+        },
+        {
+          label: '',
+          field: 'actions',
+          sortable: false
+        }
+      ],
       isEditMode: false,
       Genre: '',
       GenreId: ''
@@ -114,6 +138,12 @@ export default {
 </script>
 
 <style scoped>
+.vue-good-table {
+  width: 50% !important;
+}
+.vue-good-table button {
+  margin-left: 0.5rem;
+}
 .form-input {
   margin-bottom: 2rem;
 }
@@ -132,7 +162,7 @@ label {
   margin-right: 0.7rem;
 }
 input {
-  width: 30%;
+  width: 50%;
 }
 .d-flex {
   display: flex;
