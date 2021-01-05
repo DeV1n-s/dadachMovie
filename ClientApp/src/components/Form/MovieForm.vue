@@ -109,7 +109,7 @@
       >
         ثبت
       </button>
-      <router-link to="/MoviePanel">
+      <router-link to="/MoviePanels">
         <button type="submit" class="btn btn-danger btn-block">
           بازگشت
         </button>
@@ -260,7 +260,7 @@ export default {
   margin-bottom: 1.5rem;
 }
 label {
-  color: aliceblue;
+  color: rgba(41, 37, 37, 0.733);
   margin-bottom: 3px;
   margin-top: 3px;
 }

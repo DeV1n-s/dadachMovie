@@ -72,13 +72,16 @@
 <script>
 export default {
   data() {
-    return {
-      GenreLists: this.$store.getters.GetGenres
-    };
+    return {};
   },
   mounted() {
     this.$store.dispatch('GetGenres');
     console.log(this.GenreLists);
+  },
+  computed: {
+    GenreLists: function() {
+      return this.$store.getters.GetGenres;
+    }
   }
 };
 </script>

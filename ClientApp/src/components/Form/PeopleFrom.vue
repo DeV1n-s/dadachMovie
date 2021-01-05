@@ -55,7 +55,7 @@
     >
       ثبت
     </button>
-    <router-link to="/CastPanel">
+    <router-link to="/CastPanels">
       <button type="submit" class="btn btn-danger btn-block">
         بازگشت
       </button>

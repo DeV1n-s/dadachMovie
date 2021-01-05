@@ -1,77 +1,75 @@
 <template>
-  <div class="movie-items mt-5">
-    <div class="container">
-      <div class="row ipad-width">
-        <div class="col-md-8"></div>
-        <h2>لیست فیلم ها</h2>
-        <vue-good-table
-          :sort-options="{
-            enabled: true
-          }"
-          :columns="columns"
-          :rows="MovieLists"
-          :rtl="true"
-          :lineNumbers="true"
-          :pagination-options="{
-            enabled: true,
-            prevLabel: 'قبل',
-            nextLabel: 'بعد',
-            rowsPerPageLabel: 'تعداد رکورد'
-          }"
-        >
-          <template slot="table-row" slot-scope="props">
-            <span v-if="props.column.field == 'actions'">
-              <button
-                class="btn btn-lg btn-table-warning"
-                @click="editMovie(props.row.id)"
-              >
-                ویرایش
-              </button>
-              <button
-                class="btn btn-lg btn-table-danger"
-                @click="deleteButton(props.row.id)"
-              >
-                حذف
-              </button>
-            </span>
-            <span v-else>
-              {{ props.formattedRow[props.column.field] }}
-            </span>
-          </template>
+  <div>
+    <hr />
+    <div class="row">
+      <h2>لیست فیلم ها</h2>
+      <vue-good-table
+        :sort-options="{
+          enabled: true
+        }"
+        :columns="columns"
+        :rows="MovieLists"
+        :rtl="true"
+        :lineNumbers="true"
+        :pagination-options="{
+          enabled: true,
+          prevLabel: 'قبل',
+          nextLabel: 'بعد',
+          rowsPerPageLabel: 'تعداد رکورد'
+        }"
+      >
+        <template slot="table-row" slot-scope="props">
+          <span v-if="props.column.field == 'actions'">
+            <button
+              class="btn btn-lg btn-table-warning"
+              @click="editMovie(props.row.id)"
+            >
+              ویرایش
+            </button>
+            <button
+              class="btn btn-lg btn-table-danger"
+              @click="deleteButton(props.row.id)"
+            >
+              حذف
+            </button>
+          </span>
+          <span v-else>
+            {{ props.formattedRow[props.column.field] }}
+          </span>
+        </template>
 
-          <div slot="emptystate">
-            <p class="text-center">
-              هیچگونه داده ای وجود ندارد :)
-            </p>
-          </div>
-        </vue-good-table>
-
-        <router-link to="/MovieAdd">
-          <button class="btn btn-success btn-block m-x">
-            افزودن فیلم جدید
-          </button>
-        </router-link>
-        <button
-          class="btn btn-success btn-block m-x"
-          @click="isGenreMdoe = !isGenreMdoe"
-        >
-          مدیریت ژانر ها
-        </button>
-      </div>
-      <transition name="slide" mode="out-in">
-        <genre-panel class="genre-panel" v-if="isGenreMdoe" />
-      </transition>
-      <transition name="slide" mode="out-in">
-        <div v-if="isEditMode">
-          <movie-form
-            :Peoples="Peoples"
-            :Genres="Genres"
-            :IsEditMode="isEditMode"
-            :ID="MovieEditData.id"
-          />
+        <div slot="emptystate">
+          <p class="text-center">
+            هیچگونه داده ای وجود ندارد :)
+          </p>
         </div>
-      </transition>
+      </vue-good-table>
+
+      <router-link to="/MovieAdd">
+        <button class="btn btn-success btn-block m-x">
+          افزودن فیلم جدید
+        </button>
+      </router-link>
+      <button
+        class="btn btn-success btn-block m-x"
+        @click="isGenreMdoe = !isGenreMdoe"
+      >
+        مدیریت ژانر ها
+      </button>
     </div>
+    <transition name="slide" mode="out-in">
+      <genre-panel class="genre-panel" v-if="isGenreMdoe" />
+    </transition>
+    <transition name="slide" mode="out-in">
+      <div v-if="isEditMode">
+        <movie-form
+          :Peoples="Peoples"
+          :Genres="Genres"
+          :IsEditMode="isEditMode"
+          :ID="MovieEditData.id"
+        />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -242,7 +240,6 @@ td {
   text-align: right;
 }
 h2 {
-  color: navajowhite;
   margin-bottom: 8px;
 }
 .t-num {

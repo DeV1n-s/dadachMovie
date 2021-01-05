@@ -22,6 +22,8 @@ import MovieListGenre from './pages/MovieListGenre/MovieListGenre.vue'
 import NotFound from './pages/404/404.vue'
 import MovieListTitleSearch from './pages/MovieListTitleSearch/MovieListTitleSearch.vue'
 import ActorListsSearch from './pages/ActorsSearch/ActorListsSearch.vue'
+import AdminContainer from './AdminContaner.vue'
+import Dashbord from './pages/Admin/Dashbord.vue'
 // import MovieSortGenre from './pages/MovieList/MovieSortGenre.vue '
 Vue.use(VueRouter)
 
@@ -49,13 +51,12 @@ export const Routes = [
             { path: '/News', component: News },
             { path: '/MovieSingle/:id', name: 'MovieSingle', component: MovieSingle },
             { path: '/MoviePanel', component: MoviePanel, meta: { requiresAuth: true } },
-            { path: '/MovieAdd', component: MovieAdd },
             { path: '/NewsSingle/:id', name: 'NewsSingle', component: NewsSingle },
             { path: '/NewsPanel', component: NewsPanel, meta: { requiresAuth: true } },
             { path: '/NewsAdd', component: NewsAdd },
             { path: '/ActorSingle/:id', name: 'ActorSingle', component: ActorSingle },
             { path: '/CastPanel', component: CastPanel, meta: { requiresAuth: true } },
-            { path: '/CastAdd', component: CastAdd, meta: { requiresAuth: true } },
+            // { path: '/CastAdd', component: CastAdd, meta: { requiresAuth: true } },
             { path: '/Top250Movies', component: Top250Movies },
             { path: '/Top250Single/:id', name: 'Top250Single', component: Top250Single },
             { path: '/MovieListGenre/:id', name: 'MovieListGenre', component: MovieListGenre },
@@ -63,6 +64,28 @@ export const Routes = [
             { path: '/ActorListsSearch/:id', name: 'ActorListsSearch', component: ActorListsSearch },
 
         ]
+    },
+    {
+        beforeEnter(to, _, next) {
+            if (to.meta.requiresAuth && !store.getters.isAuthGet) {
+                next('/');
+            } else if (to.meta.requiresUnauth && store.getters.isAuthGet) {
+                next('/');
+            } else {
+                next();
+            }
+        },
+        path: '/admin',
+        component: AdminContainer,
+        children: [
+            { path: '/dashbord', component: Dashbord },
+            { path: '/MoviePanels', component: MoviePanel, meta: { requiresAuth: true } },
+            { path: '/CastPanels', component: CastPanel, meta: { requiresAuth: true } },
+            { path: '/CastAdd', component: CastAdd, meta: { requiresAuth: true } },
+            { path: '/MovieAdd', component: MovieAdd },
+
+        ]
+
     },
 
     { path: '/#', redirect: '/' },

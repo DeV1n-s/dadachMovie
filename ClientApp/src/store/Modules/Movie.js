@@ -5,7 +5,7 @@ const state = {
     InTheater: "",
     Genres: "",
     TopImbd: [],
-
+    movieTtotal: ''
 };
 
 const getters = {
@@ -19,15 +19,12 @@ const getters = {
     GetTopImbd(state) {
         return state.TopImbd;
     },
-    // Movie: state => id => {
-    //     return state.MovieData.find(Movie => Movie.id === id)
-    // },
-    // TMovie: state => id => {
-    //     return state.TopImbd.find(TMovie => TMovie.id === id)
-    // },
-    People: state => {
-        return state.PeopleData
+    GetMovieTotal(state) {
+        return state.movieTtotal
     },
+    // People: state => {
+    //     return state.PeopleData
+    // },
 
     // groupSort: state => badge => {
     //     return state.MovieData.find(groupSort => groupSort.badge === badge)
@@ -36,7 +33,8 @@ const getters = {
 
 const mutations = {
     SET_MOVIE(state, movie) {
-        state.MovieData = movie.items
+        state.MovieData = movie.items,
+            state.movieTtotal = movie.totalItems
     },
     SET_TOP_MOVIE(state, topMovie) {
         state.InTheater = topMovie

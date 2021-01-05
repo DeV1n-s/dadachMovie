@@ -3,7 +3,7 @@
     <div class="container">
       <nav class="navbar navbar-default navbar-custom">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header logo">
+        <div class="nav navbar-nav flex-child-menu">
           <div
             class="navbar-toggle"
             data-toggle="collapse"
@@ -18,7 +18,7 @@
           </div>
           <a href="#"
             ><img
-              class="logo"
+              class="logo "
               src="images/logo1.png"
               alt=""
               width="119"
@@ -35,13 +35,16 @@
               <a href="#page-top"></a>
             </li>
             <li class="dropdown first">
-              <a href="http://localhost:8080/" class="btn btn-default">
+              <a
+                href="http://localhost:8080/"
+                class="nav navbar-nav flex-child-menu"
+              >
                 خانه
               </a>
             </li>
             <li class="dropdown first">
               <router-link
-                class="btn btn-default dropdown-toggle lv1"
+                class="nav navbar-nav flex-child-menu"
                 to="/MovieList"
               >
                 فیلم ها
@@ -50,45 +53,32 @@
 
             <li class="dropdown first">
               <router-link
-                class="btn btn-default dropdown-toggle lv1"
+                class="nav navbar-nav flex-child-menu"
                 to="/ActorList"
               >
                 بازیگران
               </router-link>
             </li>
             <li class="dropdown first">
-              <router-link
-                class="btn btn-default dropdown-toggle lv1"
-                to="/News"
-              >
+              <router-link class="nav navbar-nav flex-child-menu" to="/News">
                 اخبار
               </router-link>
             </li>
             <li class="dropdown first" v-if="isLogin">
               <router-link
-                class="btn btn-default dropdown-toggle lv1"
+                class="nav navbar-nav flex-child-menu"
                 to="/UserProfile"
               >
                 پروفایل کاربری
               </router-link>
             </li>
             <li class="dropdown first" v-if="isLogin">
-              <a
-                class="btn btn-default dropdown-toggle lv1"
-                data-toggle="dropdown"
-                data-hover="dropdown"
+              <router-link
+                to="/Dashbord"
+                class="nav navbar-nav flex-child-menu"
               >
                 پنل ادمین
-              </a>
-              <ul class="dropdown-menu level1">
-                <li>
-                  <router-link to="/Moviepanel">مدیریت فیلم ها</router-link>
-                </li>
-                <li><router-link to="/NewsPanel">مدیریت اخبار</router-link></li>
-                <li class="it-last">
-                  <router-link to="/CastPanel">مدیریت بازیگران</router-link>
-                </li>
-              </ul>
+              </router-link>
             </li>
           </ul>
           <ul class="nav navbar-nav flex-child-menu menu-right">

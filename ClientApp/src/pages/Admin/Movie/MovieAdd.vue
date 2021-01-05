@@ -1,15 +1,13 @@
 <template>
-  <div class="movie-items mt-5" dir="right">
-    <div class="container">
-      <div class="row ipad-width">
-        <div class="col-md-8"></div>
-        <h3>برا ثبت فیلم فیلد های زیر را تکمیل کنید</h3>
-        <movie-form
-          :Peoples="Peoples"
-          :Genres="Genres"
-          :IsEditMode="isEditMode"
-        />
-      </div>
+  <div>
+    <hr />
+    <div class="row">
+      <h3>برا ثبت فیلم فیلد های زیر را تکمیل کنید</h3>
+      <movie-form
+        :Peoples="Peoples"
+        :Genres="Genres"
+        :IsEditMode="isEditMode"
+      />
     </div>
   </div>
 </template>

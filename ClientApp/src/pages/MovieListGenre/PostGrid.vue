@@ -53,18 +53,26 @@ export default {
   data() {
     return {
       movieData: [],
-      id: this.$route.params.id,
-      MovieLists: this.$store.getters.GetMovies,
-      Cast: this.$store.getters.GetMovies,
-      Diractor: this.$store.getters.GetMovies[0].directors
+      id: this.$route.params.id
     };
   },
   mounted() {
     axios
-      .get('http://localhost:5000/api/Movies/filter?GenreId=' + this.id)
+      .get('api/genres?Filter=id==' + this.id)
       .then(res => (this.movieData = res.data));
     console.log(this.movieData);
     console.log(this.id);
+  },
+  computed: {
+    MovieLists: function() {
+      return this.$store.getters.GetMovies;
+    },
+    Cast: function() {
+      return this.$store.getters.GetMovies;
+    },
+    Diractor: function() {
+      return this.$store.getters.GetMovies[0].directors;
+    }
   }
 };
 </script>

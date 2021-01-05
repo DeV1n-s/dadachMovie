@@ -149,7 +149,7 @@ export default {
 }
 .btn-cstm {
   height: 35px;
-  margin-top: 2.55rem;
+  margin-top: 4.7rem;
 }
 table.table.table-hover {
   width: 55%;

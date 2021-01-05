@@ -1,64 +1,62 @@
 <template>
-  <div class="movie-items mt-5">
-    <div class="container">
-      <div class="row ipad-width">
-        <div class="col-md-8"></div>
-        <h2>لیست بازیگران</h2>
+  <div>
+    <hr />
+    <div class="row">
+      <h2>لیست بازیگران</h2>
 
-        <vue-good-table
-          :sort-options="{
-            enabled: true
-          }"
-          :columns="columns"
-          :rows="Peoples"
-          :rtl="true"
-          :lineNumbers="true"
-          :pagination-options="{
-            enabled: true,
-            prevLabel: 'قبل',
-            nextLabel: 'بعد',
-            rowsPerPageLabel: 'تعداد رکورد'
-          }"
-        >
-          <template slot="table-row" slot-scope="props">
-            <span v-if="props.column.field == 'actions'">
-              <button
-                class="btn btn-lg btn-table-warning"
-                @click="editBtn(props.row.id)"
-              >
-                ویرایش
-              </button>
-              <button
-                class="btn btn-lg btn-table-danger"
-                @click="deleteButton(props.row.id)"
-              >
-                حذف
-              </button>
-            </span>
-            <span v-else>
-              {{ props.formattedRow[props.column.field] }}
-            </span>
-          </template>
+      <vue-good-table
+        :sort-options="{
+          enabled: true
+        }"
+        :columns="columns"
+        :rows="Peoples"
+        :rtl="true"
+        :lineNumbers="true"
+        :pagination-options="{
+          enabled: true,
+          prevLabel: 'قبل',
+          nextLabel: 'بعد',
+          rowsPerPageLabel: 'تعداد رکورد'
+        }"
+      >
+        <template slot="table-row" slot-scope="props">
+          <span v-if="props.column.field == 'actions'">
+            <button
+              class="btn btn-lg btn-table-warning"
+              @click="editBtn(props.row.id)"
+            >
+              ویرایش
+            </button>
+            <button
+              class="btn btn-lg btn-table-danger"
+              @click="deleteButton(props.row.id)"
+            >
+              حذف
+            </button>
+          </span>
+          <span v-else>
+            {{ props.formattedRow[props.column.field] }}
+          </span>
+        </template>
 
-          <div slot="emptystate">
-            <p class="text-center">
-              هیچگونه داده ای وجود ندارد :)
-            </p>
-          </div>
-        </vue-good-table>
-
-        <router-link to="/CastAdd">
-          <button class="btn btn-success btn-block m-x">
-            افزودن بازیگر جدید
-          </button>
-        </router-link>
-      </div>
-      <transition name="slide" mode="out-in">
-        <div v-if="isEditMode">
-          <people-from :ID="id" :IsEditMode="isEditMode" />
+        <div slot="emptystate">
+          <p class="text-center">
+            هیچگونه داده ای وجود ندارد :)
+          </p>
         </div>
-      </transition>
+      </vue-good-table>
+
+      <router-link to="/CastAdd">
+        <button class="btn btn-success btn-block m-x">
+          افزودن بازیگر جدید
+        </button>
+      </router-link>
     </div>
+    <transition name="slide" mode="out-in">
+      <div v-if="isEditMode">
+        <people-from :ID="id" :IsEditMode="isEditMode" />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -216,7 +214,7 @@ td {
   text-align: right;
 }
 h2 {
-  color: navajowhite;
+  /* color: black; */
   margin-bottom: 8px;
 }
 .t-num {

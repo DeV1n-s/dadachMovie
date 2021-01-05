@@ -1,13 +1,11 @@
 <template>
-  <div class="movie-items mt-5" dir="right">
-    <div class="container">
-      <div class="row ipad-width">
-        <div class="col-md-8"></div>
-        <h3>برا ثبت بازیگر فیلد های زیر را تکمیل کنید</h3>
+  <div>
+    <hr />
+    <div class="row">
+      <h3>برا ثبت بازیگر فیلد های زیر را تکمیل کنید</h3>
 
-        <div>
-          <people-from :IsEditMode="isEditMode" :ID="id" />
-        </div>
+      <div>
+        <people-from :IsEditMode="isEditMode" :ID="id" />
       </div>
     </div>
   </div>
