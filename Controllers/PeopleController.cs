@@ -63,7 +63,7 @@ namespace dadachMovie.Controllers
         }
         
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Post([FromForm] PersonCreationDTO personCreationDTO)
         {
             var personDTO = await _peopleService.AddPersonAsync(personCreationDTO);
@@ -71,7 +71,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Put(int id, [FromForm] PersonCreationDTO personCreationDTO)
         {
             if (!await _peopleService.UpdatePersonAsync(id, personCreationDTO))
@@ -81,7 +81,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPatch("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<PersonPatchDTO> patchDocument)
         {
             if (patchDocument == null)
@@ -106,7 +106,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             if (!await _peopleService.DeletePersonAsync(id))

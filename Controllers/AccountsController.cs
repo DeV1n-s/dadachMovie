@@ -41,7 +41,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPost("RenewToken")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         public async Task<ActionResult<UserToken>> RenewToken()
         {
             var userInfo = new UserInfo
@@ -53,17 +53,17 @@ namespace dadachMovie.Controllers
         }
 
         [HttpGet("Users")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Paging<UserDTO>>> GetUsers([FromQuery] GridifyQuery gridifyQuery) =>
             await _accountsService.GetUsersPagingAsync(gridifyQuery);
 
         [HttpGet("Roles")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<string>>> GetRoles() =>
             await _accountsService.GetRolesListAsync();
 
         [HttpPost("AssignRole")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AssignRole(EditRoleDTO editRoleDTO)
         {
             if (!await _accountsService.AssignUserRoleAsync(editRoleDTO))
@@ -73,7 +73,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPost("RemoveRole")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> RemoveRole(EditRoleDTO editRoleDTO)
         {
             if (!await _accountsService.RemoveUserRoleAsync(editRoleDTO))
