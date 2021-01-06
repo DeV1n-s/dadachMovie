@@ -84,8 +84,9 @@ export const Routes = [
             { path: '/MoviePanels', component: MoviePanel, meta: { requiresAuth: true } },
             { path: '/CastPanels', component: CastPanel, meta: { requiresAuth: true } },
             { path: '/CastAdd', component: CastAdd, meta: { requiresAuth: true } },
+            { path: '/CastEdit/:id', name: 'CastEdit', component: CastAdd, meta: { requiresAuth: true } },
             { path: '/MovieAdd', component: MovieAdd, meta: { requiresAuth: true } },
-            { path: '/MovieEdit/:id', name: 'MovieEdit', component: MovieAdd },
+            { path: '/MovieEdit/:id', name: 'MovieEdit', component: MovieAdd, meta: { requiresAuth: true } },
 
         ]
 

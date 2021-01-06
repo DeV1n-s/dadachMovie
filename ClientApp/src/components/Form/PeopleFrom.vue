@@ -68,9 +68,10 @@ import axios from 'axios';
 import FormInput from './FormInput';
 // import { dictionary } from '../../components/dic';
 export default {
-  props: ['ID', 'IsEditMode'],
   data() {
     return {
+      isEditMode: false,
+      id: this.$route.params.id,
       options: [],
       item: {
         value: '',
@@ -117,7 +118,7 @@ export default {
       for (const property in this.CastData) {
         form.append(`${this.capFstLet(property)}`, this.CastData[property]);
       }
-      if (!this.IsEditMode) this.SubmitData(form);
+      if (!this.isEditMode) this.SubmitData(form);
       else this.EdittData(form);
     },
     onFileSelected(event) {
@@ -134,8 +135,10 @@ export default {
     }
   },
   mounted() {
-    if (this.IsEditMode) {
-      axios.get('/api/people/' + this.ID).then(res => {
+    if (this.id != undefined) {
+      console.log(this.id);
+      this.isEditMode = true;
+      axios.get('/api/people/' + this.id).then(res => {
         this.CastData = res.data;
         console.log(res.data);
       });

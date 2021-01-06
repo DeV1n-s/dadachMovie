@@ -21,12 +21,19 @@
       >
         <template slot="table-row" slot-scope="props">
           <span v-if="props.column.field == 'actions'">
-            <button
-              class="btn btn-lg btn-table-warning"
-              @click="editBtn(props.row.id)"
+            <router-link
+              :to="{
+                name: 'CastEdit',
+                params: { id: props.row.id }
+              }"
             >
-              ویرایش
-            </button>
+              <button
+                class="btn btn-lg btn-table-warning"
+                @click="editBtn(props.row.id)"
+              >
+                ویرایش
+              </button>
+            </router-link>
             <button
               class="btn btn-lg btn-table-danger"
               @click="deleteButton(props.row.id)"
@@ -52,19 +59,13 @@
         </button>
       </router-link>
     </div>
-    <transition name="slide" mode="out-in">
-      <div v-if="isEditMode">
-        <people-from :ID="id" :IsEditMode="isEditMode" />
-      </div>
-    </transition>
+    <transition name="slide" mode="out-in"> </transition>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import PeopleFrom from '../../../components/Form/PeopleFrom.vue';
 export default {
-  components: { PeopleFrom },
   data() {
     return {
       columns: [
