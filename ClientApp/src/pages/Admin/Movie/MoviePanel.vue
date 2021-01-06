@@ -20,12 +20,20 @@
       >
         <template slot="table-row" slot-scope="props">
           <span v-if="props.column.field == 'actions'">
-            <button
-              class="btn btn-lg btn-table-warning"
-              @click="editMovie(props.row.id)"
+            <router-link
+              :to="{
+                name: 'MovieEdit',
+                params: { id: props.row.id }
+              }"
             >
-              ویرایش
-            </button>
+              <button
+                class="btn btn-lg btn-table-warning"
+                @click="editMovie(props.row.id)"
+              >
+                ویرایش
+              </button>
+            </router-link>
+
             <button
               class="btn btn-lg btn-table-danger"
               @click="deleteButton(props.row.id)"
@@ -65,7 +73,6 @@
         <movie-form
           :Peoples="Peoples"
           :Genres="Genres"
-          :IsEditMode="isEditMode"
           :ID="MovieEditData.id"
         />
       </div>

@@ -27,8 +27,8 @@
           Genre.name
         }}</option>
       </select>
-      <form-input
-        label="نمره فیلم از 10"
+      <label for=""> نمره فیلم از 10</label>
+      <input
         type="number"
         id="tentacles"
         name="tentacles"
@@ -95,7 +95,7 @@
       </model-select>
 
       <label for="fname">تصویر </label>
-      <div class="img-show" v-if="IsEditMode">
+      <div class="img-show" v-if="isEditMode">
         <img :src="MovieData.picture" alt="" />
       </div>
       <input type="file" class="custom-file-input" @change="onFileSelected" />
@@ -122,7 +122,7 @@
 import axios from 'axios';
 import FormInput from './FormInput';
 export default {
-  props: ['Peoples', 'Genres', 'IsEditMode', 'ID'],
+  props: ['Peoples', 'Genres'],
   // provide() {
   //   return {
   //     $validator: this.$validator
@@ -133,6 +133,8 @@ export default {
   },
   data() {
     return {
+      id: '',
+      isEditMode: false,
       options: [],
       MovieData: {
         title: '',
@@ -164,7 +166,7 @@ export default {
       });
     },
     dataSync() {
-      axios.get('http://localhost:8080/api/Movies/' + this.ID).then(res => {
+      axios.get('/api/Movies/' + this.$route.params.id).then(res => {
         this.MovieData = res.data;
         console.log(res.data);
         this.genres = this.MovieData.genres[0].name;
@@ -187,10 +189,7 @@ export default {
     },
     editData($event) {
       axios
-        .put(
-          'http://localhost:8080/api/Movies/' + this.MovieEditData.id,
-          $event
-        )
+        .put('/api/Movies/' + this.$route.params.id, $event)
         .then(res => {
           console.log(res);
           this.$router.push('/Moviepanel');
@@ -215,7 +214,7 @@ export default {
       form.append('InTheaters', this.MovieData.inTheaters);
       form.append('releaseDate', this.MovieData.releaseDate);
       form.append('CountriesId', JSON.stringify(this.MovieData.countries));
-      if (!this.IsEditMode) this.submitData(form);
+      if (!this.isEditMode) this.submitData(form);
       else this.editData(form);
       // this.$emit('SubmitData', form);
     },
@@ -225,7 +224,10 @@ export default {
   },
   mounted() {
     this.countryMaker();
-    if (this.IsEditMode) {
+    if (this.$route.params.id != undefined) {
+      console.log(this.$route.params.id);
+      this.id = this.$route.params.id;
+      this.isEditMode = true;
       this.dataSync();
     }
     this.$store.dispatch('GetCountry');

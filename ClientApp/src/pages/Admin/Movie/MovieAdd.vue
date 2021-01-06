@@ -3,11 +3,7 @@
     <hr />
     <div class="row">
       <h3>برا ثبت فیلم فیلد های زیر را تکمیل کنید</h3>
-      <movie-form
-        :Peoples="Peoples"
-        :Genres="Genres"
-        :IsEditMode="isEditMode"
-      />
+      <movie-form :Peoples="Peoples" :Genres="Genres" />
     </div>
   </div>
 </template>

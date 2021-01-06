@@ -24,6 +24,7 @@ import MovieListTitleSearch from './pages/MovieListTitleSearch/MovieListTitleSea
 import ActorListsSearch from './pages/ActorsSearch/ActorListsSearch.vue'
 import AdminContainer from './AdminContaner.vue'
 import Dashbord from './pages/Admin/Dashbord.vue'
+// import MovieEdit from './pages/Admin/Movie/MovieEdit.vue'
 // import MovieSortGenre from './pages/MovieList/MovieSortGenre.vue '
 Vue.use(VueRouter)
 
@@ -77,12 +78,14 @@ export const Routes = [
         },
         path: '/admin',
         component: AdminContainer,
+        meta: { requiresAuth: true },
         children: [
             { path: '/dashbord', component: Dashbord },
             { path: '/MoviePanels', component: MoviePanel, meta: { requiresAuth: true } },
             { path: '/CastPanels', component: CastPanel, meta: { requiresAuth: true } },
             { path: '/CastAdd', component: CastAdd, meta: { requiresAuth: true } },
-            { path: '/MovieAdd', component: MovieAdd },
+            { path: '/MovieAdd', component: MovieAdd, meta: { requiresAuth: true } },
+            { path: '/MovieEdit/:id', name: 'MovieEdit', component: MovieAdd },
 
         ]
 
