@@ -85,6 +85,31 @@
                             <p>{{ dirMovie.releaseDate }}</p>
                           </div>
                         </div>
+
+                        <div
+                          class="cast-it"
+                          v-for="dirMovie in castMovies"
+                          :key="dirMovie"
+                        >
+                          <div class="cast-left cebleb-film">
+                            <img
+                              class="cast-movie-img"
+                              :src="dirMovie.picture"
+                              alt=""
+                            />
+                            <div>
+                              <router-link
+                                :to="{
+                                  name: 'MovieSingle',
+                                  params: { id: dirMovie.id }
+                                }"
+                              >
+                                {{ dirMovie.title }}
+                              </router-link>
+                            </div>
+                            <p>{{ dirMovie.releaseDate }}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -112,35 +137,39 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
+      People: [],
       castMovies: [],
       dirMovies: []
     };
   },
   methods: {
+    GetPeople() {
+      axios.get('/api/People/' + this.id).then(res => {
+        console.log(res.data);
+        this.People = res.data;
+      });
+    },
     castMoiveGet() {
-      axios
-        .get('http://localhost:8080/api/People/' + this.id + '/CastMovies')
-        .then(res => {
-          this.castMovies = res.data;
-        });
+      axios.get('/api/People/' + this.id + '/CastMovies').then(res => {
+        this.castMovies = res.data;
+      });
     },
     dirtMoiveGet() {
-      axios
-        .get('http://localhost:8080/api/People/' + this.id + '/DirectorMovies')
-        .then(res => {
-          this.dirMovies = res.data;
-        });
+      axios.get('/api/People/' + this.id + '/DirectorMovies').then(res => {
+        this.dirMovies = res.data;
+      });
     }
   },
   mounted() {
     this.castMoiveGet();
     this.dirtMoiveGet();
-    console.log(this.id);
+    this.GetPeople();
+    console.log(this.People);
   },
   computed: {
-    People() {
-      return this.$store.getters.Peoples(parseInt(this.$route.params.id));
-    }
+    // People: function() {
+    //   return this.$store.getters.GetPeaple;
+    // }
   }
 };
 </script>
