@@ -47,6 +47,10 @@
                             <p v-if="People.isCast">بازیگر</p>
                             <p v-if="People.isDirector">کارگردان</p>
                           </div>
+                          <div class="sb-it">
+                            <h6>ملیت:</h6>
+                            <p v-if="People.isCast">{{ People.nationality }}</p>
+                          </div>
                         </div>
                       </div>
                       <div class="title-hd-sm">
@@ -57,17 +61,53 @@
                       </div>
                       <!-- movie cast -->
                       <div class="mvcast-item">
-                        <div class="cast-it">
+                        <div
+                          class="cast-it"
+                          v-for="dirMovie in dirMovies"
+                          :key="dirMovie"
+                        >
                           <div class="cast-left cebleb-film">
                             <img
                               class="cast-movie-img"
-                              src="http://localhost:5000/movies/ddf170a3-eddb-4731-8e1f-4a0d5a223169.jpg"
+                              :src="dirMovie.picture"
                               alt=""
                             />
                             <div>
-                              <a href="#"> نام فیلم </a>
+                              <router-link
+                                :to="{
+                                  name: 'MovieSingle',
+                                  params: { id: dirMovie.id }
+                                }"
+                              >
+                                {{ dirMovie.title }}
+                              </router-link>
                             </div>
-                            <p>تاریخ</p>
+                            <p>{{ dirMovie.releaseDate }}</p>
+                          </div>
+                        </div>
+
+                        <div
+                          class="cast-it"
+                          v-for="dirMovie in castMovies"
+                          :key="dirMovie"
+                        >
+                          <div class="cast-left cebleb-film">
+                            <img
+                              class="cast-movie-img"
+                              :src="dirMovie.picture"
+                              alt=""
+                            />
+                            <div>
+                              <router-link
+                                :to="{
+                                  name: 'MovieSingle',
+                                  params: { id: dirMovie.id }
+                                }"
+                              >
+                                {{ dirMovie.title }}
+                              </router-link>
+                            </div>
+                            <p>{{ dirMovie.releaseDate }}</p>
                           </div>
                         </div>
                       </div>
@@ -96,24 +136,40 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      id: this.$route.params.id
+      id: this.$route.params.id,
+      People: [],
+      castMovies: [],
+      dirMovies: []
     };
   },
   methods: {
+    GetPeople() {
+      axios.get('/api/People/' + this.id).then(res => {
+        console.log(res.data);
+        this.People = res.data;
+      });
+    },
     castMoiveGet() {
-      axios
-        .get('http://localhost:8080/api/People/' + this.id + '/Movies')
-        .then(res => console.log(res.data));
+      axios.get('/api/People/' + this.id + '/CastMovies').then(res => {
+        this.castMovies = res.data;
+      });
+    },
+    dirtMoiveGet() {
+      axios.get('/api/People/' + this.id + '/DirectorMovies').then(res => {
+        this.dirMovies = res.data;
+      });
     }
   },
   mounted() {
     this.castMoiveGet();
-    console.log(this.id);
+    this.dirtMoiveGet();
+    this.GetPeople();
+    console.log(this.People);
   },
   computed: {
-    People() {
-      return this.$store.getters.Peoples(parseInt(this.$route.params.id));
-    }
+    // People: function() {
+    //   return this.$store.getters.GetPeaple;
+    // }
   }
 };
 </script>

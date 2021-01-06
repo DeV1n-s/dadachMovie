@@ -228,19 +228,27 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
+      id: this.$route.params.id,
+      Movie: [],
       Diractor: '',
       Cast: ''
     };
   },
-  computed: {
-    Movie() {
-      return this.$store.getters.Movie(parseInt(this.$route.params.id));
+  methods: {
+    GetMovie() {
+      axios.get('/api/movies/' + this.id).then(res => {
+        console.log(res.data);
+        this.Movie = res.data;
+      });
     }
   },
+  computed: {},
   mounted() {
+    this.GetMovie();
     this.Diractor = this.Movie.directors[0].personName;
     this.Cast = this.Movie.casters;
   }
