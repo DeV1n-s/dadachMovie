@@ -29,11 +29,11 @@ const mutations = {
     }
 
 };
-
+///api/movies?Filter=genres.id==
 
 const actions = {
     MovieSearchTitle({ commit }, searchTitle) {
-        axios.get('/api/Movies/filter?Title=' + searchTitle)
+        axios.get('/api/Movies?filter=Title=*' + searchTitle)
             .then(response => {
                 commit('SEARCH_MOVIE_TITLE', response.data);
                 console.log(searchTitle);

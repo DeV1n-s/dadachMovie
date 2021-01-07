@@ -3,7 +3,7 @@
     <div
       class="movie-item-style-2"
       v-for="MovieList in movieData"
-      :key="MovieList"
+      :key="MovieList.id"
     >
       <img :src="MovieList.picture" alt="" />
       <div class="mv-item-infor">
@@ -26,7 +26,7 @@
         <p>کارگردان : {{ Diractor }}</p>
         <p>
           ستاره ها :
-          <span v-for="cast in Cast" :key="cast"
+          <span v-for="cast in Cast" :key="cast.id"
             >{{ cast.personName }} {{ ' ' }}</span
           >
         </p>
@@ -57,9 +57,10 @@ export default {
     };
   },
   mounted() {
-    axios
-      .get('api/genres?Filter=id==' + this.id)
-      .then(res => (this.movieData = res.data));
+    axios.get('/api/movies?Filter=genres.id==' + this.id).then(res => {
+      this.movieData = res.data;
+      console.log(res.data);
+    });
     console.log(this.movieData);
     console.log(this.id);
   },

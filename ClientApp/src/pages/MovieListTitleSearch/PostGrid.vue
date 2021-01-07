@@ -8,7 +8,7 @@
     <div
       class="movie-item-style-2"
       v-for="MovieList in movieData"
-      :key="MovieList"
+      :key="MovieList.id"
     >
       <img :src="MovieList.picture" alt="" />
       <div class="mv-item-infor">
@@ -28,12 +28,10 @@
         <p class="run-time">
           <span>سال انتشار :{{ MovieList.releaseDate }}</span>
         </p>
-        <p>کارگردان : {{ Diractor[0].personName }}</p>
+        <p>کارگردان : {{ MovieList.directors }}</p>
         <p>
           ستاره ها :
-          <span v-for="cast in Cast" :key="cast"
-            >{{ cast.personName }} {{ ' ' }}</span
-          >
+          <span>{{ MovieList.casts }} {{ ' ' }}</span>
         </p>
         <p>
           ژانر : <span> {{ MovieList.genres }} </span>
@@ -52,22 +50,35 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 
 export default {
   data() {
     return {
-      movieData: this.$store.getters.GetSearchTitleMovie,
+      id: this.$route.params.id,
+      movieData: [],
+      // movieData: this.$store.getters.GetSearchTitleMovie,
       // id: this.$route.params.id,
-      MovieLists: this.$store.getters.GetMovies,
+      // MovieLists: this.$store.getters.GetMovies,
       Cast: this.$store.getters.GetMovies,
       Diractor: this.$store.getters.GetMovies[0].directors
     };
   },
   mounted() {
-    // console.log(this.movieData);
-    // this.$store.dispatch('MovieSearchTitle');
-    // console.log(this.movieData);
+    axios.get('/api/Movies?filter=Title=*' + this.id).then(res => {
+      console.log(res.data.items);
+      this.movieData = res.data.items;
+      console.log(this.movieData);
+    });
+  },
+
+  computed: {
+    // movieData: function() {
+    //   return this.$store.getters.GetSearchTitleMovie;
+    // },
+    // MovieLists: function() {
+    //   return this.$store.getters.GetSearchTitleMovie;
+    // }
   }
 };
 </script>
