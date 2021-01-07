@@ -7,7 +7,7 @@
           <span class="icon-box bg-color-red set-icon"> </span>
           <div class="text-box">
             <p class="main-text">پیام ها</p>
-            <p class="text-muted">120 جدید</p>
+            <p class="text-muted">120</p>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
         <div class="panel panel-back noti-box">
           <span class="icon-box bg-color-blue set-icon"> </span>
           <div class="text-box">
-            <p class="main-text">تعداد کاربران</p>
+            <p class="main-text">کاربران</p>
             <p class="text-muted">120</p>
           </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="panel panel-back noti-box">
           <span class="icon-box bg-color-brown set-icon"> </span>
           <div class="text-box">
-            <p class="main-text">تعداد فیلم ها</p>
+            <p class="main-text">فیلم ها</p>
             <p class="text-muted">{{ MovieTotal }}</p>
           </div>
         </div>
@@ -51,8 +51,7 @@
             <p class="text-muted">50 دقیقه پیش</p>
             <hr />
             <p class="text-muted">
-              <span class="text-muted color-bottom-txt"
-                ><i class="fa fa-edit"></i>
+              <span class="text-muted color-bottom-txt">
                 فیلم جدید قراره به زودی در اکرانگاه اکران شود
               </span>
             </p>
@@ -75,7 +74,7 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-xs-6">
-                  <i class="fa fa-cloud fa-3x"></i> البرز
+                  البرز
                 </div>
                 <div class="col-xs-6">
                   <div class="text-temp">10°</div>
@@ -98,7 +97,6 @@
       <div class="col-md-6 col-sm-12 col-xs-12">
         <div class="chat-panel panel panel-default chat-boder chat-panel-head">
           <div class="panel-heading">
-            <i class="fa fa-comments fa-fw"></i>
             یادداشت ها
             <div class="btn-group pull-right">
               <button
@@ -120,7 +118,7 @@
                 <div class="chat-body">
                   <div class="d-block">
                     <small class="pull-left text-muted">
-                      <i class="fa fa-clock-o fa-fw"></i>یک روز پیش
+                      یک روز پیش
                     </small>
                   </div>
                   <strong class="pull-right">دانیال شکوه منش </strong>

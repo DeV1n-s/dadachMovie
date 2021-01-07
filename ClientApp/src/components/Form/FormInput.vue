@@ -68,4 +68,12 @@ export default {
 .warn-input {
   color: brown;
 }
+label {
+  margin-bottom: 0px !important;
+  margin-top: 0.95rem;
+  margin-right: 3px;
+}
+p {
+  padding-top: 4px;
+}
 </style>

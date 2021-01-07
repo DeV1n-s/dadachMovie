@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col-md-12 ">
             <div class="welcome-admin">
-              <h2>پنل ادمین</h2>
+              <h2>داشبورد مدیریت</h2>
               <h5>دانیال شکوه منش عزیز خوش آمدی !</h5>
             </div>
             <router-view />

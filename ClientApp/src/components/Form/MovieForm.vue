@@ -93,14 +93,17 @@
         placeholder="کشور"
       >
       </model-select>
-
-      <label for="fname">تصویر </label>
-      <div class="img-show" v-if="isEditMode">
+      <div class="file-upload">
+        <label for="fname">تصویر </label>
+        <div class="img-show" v-if="isEditMode"></div>
         <img :src="MovieData.picture" alt="" />
       </div>
       <input type="file" class="custom-file-input" @change="onFileSelected" />
-      <label for="checkbox" class="cinema-carpet">روی پرده سینما </label>
-      <input type="checkbox" id="checkbox" v-model="MovieData.inTheaters" />
+
+      <div class="boxes">
+        <input type="checkbox" id="box-1" v-model="MovieData.inTheaters" />
+        <label for="box-1">روی پرده سینما</label>
+      </div>
 
       <button
         type="submit"
@@ -241,6 +244,10 @@ export default {
 </script>
 
 <style>
+.file-upload {
+  margin-right: 13px;
+  margin-bottom: 5px;
+}
 .nationality {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;

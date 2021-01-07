@@ -1,5 +1,5 @@
 <template>
-  <form action="/action_page.php">
+  <form action="/action_page.php" class="form-group">
     <form-input
       label="نام بازیگر"
       :required="true"
@@ -33,21 +33,19 @@
     </model-select>
 
     <div class="types">
-      <h6>سمت ها :</h6>
-      <label class="container"
-        >بازیگر
-        <input type="checkbox" checked="checked" v-model="CastData.isCast" />
-        <span class="checkmark"></span>
-      </label>
-      <label class="container"
-        >کاردگردان
-        <input type="checkbox" v-model="CastData.isDiractor" />
-        <span class="checkmark"></span>
-      </label>
+      <label class="type-p"> </label>
     </div>
-    <label for="fname">تصویر </label>
-    <input type="file" class="custom-file-input" @change="onFileSelected" />
+    <div class="boxes">
+      <input type="checkbox" id="box-1" v-model="CastData.isCast" />
+      <label for="box-1">بازیگر</label>
 
+      <input type="checkbox" id="box-2" checked v-model="CastData.isDiractor" />
+      <label for="box-2">کاردگردان </label>
+    </div>
+    <div class="file-upload">
+      <label for="fname">تصویر </label>
+      <input type="file" class="custom-file-input" @change="onFileSelected" />
+    </div>
     <button
       type="submit"
       @click.prevent="sendData"
@@ -156,6 +154,66 @@ export default {
 </script>
 
 <style scoped>
+.file-upload {
+  margin-right: 13px;
+  margin-bottom: 5px;
+}
+.type-p {
+  font-size: 1.7rem;
+  margin-right: 13px;
+}
+.boxes {
+  margin: auto;
+  padding: 20px;
+}
+
+/*Checkboxes styles*/
+input[type='checkbox'] {
+  display: none;
+}
+
+input[type='checkbox'] + label {
+  display: block;
+  position: relative;
+  /* padding-left: 35px; */
+  margin-bottom: 20px;
+  /* font: 14px/20px 'Open Sans', Arial, sans-serif; */
+
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input[type='checkbox'] + label:last-child {
+  margin-bottom: 0;
+}
+
+input[type='checkbox'] + label:before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #035a20;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
+  -webkit-transition: all 0.12s, border-color 0.08s;
+  transition: all 0.12s, border-color 0.08s;
+}
+
+input[type='checkbox']:checked + label:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
 .nationality {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -167,5 +225,9 @@ small {
   color: brown;
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+label {
+  margin-top: 1.5rem;
+  margin-right: 0.4rem;
 }
 </style>

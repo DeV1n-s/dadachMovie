@@ -11,8 +11,8 @@
 
         <li>
           <router-link to="/Dashbord" active-class="active-menu">
-            داشبورد</router-link
-          >
+            داشبورد
+          </router-link>
         </li>
 
         <li>
@@ -49,4 +49,8 @@
 export default {};
 </script>
 
-<style></style>
+<style>
+router-link {
+  margin-right: 5px;
+}
+</style>
