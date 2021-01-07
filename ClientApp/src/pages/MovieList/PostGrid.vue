@@ -1,38 +1,32 @@
 <template>
   <div>
-    <div
-      class="movie-item-style-2"
-      v-for="MovieList in MovieLists"
-      :key="MovieList.id"
-    >
-      <img :src="MovieList.picture" alt="" />
-      <div class="mv-item-infor">
-        <h5>
+    <div class="flex-wrap-movielist">
+      <div
+        class="movie-item-style-2 movie-item-style-1"
+        v-for="MovieList in MovieLists"
+        :key="MovieList.id"
+      >
+        <img class="movie-gird-img" :src="MovieList.picture" alt="" />
+        <div class="hvr-inner">
           <router-link
             :to="{ name: 'MovieSingle', params: { id: MovieList.id } }"
           >
-            {{ MovieList.title }}
+            مشاهده <i class="ion-android-arrow-dropright"></i>
           </router-link>
-        </h5>
-        <p class="rate">
-          <i class="ion-android-star"></i><span>{{ MovieList.rate }}</span> /10
-        </p>
-        <p class="describe">
-          {{ MovieList.shortDescription }}
-        </p>
-        <p class="run-time">سال انتشار :{{ MovieList.releaseDate }}</p>
-        <p>کارگردان : {{ Diractor }}</p>
-        <p>
-          ستاره ها :
-          <span v-for="cast in Cast" :key="cast.id"
-            >{{ cast.personName }} {{ ' ' }}</span
-          >
-        </p>
-        <p>
-          ژانر : <span> {{ MovieList.genres[0].name }} </span>
-        </p>
+        </div>
+        <div class="mv-item-infor">
+          <h6>
+            <a href="#"> {{ MovieList.title }}</a>
+          </h6>
+          <h5>{{ MovieList.genres[0].name }}</h5>
+          <p class="rate">
+            <i class="ion-android-star"></i
+            ><span>{{ MovieList.rate }}</span> /10
+          </p>
+        </div>
       </div>
     </div>
+
     <div class="topbar-filter">
       <div class="pagination2">
         <span>صفحه 1 از 2</span>
@@ -68,6 +62,21 @@ export default {
 </script>
 
 <style scoped>
+.flex-wrap-movielist {
+  margin-right: 0rem;
+}
+h5 {
+  color: rgb(94, 87, 87);
+}
+p {
+  padding: 0;
+}
+.movie-gird-img {
+  border-radius: 20px;
+}
+.hvr-inner {
+  margin-right: 2.9767rem;
+}
 h5 a {
   color: rgba(149, 165, 3, 0.897) !important;
   margin-bottom: 5px !important;

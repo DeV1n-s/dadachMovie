@@ -1,8 +1,9 @@
 <template>
   <div class="topbar-filter">
-    <p>
-      تعداد فیلم <span>:{{ MovieLists.length }} </span>
-    </p>
+    <label>
+      تعداد فیلم :
+      <span class="length"> {{ MovieLists.length }} </span>
+    </label>
     <label>چینش بر اساس :</label>
     <select>
       <option value="popularity">تاریخ</option>
@@ -15,14 +16,21 @@
 <script>
 export default {
   data() {
-    return {
-      MovieLists: this.$store.getters.GetMovies
-    };
+    return {};
   },
   mounted() {
     this.$store.dispatch('getMovie');
+  },
+  computed: {
+    MovieLists: function() {
+      return this.$store.getters.GetMovies;
+    }
   }
 };
 </script>
 
-<style></style>
+<style scoped>
+.length {
+  color: bisque !important;
+}
+</style>
