@@ -34,7 +34,7 @@
           <span>{{ MovieList.casts }} {{ ' ' }}</span>
         </p>
         <p>
-          ژانر : <span> {{ MovieList.genres }} </span>
+          ژانر : <span> {{ MovieList.genres[0].name }} </span>
         </p>
       </div>
     </div>
