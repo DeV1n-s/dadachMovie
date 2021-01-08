@@ -5,6 +5,7 @@
         <router-link :to="{ name: 'ActorSingle', params: { id: People.id } }"
           ><img :src="People.picture" alt=""
         /></router-link>
+
         <div class="ceb-infor">
           <h2>
             <router-link
@@ -19,7 +20,7 @@
             <span v-if="People.isDirector">کارگردان</span>
           </span>
 
-          <p class="short-bio">{{ People.shortBio }}</p>
+          <small class="short-bio d-block">{{ People.shortBio }}</small>
         </div>
       </div>
     </div>
@@ -57,10 +58,18 @@ export default {
 
 <style scoped>
 img {
-  height: 200px !important;
-  width: 230px !important;
+  height: 320px !important;
+  width: 220px !important;
+  border-radius: 15px;
 }
 .short-bio {
   width: 280px;
+}
+.ceb-item {
+  margin-right: 5px;
+}
+small {
+  color: antiquewhite;
+  width: 255px !important;
 }
 </style>

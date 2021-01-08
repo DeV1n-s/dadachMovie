@@ -1,8 +1,14 @@
 <template>
   <div class="topbar-filter">
-    <p>
-      <span>{{ Peoples.length }} بازیگر</span> پیدا شد
-    </p>
+    <label>
+      تعداد بازیگران :
+      <span class="length">{{ Peoples.length }} </span>
+    </label>
+    <label class="mr-6">چینش بر اساس :</label>
+    <select>
+      <option value="popularity">سن</option>
+      <option value="popularity">اسم</option>
+    </select>
   </div>
 </template>
 
@@ -19,4 +25,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+label {
+  margin-right: 2rem;
+}
+.length {
+  color: bisque !important;
+}
+.mr-6 {
+  margin-right: 25rem;
+}
+</style>

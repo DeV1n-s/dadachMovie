@@ -4,7 +4,7 @@
       تعداد فیلم :
       <span class="length"> {{ MovieLists.length }} </span>
     </label>
-    <label>چینش بر اساس :</label>
+    <label class="mr-6">چینش بر اساس :</label>
     <select>
       <option value="popularity">تاریخ</option>
       <option value="popularity">اسم</option>
@@ -30,7 +30,13 @@ export default {
 </script>
 
 <style scoped>
+label {
+  margin-right: 2rem;
+}
 .length {
   color: bisque !important;
+}
+.mr-6 {
+  margin-right: 25rem;
 }
 </style>
