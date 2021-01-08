@@ -72,16 +72,9 @@
           <div class="sb-facebook sb-it">
             <h4 class="sb-title">ما را دنبال کنید</h4>
           </div>
-          <div class="sb-twitter sb-it">
-            <h4 class="sb-title">250 فیلم برتر</h4>
-            <div class="slick-tw">
-              <div class="tweet item" id="">
-                <!-- Put your twiter id here -->
-              </div>
-              <div class="tweet item" id="">
-                <!-- Put your 2nd twiter account id here -->
-              </div>
-            </div>
+
+          <div class="sb-facebook sb-it">
+            <h4 class="sb-title">250 فیلم برتر IMDB</h4>
           </div>
         </div>
       </div>
