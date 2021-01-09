@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from './store/store.js'
+import {
+    store
+} from './store/store.js';
 import HomeContainer from './HomeContainer.vue'
 import Home from './pages/Home/Home.vue'
 import MovieList from './pages/MovieList/MovieList.vue'
@@ -10,7 +12,7 @@ import MovieSingle from './pages/MovieSingle/MovieSingle.vue'
 import MoviePanel from './pages/Admin/Movie/MoviePanel.vue'
 import MovieAdd from './pages/Admin/Movie/MovieAdd.vue'
 import NewsSingle from './pages/News/NewsSingle'
-import NewsPanel from './pages/Admin/News/NewsPanel.vue'
+// import NewsPanel from './pages/Admin/News/NewsPanel.vue'
 import NewsAdd from './pages/Admin/News/NewsAdd.vue'
 import ActorSingle from './pages/Actors/ActorSingle.vue'
 import CastPanel from './pages/Admin/Cast/CastPanel.vue'
@@ -33,15 +35,7 @@ export const Routes = [
 
 
     {
-        beforeEnter(to, _, next) {
-            if (to.meta.requiresAuth && !store.getters.isAuthGet) {
-                next('/');
-            } else if (to.meta.requiresUnauth && store.getters.isAuthGet) {
-                next('/');
-            } else {
-                next();
-            }
-        },
+
         path: '/',
         component: HomeContainer,
         children: [
@@ -51,12 +45,12 @@ export const Routes = [
             { path: '/ActorList', component: ActorList },
             { path: '/News', component: News },
             { path: '/MovieSingle/:id', name: 'MovieSingle', component: MovieSingle },
-            { path: '/MoviePanel', component: MoviePanel, meta: { requiresAuth: true } },
+            // { path: '/MoviePanel', component: MoviePanel, meta: { requiresAuth: true } },
             { path: '/NewsSingle/:id', name: 'NewsSingle', component: NewsSingle },
-            { path: '/NewsPanel', component: NewsPanel, meta: { requiresAuth: true } },
+            // { path: '/NewsPanel', component: NewsPanel, meta: { requiresAuth: true } },
             { path: '/NewsAdd', component: NewsAdd },
             { path: '/ActorSingle/:id', name: 'ActorSingle', component: ActorSingle },
-            { path: '/CastPanel', component: CastPanel, meta: { requiresAuth: true } },
+            // { path: '/CastPanel', component: CastPanel, meta: { requiresAuth: true } },
             // { path: '/CastAdd', component: CastAdd, meta: { requiresAuth: true } },
             { path: '/Top250Movies', component: Top250Movies },
             { path: '/Top250Single/:id', name: 'Top250Single', component: Top250Single },
@@ -68,10 +62,10 @@ export const Routes = [
     },
     {
         beforeEnter(to, _, next) {
+            console.log(localStorage.getItem('token'));
+            console.log(store.getters.isAuthGet);
             if (to.meta.requiresAuth && !store.getters.isAuthGet) {
-                next('/');
-            } else if (to.meta.requiresUnauth && store.getters.isAuthGet) {
-                next('/');
+                next();
             } else {
                 next();
             }

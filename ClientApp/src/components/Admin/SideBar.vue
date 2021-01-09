@@ -35,7 +35,7 @@
           <a href="#"> نظرات کاربران </a>
         </li>
         <li>
-          <router-link to="/UserProfile"> ویرایش پروفایل </router-link>
+          <a href="http://localhost:8080/UserProfile"> ویرایش پروفایل </a>
         </li>
         <li>
           <a href="http://localhost:8080/"> نمایش سایت</a>

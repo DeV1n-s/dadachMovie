@@ -39,6 +39,7 @@ export default {
   },
   created() {
     this.log();
+    // console.log(this.$store.getters.isAuthGet);
   }
 };
 </script>
