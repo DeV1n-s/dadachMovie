@@ -26,6 +26,7 @@ import MovieListTitleSearch from './pages/MovieListTitleSearch/MovieListTitleSea
 import ActorListsSearch from './pages/ActorsSearch/ActorListsSearch.vue'
 import AdminContainer from './AdminContaner.vue'
 import Dashbord from './pages/Admin/Dashbord.vue'
+import Register from './pages/Register/Register.vue'
 // import MovieEdit from './pages/Admin/Movie/MovieEdit.vue'
 // import MovieSortGenre from './pages/MovieList/MovieSortGenre.vue '
 Vue.use(VueRouter)
@@ -86,7 +87,9 @@ export const Routes = [
 
     },
 
+
     { path: '/#', redirect: '/' },
+    { path: '/register', component: Register },
     { path: '/404', component: NotFound },
     {
         // path: "*",
