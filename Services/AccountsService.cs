@@ -9,6 +9,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
+using dadachMovie.Entities;
 using Gridify;
 using Gridify.EntityFramework;
 using Microsoft.AspNetCore.Identity;
@@ -20,14 +21,14 @@ namespace dadachMovie.Services
 {
     public class AccountsService : BaseService, IAccountsService
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public AccountsService(UserManager<IdentityUser> userManager,
-                            SignInManager<IdentityUser> signInManager,
+        public AccountsService(UserManager<User> userManager,
+                            SignInManager<User> signInManager,
                             IConfiguration configuration,
                             AppDbContext dbContext,
                             IMapper mapper)
@@ -47,15 +48,18 @@ namespace dadachMovie.Services
                                         TotalItems = queryable.TotalItems};
         }
 
-        public async Task<UserToken> RegisterUserAsync(UserInfo userInfo)
+        public async Task<UserToken> RegisterUserAsync(UserCreationDTO userCreationDTO)
         {
-            var user = new IdentityUser { UserName = userInfo.EmailAddress, Email = userInfo.EmailAddress };
-            var result = await _userManager.CreateAsync(user, userInfo.Password);
+            var country = await _dbContext.Countries.FirstOrDefaultAsync(c => c.Id == userCreationDTO.CountryId);
+            var user = new User { UserName = userCreationDTO.EmailAddress, Email = userCreationDTO.EmailAddress,
+                                FirstName = userCreationDTO.FirstName, LastName = userCreationDTO.LastName,
+                                Country = country};
+            var result = await _userManager.CreateAsync(user, userCreationDTO.Password);
 
-            if (!result.Succeeded)        
+            if (!result.Succeeded)       
                 return null;
             
-            return await BuildToken(userInfo);
+            return await BuildToken(userCreationDTO.EmailAddress);
         }
 
         public async Task<UserToken> UserLoginAsync(UserInfo userInfo)
@@ -66,7 +70,7 @@ namespace dadachMovie.Services
             if (!result.Succeeded)
                 return null;
             
-            return await BuildToken(userInfo);
+            return await BuildToken(userInfo.EmailAddress);
         }
 
         public async Task<List<string>> GetRolesListAsync() =>
@@ -92,18 +96,18 @@ namespace dadachMovie.Services
             return true;
         }
 
-        public async Task<UserToken> RenewUserBearerTokenAsync(UserInfo userInfo) =>
-            await BuildToken(userInfo);
+        public async Task<UserToken> RenewUserBearerTokenAsync(string emailAddress) =>
+            await BuildToken(emailAddress);
 
-        private async Task<UserToken> BuildToken(UserInfo userInfo)
+        private async Task<UserToken> BuildToken(string emailAddress)
         {
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name, userInfo.EmailAddress),
-                new Claim(ClaimTypes.Email, userInfo.EmailAddress)
+                new Claim(ClaimTypes.Name, emailAddress),
+                new Claim(ClaimTypes.Email, emailAddress)
             };
 
-            var identityUser = await _userManager.FindByEmailAsync(userInfo.EmailAddress);
+            var identityUser = await _userManager.FindByEmailAsync(emailAddress);
             var claimsDB = await _userManager.GetClaimsAsync(identityUser);
 
             claims.AddRange(claimsDB);

@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using Gridify;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dadachMovie.Controllers
@@ -21,6 +23,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Paging<CountryDTO>>> Get([FromQuery] GridifyQuery gridifyQuery) =>
             await _countriesService.GetCountriesListAsync(gridifyQuery);
 

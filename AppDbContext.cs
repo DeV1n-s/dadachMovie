@@ -1,11 +1,12 @@
 using System.Diagnostics.CodeAnalysis;
 using dadachMovie.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie
 {
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext([NotNullAttribute] DbContextOptions options) 
             : base(options) { }

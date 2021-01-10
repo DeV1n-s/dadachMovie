@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using AutoMapper;
 using dadachMovie.Contracts;
+using dadachMovie.Entities;
 using dadachMovie.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -42,7 +43,7 @@ namespace dadachMovie
                 configuration.RootPath = "wwwroot";
             });
 
-            services.AddDbContextPool<AppDbContext>( opt =>
+            services.AddDbContext<AppDbContext>( opt =>
             {
                 opt.UseMySql(Configuration.GetConnectionString("MariaDbConnection"),
                             new MariaDbServerVersion(new System.Version(10, 5, 0)));
@@ -58,7 +59,7 @@ namespace dadachMovie
             services.AddScoped<IPeopleService, PeopleService>();
             services.AddScoped<IAccountsService, AccountsService>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 

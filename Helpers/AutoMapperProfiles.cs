@@ -76,9 +76,13 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId))
                 .ReverseMap();
             
-            CreateMap<IdentityUser, UserDTO>()
+            CreateMap<User, UserDTO>()
                 .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src.Email))
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id));
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
+            
+            CreateMap<Country, UserDTO>()
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Name));
         }
 
         private List<MoviesGenres> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie)

@@ -47,7 +47,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult> Post([FromBody] GenreCreationDTO genreCreationDTO)
         {
             var genreDTO = await _genresService.AddGenreAsync(genreCreationDTO);
