@@ -27,6 +27,7 @@ namespace dadachMovie
         }
 
         public IConfiguration Configuration { get; }
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -35,7 +36,15 @@ namespace dadachMovie
             services.AddControllers()
                 .AddNewtonsoftJson();
                 
-            services.AddCors();
+            services.AddCors(c => 
+                {
+                    c.AddPolicy(name: MyAllowSpecificOrigins, opt =>  
+                                            opt.WithOrigins("http://localhost:5000",
+                                                            "http://localhost:8080")
+                                                .AllowAnyHeader()
+                                                .AllowAnyMethod()
+                                                .AllowCredentials());
+                });
 
             // In production, the Vue files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -108,17 +117,16 @@ namespace dadachMovie
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
        public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
-            if (env.IsDevelopment ()) {
-                app.UseDeveloperExceptionPage ();
-                //app.UseSwagger();
+            if (env.IsDevelopment()) {
+                app.UseDeveloperExceptionPage();
             } else {
                 app.UseExceptionHandler ("/Error");
-                app.UseHsts ();
+                app.UseHsts();
             }
 
             // app.UseHttpsRedirection ();
             
-            app.UseSpaStaticFiles ();
+            app.UseSpaStaticFiles();
 
             app.UseSwagger();
 
@@ -127,20 +135,16 @@ namespace dadachMovie
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseRouting ();
+            app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthentication();
             
             app.UseAuthorization();
 
-            app.UseCors(builder => builder
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .WithOrigins("http://localhost:8080")
-                .WithOrigins("http://localhost:5000"));
-
             app.UseEndpoints (endpoints => {
-                endpoints.MapControllers ();
+                endpoints.MapControllers();
 
                 endpoints.MapToVueCliProxy (
                     "{*path}",
