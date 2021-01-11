@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Identity;
 
@@ -9,5 +10,6 @@ namespace dadachMovie.Entities
         public string LastName { get; set; }
         public Country Country { get; set; }
         public string Picture { get; set; } = "http://localhost:5000/users/default.png";
+        public DateTimeOffset RegisterDate { get; set; }
     }
 }

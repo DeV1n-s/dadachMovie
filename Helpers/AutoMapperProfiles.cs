@@ -84,9 +84,6 @@ namespace dadachMovie.Helpers
             CreateMap<Country, UserDTO>()
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Name));
             
-            // CreateMap<User, Country>()
-            //     .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Country.Id));
-            
             CreateMap<UserUpdateDTO, User>()
                 .ForMember(dest => dest.Picture, opt => opt.Ignore())
                 .ForPath(dest => dest.Country.Id, opt => opt.MapFrom(src => src.CountryId));

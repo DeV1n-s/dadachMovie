@@ -8,5 +8,6 @@ namespace dadachMovie.DTOs
         public string LastName { get; set; }
         public string Country { get; set; }
         public string Picture { get; set; }
+        public string RegisterDate { get; set; }
     }
 }

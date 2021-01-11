@@ -23,7 +23,6 @@ namespace dadachMovie.Controllers
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Paging<CountryDTO>>> Get([FromQuery] GridifyQuery gridifyQuery) =>
             await _countriesService.GetCountriesListAsync(gridifyQuery);
 
