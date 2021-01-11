@@ -88,7 +88,9 @@ namespace dadachMovie.Helpers
             //     .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Country.Id));
             
             CreateMap<UserUpdateDTO, User>()
-                .ForPath(dest => dest.Country.Id, opt => opt.MapFrom(src => src.CountryId));        }
+                .ForMember(dest => dest.Picture, opt => opt.Ignore())
+                .ForPath(dest => dest.Country.Id, opt => opt.MapFrom(src => src.CountryId));
+        }
 
         private List<MoviesGenres> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie)
         {

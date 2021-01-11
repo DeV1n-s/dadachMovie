@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -28,13 +29,16 @@ namespace dadachMovie.Services
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IFileStorageService _fileStorageService;
+        private readonly string _containerName = "users";
 
         public AccountsService(UserManager<User> userManager,
                             SignInManager<User> signInManager,
                             IConfiguration configuration,
                             AppDbContext dbContext,
                             IMapper mapper,
-                            IHttpContextAccessor httpContextAccessor)
+                            IHttpContextAccessor httpContextAccessor,
+                            IFileStorageService fileStorageService)
             : base(dbContext)
         {
             _userManager = userManager;
@@ -43,6 +47,7 @@ namespace dadachMovie.Services
             _dbContext = dbContext;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
+            _fileStorageService = fileStorageService;
         }
 
         public async Task<Paging<UserDTO>> GetUsersPagingAsync(GridifyQuery gridifyQuery)
@@ -158,6 +163,22 @@ namespace dadachMovie.Services
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                 await _userManager.ResetPasswordAsync(user, token, userUpdateDTO.NewPassword);
             }
+
+            if (userUpdateDTO.Picture != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await userUpdateDTO.Picture.CopyToAsync(memoryStream);
+                    var content = memoryStream.ToArray();
+                    var extension = Path.GetExtension(userUpdateDTO.Picture.FileName);
+                    user.Picture = await _fileStorageService.EditFile(content,
+                                                                        extension,
+                                                                        _containerName, 
+                                                                        user.Picture, 
+                                                                        userUpdateDTO.Picture.ContentType);
+                }
+            }
+            
             user = _mapper.Map(userUpdateDTO, user);
             await _dbContext.SaveChangesAsync();
             return true;
