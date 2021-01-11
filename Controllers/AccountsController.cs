@@ -42,6 +42,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPut("UpdateUser")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> UpdateUser([FromBody] UserUpdateDTO userUpdateDTO)
         {
             if(!await _accountsService.UpdateUserAsync(userUpdateDTO))

@@ -50,7 +50,7 @@ namespace dadachMovie
             });
 
             services.AddAutoMapper(typeof(Startup));
-
+            
             services.AddTransient<IFileStorageService, InAppStorageService>();
             services.AddTransient<IHostedService, MovieInTheaterService>();
             services.AddScoped<IGenresService, GenresService>();
@@ -146,7 +146,8 @@ namespace dadachMovie
                     "{*path}",
                     new SpaOptions { SourcePath = "ClientApp" },
                     // npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                    npmScript: "serve",
+                    npmScript: null,
+                    //npmScript: "serve",
                     regex: "Compiled successfully",
                     forceKill : true
                 );

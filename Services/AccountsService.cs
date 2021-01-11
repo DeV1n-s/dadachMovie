@@ -12,6 +12,7 @@ using dadachMovie.DTOs;
 using dadachMovie.Entities;
 using Gridify;
 using Gridify.EntityFramework;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,12 +27,14 @@ namespace dadachMovie.Services
         private readonly IConfiguration _configuration;
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AccountsService(UserManager<User> userManager,
                             SignInManager<User> signInManager,
                             IConfiguration configuration,
                             AppDbContext dbContext,
-                            IMapper mapper)
+                            IMapper mapper,
+                            IHttpContextAccessor httpContextAccessor)
             : base(dbContext)
         {
             _userManager = userManager;
@@ -39,6 +42,7 @@ namespace dadachMovie.Services
             _configuration = configuration;
             _dbContext = dbContext;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<Paging<UserDTO>> GetUsersPagingAsync(GridifyQuery gridifyQuery)
@@ -133,13 +137,14 @@ namespace dadachMovie.Services
 
         public async Task<bool> UpdateUserAsync(UserUpdateDTO userUpdateDTO)
         {
-            var user = await _userManager.FindByIdAsync(userUpdateDTO.Id);
+            if (string.IsNullOrWhiteSpace(userUpdateDTO.CurrentEmailAddress))
+                userUpdateDTO.CurrentEmailAddress = _httpContextAccessor.HttpContext.User.Identity.Name;
+
+            var user = await _userManager.FindByEmailAsync(userUpdateDTO.CurrentEmailAddress);
             if (user == null)
                 return false;
-
-            var email = await _userManager.GetEmailAsync(user);
             
-            if (!string.IsNullOrEmpty(userUpdateDTO.NewEmailAddress) && email == userUpdateDTO.CurrentEmailAddress)
+            if (!string.IsNullOrEmpty(userUpdateDTO.NewEmailAddress))
             {
                 var token = await _userManager.GenerateChangeEmailTokenAsync(user, userUpdateDTO.NewEmailAddress);
                 await _userManager.ChangeEmailAsync(user, userUpdateDTO.NewEmailAddress,token);
