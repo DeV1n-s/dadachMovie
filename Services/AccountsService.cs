@@ -50,10 +50,8 @@ namespace dadachMovie.Services
 
         public async Task<UserToken> RegisterUserAsync(UserCreationDTO userCreationDTO)
         {
-            var country = await _dbContext.Countries.FirstOrDefaultAsync(c => c.Id == userCreationDTO.CountryId);
             var user = new User { UserName = userCreationDTO.EmailAddress, Email = userCreationDTO.EmailAddress,
-                                FirstName = userCreationDTO.FirstName, LastName = userCreationDTO.LastName,
-                                Country = country};
+                                FirstName = userCreationDTO.FirstName, LastName = userCreationDTO.LastName};
             var result = await _userManager.CreateAsync(user, userCreationDTO.Password);
 
             if (!result.Succeeded)       

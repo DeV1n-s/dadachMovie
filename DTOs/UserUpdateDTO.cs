@@ -4,6 +4,7 @@ namespace dadachMovie.DTOs
 {
     public class UserUpdateDTO
     {
+        [Required]
         public string Id { get; set; }
         
         [Required, EmailAddress]
