@@ -7,6 +7,7 @@ import Search from './Modules/Search.js'
 import Country from './Modules/Country.js'
 import Genres from './Modules/Genres.js'
 import Auth from './Modules/Auth.js'
+import Users from './Modules/Users.js'
 Vue.use(Vuex)
 export const store = new Vuex.Store({
     modules: {
@@ -16,7 +17,8 @@ export const store = new Vuex.Store({
         Search,
         Country,
         Genres,
-        Auth
+        Auth,
+        Users
     },
 
 

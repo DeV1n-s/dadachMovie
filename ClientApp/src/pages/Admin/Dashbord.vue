@@ -25,7 +25,7 @@
           <span class="icon-box bg-color-blue set-icon"> </span>
           <div class="text-box">
             <p class="main-text">کاربران</p>
-            <p class="text-muted">120</p>
+            <p class="text-muted">{{ UsersTotal }}</p>
           </div>
         </div>
       </div>
@@ -189,10 +189,14 @@
 export default {
   mounted() {
     this.$store.dispatch('getMovie');
+    this.$store.dispatch('GetUsers');
   },
   computed: {
     MovieTotal: function() {
       return this.$store.getters.GetMovieTotal;
+    },
+    UsersTotal: function() {
+      return this.$store.getters.GetTotalUsers;
     }
   }
 };

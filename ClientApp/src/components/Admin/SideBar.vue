@@ -16,7 +16,9 @@
         </li>
 
         <li>
-          <a href="#"> مدیریت کاربران</a>
+          <router-link to="/UserPanel" active-class="active-menu">
+            مدیریت کاربران
+          </router-link>
         </li>
         <li>
           <router-link to="/MoviePanels" active-class="active-menu"
