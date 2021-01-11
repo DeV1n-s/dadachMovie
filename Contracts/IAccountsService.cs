@@ -8,6 +8,8 @@ namespace dadachMovie.Contracts
     public interface IAccountsService
     {
         Task<Paging<UserDTO>> GetUsersPagingAsync(GridifyQuery gridifyQuery);
+        Task<UserDTO> GetCurrentUserAsync();
+        Task<UserDTO> GetUserByEmailAsync(string emailAddress);
         Task<List<string>> GetRolesListAsync();
         Task<bool> AssignUserRoleAsync(EditRoleDTO editRoleDTO);
         Task<bool> RemoveUserRoleAsync(EditRoleDTO editRoleDTO);

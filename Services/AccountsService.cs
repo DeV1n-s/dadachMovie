@@ -173,16 +173,35 @@ namespace dadachMovie.Services
                     var content = memoryStream.ToArray();
                     var extension = Path.GetExtension(userUpdateDTO.Picture.FileName);
                     user.Picture = await _fileStorageService.EditFile(content,
-                                                                        extension,
-                                                                        _containerName, 
-                                                                        user.Picture, 
-                                                                        userUpdateDTO.Picture.ContentType);
+                                                                    extension,
+                                                                    _containerName, 
+                                                                    user.Picture, 
+                                                                    userUpdateDTO.Picture.ContentType);
                 }
             }
             
             user = _mapper.Map(userUpdateDTO, user);
             await _dbContext.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<UserDTO> GetCurrentUserAsync()
+        {
+            var userEmail = _httpContextAccessor.HttpContext.User.Identity.Name;
+            var user = await this.GetUserByEmailAsync(userEmail);
+            if (user == null)
+                return null;
+            
+            return user;
+        }
+
+        public async Task<UserDTO> GetUserByEmailAsync(string emailAddress)
+        {
+            var user = await _userManager.FindByEmailAsync(emailAddress);
+            if (user == null)
+                return null;
+
+            return _mapper.Map<UserDTO>(user);
         }
     }
 }

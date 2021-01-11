@@ -68,6 +68,11 @@ namespace dadachMovie.Controllers
         public async Task<ActionResult<Paging<UserDTO>>> GetUsers([FromQuery] GridifyQuery gridifyQuery) =>
             await _accountsService.GetUsersPagingAsync(gridifyQuery);
 
+        [HttpGet("CurrentUser")]
+        [Authorize]
+        public async Task<ActionResult<UserDTO>> GetCurrentUser() =>
+            await _accountsService.GetCurrentUserAsync();
+
         [HttpGet("Roles")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<string>>> GetRoles() =>
