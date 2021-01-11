@@ -14,5 +14,6 @@ namespace dadachMovie.Contracts
         Task<UserToken> RegisterUserAsync(UserCreationDTO userCreationDTO);
         Task<UserToken> UserLoginAsync(UserInfo userInfo);
         Task<UserToken> RenewUserBearerTokenAsync(string emailAddress);
+        Task<bool> UpdateUserAsync(UserUpdateDTO userUpdateDTO);
     }
 }

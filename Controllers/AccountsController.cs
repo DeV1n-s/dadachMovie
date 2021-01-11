@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
@@ -38,6 +39,15 @@ namespace dadachMovie.Controllers
                 return BadRequest("Invalid login attempt");
             
             return userToken;
+        }
+
+        [HttpPut("UpdateUser")]
+        public async Task<ActionResult> UpdateUser([FromBody] UserUpdateDTO userUpdateDTO)
+        {
+            if(!await _accountsService.UpdateUserAsync(userUpdateDTO))
+                return NotFound();
+                
+            return NoContent();
         }
 
         [HttpPost("RenewToken")]

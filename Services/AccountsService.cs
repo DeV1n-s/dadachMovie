@@ -132,5 +132,32 @@ namespace dadachMovie.Services
                 Expiration = expiration
             };
         }
+
+        public async Task<bool> UpdateUserAsync(UserUpdateDTO userUpdateDTO)
+        {
+            var user = await _userManager.FindByIdAsync(userUpdateDTO.Id);
+            if (user == null)
+                return false;
+
+            var email = await _userManager.GetEmailAsync(user);
+            
+            if (!string.IsNullOrEmpty(userUpdateDTO.NewEmailAddress) && email == userUpdateDTO.CurrentEmailAddress)
+            {
+                var token = await _userManager.GenerateChangeEmailTokenAsync(user, userUpdateDTO.NewEmailAddress);
+                await _userManager.ChangeEmailAsync(user, userUpdateDTO.NewEmailAddress,token);
+                await _userManager.UpdateNormalizedEmailAsync(user);
+                await _userManager.SetUserNameAsync(user, userUpdateDTO.NewEmailAddress);
+                await _userManager.UpdateNormalizedUserNameAsync(user);
+            }
+
+            if (!string.IsNullOrEmpty(userUpdateDTO.NewPassword) && await _userManager.CheckPasswordAsync(user, userUpdateDTO.CurrentPassword))
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                await _userManager.ResetPasswordAsync(user, token, userUpdateDTO.NewPassword);
+            }
+            user = _mapper.Map(userUpdateDTO, user);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }
