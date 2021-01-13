@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.SpaServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -67,6 +68,8 @@ namespace dadachMovie
             services.AddScoped<IMoviesService, MoviesService>();
             services.AddScoped<IPeopleService, PeopleService>();
             services.AddScoped<IAccountsService, AccountsService>();
+            
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddIdentity<User, IdentityRole>(opt =>
                 {
@@ -95,6 +98,7 @@ namespace dadachMovie
                 );
 
             services.AddHttpContextAccessor();
+            services.AddResponseCaching();
             services.AddSwaggerGen( c => 
                 {
                     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -143,6 +147,8 @@ namespace dadachMovie
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
+            app.UseResponseCaching();
+
             app.UseRouting();
 
             app.UseCors(MyAllowSpecificOrigins);
@@ -158,8 +164,8 @@ namespace dadachMovie
                     "{*path}",
                     new SpaOptions { SourcePath = "ClientApp" },
                     // npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                    //npmScript: null,
-                    npmScript: "serve",
+                    npmScript: null,
+                    //npmScript: "serve",
                     regex: "Compiled successfully",
                     forceKill : true
                 );

@@ -23,6 +23,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 86400)]
         public async Task<ActionResult<Paging<CountryDTO>>> Get([FromQuery] GridifyQuery gridifyQuery) =>
             await _countriesService.GetCountriesListAsync(gridifyQuery);
 

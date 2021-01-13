@@ -64,7 +64,7 @@ namespace dadachMovie.Services
                                 RegisterDate = DateTimeOffset.Now};
 
             var result = await _userManager.CreateAsync(user, userCreationDTO.Password);
-            if (!result.Succeeded)       
+            if (!result.Succeeded)   
                 return null;
             
             return await BuildToken(userCreationDTO.EmailAddress);

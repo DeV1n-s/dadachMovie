@@ -24,9 +24,13 @@ namespace dadachMovie.Controllers
         [HttpPost("Register")]
         public async Task<ActionResult<UserToken>> Register([FromBody] UserCreationDTO userCreationDTO)
         {
+            var exists = await _accountsService.GetUserByEmailAsync(userCreationDTO.EmailAddress);
+            if (exists != null)
+                return BadRequest("User already registered.");
+
             var userToken = await _accountsService.RegisterUserAsync(userCreationDTO);
             if (userToken == null)
-                return BadRequest();
+                return BadRequest("Failed to register user.");
 
             return userToken;
         }
@@ -106,5 +110,16 @@ namespace dadachMovie.Controllers
 
             return NoContent();
         }
+
+        // [HttpPost("CheckEmailAvailability")]
+        // [Authorize(Roles = "Admin")]
+        // public async Task<ActionResult> CheckEmailAvailability(string emailAddress)
+        // {
+        //     var exists = await _accountsService.GetUserByEmailAsync(emailAddress);
+        //     if (exists == null)
+        //         return NotFound("User doesn't exists.");
+
+        //     return Ok("Another user is already registered with this email address.");
+        // }
     }
 }
