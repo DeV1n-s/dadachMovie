@@ -15,7 +15,7 @@ namespace dadachMovie.Contracts
         Task<List<MovieDetailsDTO>> GetCastMoviesListAsync(int id);
         Task<List<MovieDetailsDTO>> GetDirectorMoviesListAsync(int id);
         Task<PersonDTO> AddPersonAsync(PersonCreationDTO personCreationDTO);
-        Task<bool> UpdatePersonAsync(int id, PersonCreationDTO personCreationDTO);
-        Task<bool> DeletePersonAsync(int id);
+        Task<int> UpdatePersonAsync(int id, PersonCreationDTO personCreationDTO);
+        Task<int> DeletePersonAsync(int id);
     }
 }

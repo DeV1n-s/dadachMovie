@@ -102,11 +102,11 @@ namespace dadachMovie.Services
             return _mapper.Map<MovieDTO>(movie);
         }
 
-        public async Task<bool> UpdateMovieAsync(int id, MovieCreationDTO movieCreationDTO)
+        public async Task<int> UpdateMovieAsync(int id, MovieCreationDTO movieCreationDTO)
         {
             var movieDb = await _dbContext.Movies.FirstOrDefaultAsync(m => m.Id == id);
             if (movieDb == null)
-                return false;
+                return -1;
 
             movieDb = _mapper.Map(movieCreationDTO, movieDb);
 
@@ -131,18 +131,33 @@ namespace dadachMovie.Services
                                     ");
             
             this.AnnotateCastsOrder(movieDb);
-            await this.SaveChangesAsync();
-            return true;
+            try
+            {
+                await this.SaveChangesAsync();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
-        public async Task<bool> DeleteMovieAsync(int id)
+        public async Task<int> DeleteMovieAsync(int id)
         {
-            if (!await _dbContext.Movies.AnyAsync(m => m.Id == id))
-                return false;
+            var exists = await _dbContext.Movies.AnyAsync(m => m.Id == id);
+            if (!exists)
+                return -1;
 
             _dbContext.Remove(new Movie() {Id = id});
-            await _dbContext.SaveChangesAsync();
-            return true;
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public void AnnotateCastsOrder(Movie movie)

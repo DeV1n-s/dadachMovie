@@ -84,24 +84,38 @@ namespace dadachMovie.Services
         public async Task<List<string>> GetRolesListAsync() =>
             await _dbContext.Roles.Select(x => x.Name).ToListAsync();
 
-        public async Task<bool> AssignUserRoleAsync(EditRoleDTO editRoleDTO)
+        public async Task<int> AssignUserRoleAsync(EditRoleDTO editRoleDTO)
         {
             var user = await _userManager.FindByIdAsync(editRoleDTO.UserId);
             if (user == null)
-                return false;
+                return -1;
             
-            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, editRoleDTO.RoleName));
-            return true;
+            try
+            {
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, editRoleDTO.RoleName));
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
-        public async Task<bool> RemoveUserRoleAsync(EditRoleDTO editRoleDTO)
+        public async Task<int> RemoveUserRoleAsync(EditRoleDTO editRoleDTO)
         {
             var user = await _userManager.FindByIdAsync(editRoleDTO.UserId);
             if (user == null)
-                return false;
+                return -1;
             
-            await _userManager.RemoveClaimAsync(user, new Claim(ClaimTypes.Role, editRoleDTO.RoleName));
-            return true;
+            try
+            {
+                await _userManager.RemoveClaimAsync(user, new Claim(ClaimTypes.Role, editRoleDTO.RoleName));
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public async Task<UserToken> RenewUserBearerTokenAsync(string emailAddress) =>
@@ -141,14 +155,14 @@ namespace dadachMovie.Services
             };
         }
 
-        public async Task<bool> UpdateUserAsync(UserUpdateDTO userUpdateDTO)
+        public async Task<int> UpdateUserAsync(UserUpdateDTO userUpdateDTO)
         {
             if (string.IsNullOrWhiteSpace(userUpdateDTO.CurrentEmailAddress))
                 userUpdateDTO.CurrentEmailAddress = _httpContextAccessor.HttpContext.User.Identity.Name;
 
             var user = await _userManager.FindByEmailAsync(userUpdateDTO.CurrentEmailAddress);
             if (user == null)
-                return false;
+                return -1;
             
             if (!string.IsNullOrEmpty(userUpdateDTO.NewEmailAddress))
             {
@@ -181,8 +195,15 @@ namespace dadachMovie.Services
             }
             
             user = _mapper.Map(userUpdateDTO, user);
-            await _dbContext.SaveChangesAsync();
-            return true;
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public async Task<UserDTO> GetCurrentUserAsync()

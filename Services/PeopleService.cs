@@ -79,11 +79,11 @@ namespace dadachMovie.Services
             return _mapper.Map<PersonDTO>(person);
         }
 
-        public async Task<bool> UpdatePersonAsync(int id, PersonCreationDTO personCreationDTO)
+        public async Task<int> UpdatePersonAsync(int id, PersonCreationDTO personCreationDTO)
         {
             var personDb = await _dbContext.People.FirstOrDefaultAsync(p => p.Id == id);
             if (personDb == null)
-                return false;
+                return -1;
 
             personDb = _mapper.Map(personCreationDTO, personDb);
 
@@ -102,19 +102,34 @@ namespace dadachMovie.Services
                 }
             }
 
-            await this.SaveChangesAsync();
-            return true;
+            try
+            {
+                await this.SaveChangesAsync();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
-        public async Task<bool> DeletePersonAsync(int id)
+        public async Task<int> DeletePersonAsync(int id)
         {
             var exists = await this.GetPersonByIdAsync(id);
             if (exists == null)
-                return false;
+                return -1;
 
             _dbContext.Remove(new Person() {Id = id});
-            await this.SaveChangesAsync();
-            return true;
+            try
+            {
+                await this.SaveChangesAsync();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+            
         }
     }
 }

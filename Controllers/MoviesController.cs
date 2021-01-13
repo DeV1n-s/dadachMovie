@@ -54,8 +54,11 @@ namespace dadachMovie.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Put(int id, [FromForm] MovieCreationDTO movieCreationDTO)
         {
-            if (!await _moviesService.UpdateMovieAsync(id, movieCreationDTO))
+            var result = await _moviesService.UpdateMovieAsync(id, movieCreationDTO);
+            if (result == -1)
                 return NotFound();
+            else if (result == 0)
+                return BadRequest("Failed to save changes.");
 
             return NoContent();
         }
@@ -88,8 +91,11 @@ namespace dadachMovie.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
-            if (!await _moviesService.DeleteMovieAsync(id))
+            var result = await _moviesService.DeleteMovieAsync(id);
+            if (result == -1)
                 return NotFound();
+            else if (result == 0)
+                return BadRequest("Failed to save changes.");
 
             return NoContent();
         }

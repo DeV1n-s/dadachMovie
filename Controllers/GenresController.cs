@@ -58,8 +58,11 @@ namespace dadachMovie.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Put(int id, [FromBody] GenreCreationDTO genreCreationDTO)
         {
-            if (!await _genresService.UpdateGenreAsync(id, genreCreationDTO))
+            var result = await _genresService.UpdateGenreAsync(id, genreCreationDTO);
+            if (result == -1)
                 return NotFound();
+            else if (result == 0)
+                return BadRequest("Failed to save changes.");
 
             return NoContent();
         }
@@ -68,8 +71,11 @@ namespace dadachMovie.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
-            if (!await _genresService.DeleteGenreAsync(id))
+            var result = await _genresService.DeleteGenreAsync(id);
+            if (result == -1)
                 return NotFound();
+            else if (result == 0)
+                return BadRequest("Failed to save changes.");
 
             return NoContent();
         }

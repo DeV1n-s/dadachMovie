@@ -9,7 +9,7 @@ namespace dadachMovie.Contracts
         Task<Paging<GenreDTO>> GetGenresPagingAsync(GridifyQuery gridifyQuery);
         Task<GenreDTO> GetGenreByIdAsync(int id);
         Task<GenreDTO> AddGenreAsync(GenreCreationDTO genreCreationDTO);
-        Task<bool> UpdateGenreAsync(int id, GenreCreationDTO genreCreationDTO);
-        Task<bool> DeleteGenreAsync(int id);
+        Task<int> UpdateGenreAsync(int id, GenreCreationDTO genreCreationDTO);
+        Task<int> DeleteGenreAsync(int id);
     }
 }

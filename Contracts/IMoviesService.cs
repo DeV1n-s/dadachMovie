@@ -14,9 +14,8 @@ namespace dadachMovie.Contracts
         IQueryable<MovieDetailsDTO> GetMoviesDetailsQueryable();
         IQueryable<Movie> GetMoviesQueryable();
         Task<MovieDTO> AddMovieAsync(MovieCreationDTO movieCreationDTO);
-        Task<bool> UpdateMovieAsync(int id, MovieCreationDTO movieCreationDTO);
-        //Task<bool> PatchMovieAsync(int id, JsonPatchDocument<MoviePatchDTO> patchDocument);
-        Task<bool> DeleteMovieAsync(int id);
+        Task<int> UpdateMovieAsync(int id, MovieCreationDTO movieCreationDTO);
+        Task<int> DeleteMovieAsync(int id);
 
         void AnnotateCastsOrder(Movie movie);
     }

@@ -44,32 +44,43 @@ namespace dadachMovie.Services
             return _mapper.Map<GenreDTO>(genre);
         }
 
-        public async Task<bool> UpdateGenreAsync(int id, GenreCreationDTO genreCreationDTO)
-        {
-            var genre = _mapper.Map<Genre>(genreCreationDTO);
-            genre.Id = id;
-
-            _dbContext.Entry(genre).State = EntityState.Modified;
-            try
-            {
-                await this.SaveChangesAsync();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public async Task<bool> DeleteGenreAsync(int id)
+        public async Task<int> UpdateGenreAsync(int id, GenreCreationDTO genreCreationDTO)
         {
             var exists = await _dbContext.Genres.AnyAsync(g => g.Id == id);
             if (!exists)
-                return false;
+                return -1;
+                
+            var genre = _mapper.Map<Genre>(genreCreationDTO);
+            genre.Id = id;
+            _dbContext.Entry(genre).State = EntityState.Modified;
+
+            try
+            {
+                await this.SaveChangesAsync();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public async Task<int> DeleteGenreAsync(int id)
+        {
+            var exists = await _dbContext.Genres.AnyAsync(g => g.Id == id);
+            if (!exists)
+                return -1;
 
             _dbContext.Remove(new Genre { Id = id });
-            await this.SaveChangesAsync();
-            return true;
+            try
+            {
+                await this.SaveChangesAsync();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }

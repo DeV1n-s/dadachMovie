@@ -45,9 +45,12 @@ namespace dadachMovie.Controllers
         [Authorize]
         public async Task<ActionResult> UpdateUser([FromForm] UserUpdateDTO userUpdateDTO)
         {
-            if(!await _accountsService.UpdateUserAsync(userUpdateDTO))
+            var result = await _accountsService.UpdateUserAsync(userUpdateDTO);
+            if (result == -1)
                 return NotFound();
-                
+            else if (result == 0)
+                return BadRequest("Failed to save changes.");
+
             return NoContent();
         }
 
@@ -82,8 +85,11 @@ namespace dadachMovie.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AssignRole(EditRoleDTO editRoleDTO)
         {
-            if (!await _accountsService.AssignUserRoleAsync(editRoleDTO))
+            var result = await _accountsService.AssignUserRoleAsync(editRoleDTO);
+            if (result == -1)
                 return NotFound();
+            else if (result == 0)
+                return BadRequest("Failed to save changes.");
 
             return NoContent();
         }
@@ -92,8 +98,11 @@ namespace dadachMovie.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> RemoveRole(EditRoleDTO editRoleDTO)
         {
-            if (!await _accountsService.RemoveUserRoleAsync(editRoleDTO))
+            var result = await _accountsService.RemoveUserRoleAsync(editRoleDTO);
+            if (result == -1)
                 return NotFound();
+            else if (result == 0)
+                return BadRequest("Failed to save changes.");
 
             return NoContent();
         }
