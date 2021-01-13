@@ -170,5 +170,15 @@ namespace dadachMovie.Services
                 }
             }
         }
+
+        public async Task<int> CheckImdbIdAsync(string imdbId)
+        {
+            var exists = await _dbContext.Movies.AnyAsync(m => m.ImdbId == imdbId);
+            if (exists)
+                return 1;
+
+            return 0;
+            
+        }
     }
 }

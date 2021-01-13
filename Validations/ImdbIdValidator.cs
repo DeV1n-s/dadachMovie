@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Validations
 {
@@ -7,14 +9,10 @@ namespace dadachMovie.Validations
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (value == null)
-            {
                 return ValidationResult.Success;
-            }
 
             if (value.ToString().Substring(0,2) != "tt")
-            {
                 return new ValidationResult("ImdbId should start with 'tt'");
-            }
             
             return ValidationResult.Success;
         }

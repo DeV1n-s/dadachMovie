@@ -46,6 +46,10 @@ namespace dadachMovie.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Post([FromForm] MovieCreationDTO movieCreationDTO)
         {
+            var exists = await _moviesService.CheckImdbIdAsync(movieCreationDTO.ImdbId);
+            if (exists == 1)
+                return BadRequest($"ImdbId {movieCreationDTO.ImdbId} already exists.");
+
             var movieDTO = await _moviesService.AddMovieAsync(movieCreationDTO);
             return new CreatedAtRouteResult("getMovie", new { Id = movieDTO.Id }, movieDTO);
         }

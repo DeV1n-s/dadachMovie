@@ -31,6 +31,9 @@ namespace dadachMovie
             modelBuilder.Entity<Country>()
                 .HasData(dadachMovie.Helpers.SeedHelper.SeedData<Country>("countries.json"));
             
+            modelBuilder.Entity<Movie>()
+                .HasIndex(x => x.ImdbId).IsUnique();
+            
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Genre> Genres { get; set; }
