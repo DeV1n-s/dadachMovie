@@ -137,8 +137,10 @@ namespace dadachMovie
             }
 
             // app.UseHttpsRedirection ();
-            
-            app.UseSpaStaticFiles();
+            if (!env.IsEnvironment("Backend"))
+            {
+                app.UseSpaStaticFiles();
+            }
 
             app.UseSwagger();
 
@@ -159,16 +161,16 @@ namespace dadachMovie
 
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllers();
-
-                endpoints.MapToVueCliProxy (
+                if (!env.IsEnvironment("Backend"))
+                {
+                    endpoints.MapToVueCliProxy (
                     "{*path}",
                     new SpaOptions { SourcePath = "ClientApp" },
                     // npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                    npmScript: null,
-                    //npmScript: "serve",
+                    npmScript: (env.IsEnvironment("Backend") ? null : "serve"),
                     regex: "Compiled successfully",
                     forceKill : true
-                );
+                );}
             });
         }
     }
