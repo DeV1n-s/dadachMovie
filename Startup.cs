@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Text;
 using AutoMapper;
 using dadachMovie.Contracts;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NLog;
 using VueCliMiddleware;
 
 namespace dadachMovie
@@ -24,6 +26,7 @@ namespace dadachMovie
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(),"/nlog.config"));
             Configuration = configuration;
         }
 
@@ -68,8 +71,7 @@ namespace dadachMovie
             services.AddScoped<IMoviesService, MoviesService>();
             services.AddScoped<IPeopleService, PeopleService>();
             services.AddScoped<IAccountsService, AccountsService>();
-            
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped<ILoggerService, LoggerService>();
 
             services.AddIdentity<User, IdentityRole>(opt =>
                 {
