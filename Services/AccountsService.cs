@@ -57,29 +57,18 @@ namespace dadachMovie.Services
                                         TotalItems = queryable.TotalItems};
         }
 
-        public async Task<UserToken> RegisterUserAsync(UserCreationDTO userCreationDTO)
+        public async Task<IdentityResult> RegisterUserAsync(UserCreationDTO userCreationDTO)
         {
             var user = new User { UserName = userCreationDTO.EmailAddress, Email = userCreationDTO.EmailAddress,
                                 FirstName = userCreationDTO.FirstName, LastName = userCreationDTO.LastName,
                                 RegisterDate = DateTimeOffset.Now};
 
-            var result = await _userManager.CreateAsync(user, userCreationDTO.Password);
-            if (!result.Succeeded)   
-                return null;
-            
-            return await BuildToken(userCreationDTO.EmailAddress);
+            return await _userManager.CreateAsync(user, userCreationDTO.Password);
         }
 
-        public async Task<UserToken> UserLoginAsync(UserInfo userInfo)
-        {
-            var result = await _signInManager.PasswordSignInAsync(userInfo.EmailAddress,userInfo.Password,
-                                                                isPersistent: false, lockoutOnFailure: false);
-
-            if (!result.Succeeded)
-                return null;
-            
-            return await BuildToken(userInfo.EmailAddress);
-        }
+        public async Task<SignInResult> UserLoginAsync(UserInfo userInfo) =>
+            await _signInManager.PasswordSignInAsync(userInfo.EmailAddress,userInfo.Password,
+                                                    isPersistent: false, lockoutOnFailure: false);
 
         public async Task<List<string>> GetRolesListAsync() =>
             await _dbContext.Roles.Select(x => x.Name).ToListAsync();
@@ -121,7 +110,7 @@ namespace dadachMovie.Services
         public async Task<UserToken> RenewUserBearerTokenAsync(string emailAddress) =>
             await BuildToken(emailAddress);
 
-        private async Task<UserToken> BuildToken(string emailAddress)
+        public async Task<UserToken> BuildToken(string emailAddress)
         {
             var claims = new List<Claim>()
             {

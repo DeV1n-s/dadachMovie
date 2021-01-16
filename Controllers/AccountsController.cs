@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
+using dadachMovie.Validations;
 using Gridify;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -24,25 +26,34 @@ namespace dadachMovie.Controllers
         [HttpPost("Register")]
         public async Task<ActionResult<UserToken>> Register([FromBody] UserCreationDTO userCreationDTO)
         {
-            var exists = await _accountsService.GetUserByEmailAsync(userCreationDTO.EmailAddress);
-            if (exists != null)
-                return BadRequest("User already registered.");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.Select(x => x.Value.Errors)
+                                            .Where(x => x.Count > 0)
+                                            .ToList());
+            }
 
-            var userToken = await _accountsService.RegisterUserAsync(userCreationDTO);
-            if (userToken == null)
-                return BadRequest("Failed to register user.");
+            var userRegister = await _accountsService.RegisterUserAsync(userCreationDTO);
+            if (!userRegister.Succeeded)
+            {
+                foreach (var error in userRegister.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return BadRequest(ModelState);
+            }
 
-            return userToken;
+            return await _accountsService.BuildToken(userCreationDTO.EmailAddress);
         }
 
         [HttpPost("Login")]
         public async Task<ActionResult<UserToken>> Login([FromBody] UserInfo userInfo)
         {
-            var userToken = await _accountsService.UserLoginAsync(userInfo);
-            if (userToken == null)
+            var userLogin = await _accountsService.UserLoginAsync(userInfo);
+            if (!userLogin.Succeeded)
                 return BadRequest("Invalid login attempt");
             
-            return userToken;
+            return await _accountsService.BuildToken(userInfo.EmailAddress);
         }
 
         [HttpPut("UpdateUser")]
