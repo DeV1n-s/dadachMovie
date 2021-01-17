@@ -19,16 +19,19 @@ namespace dadachMovie.Services
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IFileStorageService _fileStorageService;
+        private readonly ILoggerService _logger;
         private readonly string _containerName = "movies";
 
         public MoviesService(AppDbContext dbContext,
                             IMapper mapper,
-                            IFileStorageService fileStorageService)
+                            IFileStorageService fileStorageService,
+                            ILoggerService logger)
             : base(dbContext)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _fileStorageService = fileStorageService;
+            _logger = logger;
         }
         public async Task<Paging<MovieDetailsDTO>> GetMoviesDetailsPagingAsync(GridifyQuery gridifyQuery)
         {
@@ -97,7 +100,15 @@ namespace dadachMovie.Services
             this.AnnotateCastsOrder(movie);
 
             _dbContext.Add(movie);
-            await this.SaveChangesAsync();
+            try
+            {
+                await this.SaveChangesAsync();
+                _logger.LogInfo($"Movie with ID {movie.Id} was added successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarn($"Failed to add movie {movie.Id}. Exception: {ex}");
+            }
             
             return _mapper.Map<MovieDTO>(movie);
         }
@@ -106,7 +117,10 @@ namespace dadachMovie.Services
         {
             var movieDb = await _dbContext.Movies.FirstOrDefaultAsync(m => m.Id == id);
             if (movieDb == null)
+            {
+                _logger.LogWarn($"Movie with ID {id} was not found.");
                 return -1;
+            }
 
             movieDb = _mapper.Map(movieCreationDTO, movieDb);
 
@@ -134,10 +148,12 @@ namespace dadachMovie.Services
             try
             {
                 await this.SaveChangesAsync();
+                _logger.LogInfo($"Movie with ID {id} was updated successfully.");
                 return 1;
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogWarn($"Failed to update movie with ID {id}. Exception: {ex}");
                 return 0;
             }
         }
@@ -146,16 +162,21 @@ namespace dadachMovie.Services
         {
             var exists = await _dbContext.Movies.AnyAsync(m => m.Id == id);
             if (!exists)
+            {
+                _logger.LogWarn($"Movie with id {id} was not found.");
                 return -1;
+            }
 
             _dbContext.Remove(new Movie() {Id = id});
             try
             {
                 await _dbContext.SaveChangesAsync();
+                _logger.LogInfo($"Movie with ID {id} was removed successfully.");
                 return 1;
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogWarn($"Failed to remove movie with ID {id}. Exception: {ex}");
                 return 0;
             }
         }
@@ -175,10 +196,12 @@ namespace dadachMovie.Services
         {
             var exists = await _dbContext.Movies.AnyAsync(m => m.ImdbId == imdbId);
             if (exists)
-                return 1;
-
-            return 0;
+            {
+                _logger.LogWarn($"Imdb Id \"{imdbId}\" already exists.");
+                return -1;
+            }
             
+            return 0;   
         }
     }
 }

@@ -14,13 +14,16 @@ namespace dadachMovie.Services
     {
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly ILoggerService _logger;
 
         public CountriesService(AppDbContext dbContext,
-                                IMapper mapper)
+                                IMapper mapper,
+                                ILoggerService logger)
             : base(dbContext)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public IQueryable<CountryDTO> GetCountriesQueryable()
@@ -38,8 +41,10 @@ namespace dadachMovie.Services
 
         public async Task<CountryDTO> GetCountryByIdAsync(int id)
         {
-            var countires = await _dbContext.Countries.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
-            return _mapper.Map<CountryDTO>(countires);
+            var countries = await _dbContext.Countries.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+            if (countries == null)
+                _logger.LogWarn($"Country with ID {id} was not found.");
+            return _mapper.Map<CountryDTO>(countries);
         }  
     }
 }

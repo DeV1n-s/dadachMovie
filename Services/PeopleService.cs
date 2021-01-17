@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,16 +19,19 @@ namespace dadachMovie.Services
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IFileStorageService _fileStorageService;
+        private readonly ILoggerService _logger;
         private readonly string _containerName = "people";
 
         public PeopleService(AppDbContext dbContext, 
                             IMapper mapper,
-                            IFileStorageService fileStorageService)
+                            IFileStorageService fileStorageService,
+                            ILoggerService logger)
             : base(dbContext)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _fileStorageService = fileStorageService;
+            _logger = logger;
         }
 
         public async Task<Paging<PersonDTO>> GetPeoplePagingAsync(GridifyQuery gridifyQuery)
@@ -87,7 +91,16 @@ namespace dadachMovie.Services
             }
 
             _dbContext.Add(person);
-            await this.SaveChangesAsync();
+            try
+            {
+                await this.SaveChangesAsync();
+                _logger.LogInfo($"Person \"{personCreationDTO.Name}\" was added successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarn($"Failed to add person \"{personCreationDTO.Name}\". Exception: {ex}");
+            }
+            
             return _mapper.Map<PersonDTO>(person);
         }
 
@@ -95,7 +108,10 @@ namespace dadachMovie.Services
         {
             var personDb = await _dbContext.People.FirstOrDefaultAsync(p => p.Id == id);
             if (personDb == null)
+            {
+                _logger.LogWarn($"Person with ID {id} was not found");
                 return -1;
+            }
 
             personDb = _mapper.Map(personCreationDTO, personDb);
 
@@ -117,10 +133,12 @@ namespace dadachMovie.Services
             try
             {
                 await this.SaveChangesAsync();
+                _logger.LogInfo($"Person with ID {id} was updated successfully");
                 return 1;
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogWarn($"Failed to update person with ID {id}. Exception: {ex}");
                 return 0;
             }
         }
@@ -129,19 +147,23 @@ namespace dadachMovie.Services
         {
             var exists = await this.GetPersonByIdAsync(id);
             if (exists == null)
+            {
+                _logger.LogWarn($"Person with ID {id} was not found");
                 return -1;
+            }
 
             _dbContext.Remove(new Person() {Id = id});
             try
             {
                 await this.SaveChangesAsync();
+                _logger.LogInfo($"Person with ID {id} was removed successfully");
                 return 1;
             }
-            catch
+            catch(Exception ex)
             {
+                 _logger.LogWarn($"Failed to remove person with ID {id}. Exception: {ex}");
                 return 0;
             }
-            
         }
     }
 }

@@ -30,6 +30,7 @@ namespace dadachMovie.Services
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IFileStorageService _fileStorageService;
+        private readonly ILoggerService _logger;
         private readonly string _containerName = "users";
 
         public AccountsService(UserManager<User> userManager,
@@ -38,7 +39,8 @@ namespace dadachMovie.Services
                             AppDbContext dbContext,
                             IMapper mapper,
                             IHttpContextAccessor httpContextAccessor,
-                            IFileStorageService fileStorageService)
+                            IFileStorageService fileStorageService,
+                            ILoggerService logger)
             : base(dbContext)
         {
             _userManager = userManager;
@@ -48,6 +50,7 @@ namespace dadachMovie.Services
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             _fileStorageService = fileStorageService;
+            _logger = logger;
         }
 
         public async Task<Paging<UserDTO>> GetUsersPagingAsync(GridifyQuery gridifyQuery)
@@ -62,13 +65,34 @@ namespace dadachMovie.Services
             var user = new User { UserName = userCreationDTO.EmailAddress, Email = userCreationDTO.EmailAddress,
                                 FirstName = userCreationDTO.FirstName, LastName = userCreationDTO.LastName,
                                 RegisterDate = DateTimeOffset.Now};
-
-            return await _userManager.CreateAsync(user, userCreationDTO.Password);
+            var register = await _userManager.CreateAsync(user, userCreationDTO.Password);
+            if (!register.Succeeded)
+            {
+                var errors = new StringBuilder();
+                foreach (var error in register.Errors)
+                {
+                    errors.Append($"{error.Code} "); 
+                }
+                _logger.LogWarn($"Failed to register {user}. Errors: {errors}");
+            } else {
+                _logger.LogInfo($"{user} registered successfully.");
+            }
+            return register;
         }
 
-        public async Task<SignInResult> UserLoginAsync(UserInfo userInfo) =>
-            await _signInManager.PasswordSignInAsync(userInfo.EmailAddress,userInfo.Password,
-                                                    isPersistent: false, lockoutOnFailure: false);
+        public async Task<SignInResult> UserLoginAsync(UserInfo userInfo)
+        {
+            var signin = await _signInManager.PasswordSignInAsync(userInfo.EmailAddress,userInfo.Password,
+                                                            isPersistent: false, lockoutOnFailure: false);
+            if (!signin.Succeeded)
+            {
+                _logger.LogWarn($"Failed to login {userInfo.EmailAddress}.");
+            } else {
+                _logger.LogInfo($"{userInfo.EmailAddress} logged in successfully.");
+            }
+            return signin;
+        }
+            
 
         public async Task<List<string>> GetRolesListAsync() =>
             await _dbContext.Roles.Select(x => x.Name).ToListAsync();
@@ -77,15 +101,20 @@ namespace dadachMovie.Services
         {
             var user = await _userManager.FindByIdAsync(editRoleDTO.UserId);
             if (user == null)
+            {
+                _logger.LogWarn($"User {editRoleDTO.UserId} was not found.");
                 return -1;
+            }
             
             try
             {
                 await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, editRoleDTO.RoleName));
+                _logger.LogInfo($"Added user {user.Email} to {editRoleDTO.RoleName} role.");
                 return 1;
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogWarn($"Failed to add user {user.Email} to {editRoleDTO.RoleName} role. Exception: {ex}");
                 return 0;
             }
         }
@@ -94,15 +123,20 @@ namespace dadachMovie.Services
         {
             var user = await _userManager.FindByIdAsync(editRoleDTO.UserId);
             if (user == null)
+            {
+                _logger.LogWarn($"User {editRoleDTO.UserId} was not found.");
                 return -1;
+            }
             
             try
             {
                 await _userManager.RemoveClaimAsync(user, new Claim(ClaimTypes.Role, editRoleDTO.RoleName));
+                _logger.LogInfo($"Removed user {user.Email} from {editRoleDTO.RoleName} role.");
                 return 1;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogWarn($"Failed to remove user {user.Email} to {editRoleDTO.RoleName} role. Exception: {ex}");
                 return 0;
             }
         }
@@ -151,7 +185,10 @@ namespace dadachMovie.Services
 
             var user = await _userManager.FindByEmailAsync(userUpdateDTO.CurrentEmailAddress);
             if (user == null)
+            {
+                _logger.LogWarn($"User {userUpdateDTO.CurrentEmailAddress} was not found.");
                 return -1;
+            }
             
             if (!string.IsNullOrEmpty(userUpdateDTO.NewEmailAddress))
             {
@@ -160,12 +197,14 @@ namespace dadachMovie.Services
                 await _userManager.UpdateNormalizedEmailAsync(user);
                 await _userManager.SetUserNameAsync(user, userUpdateDTO.NewEmailAddress);
                 await _userManager.UpdateNormalizedUserNameAsync(user);
+                _logger.LogInfo($"Changed {userUpdateDTO.CurrentEmailAddress} email to {userUpdateDTO.NewEmailAddress}");
             }
 
             if (!string.IsNullOrEmpty(userUpdateDTO.NewPassword) && await _userManager.CheckPasswordAsync(user, userUpdateDTO.CurrentPassword))
             {
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                 await _userManager.ResetPasswordAsync(user, token, userUpdateDTO.NewPassword);
+                _logger.LogInfo($"User {user.Email} password changed.");
             }
 
             if (userUpdateDTO.Picture != null)
@@ -187,10 +226,12 @@ namespace dadachMovie.Services
             try
             {
                 await _dbContext.SaveChangesAsync();
+                _logger.LogInfo($"User {user.Email} updated successfully.");
                 return 1;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogWarn($"Failed to update user {user.Email}. Exception: {ex}");
                 return 0;
             }
         }
@@ -209,7 +250,10 @@ namespace dadachMovie.Services
         {
             var user = await _userManager.FindByEmailAsync(emailAddress);
             if (user == null)
+            {
+                _logger.LogWarn($"User {emailAddress} was not found.");
                 return null;
+            }
 
             return _mapper.Map<UserDTO>(user);
         }

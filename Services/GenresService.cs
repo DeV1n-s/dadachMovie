@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -15,13 +16,16 @@ namespace dadachMovie.Services
     {
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly ILoggerService _logger;
 
         public GenresService(AppDbContext dbContext,
-                            IMapper mapper)
+                            IMapper mapper,
+                            ILoggerService logger)
             : base(dbContext)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<Paging<GenreDTO>> GetGenresPagingAsync(GridifyQuery gridifyQuery)
@@ -40,7 +44,15 @@ namespace dadachMovie.Services
         {
             var genre = _mapper.Map<Genre>(genreCreationDTO);
             _dbContext.Add(genre);
-            await this.SaveChangesAsync();
+            try
+            {
+                await this.SaveChangesAsync();
+                _logger.LogInfo($"Added genre \"{genreCreationDTO.Name}\" successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarn($"Failed to add genre \"{genreCreationDTO.Name}\". Eception: {ex}");
+            }
             return _mapper.Map<GenreDTO>(genre);
         }
 
@@ -48,7 +60,10 @@ namespace dadachMovie.Services
         {
             var exists = await _dbContext.Genres.AnyAsync(g => g.Id == id);
             if (!exists)
+            {
+                _logger.LogWarn($"Genre with ID {id} was not found");
                 return -1;
+            }
                 
             var genre = _mapper.Map<Genre>(genreCreationDTO);
             genre.Id = id;
@@ -57,28 +72,35 @@ namespace dadachMovie.Services
             try
             {
                 await this.SaveChangesAsync();
+                _logger.LogInfo($"Genre \"{genreCreationDTO.Name}\" was updated successfully.");
                 return 1;
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogWarn($"Failed to update genre \"{genreCreationDTO.Name}\". Exception: {ex}");
                 return 0;
             }
         }
 
         public async Task<int> DeleteGenreAsync(int id)
         {
-            var exists = await _dbContext.Genres.AnyAsync(g => g.Id == id);
-            if (!exists)
+            var exists = await GetGenreByIdAsync(id);
+            if (exists == null)
+            {
+                _logger.LogWarn($"Genre with ID {id} was not found");
                 return -1;
-
+            }
+                
             _dbContext.Remove(new Genre { Id = id });
             try
             {
                 await this.SaveChangesAsync();
+                _logger.LogInfo($"Genre \"{exists.Name}\" was removed successfully.");
                 return 1;
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogWarn($"Failed to remove genre \"{exists.Name}\". Exception: {ex}");
                 return 0;
             }
         }
