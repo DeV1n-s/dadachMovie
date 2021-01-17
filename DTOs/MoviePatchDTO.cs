@@ -12,6 +12,7 @@ namespace dadachMovie.DTOs
         public string Description { get; set; }
         public DateTime ReleaseDate { get; set; }
         public float Rate { get; set; }
+        public int Lenght { get; set; }
         public bool InTheaters { get; set; }
         
         [ImdbIdValidator]

@@ -12,8 +12,8 @@ namespace dadachMovie.Contracts
         Task<Paging<PersonDTO>> GetPeoplePagingAsync(GridifyQuery gridifyQuery);
         Task<PersonDTO> GetPersonByIdAsync(int id);
         IQueryable<Person> GetPeopleQueryable();
-        Task<List<MovieDetailsDTO>> GetCastMoviesListAsync(int id);
-        Task<List<MovieDetailsDTO>> GetDirectorMoviesListAsync(int id);
+        Task<Paging<MovieDetailsDTO>> GetCastMoviesListAsync(int id, GridifyQuery gridifyQuery);
+        Task<Paging<MovieDetailsDTO>> GetDirectorMoviesListAsync(int id, GridifyQuery gridifyQuery);
         Task<PersonDTO> AddPersonAsync(PersonCreationDTO personCreationDTO);
         Task<int> UpdatePersonAsync(int id, PersonCreationDTO personCreationDTO);
         Task<int> DeletePersonAsync(int id);

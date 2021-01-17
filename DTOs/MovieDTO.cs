@@ -13,6 +13,7 @@ namespace dadachMovie.DTOs
         public string ReleaseDatePersian { get; set; }
         public string CreatedAt { get; set; }
         public float Rate { get; set; }
+        public int Lenght { get; set; }
         public bool InTheaters { get; set; }
         public string ImdbId { get; set; }
         public string Picture { get; set; }

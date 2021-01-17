@@ -43,23 +43,23 @@ namespace dadachMovie.Controllers
         }
 
         [HttpGet("{id:int}/CastMovies")]
-        public async Task<ActionResult<List<MovieDetailsDTO>>> GetCastMovies(int id)
+        public async Task<ActionResult<Paging<MovieDetailsDTO>>> GetCastMovies(int id,[FromQuery] GridifyQuery gridifyQuery)
         {
             var person = await _peopleService.GetPersonByIdAsync(id);
             if (person == null)
                 return NotFound();
 
-            return await _peopleService.GetCastMoviesListAsync(id);
+            return await _peopleService.GetCastMoviesListAsync(id, gridifyQuery);
         }
 
         [HttpGet("{id:int}/DirectorMovies")]
-        public async Task<ActionResult<List<MovieDetailsDTO>>> GetDirectorMovies(int id)
+        public async Task<ActionResult<Paging<MovieDetailsDTO>>> GetDirectorMovies(int id, [FromQuery] GridifyQuery gridifyQuery)
         {
             var person = await _peopleService.GetPersonByIdAsync(id);
             if (person == null)
                 return NotFound();
 
-            return await _peopleService.GetDirectorMoviesListAsync(id);
+            return await _peopleService.GetDirectorMoviesListAsync(id, gridifyQuery);
         }
         
         [HttpPost]

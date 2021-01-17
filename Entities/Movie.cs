@@ -19,6 +19,7 @@ namespace dadachMovie.Entities
         public DateTime ReleaseDate { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public float Rate { get; set; }
+        public int Lenght { get; set; }
         public bool InTheaters { get; set; }
 
         [ImdbIdValidator]

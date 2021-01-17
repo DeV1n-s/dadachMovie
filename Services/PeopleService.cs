@@ -46,15 +46,27 @@ namespace dadachMovie.Services
         public IQueryable<Person> GetPeopleQueryable() =>
             _dbContext.People.AsNoTracking().AsQueryable();
 
-        public async Task<List<MovieDetailsDTO>> GetCastMoviesListAsync(int id) =>
-            await _dbContext.Movies.ProjectTo<MovieDetailsDTO>(_mapper.ConfigurationProvider)
-                                .Where(x => x.Casts.Any(x => x.PersonId == id))
-                                .ToListAsync();
+        public async Task<Paging<MovieDetailsDTO>> GetCastMoviesListAsync(int id, GridifyQuery gridifyQuery)
+        {
+            var queryable = await _dbContext.Movies.Where(x => x.Casts.Any(y => y.PersonId == id))
+                                                .GridifyQueryableAsync(gridifyQuery, null);
 
-        public async Task<List<MovieDetailsDTO>> GetDirectorMoviesListAsync(int id) =>
-            await _dbContext.Movies.ProjectTo<MovieDetailsDTO>(_mapper.ConfigurationProvider)
-                                .Where(x => x.Directors.Any(x => x.PersonId == id))
-                                .ToListAsync();
+            return new Paging<MovieDetailsDTO> {Items = queryable.Query
+                                                                .ProjectTo<MovieDetailsDTO>(_mapper.ConfigurationProvider)
+                                                                .ToList(),
+                                                TotalItems = queryable.TotalItems};
+        }
+
+        public async Task<Paging<MovieDetailsDTO>> GetDirectorMoviesListAsync(int id, GridifyQuery gridifyQuery)
+        {
+            var queryable = await _dbContext.Movies.Where(x => x.Directors.Any(y => y.PersonId == id))
+                                                .GridifyQueryableAsync(gridifyQuery, null);
+
+            return new Paging<MovieDetailsDTO> {Items = queryable.Query
+                                                                .ProjectTo<MovieDetailsDTO>(_mapper.ConfigurationProvider)
+                                                                .ToList(),
+                                                TotalItems = queryable.TotalItems};
+        }
 
         public async Task<PersonDTO> AddPersonAsync(PersonCreationDTO personCreationDTO)
         {
