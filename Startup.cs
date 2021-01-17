@@ -72,7 +72,6 @@ namespace dadachMovie
             services.AddScoped<IPeopleService, PeopleService>();
             services.AddScoped<IAccountsService, AccountsService>();
             services.AddScoped<ILoggerService, LoggerService>();
-            services.AddScoped<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddIdentity<User, IdentityRole>(opt =>
                 {
