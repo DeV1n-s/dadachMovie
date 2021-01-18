@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
+using dadachMovie.Validations;
 using Gridify;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -44,6 +45,7 @@ namespace dadachMovie.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> Post([FromForm] MovieCreationDTO movieCreationDTO)
         {
             var exists = await _moviesService.CheckImdbIdAsync(movieCreationDTO.ImdbId);
@@ -56,6 +58,7 @@ namespace dadachMovie.Controllers
 
         [HttpPut("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> Put(int id, [FromForm] MovieCreationDTO movieCreationDTO)
         {
             var result = await _moviesService.UpdateMovieAsync(id, movieCreationDTO);
@@ -69,6 +72,7 @@ namespace dadachMovie.Controllers
 
         [HttpPatch("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<MoviePatchDTO> patchDocument)
         {
             if (patchDocument == null)
@@ -81,9 +85,9 @@ namespace dadachMovie.Controllers
             var entityDTO = _mapper.Map<MoviePatchDTO>(entityFromDb);
             patchDocument.ApplyTo(entityDTO, ModelState);
 
-            var isValid = TryValidateModel(entityDTO);
-            if (!isValid)
-                return BadRequest(ModelState);
+            // var isValid = TryValidateModel(entityDTO);
+            // if (!isValid)
+            //     return BadRequest(ModelState);
 
             _mapper.Map(entityDTO, entityFromDb);
             await _moviesService.SaveChangesAsync();
@@ -93,6 +97,7 @@ namespace dadachMovie.Controllers
 
         [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> Delete(int id)
         {
             var result = await _moviesService.DeleteMovieAsync(id);

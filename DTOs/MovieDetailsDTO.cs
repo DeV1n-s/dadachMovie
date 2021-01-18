@@ -7,5 +7,6 @@ namespace dadachMovie.DTOs
         public List<GenreDTO> Genres { get; set; }
         public List<CastDTO> Casts { get; set; }
         public List<DirectorDTO> Directors { get; set; }
+        public List<string> Countries { get; set; }
     }
 }

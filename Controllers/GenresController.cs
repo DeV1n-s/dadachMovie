@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
+using dadachMovie.Validations;
 using Gridify;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -48,6 +49,7 @@ namespace dadachMovie.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> Post([FromBody] GenreCreationDTO genreCreationDTO)
         {
             var genreDTO = await _genresService.AddGenreAsync(genreCreationDTO);
@@ -56,6 +58,7 @@ namespace dadachMovie.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> Put(int id, [FromBody] GenreCreationDTO genreCreationDTO)
         {
             var result = await _genresService.UpdateGenreAsync(id, genreCreationDTO);
@@ -69,6 +72,7 @@ namespace dadachMovie.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> Delete(int id)
         {
             var result = await _genresService.DeleteGenreAsync(id);

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
+using dadachMovie.Validations;
 using Gridify;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -64,6 +65,7 @@ namespace dadachMovie.Controllers
         
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> Post([FromForm] PersonCreationDTO personCreationDTO)
         {
             var personDTO = await _peopleService.AddPersonAsync(personCreationDTO);
@@ -72,6 +74,7 @@ namespace dadachMovie.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> Put(int id, [FromForm] PersonCreationDTO personCreationDTO)
         {
             var result = await _peopleService.UpdatePersonAsync(id, personCreationDTO);
@@ -85,6 +88,7 @@ namespace dadachMovie.Controllers
 
         [HttpPatch("{id}")]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<PersonPatchDTO> patchDocument)
         {
             if (patchDocument == null)
@@ -98,9 +102,9 @@ namespace dadachMovie.Controllers
 
             patchDocument.ApplyTo(entityDTO, ModelState);
 
-            var isValid = TryValidateModel(entityDTO);
-            if (!isValid)
-                return BadRequest(ModelState);
+            // var isValid = TryValidateModel(entityDTO);
+            // if (!isValid)
+            //     return BadRequest(ModelState);
 
             _mapper.Map(entityDTO, entityFromDb);
             await _peopleService.SaveChangesAsync();
@@ -110,6 +114,7 @@ namespace dadachMovie.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> Delete(int id)
         {
             var result = await _peopleService.DeletePersonAsync(id);

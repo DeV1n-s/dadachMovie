@@ -24,15 +24,9 @@ namespace dadachMovie.Controllers
         }
         
         [HttpPost("Register")]
+        [ValidateModelAttribute]
         public async Task<ActionResult<UserToken>> Register([FromBody] UserCreationDTO userCreationDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState.Select(x => x.Value.Errors)
-                                            .Where(x => x.Count > 0)
-                                            .ToList());
-            }
-
             var userRegister = await _accountsService.RegisterUserAsync(userCreationDTO);
             if (!userRegister.Succeeded)
             {
@@ -47,6 +41,7 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPost("Login")]
+        [ValidateModelAttribute]
         public async Task<ActionResult<UserToken>> Login([FromBody] UserInfo userInfo)
         {
             var userLogin = await _accountsService.UserLoginAsync(userInfo);
@@ -58,6 +53,7 @@ namespace dadachMovie.Controllers
 
         [HttpPut("UpdateUser")]
         [Authorize]
+        [ValidateModelAttribute]
         public async Task<ActionResult> UpdateUser([FromForm] UserUpdateDTO userUpdateDTO)
         {
             var result = await _accountsService.UpdateUserAsync(userUpdateDTO);
@@ -98,6 +94,7 @@ namespace dadachMovie.Controllers
 
         [HttpPost("AssignRole")]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> AssignRole(EditRoleDTO editRoleDTO)
         {
             var result = await _accountsService.AssignUserRoleAsync(editRoleDTO);
@@ -111,6 +108,7 @@ namespace dadachMovie.Controllers
 
         [HttpPost("RemoveRole")]
         [Authorize(Roles = "Admin")]
+        [ValidateModelAttribute]
         public async Task<ActionResult> RemoveRole(EditRoleDTO editRoleDTO)
         {
             var result = await _accountsService.RemoveUserRoleAsync(editRoleDTO);
@@ -121,16 +119,5 @@ namespace dadachMovie.Controllers
 
             return NoContent();
         }
-
-        // [HttpPost("CheckEmailAvailability")]
-        // [Authorize(Roles = "Admin")]
-        // public async Task<ActionResult> CheckEmailAvailability(string emailAddress)
-        // {
-        //     var exists = await _accountsService.GetUserByEmailAsync(emailAddress);
-        //     if (exists == null)
-        //         return NotFound("User doesn't exists.");
-
-        //     return Ok("Another user is already registered with this email address.");
-        // }
     }
 }
