@@ -139,9 +139,10 @@ namespace dadachMovie.Services
             }
             
             await _dbContext.Database.ExecuteSqlInterpolatedAsync($@"
-                                    DELETE FROM MoviesActors WHERE MovieId = {movieDb.Id}; 
+                                    DELETE FROM MoviesCasts WHERE MovieId = {movieDb.Id}; 
                                     DELETE FROM MoviesGenres WHERE MovieId = {movieDb.Id}; 
                                     DELETE FROM MoviesDirectors WHERE MovieId = {movieDb.Id};
+                                    DELETE FROM MoviesCountries WHERE MovieId = {movieDb.Id};
                                     ");
             
             this.AnnotateCastsOrder(movieDb);
