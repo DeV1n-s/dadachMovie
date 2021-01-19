@@ -55,7 +55,9 @@ namespace dadachMovie.Services
 
         public async Task<Paging<UserDTO>> GetUsersPagingAsync(GridifyQuery gridifyQuery)
         {
-            var queryable = await _dbContext.Users.GridifyQueryableAsync(gridifyQuery,null);
+            var queryable = await _userManager.Users.Include(u => u.MoviesRatings)
+                                                    .GridifyQueryableAsync(gridifyQuery,null);
+
             return new Paging<UserDTO> {Items = queryable.Query.ProjectTo<UserDTO>(_mapper.ConfigurationProvider).ToList(),
                                         TotalItems = queryable.TotalItems};
         }
@@ -248,7 +250,7 @@ namespace dadachMovie.Services
 
         public async Task<UserDTO> GetUserByEmailAsync(string emailAddress)
         {
-            var user = await _userManager.FindByEmailAsync(emailAddress);
+            var user = await _userManager.Users.Include(u => u.MoviesRatings).FirstOrDefaultAsync(u => u.Email == emailAddress);
             if (user == null)
             {
                 _logger.LogWarn($"User {emailAddress} was not found.");

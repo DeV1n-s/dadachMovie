@@ -70,6 +70,8 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId))
                 .ReverseMap();
             
+            CreateMap<MoviesRating, UserMovieRatingDTO>();
+            
             CreateMap<User, UserDTO>()
                 .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))

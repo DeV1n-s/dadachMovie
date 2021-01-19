@@ -14,25 +14,48 @@ namespace dadachMovie
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<MoviesGenres>()
-                .HasKey(x => new {x.GenreId, x.MovieId});
+                .HasKey(pk => new {pk.GenreId, pk.MovieId});
             
             modelBuilder.Entity<MoviesCasts>()
-                .HasKey(x => new {x.MovieId, x.PersonId});
+                .HasKey(pk => new {pk.MovieId, pk.PersonId});
             
             modelBuilder.Entity<MoviesDirectors>()
-                .HasKey(x => new {x.MovieId, x.PersonId});
+                .HasKey(pk => new {pk.MovieId, pk.PersonId});
             
             modelBuilder.Entity<MoviesCountries>()
-                .HasKey(x => new {x.MovieId, x.CountryId});
+                .HasKey(pk => new {pk.MovieId, pk.CountryId});
             
             modelBuilder.Entity<PeopleCountries>()
-                .HasKey(x => new {x.PersonId, x.CountryId});
+                .HasKey(pk => new {pk.PersonId, pk.CountryId});
 
             modelBuilder.Entity<Country>()
                 .HasData(dadachMovie.Helpers.SeedHelper.SeedData<Country>("countries.json"));
             
             modelBuilder.Entity<Movie>()
-                .HasIndex(x => x.ImdbId).IsUnique();
+                .HasIndex(i => i.ImdbId).IsUnique();
+
+            modelBuilder.Entity<Movie>()
+                .HasMany(fk => fk.MoviesRatings)
+                .WithOne(fk => fk.Movie)
+                .HasForeignKey(fk => fk.MovieId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(fk => fk.MoviesRatings)
+                .WithOne(fk => fk.User)
+                .HasForeignKey(fk => fk.UserId);
+            
+            modelBuilder.Entity<MoviesRating>()
+                .HasKey(pk => new {pk.MovieId, pk.UserId});
+            
+            modelBuilder.Entity<MoviesRating>()
+                .HasOne(fk => fk.Movie)
+                .WithMany(fk => fk.MoviesRatings)
+                .HasForeignKey(fk => fk.MovieId);
+            
+            modelBuilder.Entity<MoviesRating>()
+                .HasOne(fk => fk.User)
+                .WithMany(fk => fk.MoviesRatings)
+                .HasForeignKey(fk => fk.UserId);
             
             base.OnModelCreating(modelBuilder);
         }
@@ -45,5 +68,6 @@ namespace dadachMovie
         public DbSet<MoviesDirectors> MoviesDirectors { get; set; }
         public DbSet<MoviesCountries> MoviesCountries { get; set; }
         public DbSet<PeopleCountries> PeopleCountries { get; set; }
+        public DbSet<MoviesRating> MoviesRating { get; set; }
     }
 }

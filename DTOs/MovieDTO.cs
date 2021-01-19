@@ -12,10 +12,23 @@ namespace dadachMovie.DTOs
         public string ReleaseDate { get; set; }
         public string ReleaseDatePersian { get; set; }
         public string CreatedAt { get; set; }
-        public float Rate { get; set; }
+        public float ImdbRate { get; set; }
         public int Lenght { get; set; }
         public bool InTheaters { get; set; }
         public string ImdbId { get; set; }
         public string Picture { get; set; }
+        public decimal AverageUserRate { get; set; }
+
+        public decimal AverageRatingForDisplay
+        {
+            get
+            {
+                if (AverageUserRate == 0)
+                {
+                    return 0m;
+                }
+                return Math.Round(AverageUserRate * 2, MidpointRounding.AwayFromZero) / 2;
+            }
+        }
     }
 }

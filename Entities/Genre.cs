@@ -9,6 +9,7 @@ namespace dadachMovie.Entities
 
         [Required, StringLength(40)]
         public string Name { get; set; }
+        
         public List<MoviesGenres> Genres { get; set; } = new List<MoviesGenres>();
     }
 }

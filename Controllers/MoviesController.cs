@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
+using dadachMovie.Entities;
 using dadachMovie.Validations;
 using Gridify;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,12 +17,15 @@ namespace dadachMovie.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly IMoviesService _moviesService;
+        private readonly IRatingService _ratingService;
         private readonly IMapper _mapper;
 
         public MoviesController(IMoviesService moviesService,
+                                IRatingService ratingService,
                                 IMapper mapper)
         {
             _moviesService = moviesService;
+            _ratingService = ratingService;
             _mapper = mapper;
         }
 
@@ -106,6 +110,18 @@ namespace dadachMovie.Controllers
             else if (result == 0)
                 return BadRequest("Failed to save changes.");
 
+            return NoContent();
+        }
+
+        [HttpPost("SaveUserRating")]
+        [ValidateModelAttribute]
+        [Authorize]
+        public async Task<ActionResult> SaveUserRating([FromBody] MovieRatingDTO movieRatingDTO)
+        {
+            var result = await _ratingService.SaveRatingAsync(movieRatingDTO);
+            if (result == -1)
+                return BadRequest(ModelState);
+            
             return NoContent();
         }
     }
