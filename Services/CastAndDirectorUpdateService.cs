@@ -8,12 +8,12 @@ using Microsoft.Extensions.Hosting;
 
 namespace dadachMovie.Services
 {
-    public class MovieInTheaterService : IHostedService, IDisposable
+    public class CastAndDirectorUpdateService : IHostedService, IDisposable
     {
         private readonly IServiceProvider _serviceProvider;
         private Timer _timer;
 
-        public MovieInTheaterService(IServiceProvider serviceProvider)
+        public CastAndDirectorUpdateService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
@@ -24,7 +24,7 @@ namespace dadachMovie.Services
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromDays(1));
+            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromHours(1));
             return Task.CompletedTask;
         }
 
@@ -33,18 +33,29 @@ namespace dadachMovie.Services
             using (var scope = _serviceProvider.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                var today = DateTime.Today;
-                var movies = await context.Movies.Where(m => m.ReleaseDate == today).ToListAsync();
-                if (movies.Any())
+                var moviesCasts = await context.MoviesCasts.Select(p => p.PersonId).ToListAsync();
+                var moviesDirectors = await context.MoviesDirectors.Select(p => p.PersonId).ToListAsync();
+                if (moviesCasts.Any())
                 {
-                    foreach (var movie in movies)
+                    foreach (var id in moviesCasts)
                     {
-                        movie.InTheaters = true;
+                        var person = await context.People.FirstOrDefaultAsync(p => p.Id == id);
+                        person.IsCast = true;
+                    }
+                }
+
+                if (moviesDirectors.Any())
+                {
+                    foreach (var id in moviesDirectors)
+                    {
+                        var person = await context.People.FirstOrDefaultAsync(p => p.Id == id);
+                        person.IsDirector = true;
                     }
                     await context.SaveChangesAsync();
                 }
             }
         }
+
         public Task StopAsync(CancellationToken cancellationToken)
         {
             _timer?.Change(Timeout.Infinite, 0);

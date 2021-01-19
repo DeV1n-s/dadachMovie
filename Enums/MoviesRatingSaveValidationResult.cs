@@ -1,5 +1,6 @@
 namespace dadachMovie.Enums
 {
+    // Use it for later Validation Implementations
     public enum MoviesRatingSaveValidationResult
     {
         OK = 1,

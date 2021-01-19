@@ -44,6 +44,7 @@ namespace dadachMovie.Services
             await _dbContext.Movies.AsNoTracking()
                                 .ProjectTo<MovieDetailsDTO>(_mapper.ConfigurationProvider)
                                 .FirstOrDefaultAsync(m => m.Id == id);
+            
         public async Task<IndexMoviePageDTO> GetTopMoviesAsync(int amount)
         {
             if (amount == 0)

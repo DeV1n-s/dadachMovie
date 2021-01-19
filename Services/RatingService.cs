@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
@@ -24,7 +25,7 @@ namespace dadachMovie.Services
 
             if (rating != null)
             {
-                rating.Rating = movieRatingDTO.Rating;
+                rating.Rate = movieRatingDTO.Rate;
             }
             else
             {
@@ -32,7 +33,7 @@ namespace dadachMovie.Services
                 {
                     MovieId = movieRatingDTO.MovieId,
                     UserId = movieRatingDTO.UserId,
-                    Rating = movieRatingDTO.Rating
+                    Rate = movieRatingDTO.Rate
                 };
 
                 await _dbContext.MoviesRating.AddAsync(rating);
@@ -41,12 +42,12 @@ namespace dadachMovie.Services
             try
             {
                 await _dbContext.SaveChangesAsync();
-                _logger.LogInfo($"Successfully saved MoviesRating with rating {movieRatingDTO.Rating} from user {movieRatingDTO.UserId} to movie {movieRatingDTO.MovieId}");
+                _logger.LogInfo($"Successfully saved MoviesRating with rating {movieRatingDTO.Rate} from user {movieRatingDTO.UserId} to movie {movieRatingDTO.MovieId}");
                 return 1;
             }
             catch (Exception ex)
             {
-                _logger.LogWarn($"Failed to save MoviesRating with rating {movieRatingDTO.Rating} from user {movieRatingDTO.UserId} to movie {movieRatingDTO.MovieId}. Exception: {ex}");
+                _logger.LogWarn($"Failed to save MoviesRating with rating {movieRatingDTO.Rate} from user {movieRatingDTO.UserId} to movie {movieRatingDTO.MovieId}. Exception: {ex}");
                 return -1;
             }
         }

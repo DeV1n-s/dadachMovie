@@ -4,7 +4,7 @@ namespace dadachMovie.Entities
     {
         public string UserId { get; set; }
         public int MovieId { get; set; }
-        public byte Rating { get; set; }
+        public int Rate { get; set; }
 
         public Movie Movie { get; set; }
         public User User { get; set; }

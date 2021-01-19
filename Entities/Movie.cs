@@ -31,6 +31,6 @@ namespace dadachMovie.Entities
         public List<MoviesGenres> Genres { get; set; } = new List<MoviesGenres>();
         public List<MoviesDirectors> Directors { get; set; } = new List<MoviesDirectors>();
         public List<MoviesCountries> Countries { get; set; } = new List<MoviesCountries>();
-        public IEnumerable<MoviesRating> MoviesRatings { get; set; }
+        public virtual ICollection<MoviesRating> MoviesRatings { get; set; }
     } 
 }

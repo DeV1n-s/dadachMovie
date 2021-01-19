@@ -27,7 +27,9 @@ namespace dadachMovie.Helpers
             CreateMap<Person, PersonPatchDTO>().ReverseMap();
 
             CreateMap<Movie, MovieDTO>()
-                .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate.Date));
+                .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate.Date))
+                .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.MoviesRatings.Average(x => x.Rate)))
+                .ForPath(dest => dest.ReleaseDatePersian, opt => opt.MapFrom(src => src.ReleaseDate.ToPeString()));
 
             CreateMap<MoviesGenres, GenreDTO>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GenreId))
@@ -62,6 +64,7 @@ namespace dadachMovie.Helpers
 
             CreateMap<Movie, MovieDetailsDTO>()
                 .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Countries.Select(x => x.Country.Name).ToList()))
+                .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.MoviesRatings.Average(x => x.Rate)))
                 .ForPath(dest => dest.ReleaseDatePersian, opt => opt.MapFrom(src => src.ReleaseDate.ToPeString()));
 
             CreateMap<Movie, MoviePatchDTO>().ReverseMap();
@@ -113,6 +116,17 @@ namespace dadachMovie.Helpers
                 result.Add(new MoviesCountries() { CountryId = id });
             }
             return result;
+        }
+
+        private float AverageUserRating(Movie movie, MovieDetailsDTO movieDetailsDTO)
+        {
+            var total = 0;
+            var userRates = movie.MoviesRatings.Where(x => x.MovieId == movie.Id).Select(mr => mr.Rate);
+            foreach (var rate in userRates)
+            {
+                total += rate;
+            }
+            return (total / userRates.Count());
         }
     }
 }

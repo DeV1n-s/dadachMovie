@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using dadachMovie.Entities;
 
 namespace dadachMovie.DTOs
 {
@@ -17,18 +18,6 @@ namespace dadachMovie.DTOs
         public bool InTheaters { get; set; }
         public string ImdbId { get; set; }
         public string Picture { get; set; }
-        public decimal AverageUserRate { get; set; }
-
-        public decimal AverageRatingForDisplay
-        {
-            get
-            {
-                if (AverageUserRate == 0)
-                {
-                    return 0m;
-                }
-                return Math.Round(AverageUserRate * 2, MidpointRounding.AwayFromZero) / 2;
-            }
-        }
+        public double AverageUserRate { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace dadachMovie.DTOs
         [Required]
         public int MovieId { get; set; }
 
-        [Required]
-        public byte Rating { get; set; }
+        [Required,Range(1,10)]
+        public int Rate { get; set; }
     }
 }
