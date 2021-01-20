@@ -1,0 +1,141 @@
+<template>
+  <div>
+    <nav
+      id="nav-bar"
+      class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark sticky-top"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="#">داداچ مویی</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item ">
+              <nuxt-link class="nav-link" to="/home" active-class="active">
+                <i class="fa fa-home"></i> خانه
+              </nuxt-link>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fa fa-film"> </i> فیلم ها
+              </a>
+              <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                <nuxt-link class="dropdown-item" to="movies">
+                  سینمایی</nuxt-link
+                >
+                <div class="dropdown-divider"></div>
+
+                <a class="dropdown-item" href="#"> سریال</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">تریلر ها </a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fa fa-eercast"> </i> هنرمندان
+              </a>
+              <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                <nuxt-link class="dropdown-item" to="/people/cast">
+                  بازیگران</nuxt-link
+                >
+                <div class="dropdown-divider"></div>
+
+                <a class="dropdown-item" href="#"> کارگردانان</a>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-newspaper-o"></i> اخبار
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-info"></i> درباره ما
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-user"></i> پروفایل کاربری
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-user-plus"></i>پنل ادمین
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-auto ml-5">
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-bell">
+                  <span class="badge badge-info">11</span>
+                </i>
+                اعلانات
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-envelope">
+                  <span class="badge badge-success">11</span>
+                </i>
+                پیام ها
+              </a>
+            </li>
+
+            <li class="nav-item dropdown mt-2">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img
+                  src="https://www.diethelmtravel.com/wp-content/uploads/2016/04/bill-gates-wealthiest-person.jpg"
+                  class="profile-image img-circle"/><b class="caret"></b
+              ></a>
+              <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">
+                  ویرایش پروفایل
+                  <i class="fa fa-cog"></i>
+                </a>
+                <div class="dropdown-divider"></div>
+
+                <a class="dropdown-item" href="#">
+                  خروج <i class="fa fa-sign-out"></i
+                ></a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style></style>

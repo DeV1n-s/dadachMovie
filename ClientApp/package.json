@@ -1,45 +1,20 @@
 {
-    "name": "dadach-vue2",
-    "version": "0.1.0",
+    "name": "dadach-nuxt",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
-        "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
-        "lint": "vue-cli-service lint"
+        "serve": " nuxt",
+        "dev": "nuxt --hostname myhost --port 8080",
+        "build": "nuxt build",
+        "start": "nuxt start",
+        "generate": "nuxt generate"
     },
     "dependencies": {
         "axios": "^0.21.1",
+        "bootstrap": "^4.5.2",
+        "bootstrap-vue": "^2.17.3",
         "core-js": "^3.6.5",
-        "vue": "^2.6.11",
-        "vue-good-table": "^2.21.1",
-        "vue-multiselect": "^2.1.6",
-        "vue-router": "^3.4.9",
-        "vue-search-select": "^2.9.3",
-        "vuex": "^3.6.0",
-        "vuex-persistedstate": "^4.0.0-beta.1"
+        "nuxt": "^2.14.6"
     },
-    "devDependencies": {
-        "@vue/cli-plugin-babel": "~4.5.0",
-        "@vue/cli-plugin-eslint": "~4.5.0",
-        "@vue/cli-service": "~4.5.0",
-        "babel-eslint": "^10.1.0",
-        "eslint": "^6.8.0",
-        "eslint-plugin-vue": "^6.2.2",
-        "vue-template-compiler": "^2.6.11"
-    },
-    "eslintConfig": {
-        "root": true,
-        "env": {
-            "node": true
-        },
-        "extends": [
-            "plugin:vue/essential",
-            "eslint:recommended"
-        ],
-        "parserOptions": {
-            "parser": "babel-eslint"
-        },
-        "rules": {}
-    },
-    "browserslist": []
+    "devDependencies": {}
 }

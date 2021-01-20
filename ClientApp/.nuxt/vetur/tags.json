@@ -1,0 +1,26 @@
+{
+  "FooterApp": {
+    "description": "Auto imported from /components/FooterApp.vue"
+  },
+  "LazyFooterApp": {
+    "description": "Auto imported from /components/FooterApp.vue"
+  },
+  "Logo": {
+    "description": "Auto imported from /components/Logo.vue"
+  },
+  "LazyLogo": {
+    "description": "Auto imported from /components/Logo.vue"
+  },
+  "NavBar": {
+    "description": "Auto imported from /components/NavBar.vue"
+  },
+  "LazyNavBar": {
+    "description": "Auto imported from /components/NavBar.vue"
+  },
+  "SideBar": {
+    "description": "Auto imported from /components/SideBar.vue"
+  },
+  "LazySideBar": {
+    "description": "Auto imported from /components/SideBar.vue"
+  }
+}
