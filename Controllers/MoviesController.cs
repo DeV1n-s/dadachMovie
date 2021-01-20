@@ -18,14 +18,17 @@ namespace dadachMovie.Controllers
     {
         private readonly IMoviesService _moviesService;
         private readonly IRatingService _ratingService;
+        private readonly IUserFavoriteMoviesService _userFavoriteMoviesService;
         private readonly IMapper _mapper;
 
         public MoviesController(IMoviesService moviesService,
                                 IRatingService ratingService,
+                                IUserFavoriteMoviesService userFavoriteMoviesService,
                                 IMapper mapper)
         {
             _moviesService = moviesService;
             _ratingService = ratingService;
+            _userFavoriteMoviesService = userFavoriteMoviesService;
             _mapper = mapper;
         }
 
@@ -120,6 +123,18 @@ namespace dadachMovie.Controllers
         {
             var result = await _ratingService.SaveRatingAsync(movieRatingDTO);
             if (result == -1)
+                return BadRequest(ModelState);
+            
+            return NoContent();
+        }
+
+        [HttpPost("SaveUserFavoriteMovies")]
+        //[ValidateModelAttribute]
+        [Authorize]
+        public async Task<ActionResult> SaveUserFavoriteMovies([FromBody] UserFavoriteMoviesDTO userFavoriteMoviesDTO)
+        {
+            var result = await _userFavoriteMoviesService.SaveUserFavoriteMovies(userFavoriteMoviesDTO);
+            if (result != 1)
                 return BadRequest(ModelState);
             
             return NoContent();
