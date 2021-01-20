@@ -53,6 +53,7 @@ namespace dadachMovie.Helpers
                 .ForPath(dest => dest.Countries.CountryId, opt => opt.MapFrom(src => src.CountryId));
 
             CreateMap<Country, CountryDTO>();
+
             CreateMap<MoviesCountries, CountryDTO>().ReverseMap();
 
             CreateMap<MoviesCountries, MovieDetailsDTO>()
@@ -74,22 +75,19 @@ namespace dadachMovie.Helpers
                 .ReverseMap();
             
             CreateMap<MoviesRating, UserMovieRatingDTO>();
-            
+
+            CreateMap<Movie, FavoriteMovieDTO>();
+
             CreateMap<User, UserDTO>()
                 .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
-            
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));            
             CreateMap<Country, UserDTO>()
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Name));
             
             CreateMap<UserUpdateDTO, User>()
                 .ForMember(dest => dest.Picture, opt => opt.Ignore())
                 .ForPath(dest => dest.Country.Id, opt => opt.MapFrom(src => src.CountryId));
-            
-            // CreateMap<UserFavoriteMoviesDTO, User>();
-            
-            // CreateMap<UserFavoriteMoviesDTO, Movie>();
         }
 
         private List<MoviesGenres> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie)

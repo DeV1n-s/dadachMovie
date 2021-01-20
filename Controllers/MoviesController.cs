@@ -129,15 +129,30 @@ namespace dadachMovie.Controllers
         }
 
         [HttpPost("SaveUserFavoriteMovies")]
-        //[ValidateModelAttribute]
+        [ValidateModelAttribute]
         [Authorize]
         public async Task<ActionResult> SaveUserFavoriteMovies([FromBody] UserFavoriteMoviesDTO userFavoriteMoviesDTO)
         {
             var result = await _userFavoriteMoviesService.SaveUserFavoriteMovies(userFavoriteMoviesDTO);
-            if (result != 1)
-                return BadRequest(ModelState);
+
+            if (result == -2)
+            {
+                ModelState.TryAddModelError("movieId", $"Movie with ID {userFavoriteMoviesDTO.MovieId} was not found.");
+                return NotFound(ModelState);
+
+            } else if(result == -3) {
+                ModelState.TryAddModelError("userId", $"User with ID {userFavoriteMoviesDTO.UserId} was not found.");
+                return NotFound(ModelState);
+
+            } else if (result == -1)
+            {
+                ModelState.TryAddModelError("saveChangesAsync", "Failed to save changes async.");
+                return NotFound(ModelState);
+                
+            } else {
+                return NoContent();
+            }
             
-            return NoContent();
         }
     }
 }

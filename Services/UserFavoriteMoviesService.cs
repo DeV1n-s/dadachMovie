@@ -1,9 +1,7 @@
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
-using dadachMovie.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Services
@@ -12,20 +10,21 @@ namespace dadachMovie.Services
     {
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly ILoggerService _logger;
         private readonly IAccountsService _accountsService;
 
         public UserFavoriteMoviesService(AppDbContext dbContext,
                                         IMapper mapper,
-                                        IAccountsService accountsService)
+                                        ILoggerService logger)
         {
             _dbContext = dbContext;
             _mapper = mapper;
-            _accountsService = accountsService;
+            _logger = logger;
         }
         public async Task<int> SaveUserFavoriteMovies(UserFavoriteMoviesDTO userFavoriteMoviesDTO)
         {
             var movie = await _dbContext.Movies.AsTracking()
-                                            .FirstOrDefaultAsync(m => m.Id == userFavoriteMoviesDTO.FavoriteMoviesId);
+                                            .FirstOrDefaultAsync(m => m.Id == userFavoriteMoviesDTO.MovieId);
             if (movie == null)
             {
                 return -2;
@@ -47,7 +46,8 @@ namespace dadachMovie.Services
             }
             catch (System.Exception ex)
             {
-                throw ex;
+                _logger.LogWarn($"Failed to save changes on \"user.FavoriteMovies.Add(movie)\". Exception: {ex}");
+                return -1;
             }
         }
     }

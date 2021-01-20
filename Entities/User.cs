@@ -14,6 +14,6 @@ namespace dadachMovie.Entities
         public DateTimeOffset RegisterDate { get; set; }
 
         public virtual ICollection<MoviesRating> MoviesRatings { get; set; }
-        public virtual ICollection<Movie> FavoriteMovies { get; set; }
+        public virtual ICollection<Movie> FavoriteMovies { get; set; } = new List<Movie>();
     }
 }

@@ -13,6 +13,6 @@ namespace dadachMovie.DTOs
         public string Picture { get; set; }
         public string RegisterDate { get; set; }
         public List<UserMovieRatingDTO> MoviesRatings { get; set; }
-        public List<MovieDTO> FavoriteMovies { get; set; }
+        public List<FavoriteMovieDTO> FavoriteMovies { get; set; }
     }
 }
