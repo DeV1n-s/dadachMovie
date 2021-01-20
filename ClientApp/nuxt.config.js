@@ -32,13 +32,10 @@ export default {
             {
                 src: '//code.jquery.com/jquery-1.11.1.min.js'
             },
-            //assets/Public/Js/main.js
             {
                 src: '/JS/main.js'
             }
 
-            //         src: '~/assets/Public/Js/main.js'
-            //     }
         ],
 
     },

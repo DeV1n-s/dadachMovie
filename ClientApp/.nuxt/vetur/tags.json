@@ -22,5 +22,23 @@
   },
   "LazySideBar": {
     "description": "Auto imported from /components/SideBar.vue"
+  },
+  "AdminFooter": {
+    "description": "Auto imported from /components/Admin/AdminFooter.vue"
+  },
+  "LazyAdminFooter": {
+    "description": "Auto imported from /components/Admin/AdminFooter.vue"
+  },
+  "AdminNav": {
+    "description": "Auto imported from /components/Admin/AdminNav.vue"
+  },
+  "LazyAdminNav": {
+    "description": "Auto imported from /components/Admin/AdminNav.vue"
+  },
+  "AdminSide": {
+    "description": "Auto imported from /components/Admin/AdminSide.vue"
+  },
+  "LazyAdminSide": {
+    "description": "Auto imported from /components/Admin/AdminSide.vue"
   }
 }

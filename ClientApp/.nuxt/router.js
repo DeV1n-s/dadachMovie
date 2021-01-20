@@ -4,10 +4,9 @@ import { normalizeURL, decode } from '@nuxt/ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _2107a898 = () => interopDefault(import('../pages/AdminDashbord/index.vue' /* webpackChunkName: "pages/AdminDashbord/index" */))
+const _7d409032 = () => interopDefault(import('../pages/Admin/index.vue' /* webpackChunkName: "pages/Admin/index" */))
 const _477f315d = () => interopDefault(import('../pages/Home/index.vue' /* webpackChunkName: "pages/Home/index" */))
 const _dccc8bfe = () => interopDefault(import('../pages/Movies/index.vue' /* webpackChunkName: "pages/Movies/index" */))
-const _9f013c4a = () => interopDefault(import('../pages/AdminDashbord/adminchile/index.vue' /* webpackChunkName: "pages/AdminDashbord/adminchile/index" */))
 const _f3dedae8 = () => interopDefault(import('../pages/Home/home-news.vue' /* webpackChunkName: "pages/Home/home-news" */))
 const _a58eb54c = () => interopDefault(import('../pages/Home/home-slider.vue' /* webpackChunkName: "pages/Home/home-slider" */))
 const _7f3dcb24 = () => interopDefault(import('../pages/Home/in-theater.vue' /* webpackChunkName: "pages/Home/in-theater" */))
@@ -34,9 +33,9 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
-    path: "/AdminDashbord",
-    component: _2107a898,
-    name: "AdminDashbord"
+    path: "/Admin",
+    component: _7d409032,
+    name: "Admin"
   }, {
     path: "/Home",
     component: _477f315d,
@@ -45,10 +44,6 @@ export const routerOptions = {
     path: "/Movies",
     component: _dccc8bfe,
     name: "Movies"
-  }, {
-    path: "/AdminDashbord/adminchile",
-    component: _9f013c4a,
-    name: "AdminDashbord-adminchile"
   }, {
     path: "/Home/home-news",
     component: _f3dedae8,

@@ -1,10 +1,10 @@
 [
   {
-    "name": "AdminDashbord",
-    "path": "/AdminDashbord",
-    "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/AdminDashbord/index.vue",
-    "chunkName": "pages/AdminDashbord/index",
-    "_name": "_2107a898"
+    "name": "Admin",
+    "path": "/Admin",
+    "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/Admin/index.vue",
+    "chunkName": "pages/Admin/index",
+    "_name": "_7d409032"
   },
   {
     "name": "Home",
@@ -19,13 +19,6 @@
     "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/Movies/index.vue",
     "chunkName": "pages/Movies/index",
     "_name": "_dccc8bfe"
-  },
-  {
-    "name": "AdminDashbord-adminchile",
-    "path": "/AdminDashbord/adminchile",
-    "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/AdminDashbord/adminchile/index.vue",
-    "chunkName": "pages/AdminDashbord/adminchile/index",
-    "_name": "_9f013c4a"
   },
   {
     "name": "Home-home-news",

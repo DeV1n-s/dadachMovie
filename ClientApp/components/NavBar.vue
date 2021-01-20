@@ -86,9 +86,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <nuxt-link class="nav-link" to="/admin" active-class="active">
                 <i class="fa fa-user-plus"></i>پنل ادمین
-              </a>
+              </nuxt-link>
             </li>
           </ul>
           <ul class="navbar-nav mr-auto ml-5">
