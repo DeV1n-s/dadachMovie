@@ -1,7 +1,7 @@
 export default {
     // Global page headers (https://go.nuxtjs.dev/config-head)
     head: {
-        title: 'dadach-nuxt',
+        title: 'داداچ مویی|فراوری شده با ناکس',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -34,7 +34,7 @@ export default {
             },
             //assets/Public/Js/main.js
             {
-                src: '/assets/Public/Js/main.js'
+                src: '/JS/main.js'
             }
 
             //         src: '~/assets/Public/Js/main.js'
@@ -60,9 +60,19 @@ export default {
     // Modules (https://go.nuxtjs.dev/config-modules)
     modules: [
         // https://go.nuxtjs.dev/bootstrap
+        // '@nuxtjs/axios',
+        '@nuxtjs/proxy',
         'bootstrap-vue/nuxt',
     ],
 
+    proxy: {
+        '/api': {
+            target: 'http://localhost:5000',
+            pathRewrite: {
+                '^/api': '/'
+            }
+        }
+    },
     // Build Configuration (https://go.nuxtjs.dev/config-build)
     build: {}
 }
