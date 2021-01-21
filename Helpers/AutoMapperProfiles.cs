@@ -3,7 +3,6 @@ using System.Linq;
 using AutoMapper;
 using dadachMovie.DTOs;
 using dadachMovie.Entities;
-using Microsoft.AspNetCore.Identity;
 
 namespace dadachMovie.Helpers
 {
@@ -81,10 +80,13 @@ namespace dadachMovie.Helpers
             CreateMap<User, UserDTO>()
                 .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));            
-            CreateMap<Country, UserDTO>()
-                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Name));
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
             
+            CreateMap<User, UserDetailsDTO>()
+                .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
+
             CreateMap<UserUpdateDTO, User>()
                 .ForMember(dest => dest.Picture, opt => opt.Ignore())
                 .ForPath(dest => dest.Country.Id, opt => opt.MapFrom(src => src.CountryId));

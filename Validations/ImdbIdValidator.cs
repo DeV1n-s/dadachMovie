@@ -1,6 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Validations
 {

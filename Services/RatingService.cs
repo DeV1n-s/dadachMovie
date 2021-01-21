@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
@@ -21,7 +20,7 @@ namespace dadachMovie.Services
         }
         public async Task<int> SaveRatingAsync(MovieRatingDTO movieRatingDTO)
         {
-            var rating = await _dbContext.MoviesRating.FirstOrDefaultAsync(mr => mr.MovieId == movieRatingDTO.MovieId && mr.UserId == movieRatingDTO.UserId);
+            var rating = await _dbContext.MoviesRating.FirstOrDefaultAsync(mr => mr.MovieId == movieRatingDTO.MovieId && mr.UserId == Guid.Parse(movieRatingDTO.UserId));
 
             if (rating != null)
             {
@@ -32,7 +31,7 @@ namespace dadachMovie.Services
                 rating = new MoviesRating
                 {
                     MovieId = movieRatingDTO.MovieId,
-                    UserId = movieRatingDTO.UserId,
+                    UserId = Guid.Parse(movieRatingDTO.UserId),
                     Rate = movieRatingDTO.Rate
                 };
 

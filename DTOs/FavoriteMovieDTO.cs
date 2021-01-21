@@ -4,5 +4,6 @@ namespace dadachMovie.DTOs
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string Picture { get; set; }
     }
 }

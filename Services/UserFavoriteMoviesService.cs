@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie.Contracts;
@@ -11,7 +12,6 @@ namespace dadachMovie.Services
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly ILoggerService _logger;
-        private readonly IAccountsService _accountsService;
 
         public UserFavoriteMoviesService(AppDbContext dbContext,
                                         IMapper mapper,
@@ -21,7 +21,7 @@ namespace dadachMovie.Services
             _mapper = mapper;
             _logger = logger;
         }
-        public async Task<int> SaveUserFavoriteMovies(UserFavoriteMoviesDTO userFavoriteMoviesDTO)
+        public async Task<int> SaveUserFavoriteMoviesAsync(UserFavoriteMoviesDTO userFavoriteMoviesDTO)
         {
             var movie = await _dbContext.Movies.AsTracking()
                                             .FirstOrDefaultAsync(m => m.Id == userFavoriteMoviesDTO.MovieId);
@@ -31,7 +31,7 @@ namespace dadachMovie.Services
             }
             
             var user = await _dbContext.Users.AsTracking()
-                                            .FirstOrDefaultAsync(u => u.Id == userFavoriteMoviesDTO.UserId);
+                                            .FirstOrDefaultAsync(u => u.Id == Guid.Parse(userFavoriteMoviesDTO.UserId));
             if (user == null)
             {
                 return -3;

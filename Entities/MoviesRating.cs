@@ -1,8 +1,10 @@
+using System;
+
 namespace dadachMovie.Entities
 {
     public class MoviesRating
     {
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
         public int MovieId { get; set; }
         public int Rate { get; set; }
 

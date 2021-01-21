@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 using dadachMovie.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie
 {
-    public class AppDbContext : IdentityDbContext<User>
+    public class AppDbContext : IdentityDbContext<User, Role, Guid>
     {
         public AppDbContext([NotNullAttribute] DbContextOptions options) 
             : base(options) { }

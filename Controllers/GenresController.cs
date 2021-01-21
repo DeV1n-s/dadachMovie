@@ -4,7 +4,6 @@ using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using dadachMovie.Validations;
 using Gridify;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

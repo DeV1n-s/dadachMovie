@@ -4,7 +4,6 @@ namespace dadachMovie.DTOs
 {
     public class MovieRatingDTO
     {
-        [Required]
         public string UserId { get; set; }
 
         [Required]

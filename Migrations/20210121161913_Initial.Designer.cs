@@ -9,8 +9,8 @@ using dadachMovie;
 namespace dadachMovie.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20201221211817_AddedDataToCountriesTable")]
-    partial class AddedDataToCountriesTable
+    [Migration("20210121161913_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,33 +19,7 @@ namespace dadachMovie.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,9 +31,8 @@ namespace dadachMovie.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -68,71 +41,7 @@ namespace dadachMovie.Migrations
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,9 +53,8 @@ namespace dadachMovie.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -155,7 +63,7 @@ namespace dadachMovie.Migrations
                     b.ToTable("AspNetUserClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
@@ -166,9 +74,8 @@ namespace dadachMovie.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -177,13 +84,13 @@ namespace dadachMovie.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -192,10 +99,10 @@ namespace dadachMovie.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
@@ -209,6 +116,21 @@ namespace dadachMovie.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("MovieUser", b =>
+                {
+                    b.Property<int>("FavoriteMoviesId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("FavoriteMoviesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("MovieUser");
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.Country", b =>
@@ -1823,23 +1745,32 @@ namespace dadachMovie.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<decimal>("AverageRating")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Description")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("ImdbId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<float>("ImdbRate")
+                        .HasColumnType("float");
 
                     b.Property<bool>("InTheaters")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("Lenght")
+                        .HasColumnType("int");
+
                     b.Property<string>("Picture")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<float>("Rate")
-                        .HasColumnType("float");
-
                     b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("date");
 
                     b.Property<string>("ShortDescription")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -1850,6 +1781,9 @@ namespace dadachMovie.Migrations
                         .HasColumnType("varchar(300) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImdbId")
+                        .IsUnique();
 
                     b.ToTable("Movies");
                 });
@@ -1920,6 +1854,24 @@ namespace dadachMovie.Migrations
                     b.ToTable("MoviesGenres");
                 });
 
+            modelBuilder.Entity("dadachMovie.Entities.MoviesRating", b =>
+                {
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.HasKey("MovieId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MoviesRating");
+                });
+
             modelBuilder.Entity("dadachMovie.Entities.PeopleCountries", b =>
                 {
                     b.Property<int>("PersonId")
@@ -1948,7 +1900,7 @@ namespace dadachMovie.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("date");
 
                     b.Property<bool>("IsCast")
                         .HasColumnType("tinyint(1)");
@@ -1972,53 +1924,183 @@ namespace dadachMovie.Migrations
                     b.ToTable("People");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("dadachMovie.Entities.Role", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("dadachMovie.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Picture")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTimeOffset>("RegisterDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.HasOne("dadachMovie.Entities.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("dadachMovie.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("dadachMovie.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("dadachMovie.Entities.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("dadachMovie.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("dadachMovie.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MovieUser", b =>
+                {
+                    b.HasOne("dadachMovie.Entities.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteMoviesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("dadachMovie.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2099,6 +2181,25 @@ namespace dadachMovie.Migrations
                     b.Navigation("Movie");
                 });
 
+            modelBuilder.Entity("dadachMovie.Entities.MoviesRating", b =>
+                {
+                    b.HasOne("dadachMovie.Entities.Movie", "Movie")
+                        .WithMany("MoviesRatings")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("dadachMovie.Entities.User", "User")
+                        .WithMany("MoviesRatings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("dadachMovie.Entities.PeopleCountries", b =>
                 {
                     b.HasOne("dadachMovie.Entities.Country", "Country")
@@ -2108,7 +2209,7 @@ namespace dadachMovie.Migrations
                         .IsRequired();
 
                     b.HasOne("dadachMovie.Entities.Person", "Person")
-                        .WithOne("Country")
+                        .WithOne("Countries")
                         .HasForeignKey("dadachMovie.Entities.PeopleCountries", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2116,6 +2217,15 @@ namespace dadachMovie.Migrations
                     b.Navigation("Country");
 
                     b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("dadachMovie.Entities.User", b =>
+                {
+                    b.HasOne("dadachMovie.Entities.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.Genre", b =>
@@ -2132,15 +2242,22 @@ namespace dadachMovie.Migrations
                     b.Navigation("Directors");
 
                     b.Navigation("Genres");
+
+                    b.Navigation("MoviesRatings");
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.Person", b =>
                 {
                     b.Navigation("Casts");
 
-                    b.Navigation("Country");
+                    b.Navigation("Countries");
 
                     b.Navigation("Directors");
+                });
+
+            modelBuilder.Entity("dadachMovie.Entities.User", b =>
+                {
+                    b.Navigation("MoviesRatings");
                 });
 #pragma warning restore 612, 618
         }

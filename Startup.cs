@@ -4,6 +4,7 @@ using System.Text;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.Entities;
+using dadachMovie.Helpers;
 using dadachMovie.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -76,7 +77,7 @@ namespace dadachMovie
             services.AddScoped<IRatingService, RatingService>();
             services.AddScoped<IUserFavoriteMoviesService, UserFavoriteMoviesService>();
 
-            services.AddIdentity<User, IdentityRole>(opt =>
+            services.AddIdentity<User, Role>(opt =>
                 {
                     opt.User.RequireUniqueEmail = true;
                 })
@@ -133,7 +134,7 @@ namespace dadachMovie
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-       public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
+       public void Configure (IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             } else {
@@ -177,6 +178,8 @@ namespace dadachMovie
                     forceKill : true
                 );}
             });
+
+            ServiceExtensions.CreateDefaultRolesAndUser(serviceProvider).Wait();
         }
     }
 }

@@ -2,8 +2,6 @@ using System.Threading.Tasks;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using Gridify;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dadachMovie.Controllers

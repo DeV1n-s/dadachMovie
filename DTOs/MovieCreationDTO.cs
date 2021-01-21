@@ -3,7 +3,6 @@ using System.Text.Json.Serialization;
 using dadachMovie.Helpers;
 using dadachMovie.Validations;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace dadachMovie.DTOs
 {

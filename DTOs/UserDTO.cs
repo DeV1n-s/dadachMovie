@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using dadachMovie.Entities;
-
 namespace dadachMovie.DTOs
 {
     public class UserDTO
@@ -12,7 +9,5 @@ namespace dadachMovie.DTOs
         public string Country { get; set; }
         public string Picture { get; set; }
         public string RegisterDate { get; set; }
-        public List<UserMovieRatingDTO> MoviesRatings { get; set; }
-        public List<FavoriteMovieDTO> FavoriteMovies { get; set; }
     }
 }

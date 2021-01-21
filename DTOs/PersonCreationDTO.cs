@@ -8,8 +8,6 @@ namespace dadachMovie.DTOs
         [FileSizeValidator(maxFileSizeInMbs: 4)]
         [ContentTypeValidator(ContentTypeGroup.Image)]
         public IFormFile Picture { get; set; }
-        
-        //[ModelBinder(BinderType = typeof(TypeBinder<int>))]
         public int CountryId { get; set; }
     }
 }

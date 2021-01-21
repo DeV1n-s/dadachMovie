@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
 using dadachMovie.Validations;
 using Gridify;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -101,10 +99,6 @@ namespace dadachMovie.Controllers
             var entityDTO = _mapper.Map<PersonPatchDTO>(entityFromDb);
 
             patchDocument.ApplyTo(entityDTO, ModelState);
-
-            // var isValid = TryValidateModel(entityDTO);
-            // if (!isValid)
-            //     return BadRequest(ModelState);
 
             _mapper.Map(entityDTO, entityFromDb);
             await _peopleService.SaveChangesAsync();

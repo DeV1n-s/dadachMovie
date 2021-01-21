@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using dadachMovie.Entities;
-
 namespace dadachMovie.DTOs
 {
     public class MovieDTO

@@ -2,10 +2,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
-using dadachMovie.Entities;
 using dadachMovie.Validations;
 using Gridify;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -92,10 +90,6 @@ namespace dadachMovie.Controllers
             var entityDTO = _mapper.Map<MoviePatchDTO>(entityFromDb);
             patchDocument.ApplyTo(entityDTO, ModelState);
 
-            // var isValid = TryValidateModel(entityDTO);
-            // if (!isValid)
-            //     return BadRequest(ModelState);
-
             _mapper.Map(entityDTO, entityFromDb);
             await _moviesService.SaveChangesAsync();
 
@@ -114,45 +108,6 @@ namespace dadachMovie.Controllers
                 return BadRequest("Failed to save changes.");
 
             return NoContent();
-        }
-
-        [HttpPost("SaveUserRating")]
-        [ValidateModelAttribute]
-        [Authorize]
-        public async Task<ActionResult> SaveUserRating([FromBody] MovieRatingDTO movieRatingDTO)
-        {
-            var result = await _ratingService.SaveRatingAsync(movieRatingDTO);
-            if (result == -1)
-                return BadRequest(ModelState);
-            
-            return NoContent();
-        }
-
-        [HttpPost("SaveUserFavoriteMovies")]
-        [ValidateModelAttribute]
-        [Authorize]
-        public async Task<ActionResult> SaveUserFavoriteMovies([FromBody] UserFavoriteMoviesDTO userFavoriteMoviesDTO)
-        {
-            var result = await _userFavoriteMoviesService.SaveUserFavoriteMovies(userFavoriteMoviesDTO);
-
-            if (result == -2)
-            {
-                ModelState.TryAddModelError("movieId", $"Movie with ID {userFavoriteMoviesDTO.MovieId} was not found.");
-                return NotFound(ModelState);
-
-            } else if(result == -3) {
-                ModelState.TryAddModelError("userId", $"User with ID {userFavoriteMoviesDTO.UserId} was not found.");
-                return NotFound(ModelState);
-
-            } else if (result == -1)
-            {
-                ModelState.TryAddModelError("saveChangesAsync", "Failed to save changes async.");
-                return NotFound(ModelState);
-                
-            } else {
-                return NoContent();
-            }
-            
         }
     }
 }

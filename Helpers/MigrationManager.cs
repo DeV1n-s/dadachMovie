@@ -19,7 +19,7 @@ namespace dadachMovie.Helpers
                     }
                     catch (Exception ex)
                     {
-                        throw ex;
+                        
                     }
                 }
             }

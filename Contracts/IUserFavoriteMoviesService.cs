@@ -5,6 +5,6 @@ namespace dadachMovie.Contracts
 {
     public interface IUserFavoriteMoviesService
     {
-        Task<int> SaveUserFavoriteMovies(UserFavoriteMoviesDTO userFavoriteMoviesDTO);
+        Task<int> SaveUserFavoriteMoviesAsync(UserFavoriteMoviesDTO userFavoriteMoviesDTO);
     }
 }

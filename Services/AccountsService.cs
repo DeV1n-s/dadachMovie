@@ -25,39 +25,46 @@ namespace dadachMovie.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IFileStorageService _fileStorageService;
         private readonly ILoggerService _logger;
+        private readonly IRatingService _ratingService;
+        private readonly IUserFavoriteMoviesService _userFavoriteMoviesService;
         private readonly string _containerName = "users";
 
         public AccountsService(UserManager<User> userManager,
                             SignInManager<User> signInManager,
+                            RoleManager<Role> roleManager,
                             IConfiguration configuration,
                             AppDbContext dbContext,
                             IMapper mapper,
                             IHttpContextAccessor httpContextAccessor,
                             IFileStorageService fileStorageService,
-                            ILoggerService logger)
+                            ILoggerService logger,
+                            IRatingService ratingService,
+                            IUserFavoriteMoviesService userFavoriteMoviesService)
             : base(dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _configuration = configuration;
             _dbContext = dbContext;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             _fileStorageService = fileStorageService;
             _logger = logger;
+            _ratingService = ratingService;
+            _userFavoriteMoviesService = userFavoriteMoviesService;
         }
 
         public async Task<Paging<UserDTO>> GetUsersPagingAsync(GridifyQuery gridifyQuery)
         {
-            var queryable = await _userManager.Users.Include(u => u.MoviesRatings)
-                                                    .Include(x => x.FavoriteMovies)
-                                                    .GridifyQueryableAsync(gridifyQuery,null);
+            var queryable = await _userManager.Users.GridifyQueryableAsync(gridifyQuery,null);
 
             return new Paging<UserDTO> {Items = queryable.Query.ProjectTo<UserDTO>(_mapper.ConfigurationProvider).ToList(),
                                         TotalItems = queryable.TotalItems};
@@ -144,7 +151,7 @@ namespace dadachMovie.Services
             }
         }
 
-        public async Task<UserToken> RenewUserBearerTokenAsync(string emailAddress) =>
+        public async Task<UserToken> RenewUserBearerTokenAsync(string emailAddress) => 
             await BuildToken(emailAddress);
 
         public async Task<UserToken> BuildToken(string emailAddress)
@@ -152,17 +159,31 @@ namespace dadachMovie.Services
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name, emailAddress),
-                new Claim(ClaimTypes.Email, emailAddress)
+                new Claim(ClaimTypes.Email, emailAddress),
             };
 
             var identityUser = await _userManager.FindByEmailAsync(emailAddress);
-            var claimsDB = await _userManager.GetClaimsAsync(identityUser);
+            var userClaims = await _userManager.GetClaimsAsync(identityUser);
+            //var userRoles = await _userManager.GetRolesAsync(identityUser);
 
-            claims.AddRange(claimsDB);
+            claims.AddRange(userClaims);
+
+            // foreach (var userRole in userRoles)
+            // {
+            //     claims.Add(new Claim(ClaimTypes.Role, userRole));
+            //     var role = await _roleManager.FindByNameAsync(userRole);
+            //     if(role != null)
+            //     {
+            //         var roleClaims = await _roleManager.GetClaimsAsync(role);
+            //         foreach(Claim roleClaim in roleClaims)
+            //         {
+            //             claims.Add(roleClaim);
+            //         }
+            //     }
+            // }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwt:key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
             var expiration = DateTime.Now.AddDays(1);
 
             JwtSecurityToken token = new JwtSecurityToken
@@ -184,7 +205,10 @@ namespace dadachMovie.Services
         public async Task<int> UpdateUserAsync(UserUpdateDTO userUpdateDTO)
         {
             if (string.IsNullOrWhiteSpace(userUpdateDTO.CurrentEmailAddress))
-                userUpdateDTO.CurrentEmailAddress = _httpContextAccessor.HttpContext.User.Identity.Name;
+            {
+                var currentUser = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+                userUpdateDTO.CurrentEmailAddress = currentUser.Email;
+            }
 
             var user = await _userManager.FindByEmailAsync(userUpdateDTO.CurrentEmailAddress);
             if (user == null)
@@ -239,28 +263,53 @@ namespace dadachMovie.Services
             }
         }
 
-        public async Task<UserDTO> GetCurrentUserAsync()
+        public async Task<UserDetailsDTO> GetCurrentUserDetailsAsync()
         {
-            var userEmail = _httpContextAccessor.HttpContext.User.Identity.Name;
-            var user = await this.GetUserByEmailAsync(userEmail);
+            var user = await this.GetCurrentUserAsync();
+
+            if (user == null)
+                return null;
+            
+            return _mapper.Map<UserDetailsDTO>(user);
+        }
+
+        private async Task<User> GetCurrentUserAsync()
+        {
+            var user = await _userManager.Users.Include(x => x.FavoriteMovies)
+                                            .Include(x => x.MoviesRatings)
+                                            .Include(x => x.Country)
+                                            .FirstOrDefaultAsync(x => x.Email == this.GetCurrentUserEmail());
             if (user == null)
                 return null;
             
             return user;
         }
 
-        public async Task<UserDTO> GetUserByEmailAsync(string emailAddress)
+        public string GetCurrentUserEmail() => 
+            _httpContextAccessor.HttpContext.User.Identity.Name;
+
+        public async Task<int> SaveUserRatingAsync(MovieRatingDTO movieRatingDTO)
         {
-            var user = await _userManager.Users.Include(u => u.MoviesRatings)
-                                            .Include(x => x.FavoriteMovies)
-                                            .FirstOrDefaultAsync(u => u.Email == emailAddress);
-            if (user == null)
+            if (movieRatingDTO.UserId == null)
             {
-                _logger.LogWarn($"User {emailAddress} was not found.");
-                return null;
+                var userEmail = this.GetCurrentUserEmail();
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+                movieRatingDTO.UserId = user.Id.ToString();
             }
 
-            return _mapper.Map<UserDTO>(user);
+            return await _ratingService.SaveRatingAsync(movieRatingDTO);
+        }
+
+        public async Task<int> SaveUserFavoriteMoviesAsync(UserFavoriteMoviesDTO userFavoriteMoviesDTO)
+        {
+            if (userFavoriteMoviesDTO.UserId == null)
+            {
+                var userEmail = this.GetCurrentUserEmail();
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+                userFavoriteMoviesDTO.UserId = user.Id.ToString();
+            }
+
+            return await _userFavoriteMoviesService.SaveUserFavoriteMoviesAsync(userFavoriteMoviesDTO);
         }
     }
 }
