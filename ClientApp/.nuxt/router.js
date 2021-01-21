@@ -6,12 +6,14 @@ import scrollBehavior from './router.scrollBehavior.js'
 
 const _7d409032 = () => interopDefault(import('../pages/Admin/index.vue' /* webpackChunkName: "pages/Admin/index" */))
 const _477f315d = () => interopDefault(import('../pages/Home/index.vue' /* webpackChunkName: "pages/Home/index" */))
+const _897a68fe = () => interopDefault(import('../pages/Login/index.vue' /* webpackChunkName: "pages/Login/index" */))
 const _dccc8bfe = () => interopDefault(import('../pages/Movies/index.vue' /* webpackChunkName: "pages/Movies/index" */))
 const _4e2586be = () => interopDefault(import('../pages/Register/index.vue' /* webpackChunkName: "pages/Register/index" */))
 const _f3dedae8 = () => interopDefault(import('../pages/Home/home-news.vue' /* webpackChunkName: "pages/Home/home-news" */))
 const _a58eb54c = () => interopDefault(import('../pages/Home/home-slider.vue' /* webpackChunkName: "pages/Home/home-slider" */))
 const _7f3dcb24 = () => interopDefault(import('../pages/Home/in-theater.vue' /* webpackChunkName: "pages/Home/in-theater" */))
 const _736df4a3 = () => interopDefault(import('../pages/Home/soon-movie.vue' /* webpackChunkName: "pages/Home/soon-movie" */))
+const _e78be548 = () => interopDefault(import('../pages/Login/LoginForm.vue' /* webpackChunkName: "pages/Login/LoginForm" */))
 const _5e9e7bb6 = () => interopDefault(import('../pages/Movies/MovieGrid.vue' /* webpackChunkName: "pages/Movies/MovieGrid" */))
 const _13f42492 = () => interopDefault(import('../pages/People/Cast/index.vue' /* webpackChunkName: "pages/People/Cast/index" */))
 const _7ef98b28 = () => interopDefault(import('../pages/Register/RegisterForm.vue' /* webpackChunkName: "pages/Register/RegisterForm" */))
@@ -43,6 +45,10 @@ export const routerOptions = {
     component: _477f315d,
     name: "Home"
   }, {
+    path: "/Login",
+    component: _897a68fe,
+    name: "Login"
+  }, {
     path: "/Movies",
     component: _dccc8bfe,
     name: "Movies"
@@ -66,6 +72,10 @@ export const routerOptions = {
     path: "/Home/soon-movie",
     component: _736df4a3,
     name: "Home-soon-movie"
+  }, {
+    path: "/Login/LoginForm",
+    component: _e78be548,
+    name: "Login-LoginForm"
   }, {
     path: "/Movies/MovieGrid",
     component: _5e9e7bb6,

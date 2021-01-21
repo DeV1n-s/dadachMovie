@@ -14,6 +14,13 @@
     "_name": "_477f315d"
   },
   {
+    "name": "Login",
+    "path": "/Login",
+    "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/Login/index.vue",
+    "chunkName": "pages/Login/index",
+    "_name": "_897a68fe"
+  },
+  {
     "name": "Movies",
     "path": "/Movies",
     "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/Movies/index.vue",
@@ -54,6 +61,13 @@
     "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/Home/soon-movie.vue",
     "chunkName": "pages/Home/soon-movie",
     "_name": "_736df4a3"
+  },
+  {
+    "name": "Login-LoginForm",
+    "path": "/Login/LoginForm",
+    "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/Login/LoginForm.vue",
+    "chunkName": "pages/Login/LoginForm",
+    "_name": "_e78be548"
   },
   {
     "name": "Movies-MovieGrid",
