@@ -124,6 +124,9 @@ export default {
 };
 </script>
 <style scoped>
+.register-form {
+  height: 100vh;
+}
 .alert-modal {
   margin-left: 2rem;
   position: absolute;

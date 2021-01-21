@@ -96,7 +96,9 @@
             </form>
             <p class="loginhere">
               حساب کاربری دارید؟
-              <a href="#" class="loginhere-link">وارد شوید</a>
+              <nuxt-link to="/login" class="loginhere-link"
+                >وارد شوید</nuxt-link
+              >
             </p>
           </div>
         </div>
@@ -181,6 +183,9 @@ export default {
 </script>
 
 <style scoped>
+register-form {
+  height: 100vh;
+}
 .alert-modal {
   margin-left: 2rem;
   position: absolute;
