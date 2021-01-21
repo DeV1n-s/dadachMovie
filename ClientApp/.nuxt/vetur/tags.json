@@ -40,5 +40,11 @@
   },
   "LazyAdminSide": {
     "description": "Auto imported from /components/Admin/AdminSide.vue"
+  },
+  "FormInput": {
+    "description": "Auto imported from /components/Forms/FormInput.vue"
+  },
+  "LazyFormInput": {
+    "description": "Auto imported from /components/Forms/FormInput.vue"
   }
 }

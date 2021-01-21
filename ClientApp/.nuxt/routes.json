@@ -21,6 +21,13 @@
     "_name": "_dccc8bfe"
   },
   {
+    "name": "Register",
+    "path": "/Register",
+    "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/Register/index.vue",
+    "chunkName": "pages/Register/index",
+    "_name": "_4e2586be"
+  },
+  {
     "name": "Home-home-news",
     "path": "/Home/home-news",
     "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/Home/home-news.vue",
@@ -61,6 +68,13 @@
     "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/People/Cast/index.vue",
     "chunkName": "pages/People/Cast/index",
     "_name": "_13f42492"
+  },
+  {
+    "name": "Register-RegisterForm",
+    "path": "/Register/RegisterForm",
+    "component": "/home/dev1/Desktop/DADACH/dadachMovie/ClientApp/pages/Register/RegisterForm.vue",
+    "chunkName": "pages/Register/RegisterForm",
+    "_name": "_7ef98b28"
   },
   {
     "name": "People-Cast-PeopleGrid",

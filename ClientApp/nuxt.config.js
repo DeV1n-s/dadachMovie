@@ -65,11 +65,12 @@ export default {
     proxy: {
         '/api': {
             target: 'http://localhost:5000',
-            pathRewrite: {
-                '^/api': '/'
-            }
         }
     },
     // Build Configuration (https://go.nuxtjs.dev/config-build)
-    build: {}
+    build: {
+        transpile: [
+            "vee-validate/dist/rules"
+        ],
+    }
 }

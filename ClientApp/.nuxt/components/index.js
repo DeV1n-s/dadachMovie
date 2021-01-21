@@ -5,6 +5,7 @@ export { default as SideBar } from '../../components/SideBar.vue'
 export { default as AdminFooter } from '../../components/Admin/AdminFooter.vue'
 export { default as AdminNav } from '../../components/Admin/AdminNav.vue'
 export { default as AdminSide } from '../../components/Admin/AdminSide.vue'
+export { default as FormInput } from '../../components/Forms/FormInput.vue'
 
 export const LazyFooterApp = import('../../components/FooterApp.vue' /* webpackChunkName: "components/footer-app" */).then(c => c.default || c)
 export const LazyLogo = import('../../components/Logo.vue' /* webpackChunkName: "components/logo" */).then(c => c.default || c)
@@ -13,3 +14,4 @@ export const LazySideBar = import('../../components/SideBar.vue' /* webpackChunk
 export const LazyAdminFooter = import('../../components/Admin/AdminFooter.vue' /* webpackChunkName: "components/admin-footer" */).then(c => c.default || c)
 export const LazyAdminNav = import('../../components/Admin/AdminNav.vue' /* webpackChunkName: "components/admin-nav" */).then(c => c.default || c)
 export const LazyAdminSide = import('../../components/Admin/AdminSide.vue' /* webpackChunkName: "components/admin-side" */).then(c => c.default || c)
+export const LazyFormInput = import('../../components/Forms/FormInput.vue' /* webpackChunkName: "components/form-input" */).then(c => c.default || c)
