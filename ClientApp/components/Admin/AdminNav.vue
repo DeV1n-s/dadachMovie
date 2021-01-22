@@ -38,7 +38,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="login.html" class="nav-link">
+              <a href="/home" class="nav-link" @click="logOut">
                 خروج
               </a>
             </li>
@@ -115,7 +115,32 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      isLogin: false,
+      token: this.$store.getters.isAuthGet
+    };
+  },
+  methods: {
+    autoLog() {
+      this.$store.dispatch('autoLog');
+    },
+    logCheck() {
+      if (this.token) {
+        this.isLogin = true;
+      }
+    },
+    logOut() {
+      this.$store.dispatch('logOut');
+    }
+  },
+  async beforeMount() {
+    await this.autoLog();
+    this.logCheck();
+    console.log(this.isLogin);
+  }
+};
 </script>
 
 <style></style>

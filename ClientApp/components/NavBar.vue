@@ -175,7 +175,6 @@ export default {
     await this.autoLog();
     this.logCheck();
     console.log(this.isLogin);
-    console.log(this.token);
   }
 };
 </script>

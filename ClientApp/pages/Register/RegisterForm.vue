@@ -169,6 +169,7 @@ export default {
       setTimeout(this.$router.push('/'), 4000);
     },
     subData() {
+      (this.isFormValid = true), (this.isPassSame = true);
       this.valCheck();
       axios.post('/api/accounts/Register', this.regData).then(res => {
         console.log(res.statusText);

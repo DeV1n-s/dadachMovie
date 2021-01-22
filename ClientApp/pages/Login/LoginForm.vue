@@ -46,6 +46,9 @@
               <small class=" text-danger" v-if="!isFormValid">
                 خطا ! لطفا تمامی ورودی ها را تکمیل کنید
               </small>
+              <small class=" text-danger" v-if="!canLog">
+                خطا ! نام کاربری یا رمز عبور اشتباه میباشد
+              </small>
             </form>
             <p class="loginhere">
               حساب کاربری ندارید؟
@@ -62,7 +65,7 @@
             @dismissed="dismissCountDown = 0"
             @dismiss-count-down="countDownChanged"
           >
-            <p>ثبت نام با موفقیت انجام شد</p>
+            <p>ورود با موفقیت انجام شد</p>
             <p>{{ dismissCountDown }}</p>
             <b-progress :max="dismissSecs" height="4px"></b-progress>
           </b-alert>
@@ -73,18 +76,18 @@
 </template>
 <script>
 import FormInput from '../../components/Forms/FormInput';
-import axios from 'axios';
 export default {
   components: {
     FormInput
   },
   data() {
     return {
-      dismissSecs: 4,
+      canLog: true,
+      isLogin: this.$store.getters.isAuthGet,
+      dismissSecs: 3,
       dismissCountDown: 0,
       showDismissibleAlert: false,
       isFormValid: true,
-      isPassSame: true,
       logData: {
         emailAddress: '',
         password: ''
@@ -105,20 +108,21 @@ export default {
       }
     },
     changeRoute() {
-      setTimeout(this.$router.push('/'), 4000);
+      setTimeout(this.$router.push('/'), 3000);
     },
-    subData() {
-      this.$store.dispatch('login', this.logData);
-
-      //   this.valCheck();
-      //   axios.post('/api/accounts/login', this.logData).then(res => {
-      //     console.log(res.statusText);
-      //     console.log(res);
-      //     if (res.statusText == 'OK') {
-      //       this.showAlert();
-      //       this.changeRoute();
-      //     }
-      //   });
+    async subData() {
+      (this.canLog = true), (this.isFormValid = true);
+      this.valCheck();
+      if (this.isFormValid) {
+        try {
+          await this.$store.dispatch('login', this.logData);
+          this.showAlert();
+          this.changeRoute();
+        } catch {
+          this.canLog = false;
+        }
+      }
+      console.log(this.isLogin);
     }
   }
 };
@@ -131,7 +135,7 @@ export default {
   margin-left: 2rem;
   position: absolute;
   width: 25%;
-  top: 100%;
+  top: 80%;
 }
 /* @extend display-flex; */
 display-flex,
