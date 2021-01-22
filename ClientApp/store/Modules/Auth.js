@@ -44,6 +44,7 @@ const actions = {
 
     },
     autoLog(context) {
+        // console.log(localStorage.getItem('token'));
         const Token = localStorage.getItem('token');
         const TokenExpiration = localStorage.getItem('tokenExpiration')
         if (Token) {

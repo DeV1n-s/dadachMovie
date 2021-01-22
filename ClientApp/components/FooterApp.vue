@@ -24,9 +24,6 @@
               <ul class="list-unstyled">
                 <li><a href="#">لینک غیر مفید</a></li>
                 <li><a href="#">لینک غیر مفید</a></li>
-                {{
-                  todos
-                }}
               </ul>
             </div>
           </div>
@@ -60,16 +57,7 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return { todos: "" };
-  },
-  mounted() {
-    this.todos = this.$store.state.Modules.Country.CountryData;
-    // console.log(this.$store.state.Modules.Country.CountryData);
-    // console.log(this.todos);
-  }
-};
+export default {};
 </script>
 
 <style></style>

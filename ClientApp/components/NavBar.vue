@@ -21,9 +21,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav">
             <li class="nav-item ">
-              <nuxt-link class="nav-link" to="/home" active-class="active">
+              <a class="nav-link" href="/home" active-class="active">
                 <i class="fa fa-home"></i> خانه
-              </nuxt-link>
+              </a>
             </li>
             <li class="nav-item dropdown">
               <a
@@ -38,9 +38,7 @@
                 <i class="fa fa-film"> </i> فیلم ها
               </a>
               <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                <nuxt-link class="dropdown-item" to="movies">
-                  سینمایی</nuxt-link
-                >
+                <a class="dropdown-item" href="movies"> سینمایی</a>
                 <div class="dropdown-divider"></div>
 
                 <a class="dropdown-item" href="#"> سریال</a>
@@ -85,13 +83,14 @@
                 <i class="fa fa-user"></i> پروفایل کاربری
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="isLogin">
               <nuxt-link class="nav-link" to="/admin" active-class="active">
                 <i class="fa fa-user-plus"></i>پنل ادمین
               </nuxt-link>
             </li>
           </ul>
-          <ul class="navbar-nav mr-auto ml-5">
+          <!-- LogItem -->
+          <ul class="navbar-nav mr-auto ml-5" v-if="isLogin">
             <li class="nav-item">
               <a class="nav-link" href="#">
                 <i class="fa fa-bell">
@@ -122,10 +121,27 @@
                 </a>
                 <div class="dropdown-divider"></div>
 
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="/home" @click="logOut">
                   خروج <i class="fa fa-sign-out"></i
                 ></a>
               </div>
+            </li>
+          </ul>
+          <!-- notLog -->
+          <ul class="navbar-nav mr-auto ml-5" v-if="!isLogin">
+            <li class="nav-item">
+              <a class="nav-link" href="/login">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+
+                ورود
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">
+                <i class="fa fa-registered" aria-hidden="true"></i>
+
+                ثبت نام
+              </a>
             </li>
           </ul>
         </div>
@@ -135,7 +151,33 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      isLogin: false,
+      token: this.$store.getters.isAuthGet
+    };
+  },
+  methods: {
+    autoLog() {
+      this.$store.dispatch('autoLog');
+    },
+    logCheck() {
+      if (this.token) {
+        this.isLogin = true;
+      }
+    },
+    logOut() {
+      this.$store.dispatch('logOut');
+    }
+  },
+  async beforeMount() {
+    await this.autoLog();
+    this.logCheck();
+    console.log(this.isLogin);
+    console.log(this.token);
+  }
+};
 </script>
 
 <style></style>
