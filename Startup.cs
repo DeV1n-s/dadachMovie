@@ -143,7 +143,7 @@ namespace dadachMovie
             }
 
             // app.UseHttpsRedirection ();
-            if ((!env.IsEnvironment("Backend") || (!System.Diagnostics.Debugger.IsAttached)))
+            if ((!env.IsEnvironment("Backend")))
             {
                 app.UseSpaStaticFiles();
             }
@@ -167,13 +167,12 @@ namespace dadachMovie
 
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllers();
-                if ((!env.IsEnvironment("Backend") || (!System.Diagnostics.Debugger.IsAttached)))
+                if ((!env.IsEnvironment("Backend")))
                 {
                     endpoints.MapToVueCliProxy (
                     "{*path}",
                     new SpaOptions { SourcePath = "ClientApp" },
-                    // npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                    npmScript: ((env.IsEnvironment("Backend") || (System.Diagnostics.Debugger.IsAttached)) ? null : "dev"),
+                    npmScript: (env.IsEnvironment("Backend") ? null : "serve"),
                     regex: "Compiled successfully",
                     forceKill : true
                 );}
