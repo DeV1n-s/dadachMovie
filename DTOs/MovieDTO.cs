@@ -14,6 +14,5 @@ namespace dadachMovie.DTOs
         public bool InTheaters { get; set; }
         public string ImdbId { get; set; }
         public string Picture { get; set; }
-        public double AverageUserRate { get; set; }
     }
 }

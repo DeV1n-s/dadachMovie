@@ -27,7 +27,6 @@ namespace dadachMovie.Helpers
 
             CreateMap<Movie, MovieDTO>()
                 .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate.Date))
-                .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.MoviesRatings.Average(x => x.Rate)))
                 .ForPath(dest => dest.ReleaseDatePersian, opt => opt.MapFrom(src => src.ReleaseDate.ToPeString()));
 
             CreateMap<MoviesGenres, GenreDTO>()
@@ -65,6 +64,7 @@ namespace dadachMovie.Helpers
             CreateMap<Movie, MovieDetailsDTO>()
                 .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Countries.Select(x => x.Country.Name).ToList()))
                 .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.MoviesRatings.Average(x => x.Rate)))
+                .ForMember(dest => dest.TotalUserRatesCount, opt => opt.MapFrom(src => src.MoviesRatings.Count))
                 .ForPath(dest => dest.ReleaseDatePersian, opt => opt.MapFrom(src => src.ReleaseDate.ToPeString()));
 
             CreateMap<Movie, MoviePatchDTO>().ReverseMap();

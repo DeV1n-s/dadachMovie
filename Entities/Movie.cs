@@ -21,7 +21,6 @@ namespace dadachMovie.Entities
         public float ImdbRate { get; set; }
         public int Lenght { get; set; }
         public bool InTheaters { get; set; }
-        public decimal AverageRating { get; set; }
 
         [ImdbIdValidator]
         public string ImdbId { get; set; }
