@@ -270,8 +270,13 @@ namespace dadachMovie.Services
             if (user == null)
                 return null;
             
-            return _mapper.Map<UserDetailsDTO>(user);
-            
+            var userDetails =  _mapper.Map<UserDetailsDTO>(user);
+            var userRoles = _httpContextAccessor.HttpContext.User.FindAll(ClaimTypes.Role);
+            foreach (var role in userRoles)
+            {
+                userDetails.Roles.Add(role.Value);
+            }
+            return userDetails;
         }
 
         public async Task<User> GetCurrentUserAsync()
