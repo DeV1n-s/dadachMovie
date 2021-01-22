@@ -70,5 +70,6 @@ namespace dadachMovie
         public DbSet<MoviesCountries> MoviesCountries { get; set; }
         public DbSet<PeopleCountries> PeopleCountries { get; set; }
         public DbSet<MoviesRating> MoviesRating { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }

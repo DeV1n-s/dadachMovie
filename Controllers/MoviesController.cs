@@ -109,5 +109,33 @@ namespace dadachMovie.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("AddUserComment")]
+        [Authorize]
+        [ValidateModel]
+        public async Task<ActionResult> AddComment([FromBody] CommentCreationDTO commentCreationDTO)
+        {
+            var result = await _moviesService.AddUserCommentAsync(commentCreationDTO);
+            if (result == -1)
+                return NotFound();
+            else if (result == 0)
+                return BadRequest("Failed to save changes.");
+
+            return NoContent();
+        }
+
+        [HttpDelete("RemoveUserComment/{id:int}")]
+        [Authorize(Roles = "Admin")]
+        [ValidateModel]
+        public async Task<ActionResult> RemoveComment(int id)
+        {
+            var result = await _moviesService.DeleteUserCommentAsync(id);
+            if (result == -1)
+                return NotFound();
+            else if (result == 0)
+                return BadRequest("Failed to save changes.");
+
+            return NoContent();
+        }
     }
 }

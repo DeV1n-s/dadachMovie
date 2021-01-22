@@ -271,13 +271,15 @@ namespace dadachMovie.Services
                 return null;
             
             return _mapper.Map<UserDetailsDTO>(user);
+            
         }
 
-        private async Task<User> GetCurrentUserAsync()
+        public async Task<User> GetCurrentUserAsync()
         {
             var user = await _userManager.Users.Include(x => x.FavoriteMovies)
                                             .Include(x => x.MoviesRatings)
                                             .Include(x => x.Country)
+                                            .Include(x => x.Comments)
                                             .FirstOrDefaultAsync(x => x.Email == this.GetCurrentUserEmail());
             if (user == null)
                 return null;

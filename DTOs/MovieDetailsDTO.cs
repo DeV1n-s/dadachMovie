@@ -11,5 +11,6 @@ namespace dadachMovie.DTOs
         public List<CastDTO> Casts { get; set; }
         public List<DirectorDTO> Directors { get; set; }
         public List<string> Countries { get; set; }
+        public List<CommentDTO> Comments { get; set; }
     }
 }

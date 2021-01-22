@@ -18,5 +18,6 @@ namespace dadachMovie.Entities
 
         public virtual ICollection<MoviesRating> MoviesRatings { get; set; }
         public virtual ICollection<Movie> FavoriteMovies { get; set; } = new List<Movie>();
+        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

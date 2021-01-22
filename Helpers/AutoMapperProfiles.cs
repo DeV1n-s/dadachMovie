@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
@@ -90,6 +91,11 @@ namespace dadachMovie.Helpers
             CreateMap<UserUpdateDTO, User>()
                 .ForMember(dest => dest.Picture, opt => opt.Ignore())
                 .ForPath(dest => dest.Country.Id, opt => opt.MapFrom(src => src.CountryId));
+            
+            CreateMap<CommentCreationDTO, Comment>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => Guid.Parse(src.UserId)));
+
+            CreateMap<Comment, CommentDTO>();
         }
 
         private List<MoviesGenres> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie)

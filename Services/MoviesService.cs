@@ -20,18 +20,24 @@ namespace dadachMovie.Services
         private readonly IMapper _mapper;
         private readonly IFileStorageService _fileStorageService;
         private readonly ILoggerService _logger;
+        private readonly ICommentService _commentService;
+        private readonly IAccountsService _accountsService;
         private readonly string _containerName = "movies";
 
         public MoviesService(AppDbContext dbContext,
                             IMapper mapper,
                             IFileStorageService fileStorageService,
-                            ILoggerService logger)
+                            ILoggerService logger,
+                            ICommentService commentService,
+                            IAccountsService accountsService)
             : base(dbContext)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _fileStorageService = fileStorageService;
             _logger = logger;
+            _commentService = commentService;
+            _accountsService = accountsService;
         }
         public async Task<Paging<MovieDetailsDTO>> GetMoviesDetailsPagingAsync(GridifyQuery gridifyQuery)
         {
@@ -205,5 +211,19 @@ namespace dadachMovie.Services
             
             return 0;   
         }
+
+        public async Task<int> AddUserCommentAsync(CommentCreationDTO commentCreationDTO)
+        {
+            if (commentCreationDTO.UserId == null)
+            {
+                var user = await _accountsService.GetCurrentUserAsync();
+                commentCreationDTO.UserId = user.Id.ToString();
+            }
+            
+            return await _commentService.SaveCommentAsync(commentCreationDTO);
+        }
+
+        public async Task<int> DeleteUserCommentAsync(int id) =>
+            await _commentService.DeleteCommentAsync(id);
     }
 }

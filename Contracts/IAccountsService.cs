@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using dadachMovie.DTOs;
+using dadachMovie.Entities;
 using Gridify;
 using Microsoft.AspNetCore.Identity;
 
@@ -10,6 +11,7 @@ namespace dadachMovie.Contracts
     {
         Task<Paging<UserDTO>> GetUsersPagingAsync(GridifyQuery gridifyQuery);
         Task<UserDetailsDTO> GetCurrentUserDetailsAsync();
+        Task<User> GetCurrentUserAsync();
         string GetCurrentUserEmail();
         Task<List<string>> GetRolesListAsync();
         Task<int> AssignUserRoleAsync(EditRoleDTO editRoleDTO);

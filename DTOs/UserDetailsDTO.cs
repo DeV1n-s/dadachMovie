@@ -6,5 +6,6 @@ namespace dadachMovie.DTOs
     {
         public List<UserMovieRatingDTO> MoviesRatings { get; set; }
         public List<FavoriteMovieDTO> FavoriteMovies { get; set; }
+        public List<CommentDTO> Comments { get; set; }
     }
 }
