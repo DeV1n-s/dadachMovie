@@ -6,13 +6,8 @@
 *.user
 *.userosscache
 *.sln.docstates
-*.db-*
 *.db
 *.zip
-ClientApp/package-lock.json
-package-lock.json
-internal_logs/
-logs/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -32,9 +27,12 @@ obj/
 Obj/
 .vscode/
 .DS_Store
-ClientApp/.DS_Store
-ClientApp/node_modules
-ClientApp/dist
+/ClientApp/.DS_Store
+/ClientApp/node_modules/
+/ClientApp/dist/
+/ClientApp/.nuxt/
+/ClientApp/package-lock.json
+package-lock.json
 
 # local env files
 .env.local
@@ -45,6 +43,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+internal_logs/
+logs/
 
 # Editor directories and files
 .idea
