@@ -111,7 +111,7 @@
             <li class="nav-item dropdown mt-2">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img
-                  src="https://www.diethelmtravel.com/wp-content/uploads/2016/04/bill-gates-wealthiest-person.jpg"
+                  :src="currentUser.picture"
                   class="profile-image img-circle"/><b class="caret"></b
               ></a>
               <div class="dropdown-menu " aria-labelledby="navbarDropdown">
@@ -151,11 +151,14 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
+      currentUser: {},
       isLogin: false,
-      token: this.$store.getters.isAuthGet
+      tokenId: this.$store.getters.isAuthGet,
+      token: this.$store.getters.token
     };
   },
   methods: {
@@ -163,17 +166,32 @@ export default {
       this.$store.dispatch('autoLog');
     },
     logCheck() {
-      if (this.token) {
+      if (this.tokenId) {
         this.isLogin = true;
       }
     },
     logOut() {
       this.$store.dispatch('logOut');
+    },
+    getCurrentUser() {
+      if (this.tokenId) {
+        axios
+          .get('/api/accounts/CurrentUser', {
+            headers: {
+              Authorization: ` Bearer ${this.token}`
+            }
+          })
+          .then(res => {
+            this.currentUser = res.data;
+            console.log(this.currentUser);
+          });
+      }
     }
   },
   async beforeMount() {
     await this.autoLog();
     this.logCheck();
+    this.getCurrentUser();
     console.log(this.isLogin);
   }
 };

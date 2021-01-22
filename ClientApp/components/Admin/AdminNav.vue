@@ -29,7 +29,9 @@
           <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
               <a href="login.html" class="nav-link">
-                خوش آمدی دانیال شکوه منش !
+                خوش آمدی
+                {{ currentUser.firstName }} {{ currentUser.lastName }}
+                !
               </a>
             </li>
             <li class="nav-item">
@@ -115,11 +117,14 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
+      currentUser: {},
       isLogin: false,
-      token: this.$store.getters.isAuthGet
+      tokenId: this.$store.getters.isAuthGet,
+      token: this.$store.getters.token
     };
   },
   methods: {
@@ -127,17 +132,32 @@ export default {
       this.$store.dispatch('autoLog');
     },
     logCheck() {
-      if (this.token) {
+      if (this.tokenId) {
         this.isLogin = true;
       }
     },
     logOut() {
       this.$store.dispatch('logOut');
+    },
+    getCurrentUser() {
+      if (this.tokenId) {
+        axios
+          .get('/api/accounts/CurrentUser', {
+            headers: {
+              Authorization: ` Bearer ${this.token}`
+            }
+          })
+          .then(res => {
+            this.currentUser = res.data;
+            // console.log(this.curentUser);
+          });
+      }
     }
   },
   async beforeMount() {
     await this.autoLog();
     this.logCheck();
+    this.getCurrentUser();
     console.log(this.isLogin);
   }
 };
