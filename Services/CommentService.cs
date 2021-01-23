@@ -45,7 +45,6 @@ namespace dadachMovie.Services
         {
             var movie = await _dbContext.Movies.FirstOrDefaultAsync(x => x.Id == commentCreationDTO.MovieId);
             var entity = _mapper.Map<Comment>(commentCreationDTO);
-            entity.DateAdded = DateTimeOffset.Now;
             movie.Comments.Add(entity);
 
             try

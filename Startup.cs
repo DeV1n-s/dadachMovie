@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.Json.Serialization;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.Entities;
@@ -39,7 +40,9 @@ namespace dadachMovie
         {
 
             services.AddControllers()
-                .AddNewtonsoftJson();
+                .AddNewtonsoftJson()
+                .AddJsonOptions(options => 
+                            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));;
                 
             services.AddCors(c => 
                 {
@@ -77,6 +80,7 @@ namespace dadachMovie
             services.AddScoped<IRatingService, RatingService>();
             services.AddScoped<IUserFavoriteMoviesService, UserFavoriteMoviesService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IRequestsService, RequestsService>();
 
             services.AddIdentity<User, Role>(opt =>
                 {

@@ -96,6 +96,13 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => Guid.Parse(src.UserId)));
 
             CreateMap<Comment, CommentDTO>();
+
+            CreateMap<RequestCreationDTO, Request>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
+            
+            CreateMap<Request, RequestDTO>()
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId.ToString()))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         }
 
         private List<MoviesGenres> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie)

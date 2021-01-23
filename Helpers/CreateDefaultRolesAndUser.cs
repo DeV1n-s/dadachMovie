@@ -32,7 +32,7 @@ namespace dadachMovie.Helpers
                     Email = "admin@email.com",
                     FirstName = "Default",
                     LastName = "Admin",
-                    RegisterDate = DateTimeOffset.Now,
+                    RegisterDate = DateTime.UtcNow,
                     CountryId = 106
                 };
                 string adminPassword = "P@ssw0rd";

@@ -14,10 +14,11 @@ namespace dadachMovie.Entities
         public Country Country { get; set; }
         public int? CountryId { get; set; }
         public string Picture { get; set; } = "http://localhost:5000/users/default.png";
-        public DateTimeOffset RegisterDate { get; set; }
+        public DateTime? RegisterDate { get; set; }
 
         public virtual ICollection<MoviesRating> MoviesRatings { get; set; }
         public virtual ICollection<Movie> FavoriteMovies { get; set; } = new List<Movie>();
         public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
     }
 }

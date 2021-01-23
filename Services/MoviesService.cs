@@ -103,7 +103,6 @@ namespace dadachMovie.Services
                 }
             }
 
-            movie.CreatedAt = DateTimeOffset.Now;
             this.AnnotateCastsOrder(movie);
 
             _dbContext.Add(movie);

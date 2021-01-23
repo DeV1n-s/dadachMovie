@@ -6,7 +6,7 @@ using dadachMovie.Validations;
 
 namespace dadachMovie.Entities
 {
-    public class Movie
+    public class Movie : BaseEntity
     {
         public int Id { get; set; }
         
@@ -17,7 +17,6 @@ namespace dadachMovie.Entities
 
         [Column(TypeName = "date")]
         public DateTime ReleaseDate { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
         public float ImdbRate { get; set; }
         public int Lenght { get; set; }
         public bool InTheaters { get; set; }

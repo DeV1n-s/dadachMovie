@@ -74,7 +74,7 @@ namespace dadachMovie.Services
         {
             var user = new User { UserName = userCreationDTO.EmailAddress, Email = userCreationDTO.EmailAddress,
                                 FirstName = userCreationDTO.FirstName, LastName = userCreationDTO.LastName,
-                                RegisterDate = DateTimeOffset.Now};
+                                RegisterDate = DateTime.UtcNow};
             var register = await _userManager.CreateAsync(user, userCreationDTO.Password);
             if (!register.Succeeded)
             {
@@ -285,6 +285,7 @@ namespace dadachMovie.Services
                                             .Include(x => x.MoviesRatings)
                                             .Include(x => x.Country)
                                             .Include(x => x.Comments)
+                                            .Include(x => x.Requests)
                                             .FirstOrDefaultAsync(x => x.Email == this.GetCurrentUserEmail());
             if (user == null)
                 return null;
