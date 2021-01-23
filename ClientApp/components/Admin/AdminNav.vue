@@ -88,37 +88,17 @@
         </div>
       </div>
     </section>
-    <div class="modal fade" id="addCategoryModal">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title">اضافه کردن ژانر</h5>
-            <button class="close" data-dismiss="modal">
-              <span>&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="title" class="mr-100">نام ژانر</label>
-                <input type="text" class="form-control" />
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-success" data-dismiss="modal">
-              ذخیره تغیرات
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <genre-form />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import GenreForm from '../Forms/GenreForm.vue';
 export default {
+  components: {
+    GenreForm
+  },
   data() {
     return {
       currentUser: {},
