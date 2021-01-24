@@ -2823,3 +2823,7 @@
     .alert-modal {
         font-size: 1rem
     }
+    
+    .vgt-wrap span {
+        margin-right: 0.75rem;
+    }
