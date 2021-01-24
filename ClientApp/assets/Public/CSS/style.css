@@ -1187,22 +1187,9 @@
         transform: translateY(-50%);
         transition: transform calc(var(--d) * 2) var(--e);
     }
-    
-    .people-list-grid .card:nth-child(1):before {
+    /* .people-list-grid .card:nth-child(1):before {
         background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Javadhashemi_by_Mardetanha.jpg/220px-Javadhashemi_by_Mardetanha.jpg);
-    }
-    
-    .people-list-grid .card:nth-child(2):before {
-        background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Javadhashemi_by_Mardetanha.jpg/220px-Javadhashemi_by_Mardetanha.jpg);
-    }
-    
-    .people-list-grid .card:nth-child(3):before {
-        background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Javadhashemi_by_Mardetanha.jpg/220px-Javadhashemi_by_Mardetanha.jpg);
-    }
-    
-    .people-list-grid .card:nth-child(4):before {
-        background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Javadhashemi_by_Mardetanha.jpg/220px-Javadhashemi_by_Mardetanha.jpg);
-    }
+    } */
     
     .people-list-grid .content {
         position: relative;

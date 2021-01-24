@@ -19,7 +19,7 @@ const getters = {
 
 const mutations = {
     SET_PEOPLE(state, people) {
-        state.PeopleData = people
+        state.PeopleData = people.items
     },
 
 };
@@ -29,7 +29,7 @@ const actions = {
     GetPeoples({ commit }) {
         axios.get('http://localhost:8080/api/People')
             .then(response => {
-                commit('SET_PEOPLE', response.data.items)
+                commit('SET_PEOPLE', response.data)
             })
     },
 }

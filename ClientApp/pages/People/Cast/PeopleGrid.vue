@@ -20,40 +20,17 @@
     <div class="people-list-grid">
       <div class="container">
         <main class="page-content">
-          <div class="card">
+          <div
+            class="card"
+            v-for="cast in Cast"
+            :key="cast.id"
+            :style="{ backgroundImage: `url('${cast.picture}')` }"
+            style="background-size: 240px 350px;"
+          >
             <div class="content">
-              <h2 class="title">سید جواد هاشمی</h2>
+              <h2 class="title">{{ cast.name }}</h2>
               <p class="copy">
-                سید جواد هاشمی پوراصل (زادهٔ ۲۷ دی ۱۳۴۴ تهران)، هنرپیشه،
-                کارگردان، نویسنده و مجری ایرانی اسد.
-              </p>
-              <button class="btn">مشاهده</button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="content">
-              <h2 class="title">سید جواد هاشمی</h2>
-              <p class="copy">
-                سید جواد هاشمی پوراصل (زادهٔ ۲۷ دی ۱۳۴۴ تهران)، هنرپیشه،
-                کارگردان، نویسنده و مجری ایرانی اسد.
-              </p>
-              <button class="btn">مشاهده</button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="content">
-              <h2 class="title">سید جواد هاشمی</h2>
-              <p class="copy">
-                سهران)، هنرپیشه، کارگردان، نویسنده و مجری ایرانی اسد.
-              </p>
-              <button class="btn">مشاهده</button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="content">
-              <h2 class="title">سید جواد هاشمی</h2>
-              <p class="copy">
-                سهران)، هنرپیشه، کارگردان، نویسنده و مجری ایرانی اسد.
+                {{ cast.shortBio }}
               </p>
               <button class="btn">مشاهده</button>
             </div>
@@ -65,7 +42,26 @@
 </template>
 
 <script>
-export default {};
+export default {
+  // data() {
+  //   return {
+  //     Cast: this.$store.getters.GetPeaple
+  //   };
+  // },
+  mounted() {
+    this.$store.dispatch('GetPeoples');
+    console.log(this.Cast);
+  },
+  computed: {
+    Cast: function() {
+      return this.$store.getters.GetPeaple;
+    }
+  }
+};
 </script>
 
-<style></style>
+<style scoped>
+.card {
+  background-image: 240px 350px;
+}
+</style>

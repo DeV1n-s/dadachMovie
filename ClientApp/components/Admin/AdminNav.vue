@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav">
             <li class="nav-item px-2">
-              <a href="index.html" class="nav-link active">داشبورد</a>
+              <nuxt-link to="/admin" class="nav-link active">داشبورد</nuxt-link>
             </li>
             <li class="nav-item px-2">
               <a href="posts.html" class="nav-link">فیلم ها</a>
@@ -134,7 +134,7 @@ export default {
       }
     }
   },
-  async beforeMount() {
+  async mounted() {
     await this.autoLog();
     this.logCheck();
     this.getCurrentUser();
