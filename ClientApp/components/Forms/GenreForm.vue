@@ -90,7 +90,7 @@ export default {
   float: left;
   margin-right: 1rem;
   margin-top: 1rem;
-  position: absolute;
+  position: fixed;
   width: 25%;
   top: 0%;
 }

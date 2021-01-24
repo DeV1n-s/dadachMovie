@@ -61,14 +61,14 @@
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <a href="#" class="btn btn-primary btn-block">
+            <a href="/addPeople" class="btn btn-primary btn-block">
               <i class="fa fa-plus"></i> اضافه کردن فیلم
             </a>
           </div>
           <div class="col-md-3">
-            <a href="#" class="btn btn-success btn-block">
+            <nuxt-link to="/addpeople" class="btn btn-success btn-block">
               <i class="fa fa-plus"></i> اضافه کردن هنرمند
-            </a>
+            </nuxt-link>
           </div>
           <div class="col-md-3">
             <a href="#" class="btn btn-warning btn-block">
