@@ -140,32 +140,34 @@
                         </span>
                       </div>
                     </div>
-                    <ul class="time-lenght horizontal-list color-light ml-5">
-                      <p>اخبار پست شده در ماه</p>
-                    </ul>
-                    <ul class="month-data clear">
-                      <li>
-                        <p>مهر<span class="scnd-font-color"> 1399</span></p>
-                        <p>
-                          <span class="entypo-plus increment"> </span>21<sup
-                          ></sup>
-                        </p>
-                      </li>
-                      <li>
-                        <p>آبان<span class="scnd-font-color"> 1399</span></p>
-                        <p>
-                          <span class="entypo-plus increment"> </span>48<sup
-                          ></sup>
-                        </p>
-                      </li>
-                      <li>
-                        <p>آذر<span class="scnd-font-color"> 1399</span></p>
-                        <p>
-                          <span class="entypo-plus increment"> </span>35<sup
-                          ></sup>
-                        </p>
-                      </li>
-                    </ul>
+                    <div class="mb-4">
+                      <ul class="time-lenght horizontal-list color-light ml-5">
+                        <p>اخبار پست شده در ماه</p>
+                      </ul>
+                      <ul class="month-data clear mb-4">
+                        <li>
+                          <p>مهر<span class="scnd-font-color"> 1399</span></p>
+                          <p>
+                            <span class="entypo-plus increment"> </span>21<sup
+                            ></sup>
+                          </p>
+                        </li>
+                        <li>
+                          <p>آبان<span class="scnd-font-color"> 1399</span></p>
+                          <p>
+                            <span class="entypo-plus increment"> </span>48<sup
+                            ></sup>
+                          </p>
+                        </li>
+                        <li>
+                          <p>آذر<span class="scnd-font-color"> 1399</span></p>
+                          <p>
+                            <span class="entypo-plus increment"> </span>35<sup
+                            ></sup>
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>

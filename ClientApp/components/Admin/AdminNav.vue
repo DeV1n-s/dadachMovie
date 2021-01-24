@@ -26,7 +26,9 @@
               >
             </li>
             <li class="nav-item px-2">
-              <a href="users.html" class="nav-link">کاربران</a>
+              <nuxt-link to="userpanel" class="nav-link" active-class="active"
+                >کاربران</nuxt-link
+              >
             </li>
           </ul>
 

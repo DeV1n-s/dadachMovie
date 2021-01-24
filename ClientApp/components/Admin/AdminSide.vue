@@ -34,8 +34,12 @@
       <div class="card text-center bg-danger text-white mb-3">
         <div class="card-body">
           <h3>کاربران</h3>
-          <h4 class="display-4"><i class="fa fa-users"></i> 4</h4>
-          <a href="users.html" class="btn btn-outline-light btn-sm">مشاهده</a>
+          <h4 class="display-4">
+            <i class="fa fa-users"></i> {{ usersCount }}
+          </h4>
+          <nuxt-link to="/userpanel" class="btn btn-outline-light btn-sm"
+            >مشاهده</nuxt-link
+          >
         </div>
       </div>
     </div>
@@ -43,9 +47,31 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+  data() {
+    return {
+      usersCount: '',
+      token: ''
+    };
+  },
+  methods: {
+    getUsers() {
+      axios
+        .get('/api/accounts/Users', {
+          headers: {
+            Authorization: ` Bearer ${this.token}`
+          }
+        })
+        .then(res => {
+          this.usersCount = res.data.totalItems;
+        });
+    }
+  },
   mounted() {
+    this.token = localStorage.getItem('token');
     this.$store.dispatch('GetPeoples');
+    this.getUsers();
   },
   computed: {
     peopleCount: function() {

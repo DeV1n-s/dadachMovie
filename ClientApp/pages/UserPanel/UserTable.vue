@@ -8,7 +8,7 @@
             enabled: true
           }"
           :columns="columns"
-          :rows="Peoples"
+          :rows="users"
           :rtl="true"
           :lineNumbers="true"
           :pagination-options="{
@@ -33,12 +33,6 @@
                   ویرایش
                 </button>
               </router-link>
-              <button
-                class="btn btn-danger"
-                @click="deleteButton(props.row.id)"
-              >
-                حذف
-              </button>
             </span>
             <span v-else>
               {{ props.formattedRow[props.column.field] }}
@@ -66,12 +60,20 @@ export default {
       columns: [
         {
           label: 'نام ',
-          field: 'name'
+          field: 'firstName'
         },
 
         {
-          label: 'تاریخ تولد',
-          field: 'dateOfBirth'
+          label: 'نام خانوادگی',
+          field: 'lastName'
+        },
+        {
+          label: 'پست الکترونیکی',
+          field: 'emailAddress'
+        },
+        {
+          label: 'تاریخ ثبت نام',
+          field: 'registerDate'
         },
         {
           label: '',
@@ -79,9 +81,10 @@ export default {
           sortable: false
         }
       ],
-
+      users: '',
       isEditMode: false,
-      id: null
+      id: null,
+      token: ''
     };
   },
   methods: {
@@ -95,23 +98,25 @@ export default {
       // this.$refs.file.files[0];
     },
     deleteButton(id) {
+      axios.delete('/api/people/' + id).then(res => console.log(res));
+    },
+    getUsers() {
       axios
-        .delete('/api/people/' + id, {
+        .get('/api/accounts/Users', {
           headers: {
             Authorization: ` Bearer ${this.token}`
           }
         })
-        .then(res => console.log(res));
+        .then(res => {
+          this.users = res.data.items;
+        });
     }
   },
   async mounted() {
-    await this.$store.dispatch('GetPeoples');
+    this.token = localStorage.getItem('token');
+    this.getUsers();
   },
-  computed: {
-    Peoples: function() {
-      return this.$store.getters.GetPeaple;
-    }
-  },
+  computed: {},
   components: {
     VueGoodTable
   }
