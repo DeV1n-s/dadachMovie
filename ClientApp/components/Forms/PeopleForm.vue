@@ -63,9 +63,7 @@
             class="nationality"
             :options="options"
             placeholder="ملیت"
-            v-model="CastData.nationality"
-            aria-valuetext="CastData.nationality"
-            value="CastData.nationality"
+            v-model="CastData.countryId"
           >
           </model-select>
         </div>
@@ -151,7 +149,7 @@ export default {
         picture: null,
         isCast: false,
         isDiractor: false,
-        nationality: ''
+        countryId: ''
       },
       options: [],
       country: [],
