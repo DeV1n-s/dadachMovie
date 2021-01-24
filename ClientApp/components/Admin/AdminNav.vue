@@ -13,13 +13,17 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav">
             <li class="nav-item px-2">
-              <nuxt-link to="/admin" class="nav-link active">داشبورد</nuxt-link>
+              <nuxt-link to="/admin" class="nav-link " active-class="active"
+                >داشبورد</nuxt-link
+              >
             </li>
             <li class="nav-item px-2">
               <a href="posts.html" class="nav-link">فیلم ها</a>
             </li>
             <li class="nav-item px-2">
-              <a href="categories.html" class="nav-link">هنرمندان</a>
+              <nuxt-link to="PeoplePanel" class="nav-link" active-class="active"
+                >هنرمندان</nuxt-link
+              >
             </li>
             <li class="nav-item px-2">
               <a href="users.html" class="nav-link">کاربران</a>
@@ -57,7 +61,7 @@
         </div>
       </div>
     </header>
-    <section id="actions" class="py-4 mb-4 bg-light">
+    <section id="actions" class="py-4 mb-1 bg-light">
       <div class="container">
         <div class="row">
           <div class="col-md-3">
