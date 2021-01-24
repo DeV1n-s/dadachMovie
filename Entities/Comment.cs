@@ -5,6 +5,11 @@ namespace dadachMovie.Entities
 {
     public class Comment : BaseEntity
     {
+        public Comment()
+        {
+            
+        }
+        
         public int Id { get; set; }
         public string Content { get; set; }
 

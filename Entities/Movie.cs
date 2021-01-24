@@ -8,6 +8,17 @@ namespace dadachMovie.Entities
 {
     public class Movie : BaseEntity
     {
+        public Movie()
+        {
+            Casts = new List<MoviesCasts>();
+            Genres = new List<Genre>();
+            Directors = new List<Person>();
+            Countries = new List<Country>();
+            MoviesRatings = new List<MoviesRating>();
+            Users = new List<User>();
+            Comments = new List<Comment>();
+        }
+        
         public int Id { get; set; }
         
         [Required, MaxLength(300)]
@@ -25,12 +36,12 @@ namespace dadachMovie.Entities
         public string ImdbId { get; set; }
         public string Picture { get; set; }
 
-        public List<MoviesCasts> Casts { get; set; } = new List<MoviesCasts>();
-        public List<MoviesGenres> Genres { get; set; } = new List<MoviesGenres>();
-        public List<MoviesDirectors> Directors { get; set; } = new List<MoviesDirectors>();
-        public List<MoviesCountries> Countries { get; set; } = new List<MoviesCountries>();
+        public virtual ICollection<MoviesCasts> Casts { get; set; }
+        public virtual ICollection<Genre> Genres { get; set; }
+        public virtual ICollection<Person> Directors { get; set; }
+        public virtual ICollection<Country> Countries { get; set; }
         public virtual ICollection<MoviesRating> MoviesRatings { get; set; }
         public virtual ICollection<User> Users { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
-    } 
+        public virtual ICollection<Comment> Comments { get; set; }
+    }
 }

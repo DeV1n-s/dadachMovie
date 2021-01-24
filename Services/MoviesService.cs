@@ -89,6 +89,9 @@ namespace dadachMovie.Services
         public async Task<MovieDTO> AddMovieAsync(MovieCreationDTO movieCreationDTO)
         {
             var movie = _mapper.Map<Movie>(movieCreationDTO);
+            movie.Genres = ListMoviesGenres(movieCreationDTO);
+            movie.Directors = ListMoviesDirectors(movieCreationDTO);
+            movie.Countries = ListMoviesCountries(movieCreationDTO);
 
             if (movieCreationDTO.Picture != null)
             {
@@ -190,11 +193,12 @@ namespace dadachMovie.Services
 
         public void AnnotateCastsOrder(Movie movie)
         {
-            if (movie.Casts != null)
+            var movieCasts = movie.Casts.ToList();
+            if (movieCasts != null)
             {
                 for (int i = 0; i < movie.Casts.Count; i++)
                 {
-                    movie.Casts[i].Order = i;
+                    movieCasts[i].Order = i;
                 }
             }
         }
@@ -205,7 +209,7 @@ namespace dadachMovie.Services
             if (exists)
             {
                 _logger.LogWarn($"Imdb Id \"{imdbId}\" already exists.");
-                return -1;
+                return 1;
             }
             
             return 0;   
@@ -224,5 +228,14 @@ namespace dadachMovie.Services
 
         public async Task<int> DeleteUserCommentAsync(int id) =>
             await _commentService.DeleteCommentAsync(id);
+        
+        private List<Genre> ListMoviesGenres(MovieCreationDTO movieCreationDTO) =>
+            movieCreationDTO.GenresId.Select(g => new Genre {Id = g}).ToList();
+        
+        private List<Person> ListMoviesDirectors(MovieCreationDTO movieCreationDTO) =>
+            movieCreationDTO.DirectorsId.Select(p => new Person {Id = p}).ToList();
+
+        private List<Country> ListMoviesCountries(MovieCreationDTO movieCreationDTO) =>
+            movieCreationDTO.CountriesId.Select(c => new Country {Id = c}).ToList();
     }
 }

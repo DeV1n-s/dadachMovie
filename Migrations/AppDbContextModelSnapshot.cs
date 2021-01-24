@@ -17,6 +17,102 @@ namespace dadachMovie.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
+            modelBuilder.Entity("CategoryPerson", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryId", "PersonId");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("CategoryPerson");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            PersonId = 1
+                        },
+                        new
+                        {
+                            CategoryId = 1,
+                            PersonId = 2
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            PersonId = 3
+                        },
+                        new
+                        {
+                            CategoryId = 1,
+                            PersonId = 4
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            PersonId = 4
+                        });
+                });
+
+            modelBuilder.Entity("CountryMovie", b =>
+                {
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CountryId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("CountryMovie");
+
+                    b.HasData(
+                        new
+                        {
+                            CountryId = 248,
+                            MovieId = 1
+                        });
+                });
+
+            modelBuilder.Entity("GenreMovie", b =>
+                {
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GenreId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("GenreMovie");
+
+                    b.HasData(
+                        new
+                        {
+                            GenreId = 1,
+                            MovieId = 1
+                        },
+                        new
+                        {
+                            GenreId = 8,
+                            MovieId = 1
+                        },
+                        new
+                        {
+                            GenreId = 15,
+                            MovieId = 1
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
@@ -116,6 +212,28 @@ namespace dadachMovie.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("MoviePerson", b =>
+                {
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MovieId", "PersonId");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("MoviePerson");
+
+                    b.HasData(
+                        new
+                        {
+                            MovieId = 1,
+                            PersonId = 3
+                        });
+                });
+
             modelBuilder.Entity("MovieUser", b =>
                 {
                     b.Property<int>("FavoriteMoviesId")
@@ -129,6 +247,37 @@ namespace dadachMovie.Migrations
                     b.HasIndex("UsersId");
 
                     b.ToTable("MovieUser");
+                });
+
+            modelBuilder.Entity("dadachMovie.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Cast"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Director"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Writer"
+                        });
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.Comment", b =>
@@ -1765,6 +1914,128 @@ namespace dadachMovie.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Adventure"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Drama"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mystery"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Romance"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Sport"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Comedy"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Family"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Action"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Biography"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "History"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Fantasy"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Horror"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Crime"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Thriller"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Sci-Fi"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Music"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Animation"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "War"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Documentary"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Musical"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "Western"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Name = "Film-Noir"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Name = "Adult"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Name = "News"
+                        });
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.Movie", b =>
@@ -1814,6 +2085,23 @@ namespace dadachMovie.Migrations
                         .IsUnique();
 
                     b.ToTable("Movies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2021, 1, 25, 2, 23, 11, 345, DateTimeKind.Local).AddTicks(8),
+                            Description = "In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland with the aid of a group of female prisoners, a psychotic worshiper, and a drifter named Max.",
+                            ImdbId = "tt1392190",
+                            ImdbRate = 8.1f,
+                            InTheaters = false,
+                            Lenght = 120,
+                            Picture = "http://localhost:5000/movies/madmaxfuryroad.jpg",
+                            ReleaseDate = new DateTime(2015, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ShortDescription = "Short info",
+                            Title = "Mad Max: Fury Road",
+                            UpdatedAt = new DateTime(2021, 1, 25, 2, 23, 11, 345, DateTimeKind.Local).AddTicks(533)
+                        });
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.MoviesCasts", b =>
@@ -1835,51 +2123,29 @@ namespace dadachMovie.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("MoviesCasts");
-                });
 
-            modelBuilder.Entity("dadachMovie.Entities.MoviesCountries", b =>
-                {
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MovieId", "CountryId");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("MoviesCountries");
-                });
-
-            modelBuilder.Entity("dadachMovie.Entities.MoviesDirectors", b =>
-                {
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MovieId", "PersonId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("MoviesDirectors");
-                });
-
-            modelBuilder.Entity("dadachMovie.Entities.MoviesGenres", b =>
-                {
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GenreId", "MovieId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("MoviesGenres");
+                    b.HasData(
+                        new
+                        {
+                            MovieId = 1,
+                            PersonId = 1,
+                            Character = "Max Rockatansky",
+                            Order = 0
+                        },
+                        new
+                        {
+                            MovieId = 1,
+                            PersonId = 2,
+                            Character = "Imperator Furiosa",
+                            Order = 0
+                        },
+                        new
+                        {
+                            MovieId = 1,
+                            PersonId = 4,
+                            Character = "Viewer",
+                            Order = 0
+                        });
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.MoviesRating", b =>
@@ -1900,24 +2166,6 @@ namespace dadachMovie.Migrations
                     b.ToTable("MoviesRating");
                 });
 
-            modelBuilder.Entity("dadachMovie.Entities.PeopleCountries", b =>
-                {
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PersonId", "CountryId");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
-
-                    b.ToTable("PeopleCountries");
-                });
-
             modelBuilder.Entity("dadachMovie.Entities.Person", b =>
                 {
                     b.Property<int>("Id")
@@ -1927,14 +2175,11 @@ namespace dadachMovie.Migrations
                     b.Property<string>("Biography")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("date");
-
-                    b.Property<bool>("IsCast")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("IsDirector")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1949,7 +2194,47 @@ namespace dadachMovie.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CountryId");
+
                     b.ToTable("People");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Biography = "Edward Thomas Hardy CBE is an English actor and producer. After studying acting at the Drama Centre London, he made his film debut in Ridley Scott's Black Hawk Down (2001). He has since been nominated for the Academy Award for Best Supporting Actor, two Critics' Choice Movie Awards and two BAFTA Awards, receiving the 2011 BAFTA Rising Star Award.",
+                            CountryId = 247,
+                            DateOfBirth = new DateTime(1997, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Tom Hardy",
+                            Picture = "http://localhost:5000/people/tomhardy.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Biography = "Charlize Theron is an Oscar-winning dramatic actress, action hero, and comedy star. Won 1 Oscar. Another 65 wins & 137 nominations.",
+                            CountryId = 213,
+                            DateOfBirth = new DateTime(1975, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Charlize Theron",
+                            Picture = "http://localhost:5000/people/charlizetheron.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Biography = "George Miller is an Australian film director, screenwriter, producer, and former medical doctor. He is best known for his Mad Max franchise, with Mad Max 2: The Road Warrior (1981) and Mad Max: Fury Road (2015) being hailed as amongst the greatest action films of all time.",
+                            CountryId = 13,
+                            DateOfBirth = new DateTime(1945, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "George Miller",
+                            Picture = "http://localhost:5000/people/georgemiller.jpg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Biography = "blah blah",
+                            CountryId = 106,
+                            DateOfBirth = new DateTime(1996, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Aria Dark",
+                            Picture = "http://localhost:5000/people/ariadark.jpg"
+                        });
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.Request", b =>
@@ -2098,6 +2383,51 @@ namespace dadachMovie.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("CategoryPerson", b =>
+                {
+                    b.HasOne("dadachMovie.Entities.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("dadachMovie.Entities.Person", null)
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CountryMovie", b =>
+                {
+                    b.HasOne("dadachMovie.Entities.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("dadachMovie.Entities.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GenreMovie", b =>
+                {
+                    b.HasOne("dadachMovie.Entities.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("dadachMovie.Entities.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("dadachMovie.Entities.Role", null)
@@ -2149,6 +2479,21 @@ namespace dadachMovie.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MoviePerson", b =>
+                {
+                    b.HasOne("dadachMovie.Entities.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("dadachMovie.Entities.Person", null)
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MovieUser", b =>
                 {
                     b.HasOne("dadachMovie.Entities.Movie", null)
@@ -2192,45 +2537,7 @@ namespace dadachMovie.Migrations
                         .IsRequired();
 
                     b.HasOne("dadachMovie.Entities.Person", "Person")
-                        .WithMany("Casts")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
-
-                    b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("dadachMovie.Entities.MoviesCountries", b =>
-                {
-                    b.HasOne("dadachMovie.Entities.Country", "Country")
                         .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("dadachMovie.Entities.Movie", "Movie")
-                        .WithMany("Countries")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Country");
-
-                    b.Navigation("Movie");
-                });
-
-            modelBuilder.Entity("dadachMovie.Entities.MoviesDirectors", b =>
-                {
-                    b.HasOne("dadachMovie.Entities.Movie", "Movie")
-                        .WithMany("Directors")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("dadachMovie.Entities.Person", "Person")
-                        .WithMany("Directors")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2238,25 +2545,6 @@ namespace dadachMovie.Migrations
                     b.Navigation("Movie");
 
                     b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("dadachMovie.Entities.MoviesGenres", b =>
-                {
-                    b.HasOne("dadachMovie.Entities.Genre", "Genre")
-                        .WithMany("Genres")
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("dadachMovie.Entities.Movie", "Movie")
-                        .WithMany("Genres")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Genre");
-
-                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.MoviesRating", b =>
@@ -2278,23 +2566,15 @@ namespace dadachMovie.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("dadachMovie.Entities.PeopleCountries", b =>
+            modelBuilder.Entity("dadachMovie.Entities.Person", b =>
                 {
                     b.HasOne("dadachMovie.Entities.Country", "Country")
-                        .WithMany()
+                        .WithMany("People")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("dadachMovie.Entities.Person", "Person")
-                        .WithOne("Countries")
-                        .HasForeignKey("dadachMovie.Entities.PeopleCountries", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Country");
-
-                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.Request", b =>
@@ -2311,15 +2591,17 @@ namespace dadachMovie.Migrations
             modelBuilder.Entity("dadachMovie.Entities.User", b =>
                 {
                     b.HasOne("dadachMovie.Entities.Country", "Country")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("CountryId");
 
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("dadachMovie.Entities.Genre", b =>
+            modelBuilder.Entity("dadachMovie.Entities.Country", b =>
                 {
-                    b.Navigation("Genres");
+                    b.Navigation("People");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.Movie", b =>
@@ -2328,22 +2610,7 @@ namespace dadachMovie.Migrations
 
                     b.Navigation("Comments");
 
-                    b.Navigation("Countries");
-
-                    b.Navigation("Directors");
-
-                    b.Navigation("Genres");
-
                     b.Navigation("MoviesRatings");
-                });
-
-            modelBuilder.Entity("dadachMovie.Entities.Person", b =>
-                {
-                    b.Navigation("Casts");
-
-                    b.Navigation("Countries");
-
-                    b.Navigation("Directors");
                 });
 
             modelBuilder.Entity("dadachMovie.Entities.User", b =>

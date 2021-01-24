@@ -4,6 +4,10 @@ namespace dadachMovie.Entities
 {
     public class MoviesRating
     {
+        public MoviesRating()
+        {
+            
+        }
         public Guid UserId { get; set; }
         public int MovieId { get; set; }
         public int Rate { get; set; }

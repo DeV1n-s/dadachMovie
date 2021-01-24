@@ -5,8 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dadachMovie.Entities
 {
-    public class Person
+    public partial class Person
     {
+        public Person()
+        {
+            Categories = new List<Category>();
+            Movies = new List<Movie>();
+        }
+        
         public int Id { get; set; }
 
         [Required, MaxLength(120)]
@@ -17,11 +23,12 @@ namespace dadachMovie.Entities
         [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
         public string Picture { get; set; }
-        public bool IsCast { get; set; }
-        public bool IsDirector { get; set; }
+
+        [ForeignKey(nameof(CountryId))]
+        public Country Country { get; set; }
+        public int CountryId { get; set; }
         
-        public List<MoviesCasts> Casts { get; set; } = new List<MoviesCasts>();
-        public List<MoviesDirectors> Directors { get; set; } = new List<MoviesDirectors>();
-        public PeopleCountries Countries { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<Movie> Movies { get; set; }
     }
 }

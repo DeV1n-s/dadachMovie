@@ -1,0 +1,98 @@
+[
+  {
+    "Id": 1,
+    "Name": "Adventure"
+  },
+  {
+    "Id": 2,
+    "Name": "Drama"
+  },
+  {
+    "Id": 3,
+    "Name": "Mystery"
+  },
+  {
+    "Id": 4,
+    "Name": "Romance"
+  },
+  {
+    "Id": 5,
+    "Name": "Sport"
+  },
+  {
+    "Id": 6,
+    "Name": "Comedy"
+  },
+  {
+    "Id": 7,
+    "Name": "Family"
+  },
+  {
+    "Id": 8,
+    "Name": "Action"
+  },
+  {
+    "Id": 9,
+    "Name": "Biography"
+  },
+  {
+    "Id": 10,
+    "Name": "History"
+  },
+  {
+    "Id": 11,
+    "Name": "Fantasy"
+  },
+  {
+    "Id": 12,
+    "Name": "Horror"
+  },
+  {
+    "Id": 13,
+    "Name": "Crime"
+  },
+  {
+    "Id": 14,
+    "Name": "Thriller"
+  },
+  {
+    "Id": 15,
+    "Name": "Sci-Fi"
+  },
+  {
+    "Id": 16,
+    "Name": "Music"
+  },
+  {
+    "Id": 17,
+    "Name": "Animation"
+  },
+  {
+    "Id": 18,
+    "Name": "War"
+  },
+  {
+    "Id": 19,
+    "Name": "Documentary"
+  },
+  {
+    "Id": 20,
+    "Name": "Musical"
+  },
+  {
+    "Id": 21,
+    "Name": "Western"
+  },
+  {
+    "Id": 22,
+    "Name": "Film-Noir"
+  },
+  {
+    "Id": 23,
+    "Name": "Adult"
+  },
+  {
+    "Id": 24,
+    "Name": "News"
+  }
+]

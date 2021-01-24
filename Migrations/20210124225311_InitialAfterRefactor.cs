@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dadachMovie.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialAfterRefactor : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,6 +22,19 @@ namespace dadachMovie.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Category",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Category", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -63,36 +76,17 @@ namespace dadachMovie.Migrations
                     ShortDescription = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Description = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     ReleaseDate = table.Column<DateTime>(type: "date", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false),
                     ImdbRate = table.Column<float>(type: "float", nullable: false),
                     Lenght = table.Column<int>(type: "int", nullable: false),
                     InTheaters = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AverageRating = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     ImdbId = table.Column<string>(type: "varchar(255) CHARACTER SET utf8mb4", nullable: true),
-                    Picture = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
+                    Picture = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Movies", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "People",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "varchar(120) CHARACTER SET utf8mb4", maxLength: 120, nullable: false),
-                    ShortBio = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    Biography = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    DateOfBirth = table.Column<DateTime>(type: "date", nullable: false),
-                    Picture = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    IsCast = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    IsDirector = table.Column<bool>(type: "tinyint(1)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_People", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -123,9 +117,9 @@ namespace dadachMovie.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     FirstName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     LastName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    CountryId = table.Column<int>(type: "int", nullable: true),
                     Picture = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    RegisterDate = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false),
+                    RegisterDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    CountryId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
@@ -153,23 +147,47 @@ namespace dadachMovie.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MoviesCountries",
+                name: "People",
                 columns: table => new
                 {
-                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(120) CHARACTER SET utf8mb4", maxLength: 120, nullable: false),
+                    ShortBio = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Biography = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "date", nullable: false),
+                    Picture = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     CountryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MoviesCountries", x => new { x.MovieId, x.CountryId });
+                    table.PrimaryKey("PK_People", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MoviesCountries_Countries_CountryId",
+                        name: "FK_People_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CountryMovie",
+                columns: table => new
+                {
+                    CountryId = table.Column<int>(type: "int", nullable: false),
+                    MovieId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CountryMovie", x => new { x.CountryId, x.MovieId });
+                    table.ForeignKey(
+                        name: "FK_CountryMovie_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MoviesCountries_Movies_MovieId",
+                        name: "FK_CountryMovie_Movies_MovieId",
                         column: x => x.MovieId,
                         principalTable: "Movies",
                         principalColumn: "Id",
@@ -177,99 +195,25 @@ namespace dadachMovie.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MoviesGenres",
+                name: "GenreMovie",
                 columns: table => new
                 {
-                    MovieId = table.Column<int>(type: "int", nullable: false),
-                    GenreId = table.Column<int>(type: "int", nullable: false)
+                    GenreId = table.Column<int>(type: "int", nullable: false),
+                    MovieId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MoviesGenres", x => new { x.GenreId, x.MovieId });
+                    table.PrimaryKey("PK_GenreMovie", x => new { x.GenreId, x.MovieId });
                     table.ForeignKey(
-                        name: "FK_MoviesGenres_Genres_GenreId",
+                        name: "FK_GenreMovie_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MoviesGenres_Movies_MovieId",
+                        name: "FK_GenreMovie_Movies_MovieId",
                         column: x => x.MovieId,
                         principalTable: "Movies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MoviesCasts",
-                columns: table => new
-                {
-                    PersonId = table.Column<int>(type: "int", nullable: false),
-                    MovieId = table.Column<int>(type: "int", nullable: false),
-                    Character = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    Order = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MoviesCasts", x => new { x.MovieId, x.PersonId });
-                    table.ForeignKey(
-                        name: "FK_MoviesCasts_Movies_MovieId",
-                        column: x => x.MovieId,
-                        principalTable: "Movies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MoviesCasts_People_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "People",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MoviesDirectors",
-                columns: table => new
-                {
-                    PersonId = table.Column<int>(type: "int", nullable: false),
-                    MovieId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MoviesDirectors", x => new { x.MovieId, x.PersonId });
-                    table.ForeignKey(
-                        name: "FK_MoviesDirectors_Movies_MovieId",
-                        column: x => x.MovieId,
-                        principalTable: "Movies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MoviesDirectors_People_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "People",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PeopleCountries",
-                columns: table => new
-                {
-                    PersonId = table.Column<int>(type: "int", nullable: false),
-                    CountryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PeopleCountries", x => new { x.PersonId, x.CountryId });
-                    table.ForeignKey(
-                        name: "FK_PeopleCountries_Countries_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Countries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PeopleCountries_People_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "People",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -360,6 +304,35 @@ namespace dadachMovie.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Content = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MoviesRating",
                 columns: table => new
                 {
@@ -408,29 +381,135 @@ namespace dadachMovie.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Requests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Subject = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Message = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Requests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Requests_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CategoryPerson",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    PersonId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryPerson", x => new { x.CategoryId, x.PersonId });
+                    table.ForeignKey(
+                        name: "FK_CategoryPerson_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CategoryPerson_People_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "People",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MoviePerson",
+                columns: table => new
+                {
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    PersonId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MoviePerson", x => new { x.MovieId, x.PersonId });
+                    table.ForeignKey(
+                        name: "FK_MoviePerson_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MoviePerson_People_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "People",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MoviesCasts",
+                columns: table => new
+                {
+                    PersonId = table.Column<int>(type: "int", nullable: false),
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    Character = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Order = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MoviesCasts", x => new { x.MovieId, x.PersonId });
+                    table.ForeignKey(
+                        name: "FK_MoviesCasts_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MoviesCasts_People_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "People",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Category",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Cast" },
+                    { 2, "Director" },
+                    { 3, "Writer" }
+                });
+
             migrationBuilder.InsertData(
                 table: "Countries",
                 columns: new[] { "Id", "Name", "Name_FA", "Nationality", "Nationality_FA" },
                 values: new object[,]
                 {
-                    { 1, "Afghanistan", null, "Afghan", null },
-                    { 166, "Nigeria", null, "Nigerian", null },
-                    { 167, "Niue", null, "Niuean", null },
-                    { 168, "Norfolk Island", null, "Norfolk Islander", null },
-                    { 169, "North Korea", null, "North Korean", null },
-                    { 170, "North Vietnam", null, "?", null },
-                    { 171, "Northern Mariana Islands", null, "American", null },
-                    { 172, "Norway", null, "Norwegian", null },
-                    { 173, "Oman", null, "Omani", null },
-                    { 174, "Pacific Islands Trust Territory", null, "?", null },
-                    { 175, "Pakistan", null, "Pakistani", null },
-                    { 176, "Palau", null, "Palauan", null },
-                    { 177, "Palestinian Territories", null, "Palestinian", null },
                     { 178, "Panama Canal Zone", null, "?", null },
-                    { 165, "Niger", null, "Nigerian", null },
+                    { 177, "Palestinian Territories", null, "Palestinian", null },
+                    { 176, "Palau", null, "Palauan", null },
+                    { 175, "Pakistan", null, "Pakistani", null },
+                    { 174, "Pacific Islands Trust Territory", null, "?", null },
+                    { 173, "Oman", null, "Omani", null },
+                    { 172, "Norway", null, "Norwegian", null },
+                    { 171, "Northern Mariana Islands", null, "American", null },
+                    { 170, "North Vietnam", null, "?", null },
+                    { 169, "North Korea", null, "North Korean", null },
+                    { 168, "Norfolk Island", null, "Norfolk Islander", null },
+                    { 167, "Niue", null, "Niuean", null },
                     { 179, "Panama", null, "Panamanian", null },
-                    { 181, "Paraguay", null, "Paraguayan", null },
+                    { 180, "Papua New Guinea", null, "Papua New Guinean", null },
                     { 182, "Peru", null, "Peruvian", null },
+                    { 166, "Nigeria", null, "Nigerian", null },
                     { 183, "Philippines", null, "Filipino", null },
                     { 184, "Pitcairn Islands", null, "Pitcairn Islander", null },
                     { 185, "Poland", null, "Polish", null },
@@ -442,10 +521,12 @@ namespace dadachMovie.Migrations
                     { 191, "Rwanda", null, "Rwandan", null },
                     { 192, "Réunion", null, "French", null },
                     { 193, "Saint Barthélemy", null, "Saint Barthélemy Islander", null },
-                    { 180, "Papua New Guinea", null, "Papua New Guinean", null },
+                    { 194, "Saint Helena", null, "Saint Helenian", null },
+                    { 195, "Saint Kitts and Nevis", null, "Kittian and Nevisian", null },
+                    { 181, "Paraguay", null, "Paraguayan", null },
+                    { 165, "Niger", null, "Nigerian", null },
                     { 164, "Nicaragua", null, "Nicaraguan", null },
                     { 163, "New Zealand", null, "New Zealander", null },
-                    { 162, "New Caledonia", null, "New Caledonian", null },
                     { 133, "Madagascar", null, "Malagasy", null },
                     { 134, "Malawi", null, "Malawian", null },
                     { 135, "Malaysia", null, "Malaysian", null },
@@ -455,7 +536,6 @@ namespace dadachMovie.Migrations
                     { 139, "Marshall Islands", null, "Marshallese", null },
                     { 140, "Martinique", null, "French", null },
                     { 141, "Mauritania", null, "Mauritanian", null },
-                    { 142, "Mauritius", null, "Mauritian", null },
                     { 143, "Mayotte", null, "French", null },
                     { 144, "Metropolitan France", null, "?", null },
                     { 145, "Mexico", null, "Mexican", null },
@@ -475,12 +555,11 @@ namespace dadachMovie.Migrations
                     { 159, "Netherlands Antilles", null, "Dutch", null },
                     { 160, "Netherlands", null, "Dutch", null },
                     { 161, "Neutral Zone", null, "?", null },
-                    { 194, "Saint Helena", null, "Saint Helenian", null },
-                    { 195, "Saint Kitts and Nevis", null, "Kittian and Nevisian", null },
+                    { 162, "New Caledonia", null, "New Caledonian", null },
                     { 196, "Saint Lucia", null, "Saint Lucian", null },
                     { 197, "Saint Martin", null, "Saint Martin Islander", null },
-                    { 231, "Togo", null, "Togolese", null },
-                    { 232, "Tokelau", null, "Tokelauan", null },
+                    { 198, "Saint Pierre and Miquelon", null, "French", null },
+                    { 199, "Saint Vincent and the Grenadines", null, "Saint Vincentian", null },
                     { 233, "Tonga", null, "Tongan", null },
                     { 234, "Trinidad and Tobago", null, "Trinidadian", null },
                     { 235, "Tunisia", null, "Tunisian", null },
@@ -508,12 +587,12 @@ namespace dadachMovie.Migrations
                     { 257, "Western Sahara", null, "Sahrawi", null },
                     { 258, "Yemen", null, "Yemeni", null },
                     { 259, "Zambia", null, "Zambian", null },
-                    { 230, "Timor-Leste", null, "East Timorese", null },
+                    { 260, "Zimbabwe", null, "Zimbabwean", null },
+                    { 261, "Åland Islands", null, "Swedish", null },
+                    { 232, "Tokelau", null, "Tokelauan", null },
                     { 132, "Macedonia", null, "Macedonian", null },
+                    { 231, "Togo", null, "Togolese", null },
                     { 229, "Thailand", null, "Thai", null },
-                    { 227, "Tajikistan", null, "Tadzhik", null },
-                    { 198, "Saint Pierre and Miquelon", null, "French", null },
-                    { 199, "Saint Vincent and the Grenadines", null, "Saint Vincentian", null },
                     { 200, "Samoa", null, "Samoan", null },
                     { 201, "San Marino", null, "Sammarinese", null },
                     { 202, "Saudi Arabia", null, "Saudi Arabian", null },
@@ -541,10 +620,13 @@ namespace dadachMovie.Migrations
                     { 224, "Syria", null, "Syrian", null },
                     { 225, "São Tomé and Príncipe", null, "Sao Tomean", null },
                     { 226, "Taiwan", null, "Taiwanese", null },
+                    { 227, "Tajikistan", null, "Tadzhik", null },
                     { 228, "Tanzania", null, "Tanzanian", null },
-                    { 260, "Zimbabwe", null, "Zimbabwean", null },
+                    { 230, "Timor-Leste", null, "East Timorese", null },
                     { 131, "Macau SAR China", null, "Chinese", null },
+                    { 142, "Mauritius", null, "Mauritian", null },
                     { 129, "Lithuania", null, "Lithuanian", null },
+                    { 34, "Brunei", null, "Bruneian", null },
                     { 35, "Bulgaria", null, "Bulgarian", null },
                     { 36, "Burkina Faso", null, "Burkinabe", null },
                     { 37, "Burundi", null, "Burundian", null },
@@ -558,12 +640,12 @@ namespace dadachMovie.Migrations
                     { 45, "Chad", null, "Chadian", null },
                     { 46, "Chile", null, "Chilean", null },
                     { 47, "China", null, "Chinese", null },
-                    { 34, "Brunei", null, "Bruneian", null },
                     { 48, "Christmas Island", null, "Christmas Island", null },
+                    { 49, "Cocos [Keeling] Islands", null, "Cocos Islander", null },
                     { 50, "Colombia", null, "Colombian", null },
                     { 51, "Comoros", null, "Comoran", null },
                     { 52, "Congo - Brazzaville", null, "Congolese", null },
-                    { 53, "Congo - Kinshasa", null, "Congolese", null },
+                    { 130, "Luxembourg", null, "Luxembourger", null },
                     { 54, "Cook Islands", null, "Cook Islander", null },
                     { 55, "Costa Rica", null, "Costa Rican", null },
                     { 56, "Croatia", null, "Croatian", null },
@@ -573,10 +655,11 @@ namespace dadachMovie.Migrations
                     { 60, "Côte d’Ivoire", null, "Ivorian", null },
                     { 61, "Denmark", null, "Danish", null },
                     { 62, "Djibouti", null, "Djibouti", null },
-                    { 49, "Cocos [Keeling] Islands", null, "Cocos Islander", null },
                     { 33, "British Virgin Islands", null, "Virgin Islander", null },
+                    { 63, "Dominica", null, "Dominican", null },
                     { 32, "British Indian Ocean Territory", null, "Indian", null },
-                    { 31, "British Antarctic Territory", null, "Dutch", null },
+                    { 30, "Brazil", null, "Brazilian", null },
+                    { 1, "Afghanistan", null, "Afghan", null },
                     { 2, "Albania", null, "Albanian", null },
                     { 3, "Algeria", null, "Algerian", null },
                     { 4, "American Samoa", null, "American Samoan", null },
@@ -605,10 +688,9 @@ namespace dadachMovie.Migrations
                     { 27, "Bosnia and Herzegovina", null, "Bosnian, Herzegovinian", null },
                     { 28, "Botswana", null, "Motswana", null },
                     { 29, "Bouvet Island", null, "?", null },
-                    { 30, "Brazil", null, "Brazilian", null },
-                    { 63, "Dominica", null, "Dominican", null },
+                    { 31, "British Antarctic Territory", null, "Dutch", null },
                     { 64, "Dominican Republic", null, "Dominican", null },
-                    { 65, "Dronning Maud Land", null, "?", null },
+                    { 53, "Congo - Kinshasa", null, "Congolese", null },
                     { 66, "Ecuador", null, "Ecuadorean", null },
                     { 100, "Honduras", null, "Honduran", null },
                     { 101, "Hong Kong SAR China", null, "Chinese", null },
@@ -620,7 +702,7 @@ namespace dadachMovie.Migrations
                     { 107, "Iraq", null, "Iraqi", null },
                     { 108, "Ireland", null, "Irish", null },
                     { 109, "Isle of Man", null, "Manx", null },
-                    { 110, "Israel", null, "Israeli", null },
+                    { 65, "Dronning Maud Land", null, "?", null },
                     { 111, "Italy", null, "Italian", null },
                     { 112, "Jamaica", null, "Jamaican", null },
                     { 113, "Japan", null, "Japanese", null },
@@ -640,13 +722,13 @@ namespace dadachMovie.Migrations
                     { 127, "Libya", null, "Libyan", null },
                     { 128, "Liechtenstein", null, "Liechtensteiner", null },
                     { 99, "Heard Island and McDonald Islands", null, "Heard and McDonald Islander", null },
-                    { 130, "Luxembourg", null, "Luxembourger", null },
                     { 98, "Haiti", null, "Haitian", null },
+                    { 110, "Israel", null, "Israeli", null },
                     { 96, "Guinea-Bissau", null, "Guinea-Bissauan", null },
                     { 67, "Egypt", null, "Egyptian", null },
                     { 68, "El Salvador", null, "Salvadoran", null },
                     { 69, "Equatorial Guinea", null, "Equatorial Guinean", null },
-                    { 70, "Eritrea", null, "Eritrean", null },
+                    { 97, "Guyana", null, "Guyanese", null },
                     { 71, "Estonia", null, "Estonian", null },
                     { 72, "Ethiopia", null, "Ethiopian", null },
                     { 73, "Falkland Islands", null, "Falkland Islander", null },
@@ -657,23 +739,111 @@ namespace dadachMovie.Migrations
                     { 78, "French Guiana", null, "?", null },
                     { 79, "French Polynesia", null, "French Polynesian", null },
                     { 80, "French Southern Territories", null, "French", null },
-                    { 81, "French Southern and Antarctic Territories", null, "?", null },
+                    { 70, "Eritrea", null, "Eritrean", null },
                     { 82, "Gabon", null, "Gabonese", null },
-                    { 83, "Gambia", null, "Gambian", null },
-                    { 84, "Georgia", null, "Georgian", null },
-                    { 85, "Germany", null, "German", null },
-                    { 86, "Ghana", null, "Ghanaian", null },
-                    { 87, "Gibraltar", null, "Gibraltar", null },
-                    { 88, "Greece", null, "Greek", null },
-                    { 89, "Greenland", null, "Greenlandic", null },
-                    { 90, "Grenada", null, "Grenadian", null },
-                    { 91, "Guadeloupe", null, "Guadeloupian", null },
-                    { 92, "Guam", null, "Guamanian", null },
-                    { 93, "Guatemala", null, "Guatemalan", null },
-                    { 94, "Guernsey", null, "Channel Islander", null },
+                    { 81, "French Southern and Antarctic Territories", null, "?", null },
                     { 95, "Guinea", null, "Guinean", null },
-                    { 97, "Guyana", null, "Guyanese", null },
-                    { 261, "Åland Islands", null, "Swedish", null }
+                    { 94, "Guernsey", null, "Channel Islander", null },
+                    { 92, "Guam", null, "Guamanian", null },
+                    { 91, "Guadeloupe", null, "Guadeloupian", null },
+                    { 90, "Grenada", null, "Grenadian", null },
+                    { 89, "Greenland", null, "Greenlandic", null },
+                    { 93, "Guatemala", null, "Guatemalan", null },
+                    { 87, "Gibraltar", null, "Gibraltar", null },
+                    { 86, "Ghana", null, "Ghanaian", null },
+                    { 85, "Germany", null, "German", null },
+                    { 84, "Georgia", null, "Georgian", null },
+                    { 88, "Greece", null, "Greek", null },
+                    { 83, "Gambia", null, "Gambian", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Genres",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 15, "Sci-Fi" },
+                    { 16, "Music" },
+                    { 17, "Animation" },
+                    { 18, "War" },
+                    { 20, "Musical" },
+                    { 21, "Western" },
+                    { 22, "Film-Noir" },
+                    { 14, "Thriller" },
+                    { 23, "Adult" },
+                    { 19, "Documentary" },
+                    { 13, "Crime" },
+                    { 5, "Sport" },
+                    { 11, "Fantasy" },
+                    { 10, "History" },
+                    { 9, "Biography" },
+                    { 8, "Action" },
+                    { 7, "Family" },
+                    { 6, "Comedy" },
+                    { 4, "Romance" },
+                    { 3, "Mystery" },
+                    { 2, "Drama" },
+                    { 1, "Adventure" },
+                    { 24, "News" },
+                    { 12, "Horror" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Movies",
+                columns: new[] { "Id", "CreatedAt", "Description", "ImdbId", "ImdbRate", "InTheaters", "Lenght", "Picture", "ReleaseDate", "ShortDescription", "Title", "UpdatedAt" },
+                values: new object[] { 1, new DateTime(2021, 1, 25, 2, 23, 11, 345, DateTimeKind.Local).AddTicks(8), "In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland with the aid of a group of female prisoners, a psychotic worshiper, and a drifter named Max.", "tt1392190", 8.1f, false, 120, "http://localhost:5000/movies/madmaxfuryroad.jpg", new DateTime(2015, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Short info", "Mad Max: Fury Road", new DateTime(2021, 1, 25, 2, 23, 11, 345, DateTimeKind.Local).AddTicks(533) });
+
+            migrationBuilder.InsertData(
+                table: "CountryMovie",
+                columns: new[] { "CountryId", "MovieId" },
+                values: new object[] { 248, 1 });
+
+            migrationBuilder.InsertData(
+                table: "GenreMovie",
+                columns: new[] { "GenreId", "MovieId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 8, 1 },
+                    { 15, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "People",
+                columns: new[] { "Id", "Biography", "CountryId", "DateOfBirth", "Name", "Picture", "ShortBio" },
+                values: new object[,]
+                {
+                    { 3, "George Miller is an Australian film director, screenwriter, producer, and former medical doctor. He is best known for his Mad Max franchise, with Mad Max 2: The Road Warrior (1981) and Mad Max: Fury Road (2015) being hailed as amongst the greatest action films of all time.", 13, new DateTime(1945, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "George Miller", "http://localhost:5000/people/georgemiller.jpg", null },
+                    { 4, "blah blah", 106, new DateTime(1996, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Aria Dark", "http://localhost:5000/people/ariadark.jpg", null },
+                    { 2, "Charlize Theron is an Oscar-winning dramatic actress, action hero, and comedy star. Won 1 Oscar. Another 65 wins & 137 nominations.", 213, new DateTime(1975, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Charlize Theron", "http://localhost:5000/people/charlizetheron.jpg", null },
+                    { 1, "Edward Thomas Hardy CBE is an English actor and producer. After studying acting at the Drama Centre London, he made his film debut in Ridley Scott's Black Hawk Down (2001). He has since been nominated for the Academy Award for Best Supporting Actor, two Critics' Choice Movie Awards and two BAFTA Awards, receiving the 2011 BAFTA Rising Star Award.", 247, new DateTime(1997, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tom Hardy", "http://localhost:5000/people/tomhardy.jpg", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CategoryPerson",
+                columns: new[] { "CategoryId", "PersonId" },
+                values: new object[,]
+                {
+                    { 2, 3 },
+                    { 1, 4 },
+                    { 2, 4 },
+                    { 1, 2 },
+                    { 1, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MoviePerson",
+                columns: new[] { "MovieId", "PersonId" },
+                values: new object[] { 1, 3 });
+
+            migrationBuilder.InsertData(
+                table: "MoviesCasts",
+                columns: new[] { "MovieId", "PersonId", "Character", "Order" },
+                values: new object[,]
+                {
+                    { 1, 4, "Viewer", 0 },
+                    { 1, 2, "Imperator Furiosa", 0 },
+                    { 1, 1, "Max Rockatansky", 0 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -719,6 +889,36 @@ namespace dadachMovie.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_CategoryPerson_PersonId",
+                table: "CategoryPerson",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_MovieId",
+                table: "Comments",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_UserId",
+                table: "Comments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CountryMovie_MovieId",
+                table: "CountryMovie",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GenreMovie_MovieId",
+                table: "GenreMovie",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MoviePerson_PersonId",
+                table: "MoviePerson",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Movies_ImdbId",
                 table: "Movies",
                 column: "ImdbId",
@@ -728,21 +928,6 @@ namespace dadachMovie.Migrations
                 name: "IX_MoviesCasts_PersonId",
                 table: "MoviesCasts",
                 column: "PersonId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MoviesCountries_CountryId",
-                table: "MoviesCountries",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MoviesDirectors_PersonId",
-                table: "MoviesDirectors",
-                column: "PersonId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MoviesGenres_MovieId",
-                table: "MoviesGenres",
-                column: "MovieId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MoviesRating_UserId",
@@ -755,15 +940,14 @@ namespace dadachMovie.Migrations
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PeopleCountries_CountryId",
-                table: "PeopleCountries",
+                name: "IX_People_CountryId",
+                table: "People",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PeopleCountries_PersonId",
-                table: "PeopleCountries",
-                column: "PersonId",
-                unique: true);
+                name: "IX_Requests_UserId",
+                table: "Requests",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -784,16 +968,22 @@ namespace dadachMovie.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CategoryPerson");
+
+            migrationBuilder.DropTable(
+                name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "CountryMovie");
+
+            migrationBuilder.DropTable(
+                name: "GenreMovie");
+
+            migrationBuilder.DropTable(
+                name: "MoviePerson");
+
+            migrationBuilder.DropTable(
                 name: "MoviesCasts");
-
-            migrationBuilder.DropTable(
-                name: "MoviesCountries");
-
-            migrationBuilder.DropTable(
-                name: "MoviesDirectors");
-
-            migrationBuilder.DropTable(
-                name: "MoviesGenres");
 
             migrationBuilder.DropTable(
                 name: "MoviesRating");
@@ -802,22 +992,25 @@ namespace dadachMovie.Migrations
                 name: "MovieUser");
 
             migrationBuilder.DropTable(
-                name: "PeopleCountries");
+                name: "Requests");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Category");
+
+            migrationBuilder.DropTable(
                 name: "Genres");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "People");
 
             migrationBuilder.DropTable(
                 name: "Movies");
 
             migrationBuilder.DropTable(
-                name: "People");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Countries");

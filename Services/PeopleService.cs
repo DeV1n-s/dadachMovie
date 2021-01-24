@@ -62,7 +62,7 @@ namespace dadachMovie.Services
 
         public async Task<Paging<MovieDetailsDTO>> GetDirectorMoviesListAsync(int id, GridifyQuery gridifyQuery)
         {
-            var queryable = await _dbContext.Movies.Where(x => x.Directors.Any(y => y.PersonId == id))
+            var queryable = await _dbContext.Movies.Where(x => x.Directors.Any(y => y.Id == id))
                                                 .GridifyQueryableAsync(gridifyQuery, null);
 
             return new Paging<MovieDetailsDTO> {Items = queryable.Query

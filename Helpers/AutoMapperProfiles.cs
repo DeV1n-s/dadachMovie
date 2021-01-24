@@ -16,8 +16,8 @@ namespace dadachMovie.Helpers
             CreateMap<GenreCreationDTO, Genre>();
 
             CreateMap<Person, PersonDTO>()
-                .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Countries.Country.Name))
-                .ForMember(dest => dest.Nationality, opt => opt.MapFrom(src => src.Countries.Country.Nationality))
+                .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Country.Name))
+                .ForMember(dest => dest.Nationality, opt => opt.MapFrom(src => src.Country.Nationality))
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.Date))
                 .ForPath(dest => dest.DateOfBirthPersian, opt => opt.MapFrom(src => src.DateOfBirth.ToPeString()));
 
@@ -30,15 +30,15 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate.Date))
                 .ForPath(dest => dest.ReleaseDatePersian, opt => opt.MapFrom(src => src.ReleaseDate.ToPeString()));
 
-            CreateMap<MoviesGenres, GenreDTO>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GenreId))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Genre.Name));
+            // CreateMap<MoviesGenres, GenreDTO>()
+            //     .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GenreId))
+            //     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Genre.Name));
             
             CreateMap<MoviesCasts, CastDTO>()
                 .ForMember(dest => dest.PersonName, opt => opt.MapFrom(src => src.Person.Name));
 
-            CreateMap<MoviesDirectors, DirectorDTO>()
-                .ForMember(dest => dest.PersonName, opt => opt.MapFrom(src => src.Person.Name));
+            // CreateMap<MoviesDirectors, DirectorDTO>()
+            //     .ForMember(dest => dest.PersonName, opt => opt.MapFrom(src => src.Person.Name));
 
             CreateMap<CastCreationDTO, MoviesCasts>();
 
@@ -48,22 +48,17 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.Directors, opt => opt.MapFrom(MapMoviesDirectors))
                 .ForMember(dest => dest.Countries, opt => opt.MapFrom(MapMoviesCountries));
 
-            CreateMap<PersonCreationDTO, Person>()
-                .ForPath(dest => dest.Countries.CountryId, opt => opt.MapFrom(src => src.CountryId));
-
+            CreateMap<PersonCreationDTO, Person>();
+            
             CreateMap<Country, CountryDTO>();
 
-            CreateMap<MoviesCountries, CountryDTO>().ReverseMap();
+            // CreateMap<MoviesCountries, CountryDTO>().ReverseMap();
 
-            CreateMap<MoviesCountries, MovieDetailsDTO>()
-                .ForPath(dest => dest.Countries, opt => opt.MapFrom(src => src.Country.Name));
-            
-            CreateMap<PeopleCountries, CountryDTO>().ReverseMap();
-            
-            CreateMap<PeopleCountries, PersonDTO>().ReverseMap();
+            // CreateMap<MoviesCountries, MovieDetailsDTO>()
+            //     .ForPath(dest => dest.Countries, opt => opt.MapFrom(src => src.Country.Name));            
 
             CreateMap<Movie, MovieDetailsDTO>()
-                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Countries.Select(x => x.Country.Name).ToList()))
+                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Countries.Select(x => x.Name).ToList()))
                 .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.MoviesRatings.Average(x => x.Rate)))
                 .ForMember(dest => dest.TotalUserRatesCount, opt => opt.MapFrom(src => src.MoviesRatings.Count))
                 .ForPath(dest => dest.ReleaseDatePersian, opt => opt.MapFrom(src => src.ReleaseDate.ToPeString()));
@@ -105,35 +100,37 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
         }
 
-        private List<MoviesGenres> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie)
-        {
-            var result = new List<MoviesGenres>();
-            foreach (var id in movieCreationDTO.GenresId)
-            {
-                result.Add(new MoviesGenres() { GenreId = id });
-            }
-            return result;
-        }
+        private List<Genre> MapMoviesGenres(MovieCreationDTO movieCreationDTO, Movie movie) =>
+            movieCreationDTO.GenresId.Select(g => new Genre {Id = g}).ToList();
+            //movie.Genres = genres;
+            // var result = new List<Genre>();
+            // foreach (var id in movieCreationDTO.GenresId)
+            // {
+            //     result.Add(new Genre() { Id = id });
+            // }
+            // return result;
 
-        private List<MoviesDirectors> MapMoviesDirectors(MovieCreationDTO movieCreationDTO, Movie movie)
-        {
-            var result = new List<MoviesDirectors>();
-            foreach (var id in movieCreationDTO.DirectorsId)
-            {
-                result.Add(new MoviesDirectors() { PersonId = id });
-            }
-            return result;
-        }
+        private List<Person> MapMoviesDirectors(MovieCreationDTO movieCreationDTO, Movie movie) =>
+            movieCreationDTO.DirectorsId.Select(p => new Person {Id = p}).ToList();
+        // {
+        //     var result = new List<Person>();
+        //     foreach (var id in movieCreationDTO.DirectorsId)
+        //     {
+        //         result.Add(new Person() { Id = id });
+        //     }
+        //     return result;
+        // }
 
-        private List<MoviesCountries> MapMoviesCountries(MovieCreationDTO movieCreationDTO, Movie movie)
-        {
-            var result = new List<MoviesCountries>();
-            foreach (var id in movieCreationDTO.CountriesId)
-            {
-                result.Add(new MoviesCountries() { CountryId = id });
-            }
-            return result;
-        }
+        private List<Country> MapMoviesCountries(MovieCreationDTO movieCreationDTO, Movie movie) =>
+            movieCreationDTO.CountriesId.Select(c => new Country {Id = c}).ToList();
+        // {
+        //     var result = new List<Country>();
+        //     foreach (var id in movieCreationDTO.CountriesId)
+        //     {
+        //         result.Add(new Country() { Id = id });
+        //     }
+        //     return result;
+        // }
 
         private float AverageUserRating(Movie movie, MovieDetailsDTO movieDetailsDTO)
         {

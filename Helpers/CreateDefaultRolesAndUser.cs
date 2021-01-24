@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using dadachMovie.Entities;
@@ -28,10 +29,11 @@ namespace dadachMovie.Helpers
             {
                 var poweruser = new User
                 {
+                    Id = Guid.Parse("ff75a092-110a-446f-8ce8-efd434a69681"),
                     UserName = "admin@email.com",
                     Email = "admin@email.com",
                     FirstName = "Default",
-                    LastName = "Admin",
+                    LastName = "Administrator",
                     RegisterDate = DateTime.UtcNow,
                     CountryId = 106
                 };
@@ -39,7 +41,13 @@ namespace dadachMovie.Helpers
 
                 var createPowerUser = await UserManager.CreateAsync(poweruser, adminPassword);
                 if (createPowerUser.Succeeded)
-                    await UserManager.AddClaimAsync(poweruser, new Claim(ClaimTypes.Role, "Admin"));
+                {
+                    await UserManager.AddClaimsAsync(poweruser, new[]
+                    {
+                        new Claim(ClaimTypes.Role, "Admin"),
+                        new Claim(ClaimTypes.Role, "Member")
+                    });
+                }
             }
         }
     }
