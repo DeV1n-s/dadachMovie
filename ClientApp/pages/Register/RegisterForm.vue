@@ -65,7 +65,7 @@
                   v-model="cPassword"
                 />
                 <small class="text-danger" v-if="!isPassSame">
-                  رمز عبور یکسان نیست !
+                  ! رمز عبور یکسان نیست
                 </small>
               </div>
               <div class="form-group">
@@ -143,6 +143,11 @@ export default {
     };
   },
   methods: {
+    passCheck() {
+      if (this.cPassword != this.regData.password) {
+        this.isPassSame = false;
+      }
+    },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
@@ -171,6 +176,7 @@ export default {
     subData() {
       (this.isFormValid = true), (this.isPassSame = true);
       this.valCheck();
+      this.passCheck();
       axios.post('/api/accounts/Register', this.regData).then(res => {
         console.log(res.statusText);
         if (res.statusText == 'OK') {
