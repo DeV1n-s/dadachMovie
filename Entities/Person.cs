@@ -26,7 +26,7 @@ namespace dadachMovie.Entities
 
         [ForeignKey(nameof(CountryId))]
         public Country Country { get; set; }
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
         
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<Movie> Movies { get; set; }

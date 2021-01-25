@@ -9,7 +9,7 @@ using dadachMovie;
 namespace dadachMovie.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210124225311_InitialAfterRefactor")]
+    [Migration("20210125192521_InitialAfterRefactor")]
     partial class InitialAfterRefactor
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -262,7 +262,7 @@ namespace dadachMovie.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -2055,13 +2055,19 @@ namespace dadachMovie.Migrations
                     b.Property<string>("ImdbId")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
-                    b.Property<float>("ImdbRate")
+                    b.Property<float?>("ImdbRate")
                         .HasColumnType("float");
+
+                    b.Property<int?>("ImdbRatesCount")
+                        .HasColumnType("int");
 
                     b.Property<bool>("InTheaters")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("Lenght")
+                    b.Property<int?>("Lenght")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MetacriticRate")
                         .HasColumnType("int");
 
                     b.Property<string>("Picture")
@@ -2092,17 +2098,19 @@ namespace dadachMovie.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 1, 25, 2, 23, 11, 345, DateTimeKind.Local).AddTicks(8),
+                            CreatedAt = new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local),
                             Description = "In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland with the aid of a group of female prisoners, a psychotic worshiper, and a drifter named Max.",
                             ImdbId = "tt1392190",
                             ImdbRate = 8.1f,
+                            ImdbRatesCount = 881077,
                             InTheaters = false,
                             Lenght = 120,
+                            MetacriticRate = 90,
                             Picture = "http://localhost:5000/movies/madmaxfuryroad.jpg",
                             ReleaseDate = new DateTime(2015, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ShortDescription = "Short info",
                             Title = "Mad Max: Fury Road",
-                            UpdatedAt = new DateTime(2021, 1, 25, 2, 23, 11, 345, DateTimeKind.Local).AddTicks(533)
+                            UpdatedAt = new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local)
                         });
                 });
 
@@ -2139,14 +2147,14 @@ namespace dadachMovie.Migrations
                             MovieId = 1,
                             PersonId = 2,
                             Character = "Imperator Furiosa",
-                            Order = 0
+                            Order = 1
                         },
                         new
                         {
                             MovieId = 1,
                             PersonId = 4,
                             Character = "Viewer",
-                            Order = 0
+                            Order = 2
                         });
                 });
 
@@ -2177,7 +2185,7 @@ namespace dadachMovie.Migrations
                     b.Property<string>("Biography")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("CountryId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateOfBirth")
@@ -2311,6 +2319,12 @@ namespace dadachMovie.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("BannerPicture")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime?>("BirthDay")
+                        .HasColumnType("date");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -2572,9 +2586,7 @@ namespace dadachMovie.Migrations
                 {
                     b.HasOne("dadachMovie.Entities.Country", "Country")
                         .WithMany("People")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CountryId");
 
                     b.Navigation("Country");
                 });

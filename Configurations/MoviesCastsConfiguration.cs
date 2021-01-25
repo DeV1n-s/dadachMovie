@@ -15,19 +15,22 @@ namespace dadachMovie.Configurations
                 {
                     MovieId = 1,
                     PersonId = 1,
-                    Character = "Max Rockatansky"
+                    Character = "Max Rockatansky",
+                    Order = 0
                 },
                 new MoviesCasts
                 {
                     MovieId = 1,
                     PersonId = 2,
-                    Character = "Imperator Furiosa"
+                    Character = "Imperator Furiosa",
+                    Order = 1
                 },
                 new MoviesCasts
                 {
                     MovieId = 1,
                     PersonId = 4,
-                    Character = "Viewer"
+                    Character = "Viewer",
+                    Order = 2
                 }
             );
         }

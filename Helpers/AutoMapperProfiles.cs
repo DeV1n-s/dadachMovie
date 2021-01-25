@@ -45,12 +45,13 @@ namespace dadachMovie.Helpers
          
             CreateMap<Movie, MovieDTO>()
                 .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate.Date))
-                .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.MoviesRatings.Average(x => x.Rate)))
+                .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.MoviesRatings.Any() ? src.MoviesRatings.Average(x => x.Rate) : 0))
                 .ForMember(dest => dest.TotalUserRatesCount, opt => opt.MapFrom(src => src.MoviesRatings.Count))
                 .ForMember(dest => dest.ReleaseDatePersian, opt => opt.MapFrom(src => src.ReleaseDate.ToPeString()));
 
             CreateMap<Movie, MovieDetailsDTO>()
-                .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.MoviesRatings.Average(x => x.Rate)))
+                .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate.Date))
+                .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.MoviesRatings.Any() ? src.MoviesRatings.Average(x => x.Rate) : 0))
                 .ForMember(dest => dest.TotalUserRatesCount, opt => opt.MapFrom(src => src.MoviesRatings.Count))
                 .ForMember(dest => dest.ReleaseDatePersian, opt => opt.MapFrom(src => src.ReleaseDate.ToPeString()))
                 .ForMember(dest => dest.Directors, opt => opt.MapFrom(src => src.Directors.ToList()))

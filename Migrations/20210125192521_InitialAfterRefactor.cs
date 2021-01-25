@@ -25,7 +25,7 @@ namespace dadachMovie.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -34,7 +34,7 @@ namespace dadachMovie.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,8 +76,10 @@ namespace dadachMovie.Migrations
                     ShortDescription = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Description = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     ReleaseDate = table.Column<DateTime>(type: "date", nullable: false),
-                    ImdbRate = table.Column<float>(type: "float", nullable: false),
-                    Lenght = table.Column<int>(type: "int", nullable: false),
+                    ImdbRate = table.Column<float>(type: "float", nullable: true),
+                    ImdbRatesCount = table.Column<int>(type: "int", nullable: true),
+                    MetacriticRate = table.Column<int>(type: "int", nullable: true),
+                    Lenght = table.Column<int>(type: "int", nullable: true),
                     InTheaters = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ImdbId = table.Column<string>(type: "varchar(255) CHARACTER SET utf8mb4", nullable: true),
                     Picture = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
@@ -118,6 +120,8 @@ namespace dadachMovie.Migrations
                     FirstName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     LastName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Picture = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    BannerPicture = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    BirthDay = table.Column<DateTime>(type: "date", nullable: true),
                     RegisterDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     CountryId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
@@ -157,7 +161,7 @@ namespace dadachMovie.Migrations
                     Biography = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "date", nullable: false),
                     Picture = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    CountryId = table.Column<int>(type: "int", nullable: false)
+                    CountryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -167,7 +171,7 @@ namespace dadachMovie.Migrations
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -416,9 +420,9 @@ namespace dadachMovie.Migrations
                 {
                     table.PrimaryKey("PK_CategoryPerson", x => new { x.CategoryId, x.PersonId });
                     table.ForeignKey(
-                        name: "FK_CategoryPerson_Category_CategoryId",
+                        name: "FK_CategoryPerson_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -480,7 +484,7 @@ namespace dadachMovie.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Category",
+                table: "Categories",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
@@ -790,8 +794,8 @@ namespace dadachMovie.Migrations
 
             migrationBuilder.InsertData(
                 table: "Movies",
-                columns: new[] { "Id", "CreatedAt", "Description", "ImdbId", "ImdbRate", "InTheaters", "Lenght", "Picture", "ReleaseDate", "ShortDescription", "Title", "UpdatedAt" },
-                values: new object[] { 1, new DateTime(2021, 1, 25, 2, 23, 11, 345, DateTimeKind.Local).AddTicks(8), "In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland with the aid of a group of female prisoners, a psychotic worshiper, and a drifter named Max.", "tt1392190", 8.1f, false, 120, "http://localhost:5000/movies/madmaxfuryroad.jpg", new DateTime(2015, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Short info", "Mad Max: Fury Road", new DateTime(2021, 1, 25, 2, 23, 11, 345, DateTimeKind.Local).AddTicks(533) });
+                columns: new[] { "Id", "CreatedAt", "Description", "ImdbId", "ImdbRate", "ImdbRatesCount", "InTheaters", "Lenght", "MetacriticRate", "Picture", "ReleaseDate", "ShortDescription", "Title", "UpdatedAt" },
+                values: new object[] { 1, new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local), "In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland with the aid of a group of female prisoners, a psychotic worshiper, and a drifter named Max.", "tt1392190", 8.1f, 881077, false, 120, 90, "http://localhost:5000/movies/madmaxfuryroad.jpg", new DateTime(2015, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Short info", "Mad Max: Fury Road", new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local) });
 
             migrationBuilder.InsertData(
                 table: "CountryMovie",
@@ -841,8 +845,8 @@ namespace dadachMovie.Migrations
                 columns: new[] { "MovieId", "PersonId", "Character", "Order" },
                 values: new object[,]
                 {
-                    { 1, 4, "Viewer", 0 },
-                    { 1, 2, "Imperator Furiosa", 0 },
+                    { 1, 4, "Viewer", 2 },
+                    { 1, 2, "Imperator Furiosa", 1 },
                     { 1, 1, "Max Rockatansky", 0 }
                 });
 
@@ -998,7 +1002,7 @@ namespace dadachMovie.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Genres");

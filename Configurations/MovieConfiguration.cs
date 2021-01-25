@@ -20,11 +20,13 @@ namespace dadachMovie.Configurations
                     ReleaseDate = new DateTime(2015, 3, 15),
                     ImdbId = "tt1392190",
                     ImdbRate = 8.1F,
+                    ImdbRatesCount = 881077,
+                    MetacriticRate = 90,
                     Lenght = 120,
                     InTheaters = false,
                     Picture = "http://localhost:5000/movies/madmaxfuryroad.jpg",
-                    CreatedAt = new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local).AddTicks(7092),
-                    UpdatedAt = new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local).AddTicks(7092)
+                    CreatedAt = new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local),
+                    UpdatedAt = new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local)
                 });
 
             builder.HasMany(x => x.Countries).WithMany(y => y.Movies)
