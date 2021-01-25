@@ -95,6 +95,9 @@
           </div>
         </div>
       </div>
+      <div class="img-show" v-if="isEditMode">
+        <img :src="CastData.picture" alt="" />
+      </div>
       <div class="custom-file">
         <label class="custom-file-label " for="customFile"
           >تصویر را انتخاب کنید</label
@@ -108,12 +111,12 @@
       </div>
     </form>
     <form>
-      <div class="btns mt-3">
+      <div class="btns mt-4 mb-4">
         <nuxt-link to="/admin">
           <button class="btn btn-danger">بازگشت</button>
         </nuxt-link>
 
-        <button class="btn btn-success" @click.prevent="subData">
+        <button class="btn btn-success" @click.prevent="sendData">
           ثبت بازیگر
         </button>
       </div>
@@ -141,6 +144,8 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      isEditMode: false,
+      id: this.$route.params.id,
       CastData: {
         name: '',
         shortBio: '',
@@ -164,6 +169,16 @@ export default {
     FormInput
   },
   methods: {
+    checkEditMode() {
+      if (this.id != undefined) {
+        console.log(this.id);
+        this.isEditMode = true;
+        axios.get('/api/people/' + this.id).then(res => {
+          this.CastData = res.data;
+          console.log(res.data);
+        });
+      }
+    },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
@@ -192,32 +207,68 @@ export default {
     changeRoute() {
       this.$router.push('/admin');
     },
-    async subData() {
-      const form = new FormData();
-      for (const property in this.CastData) {
-        form.append(`${this.capFstLet(property)}`, this.CastData[property]);
-      }
+    async SubmitData(form) {
       await axios
-        .post('/api/people', form, {
-          headers: {
-            Authorization: ` Bearer ${this.token}`
-          }
-        })
+        .post(
+          '/api/people',
+          {
+            headers: {
+              Authorization: ` Bearer ${this.token}`
+            }
+          },
+          form
+        )
         .then(res => {
           console.log(res.data);
+          this.$router.push('/CastPanel');
         });
       this.showAlert();
       setTimeout(this.changeRoute(), 3000);
+    },
+    async EdittData($event) {
+      await axios
+        .put(
+          '/api/people/' + this.id,
+
+          $event,
+          {
+            headers: {
+              Authorization: ` Bearer ${this.token}`
+            }
+          }
+        )
+        .then(res => console.log(res.data));
+
+      this.isEditMode = false;
+      this.showAlert();
+      setTimeout(this.changeRoute(), 3000);
+    },
+
+    sendData() {
+      const form = new FormData();
+      console.log(this.CastData);
+      for (const property in this.CastData) {
+        form.append(`${this.capFstLet(property)}`, this.CastData[property]);
+      }
+      if (!this.isEditMode) this.SubmitData(form);
+      else this.EdittData(form);
     }
   },
   mounted() {
     this.token = localStorage.getItem('token');
+    this.checkEditMode();
     this.GetCountry();
+    console.log(this.token);
   }
 };
 </script>
 
 <style scoped>
+.img-show img {
+  height: 350px;
+  width: 300px;
+  margin-right: 0.5rem;
+}
 .alert-modal {
   float: left !important;
   margin-right: 1rem;
