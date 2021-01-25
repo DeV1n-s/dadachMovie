@@ -20,106 +20,7 @@
     </div>
     <div class="movie-list-grid">
       <div class="container">
-        <div class="wrapper">
-          <div class="main_card">
-            <div class="card_left">
-              <div class="img_container">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/en/f/ff/MI_%E2%80%93_Fallout.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div class="card_right mr-4">
-              <div class="card_datails mt-2">
-                <h4>
-                  نام فیلم : Mission: Impossible – Fallout
-                </h4>
-                <div class="card_cat d-block">
-                  <p class="year">سال ساخت : 2018</p>
-                  <p class="genre">
-                    سبک : Action | Adventure
-                  </p>
-                  <p class="time">
-                    زمان : 2h 28m
-                  </p>
-                </div>
-                <p class="disc">
-                  فیلم قشنگی راجب ماموریتی که انجام دادنش سختهفیلم قشنگی راجب
-                  ماموریتی که انجام دادنش سختهفیلم قشنگی راجب ماموریتی که انجام
-                  دادنش سختهفیلم ته
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="wrapper">
-          <div class="main_card">
-            <div class="card_left">
-              <div class="img_container">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/en/f/ff/MI_%E2%80%93_Fallout.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div class="card_right mr-4">
-              <div class="card_datails mt-2">
-                <h4>
-                  نام فیلم : Mission: Impossible – Fallout
-                </h4>
-                <div class="card_cat d-block">
-                  <p class="year">سال ساخت : 2018</p>
-                  <p class="genre">
-                    سبک : Action | Adventure
-                  </p>
-                  <p class="time">
-                    زمان : 2h 28m
-                  </p>
-                </div>
-                <p class="disc">
-                  فیلم قشنگی راجب ماموریتی که انجام دادنش سختهفیلم قشنگی راجب
-                  ماموریتی که انجام دادنش سختهفیلم قشنگی راجب ماموریتی که انجام
-                  دادنش سختهفیلم ته
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="wrapper">
-          <div class="main_card">
-            <div class="card_left">
-              <div class="img_container">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/en/f/ff/MI_%E2%80%93_Fallout.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div class="card_right mr-4">
-              <div class="card_datails mt-2">
-                <h4>
-                  نام فیلم : Mission: Impossible – Fallout
-                </h4>
-                <div class="card_cat d-block">
-                  <p class="year">سال ساخت : 2018</p>
-                  <p class="genre">
-                    سبک : Action | Adventure
-                  </p>
-                  <p class="time">
-                    زمان : 2h 28m
-                  </p>
-                </div>
-                <p class="disc">
-                  فیلم قشنگی راجب ماموریتی که انجام دادنش سختهفیلم قشنگی راجب
-                  ماموریتی که انجام دادنش سختهفیلم قشنگی راجب ماموریتی که انجام
-                  دادنش سختهفیلم ته
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="wrapper">
+        <div class="wrapper" v-for="movie in movieData" :key="movie.id">
           <div class="main_card">
             <div class="card_left">
               <div class="img_container">
@@ -170,7 +71,22 @@
 </template>
 
 <script>
-export default {};
+export default {
+  // data() {
+  //   return {
+  //     movieData: this.$store.getters.GetMovies
+  //   };
+  // },
+
+  mounted() {
+    this.$store.dispatch('getMovie');
+  },
+  computed: {
+    movieData: function() {
+      return this.$store.getters.GetMovies;
+    }
+  }
+};
 </script>
 
 <style></style>

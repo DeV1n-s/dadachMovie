@@ -49,7 +49,7 @@ const mutations = {
 
 const actions = {
     getMovie({ commit }) {
-        axios.get('http://localhost:8080/api/Movies')
+        axios.get('/api/Movies')
             .then(response => {
                 commit('SET_MOVIE', response.data)
             })

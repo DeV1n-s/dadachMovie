@@ -110,7 +110,7 @@ export default {
       currentUser: {},
       isLogin: false,
       tokenId: this.$store.getters.isAuthGet,
-      token: this.$store.getters.token
+      token: ''
     };
   },
   methods: {
@@ -118,7 +118,7 @@ export default {
       this.$store.dispatch('autoLog');
     },
     logCheck() {
-      if (this.tokenId) {
+      if (this.tokenId != '') {
         this.isLogin = true;
       }
     },
@@ -126,25 +126,23 @@ export default {
       this.$store.dispatch('logOut');
     },
     getCurrentUser() {
-      if (this.tokenId) {
-        axios
-          .get('/api/accounts/CurrentUser', {
-            headers: {
-              Authorization: ` Bearer ${this.token}`
-            }
-          })
-          .then(res => {
-            this.currentUser = res.data;
-            // console.log(this.curentUser);
-          });
-      }
+      axios
+        .get('/api/accounts/CurrentUser', {
+          headers: {
+            Authorization: ` Bearer ${this.token}`
+          }
+        })
+        .then(res => {
+          this.currentUser = res.data;
+          // console.log(this.curentUser);
+        });
     }
   },
-  async mounted() {
-    await this.autoLog();
+  async created() {
+    this.autoLog();
+    this.token = localStorage.getItem('token');
     this.logCheck();
-    this.getCurrentUser();
-    console.log(this.isLogin);
+    await this.getCurrentUser();
   }
 };
 </script>
