@@ -23,16 +23,13 @@
         >
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field == 'actions'">
-              <router-link
-                :to="{
-                  name: 'CastEdit',
-                  params: { id: props.row.id }
-                }"
+              <nuxt-link
+                :to="{ name: 'PeopleEdit-id', params: { id: props.row.id } }"
               >
                 <button class="btn  btn-warning" @click="editBtn(props.row.id)">
                   ویرایش
                 </button>
-              </router-link>
+              </nuxt-link>
               <button
                 class="btn btn-danger"
                 @click="deleteButton(props.row.id)"
@@ -79,7 +76,7 @@ export default {
           sortable: false
         }
       ],
-
+      token: '',
       isEditMode: false,
       id: null
     };
@@ -104,8 +101,9 @@ export default {
         .then(res => console.log(res));
     }
   },
-  async mounted() {
-    await this.$store.dispatch('GetPeoples');
+  mounted() {
+    this.token = localStorage.getItem('token');
+    this.$store.dispatch('GetPeoples');
   },
   computed: {
     Peoples: function() {
