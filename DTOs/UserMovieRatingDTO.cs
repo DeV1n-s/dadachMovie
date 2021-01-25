@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace dadachMovie.DTOs
 {
     public class UserMovieRatingDTO

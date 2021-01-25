@@ -13,7 +13,6 @@ namespace dadachMovie.DTOs
         public IFormFile Picture { get; set; }
 
         [JsonIgnore]
-        [SwaggerIgnore]
         public List<int> CategoriesId { get; set; }
 
         public string CategoriesIdJson

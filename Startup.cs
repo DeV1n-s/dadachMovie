@@ -136,7 +136,7 @@ namespace dadachMovie
                         }
                     });
 
-                    c.SchemaFilter<SwaggerSkipPropertyFilter>();
+                    c.OperationFilter<IgnorePropertyFilter>();
                 });
         }
 

@@ -13,19 +13,15 @@ namespace dadachMovie.DTOs
         public IFormFile Picture { get; set; }
 
         [JsonIgnore]
-        [SwaggerIgnore]
         public List<int> GenresId { get; set; }
 
         [JsonIgnore]
-        [SwaggerIgnore]
         public List<CastCreationDTO> Casts { get; set; }
 
         [JsonIgnore]
-        [SwaggerIgnore]
         public List<int> DirectorsId { get; set; }
 
         [JsonIgnore]
-        [SwaggerIgnore]
         public List<int> CountriesId { get; set; }
 
         public string CountriesIdJson
