@@ -18,6 +18,10 @@ namespace dadachMovie.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Picture { get; set; } = "http://localhost:5000/users/default.png";
+        public string BannerPicture { get; set; } = "http://localhost:5000/users/defaultbanner.png";
+
+        [Column(TypeName = "date")]
+        public DateTime? BirthDay { get; set; }
         public DateTime? RegisterDate { get; set; }
 
         [ForeignKey(nameof(CountryId))]

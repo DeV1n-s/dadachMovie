@@ -39,10 +39,11 @@ namespace dadachMovie.Services
             _commentService = commentService;
             _accountsService = accountsService;
         }
-        public async Task<Paging<MovieDetailsDTO>> GetMoviesDetailsPagingAsync(GridifyQuery gridifyQuery)
+        public async Task<Paging<MovieDTO>> GetMoviesDetailsPagingAsync(GridifyQuery gridifyQuery)
         {
-            var queryable = await _dbContext.Movies.GridifyQueryableAsync(gridifyQuery,null);
-            return new Paging<MovieDetailsDTO> {Items = queryable.Query.ProjectTo<MovieDetailsDTO>(_mapper.ConfigurationProvider).ToList(),
+            var queryable = await _dbContext.Movies.AsNoTracking()
+                                                .GridifyQueryableAsync(gridifyQuery,null);
+            return new Paging<MovieDTO> {Items = queryable.Query.ProjectTo<MovieDTO>(_mapper.ConfigurationProvider).ToList(),
                                                 TotalItems = queryable.TotalItems};
         }
 
@@ -51,31 +52,28 @@ namespace dadachMovie.Services
                                 .ProjectTo<MovieDetailsDTO>(_mapper.ConfigurationProvider)
                                 .FirstOrDefaultAsync(m => m.Id == id);
             
-        public async Task<IndexMoviePageDTO> GetTopMoviesAsync(int amount)
+        public async Task<Paging<MovieDTO>> GetUpcomingReleasesAsync(GridifyQuery gridifyQuery)
         {
-            if (amount == 0)
-                amount = 5;
-
             var today = DateTime.Today;
-            var upcomingReleases = await _dbContext.Movies
+            var queryable = await _dbContext.Movies
                 .AsNoTracking()
-                .Where(m => m.ReleaseDate > today)
-                .OrderByDescending(m => m.ReleaseDate)
-                .Take(amount)
-                .ToListAsync();
+                .Where(x => x.ReleaseDate > today)
+                .GridifyQueryableAsync(gridifyQuery,null);
 
-            var inTheaters = await _dbContext.Movies
+            return new Paging<MovieDTO> {Items = queryable.Query.ProjectTo<MovieDTO>(_mapper.ConfigurationProvider).ToList(),
+                                                TotalItems = queryable.TotalItems};
+        }
+
+        public async Task<Paging<MovieDTO>> GetInTheatersAsync(GridifyQuery gridifyQuery)
+        {
+            var today = DateTime.Today;
+            var queryable = await _dbContext.Movies
                 .AsNoTracking()
-                .Where(m => m.InTheaters)
-                .OrderByDescending(m => m.Id)
-                .Take(amount)
-                .ToListAsync();
+                .Where(x => x.InTheaters)
+                .GridifyQueryableAsync(gridifyQuery,null);
 
-            var result = new IndexMoviePageDTO();
-            result.InTheaters = _mapper.Map<List<MovieDTO>>(inTheaters);
-            result.UpcomingReleases = _mapper.Map<List<MovieDTO>>(upcomingReleases);
-
-            return result;
+            return new Paging<MovieDTO> {Items = queryable.Query.ProjectTo<MovieDTO>(_mapper.ConfigurationProvider).ToList(),
+                                                TotalItems = queryable.TotalItems};
         }
 
         public IQueryable<MovieDetailsDTO> GetMoviesDetailsQueryable() =>
@@ -89,9 +87,9 @@ namespace dadachMovie.Services
         public async Task<MovieDTO> AddMovieAsync(MovieCreationDTO movieCreationDTO)
         {
             var movie = _mapper.Map<Movie>(movieCreationDTO);
-            movie.Genres = ListMoviesGenres(movieCreationDTO);
-            movie.Directors = ListMoviesDirectors(movieCreationDTO);
-            movie.Countries = ListMoviesCountries(movieCreationDTO);
+            movie.Genres = await ListGenres(movieCreationDTO);
+            movie.Directors = await ListDirectors(movieCreationDTO);
+            movie.Countries = await ListCountries(movieCreationDTO);
 
             if (movieCreationDTO.Picture != null)
             {
@@ -132,6 +130,9 @@ namespace dadachMovie.Services
             }
 
             movieDb = _mapper.Map(movieCreationDTO, movieDb);
+            movieDb.Genres = await ListGenres(movieCreationDTO);
+            movieDb.Directors = await ListDirectors(movieCreationDTO);
+            movieDb.Countries = await ListCountries(movieCreationDTO);
 
             if (movieCreationDTO.Picture != null)
             {
@@ -147,12 +148,11 @@ namespace dadachMovie.Services
                 }
             }
             
-            await _dbContext.Database.ExecuteSqlInterpolatedAsync($@"
-                                    DELETE FROM MoviesCasts WHERE MovieId = {movieDb.Id}; 
-                                    DELETE FROM MoviesGenres WHERE MovieId = {movieDb.Id}; 
-                                    DELETE FROM MoviesDirectors WHERE MovieId = {movieDb.Id};
-                                    DELETE FROM MoviesCountries WHERE MovieId = {movieDb.Id};
-                                    ");
+            // await _dbContext.Database.ExecuteSqlInterpolatedAsync($@"
+            //                         DELETE FROM MoviesCasts WHERE MovieId = {movieDb.Id};
+            //                         DELETE FROM MoviesRating WHERE MovieId = {movieDb.Id};
+            //                         DELETE FROM Comments WHERE MovieId = {movieDb.Id};
+            //                         ");
             
             this.AnnotateCastsOrder(movieDb);
             try
@@ -229,13 +229,44 @@ namespace dadachMovie.Services
         public async Task<int> DeleteUserCommentAsync(int id) =>
             await _commentService.DeleteCommentAsync(id);
         
-        private List<Genre> ListMoviesGenres(MovieCreationDTO movieCreationDTO) =>
-            movieCreationDTO.GenresId.Select(g => new Genre {Id = g}).ToList();
-        
-        private List<Person> ListMoviesDirectors(MovieCreationDTO movieCreationDTO) =>
-            movieCreationDTO.DirectorsId.Select(p => new Person {Id = p}).ToList();
+        private async Task<List<Genre>> ListGenres(MovieCreationDTO movieCreationDTO)
+        {
+            if (movieCreationDTO.GenresId == null)
+                return null;
 
-        private List<Country> ListMoviesCountries(MovieCreationDTO movieCreationDTO) =>
-            movieCreationDTO.CountriesId.Select(c => new Country {Id = c}).ToList();
+            var result = new List<Genre>();
+            var genres = await _dbContext.Genres.ToListAsync();
+            foreach (var id in movieCreationDTO.GenresId)
+            {
+                result.Add(genres.FirstOrDefault(x => x.Id == id));
+            }
+            return result;
+        }
+
+        private async Task<List<Person>> ListDirectors(MovieCreationDTO movieCreationDTO)
+        {
+            if (movieCreationDTO.DirectorsId == null)
+                return null;
+
+            var result = new List<Person>();
+            foreach (var id in movieCreationDTO.DirectorsId)
+            {
+                result.Add(await _dbContext.People.FirstOrDefaultAsync(x => x.Id == id));
+            }
+            return result;
+        }
+
+        private async Task<List<Country>> ListCountries(MovieCreationDTO movieCreationDTO)
+        {
+            if (movieCreationDTO.CountriesId == null)
+                return null;
+
+            var result = new List<Country>();
+            foreach (var id in movieCreationDTO.CountriesId)
+            {
+                result.Add(await _dbContext.Countries.FirstOrDefaultAsync(x => x.Id == id));
+            }
+            return result;
+        }
     }
 }

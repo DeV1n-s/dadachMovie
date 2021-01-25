@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace dadachMovie.DTOs
 {
     public class MovieRatingDTO
     {
+        [JsonIgnore]
         public string UserId { get; set; }
 
         [Required]

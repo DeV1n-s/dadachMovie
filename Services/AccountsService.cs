@@ -248,6 +248,21 @@ namespace dadachMovie.Services
                                                                     userUpdateDTO.Picture.ContentType);
                 }
             }
+
+            if (userUpdateDTO.BannerPicture != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await userUpdateDTO.BannerPicture.CopyToAsync(memoryStream);
+                    var content = memoryStream.ToArray();
+                    var extension = Path.GetExtension(userUpdateDTO.BannerPicture.FileName);
+                    user.BannerPicture = await _fileStorageService.EditFile(content,
+                                                                    extension,
+                                                                    _containerName, 
+                                                                    user.BannerPicture, 
+                                                                    userUpdateDTO.BannerPicture.ContentType);
+                }
+            }
             
             user = _mapper.Map(userUpdateDTO, user);
             try

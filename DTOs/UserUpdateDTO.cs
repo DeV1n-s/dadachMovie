@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using dadachMovie.Validations;
 using Microsoft.AspNetCore.Http;
@@ -16,9 +17,14 @@ namespace dadachMovie.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int CountryId { get; set; }
+        public DateTime BirthDay { get; set; }
 
         [FileSizeValidator(maxFileSizeInMbs: 4)]
         [ContentTypeValidator(ContentTypeGroup.Image)]
         public IFormFile Picture { get; set; }
+
+        [FileSizeValidator(maxFileSizeInMbs: 4)]
+        [ContentTypeValidator(ContentTypeGroup.Image)]
+        public IFormFile BannerPicture { get; set; }
     }
 }

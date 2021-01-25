@@ -23,8 +23,8 @@ namespace dadachMovie.Configurations
                     Lenght = 120,
                     InTheaters = false,
                     Picture = "http://localhost:5000/movies/madmaxfuryroad.jpg",
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now
+                    CreatedAt = new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local).AddTicks(7092),
+                    UpdatedAt = new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local).AddTicks(7092)
                 });
 
             builder.HasMany(x => x.Countries).WithMany(y => y.Movies)

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dadachMovie;
 
 namespace dadachMovie.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210125125243_AddedCategoriesTable")]
+    partial class AddedCategoriesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2056,17 +2058,11 @@ namespace dadachMovie.Migrations
                     b.Property<float>("ImdbRate")
                         .HasColumnType("float");
 
-                    b.Property<int>("ImdbRatesCount")
-                        .HasColumnType("int");
-
                     b.Property<bool>("InTheaters")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("Lenght")
                         .HasColumnType("int");
-
-                    b.Property<float>("MetacriticRate")
-                        .HasColumnType("float");
 
                     b.Property<string>("Picture")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -2096,19 +2092,17 @@ namespace dadachMovie.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local).AddTicks(7092),
+                            CreatedAt = new DateTime(2021, 1, 25, 16, 22, 43, 148, DateTimeKind.Local).AddTicks(85),
                             Description = "In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland with the aid of a group of female prisoners, a psychotic worshiper, and a drifter named Max.",
                             ImdbId = "tt1392190",
                             ImdbRate = 8.1f,
-                            ImdbRatesCount = 0,
                             InTheaters = false,
                             Lenght = 120,
-                            MetacriticRate = 0f,
                             Picture = "http://localhost:5000/movies/madmaxfuryroad.jpg",
                             ReleaseDate = new DateTime(2015, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ShortDescription = "Short info",
                             Title = "Mad Max: Fury Road",
-                            UpdatedAt = new DateTime(2021, 1, 25, 17, 46, 10, 814, DateTimeKind.Local).AddTicks(7631)
+                            UpdatedAt = new DateTime(2021, 1, 25, 16, 22, 43, 148, DateTimeKind.Local).AddTicks(604)
                         });
                 });
 
@@ -2317,12 +2311,6 @@ namespace dadachMovie.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("BannerPicture")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<DateTime?>("BirthDay")
-                        .HasColumnType("date");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()

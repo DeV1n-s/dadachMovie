@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace dadachMovie.DTOs
 {
     public class PersonDTO
@@ -8,10 +10,9 @@ namespace dadachMovie.DTOs
         public string Biography { get; set; }
         public string DateOfBirth { get; set; }
         public string DateOfBirthPersian { get; set; }
-        public bool IsCast { get; set; }
-        public bool IsDirector { get; set; }
         public string Picture { get; set; }
         public string CountryName { get; set; }
         public string Nationality { get; set; }
+        public List<string> Categories { get; set; }
     }
 }

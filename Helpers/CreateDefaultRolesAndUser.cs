@@ -35,7 +35,10 @@ namespace dadachMovie.Helpers
                     FirstName = "Default",
                     LastName = "Administrator",
                     RegisterDate = DateTime.UtcNow,
-                    CountryId = 106
+                    CountryId = 106,
+                    BirthDay = new DateTime(1990, 10, 10),
+                    Picture = "http://localhost:5000/users/default.png",
+                    BannerPicture = "http://localhost:5000/users/defaultbanner.png"
                 };
                 string adminPassword = "P@ssw0rd";
 

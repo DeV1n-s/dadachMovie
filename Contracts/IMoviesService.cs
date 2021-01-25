@@ -8,9 +8,10 @@ namespace dadachMovie.Contracts
 {
     public interface IMoviesService : IBaseService
     {
-        Task<Paging<MovieDetailsDTO>> GetMoviesDetailsPagingAsync(GridifyQuery gridifyQuery);
+        Task<Paging<MovieDTO>> GetMoviesDetailsPagingAsync(GridifyQuery gridifyQuery);
         Task<MovieDetailsDTO> GetMovieByIdAsync(int id);
-        Task<IndexMoviePageDTO> GetTopMoviesAsync(int amount);
+        Task<Paging<MovieDTO>> GetUpcomingReleasesAsync(GridifyQuery gridifyQuery);
+        Task<Paging<MovieDTO>> GetInTheatersAsync(GridifyQuery gridifyQuery);
         IQueryable<MovieDetailsDTO> GetMoviesDetailsQueryable();
         IQueryable<Movie> GetMoviesQueryable();
         Task<MovieDTO> AddMovieAsync(MovieCreationDTO movieCreationDTO);

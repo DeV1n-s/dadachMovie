@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,23 +36,33 @@ namespace dadachMovie.Services
 
         public async Task<Paging<PersonDTO>> GetPeoplePagingAsync(GridifyQuery gridifyQuery)
         {
-            var queryable = await _dbContext.People.GridifyQueryableAsync(gridifyQuery,null);
+            var queryable = await _dbContext.People.AsNoTracking()
+                                                .Include(x => x.Categories)
+                                                .GridifyQueryableAsync(gridifyQuery,null);
+
             return new Paging<PersonDTO> {Items = queryable.Query.ProjectTo<PersonDTO>(_mapper.ConfigurationProvider).ToList(),
                                         TotalItems = queryable.TotalItems};
         }
 
         public async Task<PersonDTO> GetPersonByIdAsync(int id)
         {
-            var person = await _dbContext.People.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            var person = await _dbContext.People.AsNoTracking()
+                                                .Include(x => x.Categories)
+                                                .Include(x => x.Country)
+                                                .FirstOrDefaultAsync(p => p.Id == id);
             return _mapper.Map<PersonDTO>(person);
         }
 
         public IQueryable<Person> GetPeopleQueryable() =>
-            _dbContext.People.AsNoTracking().AsQueryable();
+            _dbContext.People.AsNoTracking()
+                            .Include(x => x.Categories)
+                            .Include(x => x.Country)
+                            .AsQueryable();
 
         public async Task<Paging<MovieDetailsDTO>> GetCastMoviesListAsync(int id, GridifyQuery gridifyQuery)
         {
-            var queryable = await _dbContext.Movies.Where(x => x.Casts.Any(y => y.PersonId == id))
+            var queryable = await _dbContext.Movies.AsNoTracking()
+                                                .Where(x => x.Casts.Any(y => y.PersonId == id))
                                                 .GridifyQueryableAsync(gridifyQuery, null);
 
             return new Paging<MovieDetailsDTO> {Items = queryable.Query
@@ -62,7 +73,8 @@ namespace dadachMovie.Services
 
         public async Task<Paging<MovieDetailsDTO>> GetDirectorMoviesListAsync(int id, GridifyQuery gridifyQuery)
         {
-            var queryable = await _dbContext.Movies.Where(x => x.Directors.Any(y => y.Id == id))
+            var queryable = await _dbContext.Movies.AsNoTracking()
+                                                .Where(x => x.Directors.Any(y => y.Id == id))
                                                 .GridifyQueryableAsync(gridifyQuery, null);
 
             return new Paging<MovieDetailsDTO> {Items = queryable.Query
@@ -74,6 +86,7 @@ namespace dadachMovie.Services
         public async Task<PersonDTO> AddPersonAsync(PersonCreationDTO personCreationDTO)
         {
             var person = _mapper.Map<Person>(personCreationDTO);
+            person.Categories = await ListCategories(personCreationDTO);
 
             if (personCreationDTO.Picture != null)
             {
@@ -88,11 +101,12 @@ namespace dadachMovie.Services
                                                                     personCreationDTO.Picture.ContentType);
                 }
             }
-
+            
             _dbContext.Add(person);
+
             try
             {
-                await this.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync();
                 _logger.LogInfo($"Person \"{personCreationDTO.Name}\" was added successfully.");
             }
             catch (Exception ex)
@@ -105,7 +119,10 @@ namespace dadachMovie.Services
 
         public async Task<int> UpdatePersonAsync(int id, PersonCreationDTO personCreationDTO)
         {
-            var personDb = await _dbContext.People.FirstOrDefaultAsync(p => p.Id == id);
+            var personDb = await _dbContext.People.Include(x => x.Categories)
+                                                .Include(x => x.Country)
+                                                .FirstOrDefaultAsync(p => p.Id == id);
+
             if (personDb == null)
             {
                 _logger.LogWarn($"Person with ID {id} was not found");
@@ -113,6 +130,7 @@ namespace dadachMovie.Services
             }
 
             personDb = _mapper.Map(personCreationDTO, personDb);
+            personDb.Categories = await ListCategories(personCreationDTO);
 
             if (personCreationDTO.Picture != null)
             {
@@ -163,6 +181,20 @@ namespace dadachMovie.Services
                  _logger.LogWarn($"Failed to remove person with ID {id}. Exception: {ex}");
                 return 0;
             }
+        }
+
+        private async Task<List<Category>> ListCategories(PersonCreationDTO personCreationDTO)
+        {
+            if (personCreationDTO.CategoriesId == null)
+                return null;
+
+            var result = new List<Category>();
+            var categories = await _dbContext.Categories.ToListAsync();
+            foreach (var id in personCreationDTO.CategoriesId)
+            {
+                result.Add(categories.FirstOrDefault(x => x.Id == id));
+            }
+            return result;
         }
     }
 }

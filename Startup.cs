@@ -135,6 +135,8 @@ namespace dadachMovie
                             new string[] { }
                         }
                     });
+
+                    c.SchemaFilter<SwaggerSkipPropertyFilter>();
                 });
         }
 
