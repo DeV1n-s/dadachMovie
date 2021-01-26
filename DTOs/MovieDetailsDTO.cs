@@ -4,10 +4,6 @@ namespace dadachMovie.DTOs
 {
     public class MovieDetailsDTO : MovieDTO
     {
-        public List<GenreDTO> Genres { get; set; }
-        public List<CastDTO> Casts { get; set; }
-        public List<DirectorDTO> Directors { get; set; }
-        public List<string> Countries { get; set; }
         public List<CommentDTO> Comments { get; set; }
     }
 }

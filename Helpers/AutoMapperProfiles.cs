@@ -42,6 +42,7 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.Picture, opt => opt.Ignore());
             
             CreateMap<Country, CountryDTO>();
+            CreateMap<Country, MoviesCountriesDTO>();
          
             CreateMap<Movie, MovieDTO>()
                 .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate.Date))
@@ -53,16 +54,13 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate.Date))
                 .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.MoviesRatings.Any() ? src.MoviesRatings.Average(x => x.Rate) : 0))
                 .ForMember(dest => dest.TotalUserRatesCount, opt => opt.MapFrom(src => src.MoviesRatings.Count))
-                .ForMember(dest => dest.ReleaseDatePersian, opt => opt.MapFrom(src => src.ReleaseDate.ToPeString()))
-                .ForMember(dest => dest.Directors, opt => opt.MapFrom(src => src.Directors.ToList()))
-                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Countries.Select(x => x.Name).ToList()));
+                .ForMember(dest => dest.ReleaseDatePersian, opt => opt.MapFrom(src => src.ReleaseDate.ToPeString()));
 
             CreateMap<Movie, MoviePatchDTO>().ReverseMap();
 
             CreateMap<MoviesCasts, PersonDTO>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId))
-                .ReverseMap();
-            
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PersonId));
+                            
             CreateMap<MoviesRating, UserMovieRatingDTO>();
 
             CreateMap<Movie, FavoriteMovieDTO>();

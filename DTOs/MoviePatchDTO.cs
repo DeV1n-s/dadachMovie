@@ -9,7 +9,7 @@ namespace dadachMovie.DTOs
         //public int? Id { get; set; } // Nullable Id instead of getting Id from user in a seperate parameter
         [Required, MaxLength(300)]
         public string Title { get; set; }
-        public string? ShortDescription { get; set; }
+        public string ShortDescription { get; set; }
         public string Description { get; set; }
         public DateTime ReleaseDate { get; set; }
 

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace dadachMovie.DTOs
 {
     public class MovieDTO
@@ -18,5 +20,9 @@ namespace dadachMovie.DTOs
         public string ImdbId { get; set; }
         public string Picture { get; set; }
         public string CreatedAt { get; set; }
+        public List<GenreDTO> Genres { get; set; }
+        public List<CastDTO> Casts { get; set; }
+        public List<DirectorDTO> Directors { get; set; }
+        public List<MoviesCountriesDTO> Countries { get; set; }
     }
 }
