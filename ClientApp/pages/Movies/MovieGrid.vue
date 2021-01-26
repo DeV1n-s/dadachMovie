@@ -20,34 +20,33 @@
     </div>
     <div class="movie-list-grid">
       <div class="container">
-        <div class="wrapper" v-for="movie in movieData" :key="movie.id">
+        <div
+          class="wrapper mt-3 mb-2"
+          v-for="movie in movieData"
+          :key="movie.id"
+        >
           <div class="main_card">
             <div class="card_left">
               <div class="img_container">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/en/f/ff/MI_%E2%80%93_Fallout.jpg"
-                  alt=""
-                />
+                <img :src="movie.picture" alt="" />
               </div>
             </div>
-            <div class="card_right mr-4">
+            <div class="card_right mr-1">
               <div class="card_datails mt-2">
-                <h4>
-                  نام فیلم : Mission: Impossible – Fallout
-                </h4>
+                <h4>نام فیلم : {{ movie.title }}</h4>
                 <div class="card_cat d-block">
-                  <p class="year">سال ساخت : 2018</p>
+                  <p class="year">سال ساخت : {{ movie.releaseDate }}</p>
                   <p class="genre">
                     سبک : Action | Adventure
                   </p>
                   <p class="time">
-                    زمان : 2h 28m
+                    زمان :
+                    {{ movie.lenght }}
+                    دقیقه
                   </p>
                 </div>
                 <p class="disc">
-                  فیلم قشنگی راجب ماموریتی که انجام دادنش سختهفیلم قشنگی راجب
-                  ماموریتی که انجام دادنش سختهفیلم قشنگی راجب ماموریتی که انجام
-                  دادنش سختهفیلم ته
+                  {{ movie.shortDescription }}
                 </p>
               </div>
             </div>
@@ -89,4 +88,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.card_right.mr-1 {
+  width: 350px;
+}
+</style>

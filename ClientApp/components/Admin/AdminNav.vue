@@ -18,7 +18,12 @@
               >
             </li>
             <li class="nav-item px-2">
-              <a href="posts.html" class="nav-link">فیلم ها</a>
+              <nuxt-link
+                to="/moviepanel"
+                class="nav-link "
+                active-class="active"
+                >فیلم ها</nuxt-link
+              >
             </li>
             <li class="nav-item px-2">
               <nuxt-link to="PeoplePanel" class="nav-link" active-class="active"

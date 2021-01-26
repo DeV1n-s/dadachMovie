@@ -4,9 +4,12 @@
       <div class="card text-center bg-primary text-white mb-3">
         <div class="card-body">
           <h3>فیلم ها</h3>
-          <h4 class="display-4"><i class="fa fa-film"></i> 4</h4>
-          <a href="categories.html" class="btn btn-outline-light btn-sm"
-            >مشاهده</a
+          <h4 class="display-4">
+            <i class="fa fa-film"></i>
+            {{ movieCount }}
+          </h4>
+          <nuxt-link to="/moviepanel" class="btn btn-outline-light btn-sm"
+            >مشاهده</nuxt-link
           >
         </div>
       </div>
@@ -71,11 +74,15 @@ export default {
   mounted() {
     this.token = localStorage.getItem('token');
     this.$store.dispatch('GetPeoples');
+    this.$store.dispatch('getMovie');
     this.getUsers();
   },
   computed: {
     peopleCount: function() {
       return this.$store.getters.GetPeopleCount;
+    },
+    movieCount: function() {
+      return this.$store.getters.GetMovieTotal;
     }
   }
 };
