@@ -39,7 +39,8 @@ namespace dadachMovie.Helpers
             CreateMap<CastCreationDTO, MoviesCasts>();
 
             CreateMap<MovieCreationDTO, Movie>()
-                .ForMember(dest => dest.Picture, opt => opt.Ignore());
+                .ForMember(dest => dest.Picture, opt => opt.Ignore())
+                .ForMember(dest => dest.BannerImage, opt => opt.Ignore());
             
             CreateMap<Country, CountryDTO>();
             CreateMap<Country, MoviesCountriesDTO>();
@@ -77,6 +78,7 @@ namespace dadachMovie.Helpers
 
             CreateMap<UserUpdateDTO, User>()
                 .ForMember(dest => dest.Picture, opt => opt.Ignore())
+                .ForMember(dest => dest.BannerPicture, opt => opt.Ignore())
                 .ForPath(dest => dest.Country.Id, opt => opt.MapFrom(src => src.CountryId));
             
             CreateMap<CommentCreationDTO, Comment>()

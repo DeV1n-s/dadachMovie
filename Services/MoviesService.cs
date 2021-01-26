@@ -104,6 +104,19 @@ namespace dadachMovie.Services
                 }
             }
 
+            if (movieCreationDTO.BannerImage != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await movieCreationDTO.BannerImage.CopyToAsync(memoryStream);
+                    var content = memoryStream.ToArray();
+                    var extension = Path.GetExtension(movieCreationDTO.BannerImage.FileName);
+                    movie.BannerImage = 
+                        await _fileStorageService.SaveFile(content, extension, _containerName,
+                                                            movieCreationDTO.BannerImage.ContentType);
+                }
+            }
+
             this.AnnotateCastsOrder(movie);
 
             _dbContext.Add(movie);
@@ -145,6 +158,20 @@ namespace dadachMovie.Services
                         await _fileStorageService.EditFile(content, extension, _containerName,
                                                             movieDb.Picture,
                                                             movieCreationDTO.Picture.ContentType);
+                }
+            }
+
+            if (movieCreationDTO.BannerImage != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await movieCreationDTO.BannerImage.CopyToAsync(memoryStream);
+                    var content = memoryStream.ToArray();
+                    var extension = Path.GetExtension(movieCreationDTO.BannerImage.FileName);
+                    movieDb.BannerImage = 
+                        await _fileStorageService.EditFile(content, extension, _containerName,
+                                                            movieDb.BannerImage,
+                                                            movieCreationDTO.BannerImage.ContentType);
                 }
             }
             

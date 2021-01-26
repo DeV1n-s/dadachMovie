@@ -19,6 +19,7 @@ namespace dadachMovie.DTOs
         public bool InTheaters { get; set; }
         public string ImdbId { get; set; }
         public string Picture { get; set; }
+        public string BannerImage { get; set; }
         public string CreatedAt { get; set; }
         public List<GenreDTO> Genres { get; set; }
         public List<CastDTO> Casts { get; set; }

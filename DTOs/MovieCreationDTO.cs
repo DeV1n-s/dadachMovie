@@ -8,9 +8,13 @@ namespace dadachMovie.DTOs
 {
     public class MovieCreationDTO : MoviePatchDTO
     {
-        [FileSizeValidator(maxFileSizeInMbs: 4)]
+        [FileSizeValidator(maxFileSizeInMbs: 5)]
         [ContentTypeValidator(ContentTypeGroup.Image)]
         public IFormFile Picture { get; set; }
+
+        [FileSizeValidator(maxFileSizeInMbs: 5)]
+        [ContentTypeValidator(ContentTypeGroup.Image)]
+        public IFormFile BannerImage { get; set; }
 
         [JsonIgnore]
         public List<int> GenresId { get; set; }
