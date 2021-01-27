@@ -36,8 +36,8 @@ namespace dadachMovie.Entities
 
         [ImdbIdValidator]
         public string ImdbId { get; set; }
-        public string Picture { get; set; }
-        public string BannerImage { get; set; }
+        public string Picture { get; set; }  = "http://localhost:5000/movies/default.png";
+        public string BannerImage { get; set; } = "http://localhost:5000/movies/defaultbanner.png";
         
         public virtual ICollection<MoviesCasts> Casts { get; set; }
         public virtual ICollection<Genre> Genres { get; set; }
