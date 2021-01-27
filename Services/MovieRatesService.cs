@@ -13,15 +13,12 @@ namespace dadachMovie.Services
     public class MovieRatesService : IHostedService, IDisposable
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly IMoviesService _moviesService;
         private Timer _timer;
         private ApiLib _apiLib = new ApiLib("k_l3dksm3b");
 
-        public MovieRatesService(IServiceProvider serviceProvider,
-                                IMoviesService moviesService)
+        public MovieRatesService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
-            _moviesService = moviesService;
         }
 
         public void Dispose()
@@ -45,13 +42,14 @@ namespace dadachMovie.Services
         {
             using (var scope = _serviceProvider.CreateScope())
             {
-                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                var movies = await context.Movies.ToListAsync();
+                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                var moviesService = scope.ServiceProvider.GetRequiredService<IMoviesService>();
+                var movies = await dbContext.Movies.ToListAsync();
                 foreach (var movie in movies)
                 {
-                    await _moviesService.SetMovieRatingsAsync(movie);
+                    await moviesService.SetMovieRatingsAsync(movie);
                 }
-                await context.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
             }
         }
     }
