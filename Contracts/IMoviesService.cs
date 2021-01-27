@@ -22,5 +22,7 @@ namespace dadachMovie.Contracts
         Task<int> DeleteUserCommentAsync(int id);
 
         void AnnotateCastsOrder(Movie movie);
+        Task SetMovieRatingsAsync(Movie movie);
+        Task SetMovieDirectorsGenresCastsListAsync(Movie movie, MovieCreationDTO movieCreationDTO);
     }
 }

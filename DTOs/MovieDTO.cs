@@ -10,9 +10,9 @@ namespace dadachMovie.DTOs
         public string Description { get; set; }
         public string ReleaseDate { get; set; }
         public string ReleaseDatePersian { get; set; }
-        public float ImdbRate { get; set; }
-        public int ImdbRatesCount { get; set; }
-        public int MetacriticRate { get; set; }
+        public string ImdbRate { get; set; }
+        public string ImdbRatesCount { get; set; }
+        public string MetacriticRate { get; set; }
         public double AverageUserRate { get; set; }
         public int TotalUserRatesCount { get; set; }
         public int Lenght { get; set; }

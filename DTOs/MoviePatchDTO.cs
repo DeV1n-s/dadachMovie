@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using dadachMovie.Validations;
 
 namespace dadachMovie.DTOs
@@ -13,15 +14,18 @@ namespace dadachMovie.DTOs
         public string Description { get; set; }
         public DateTime ReleaseDate { get; set; }
 
-        [Range(1, 10)]
-        public float? ImdbRate { get; set; }
-        public int? ImdbRatesCount { get; set; }
+        [JsonIgnore]
+        public string ImdbRate { get; set; }
 
-        [Range(1, 100)]
-        public int? MetacriticRate { get; set; }
+        [JsonIgnore]
+        public string ImdbRatesCount { get; set; }
+
+        [JsonIgnore]
+        public string MetacriticRate { get; set; }
         public int Lenght { get; set; }
         public bool InTheaters { get; set; }
         
+        [Required]
         [ImdbIdValidator]
         public string ImdbId { get; set; }
     }

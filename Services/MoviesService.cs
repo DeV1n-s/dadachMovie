@@ -10,6 +10,7 @@ using dadachMovie.DTOs;
 using dadachMovie.Entities;
 using Gridify;
 using Gridify.EntityFramework;
+using IMDbApiLib;
 using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Services
@@ -24,6 +25,7 @@ namespace dadachMovie.Services
         private readonly IAccountsService _accountsService;
         private readonly IPeopleService _peopleService;
         private readonly string _containerName = "movies";
+        private ApiLib _apiLib = new ApiLib("k_l3dksm3b");
 
         public MoviesService(AppDbContext dbContext,
                             IMapper mapper,
@@ -90,9 +92,6 @@ namespace dadachMovie.Services
         public async Task<MovieDTO> AddMovieAsync(MovieCreationDTO movieCreationDTO)
         {
             var movie = _mapper.Map<Movie>(movieCreationDTO);
-            movie.Genres = await ListGenres(movieCreationDTO);
-            movie.Directors = await ListDirectors(movieCreationDTO);
-            movie.Countries = await ListCountries(movieCreationDTO);
 
             if (movieCreationDTO.Picture != null)
             {
@@ -122,6 +121,8 @@ namespace dadachMovie.Services
 
             this.AnnotateCastsOrder(movie);
             await AddCategoryToPerson(movie);
+            await SetMovieRatingsAsync(movie);
+            await SetMovieDirectorsGenresCastsListAsync(movie, movieCreationDTO);
 
             _dbContext.Add(movie);
             try
@@ -147,10 +148,7 @@ namespace dadachMovie.Services
             }
 
             movieDb = _mapper.Map(movieCreationDTO, movieDb);
-            movieDb.Genres = await ListGenres(movieCreationDTO);
-            movieDb.Directors = await ListDirectors(movieCreationDTO);
-            movieDb.Countries = await ListCountries(movieCreationDTO);
-
+            
             if (movieCreationDTO.Picture != null)
             {
                 using (var memoryStream = new MemoryStream())
@@ -188,6 +186,8 @@ namespace dadachMovie.Services
             
             this.AnnotateCastsOrder(movieDb);
             await AddCategoryToPerson(movieDb);
+            await SetMovieRatingsAsync(movieDb);
+            await SetMovieDirectorsGenresCastsListAsync(movieDb, movieCreationDTO);
 
             try
             {
@@ -322,6 +322,40 @@ namespace dadachMovie.Services
                     await _peopleService.AddCategoryToPersonAsync(cast, 1);
                 }
             }
+        }
+
+        public async Task SetMovieRatingsAsync(Movie movie)
+        {
+            try
+            {
+                var imdbRates = await _apiLib.UserRatingAsync(movie.ImdbId);
+                movie.ImdbRate = imdbRates.TotalRating;
+                movie.ImdbRatesCount = imdbRates.TotalRatingVotes;
+                _logger.LogInfo($"Successfully saved UserRating for movie {movie.Id} with ImdbId \"{movie.ImdbId}\"");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarn($"Failed to get UserRating for movie {movie.Id} with ImdbId \"{movie.ImdbId}\". Exception: {ex}");
+            }
+            
+            try
+            {
+                var otherRates = await _apiLib.RatingsAsync(movie.ImdbId);
+                movie.MetacriticRate = otherRates.Metacritic;
+                _logger.LogInfo($"Successfully saved Ratings for movie {movie.Id} with ImdbId \"{movie.ImdbId}\"");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarn($"Failed to get Ratings for movie {movie.Id} with ImdbId \"{movie.ImdbId}\". Exception: {ex}");
+            }
+            
+        }
+
+        public async Task SetMovieDirectorsGenresCastsListAsync(Movie movie, MovieCreationDTO movieCreationDTO)
+        {
+            movie.Genres = await ListGenres(movieCreationDTO);
+            movie.Directors = await ListDirectors(movieCreationDTO);
+            movie.Countries = await ListCountries(movieCreationDTO);
         }
     }
 }

@@ -28,13 +28,13 @@ namespace dadachMovie.Entities
 
         [Column(TypeName = "date")]
         public DateTime ReleaseDate { get; set; }
-        public float? ImdbRate { get; set; }
-        public int? ImdbRatesCount { get; set; }
-        public int? MetacriticRate { get; set; }
+        public string ImdbRate { get; set; }
+        public string ImdbRatesCount { get; set; }
+        public string MetacriticRate { get; set; }
         public int? Lenght { get; set; }
         public bool InTheaters { get; set; } = false;
 
-        [ImdbIdValidator]
+        [Required, ImdbIdValidator]
         public string ImdbId { get; set; }
         public string Picture { get; set; }  = "http://localhost:5000/movies/default.png";
         public string BannerImage { get; set; } = "http://localhost:5000/movies/defaultbanner.png";
@@ -43,7 +43,7 @@ namespace dadachMovie.Entities
         public virtual ICollection<Genre> Genres { get; set; }
         public virtual ICollection<Person> Directors { get; set; }
         public virtual ICollection<Country> Countries { get; set; }
-        public virtual ICollection<MoviesRating> MoviesRatings { get; set; } = new List<MoviesRating>();
+        public virtual ICollection<MoviesRating> MoviesRatings { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }
