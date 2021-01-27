@@ -22,6 +22,7 @@ namespace dadachMovie.Services
         private readonly ILoggerService _logger;
         private readonly ICommentService _commentService;
         private readonly IAccountsService _accountsService;
+        private readonly IPeopleService _peopleService;
         private readonly string _containerName = "movies";
 
         public MoviesService(AppDbContext dbContext,
@@ -29,7 +30,8 @@ namespace dadachMovie.Services
                             IFileStorageService fileStorageService,
                             ILoggerService logger,
                             ICommentService commentService,
-                            IAccountsService accountsService)
+                            IAccountsService accountsService,
+                            IPeopleService peopleService)
             : base(dbContext)
         {
             _dbContext = dbContext;
@@ -38,6 +40,7 @@ namespace dadachMovie.Services
             _logger = logger;
             _commentService = commentService;
             _accountsService = accountsService;
+            _peopleService = peopleService;
         }
         public async Task<Paging<MovieDTO>> GetMoviesDetailsPagingAsync(GridifyQuery gridifyQuery)
         {
@@ -118,6 +121,7 @@ namespace dadachMovie.Services
             }
 
             this.AnnotateCastsOrder(movie);
+            await AddCategoryToPerson(movie);
 
             _dbContext.Add(movie);
             try
@@ -175,13 +179,16 @@ namespace dadachMovie.Services
                 }
             }
             
-            // await _dbContext.Database.ExecuteSqlInterpolatedAsync($@"
-            //                         DELETE FROM MoviesCasts WHERE MovieId = {movieDb.Id};
-            //                         DELETE FROM MoviesRating WHERE MovieId = {movieDb.Id};
-            //                         DELETE FROM Comments WHERE MovieId = {movieDb.Id};
-            //                         ");
+            await _dbContext.Database.ExecuteSqlInterpolatedAsync($@"
+                                    DELETE FROM MoviesCasts WHERE MovieId = {movieDb.Id};
+                                    DELETE FROM MoviePerson WHERE MovieId = {movieDb.Id};
+                                    DELETE FROM CountryMovie WHERE MovieId = {movieDb.Id};
+                                    DELETE FROM GenreMovie WHERE MovieId = {movieDb.Id};
+                                    ");
             
             this.AnnotateCastsOrder(movieDb);
+            await AddCategoryToPerson(movieDb);
+
             try
             {
                 await this.SaveChangesAsync();
@@ -294,6 +301,27 @@ namespace dadachMovie.Services
                 result.Add(await _dbContext.Countries.FirstOrDefaultAsync(x => x.Id == id));
             }
             return result;
+        }
+
+        private async Task AddCategoryToPerson(Movie movie)
+        {
+            foreach (var director in movie.Directors)
+            {
+                var directorDb = await _dbContext.People.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == director.Id);
+                if (!directorDb.Categories.Any(x => x.Id == 2))
+                {
+                    await _peopleService.AddCategoryToPersonAsync(directorDb, 2);
+                }
+            }
+
+            foreach (var castId in movie.Casts.Select(x => x.PersonId))
+            {
+                var cast = await _dbContext.People.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == castId);
+                if (!cast.Categories.Any(x => x.Id == 1))
+                {
+                    await _peopleService.AddCategoryToPersonAsync(cast, 1);
+                }
+            }
         }
     }
 }

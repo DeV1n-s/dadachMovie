@@ -183,6 +183,30 @@ namespace dadachMovie.Services
             }
         }
 
+        public async Task<int> AddCategoryToPersonAsync(Person person, int categoryId)
+        {
+            var category = await _dbContext.Categories.FirstOrDefaultAsync(x => x.Id == categoryId);
+            if (category == null)
+            {
+                _logger.LogWarn($"AddCategoryToPersonAsync: Category with ID {categoryId} was not found.");
+                return -2;
+            }
+
+            person.Categories.Add(category);
+
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                _logger.LogInfo($"Added category with ID {categoryId} to person with ID {person.Id}.");
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarn($"Failed to add category with ID {categoryId} to person with ID {person.Id}. Exception: {ex}");
+                return -1;
+            }
+        }
+
         private async Task<List<Category>> ListCategories(PersonCreationDTO personCreationDTO)
         {
             if (personCreationDTO.CategoriesId == null)

@@ -16,5 +16,6 @@ namespace dadachMovie.Contracts
         Task<PersonDTO> AddPersonAsync(PersonCreationDTO personCreationDTO);
         Task<int> UpdatePersonAsync(int id, PersonCreationDTO personCreationDTO);
         Task<int> DeletePersonAsync(int id);
+        Task<int> AddCategoryToPersonAsync(Person person, int categoryId);
     }
 }
