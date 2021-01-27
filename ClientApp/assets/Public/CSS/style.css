@@ -6,7 +6,7 @@
     }
     
     body {
-        font-family: 'IranSans ' !important;
+        font-family: 'IranSans' !important;
         font-size: 12px !important;
         text-align: right !important;
         background-color: #111 !important;
@@ -2809,7 +2809,7 @@
     }
     
     .nationality .text.default {
-        margin-left: 0.75rem;
+        margin-left: 2.8rem;
         margin-top: 0.5rem;
         color: #000;
     }
