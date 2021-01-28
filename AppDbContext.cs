@@ -38,6 +38,7 @@ namespace dadachMovie
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<UserActivity> UserActivities { get; set; }
 
         public override int SaveChanges()
         {

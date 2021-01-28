@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using dadachMovie.Contracts;
 using dadachMovie.DTOs;
+using dadachMovie.Helpers;
 using dadachMovie.Validations;
 using Gridify;
 using Microsoft.AspNetCore.Authorization;
@@ -43,6 +44,7 @@ namespace dadachMovie.Controllers
             await _moviesService.GetInTheatersAsync(gridifyQuery);
 
         [HttpGet("{id:int}", Name = "getMovie")]
+        [ServiceFilter(typeof(UserActivityFilter))]
         public async Task<ActionResult<MovieDetailsDTO>> GetById(int id)
         {
             var movie = await _moviesService.GetMovieByIdAsync(id);

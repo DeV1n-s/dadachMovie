@@ -83,6 +83,8 @@ namespace dadachMovie
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IRequestsService, RequestsService>();
 
+            services.AddScoped<UserActivityFilter>();
+
             services.AddIdentity<User, Role>(opt =>
                 {
                     opt.User.RequireUniqueEmail = true;
