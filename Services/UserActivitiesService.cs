@@ -7,6 +7,7 @@ using dadachMovie.DTOs;
 using dadachMovie.Entities;
 using Gridify;
 using Gridify.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Services
 {
@@ -26,10 +27,10 @@ namespace dadachMovie.Services
             QueryablePaging<UserActivity> queryable;
             if (string.IsNullOrWhiteSpace(userEmail))
             {
-                queryable = await _dbContext.UserActivities.Where(x => x.IpAddress == ipAddress && x.UserName == null)
+                queryable = await _dbContext.UserActivities.AsNoTracking().Where(x => x.IpAddress == ipAddress && x.UserName == null)
                                                         .GridifyQueryableAsync(gridifyQuery,null);
             } else {
-                queryable = await _dbContext.UserActivities.Where(x => x.UserName == userEmail)
+                queryable = await _dbContext.UserActivities.AsNoTracking().Where(x => x.UserName == userEmail)
                                                         .GridifyQueryableAsync(gridifyQuery,null);
             }
             
