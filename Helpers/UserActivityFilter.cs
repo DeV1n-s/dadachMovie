@@ -1,17 +1,20 @@
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using dadachMovie.Entities;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace dadachMovie.Helpers
 {
     public class UserActivityFilter : IActionFilter
     {
-        private readonly AppDbContext context;
+        private readonly AppDbContext _dbContext;
 
-        public UserActivityFilter(AppDbContext context)
+        public UserActivityFilter(AppDbContext dbContext)
         {
-            this.context = context;
+            _dbContext = dbContext;
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
@@ -20,46 +23,65 @@ namespace dadachMovie.Helpers
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            string data = "";
+            var userActivity = new UserActivity();
+            userActivity.Data = "";
 
             var routeData = context.RouteData;
             var controller = routeData.Values["controller"];
             var action = routeData.Values["action"];
 
-            var url = $"{controller}/{action}";
+            userActivity.Url = $"{controller}/{action}";
 
             if (!string.IsNullOrEmpty(context.HttpContext.Request.QueryString.Value))
             {
-                data = context.HttpContext.Request.QueryString.Value;
+                userActivity.Data = context.HttpContext.Request.QueryString.Value;
             }
             else
             {
                 var arguments = context.ActionArguments;
-                
                 var value = arguments.FirstOrDefault().Value;
-
                 var convertedValue = JsonConvert.SerializeObject(value);
-                data = convertedValue;
+                userActivity.Data = convertedValue;
             }
 
-            var user=context.HttpContext.User.Identity.Name;
+            userActivity.UserName = context.HttpContext.User.Identity.Name;
+            userActivity.IpAddress = context.HttpContext.Connection.RemoteIpAddress.ToString();
 
-            var ipAddress = context.HttpContext.Connection.RemoteIpAddress.ToString();
-
-            SaveUserActivity(data,url,user,ipAddress);
+            var activities = UserActivities(userActivity.UserName);
+            UserActivity exists;
+            
+            if (userActivity.UserName != null)
+            {
+                exists = activities.FirstOrDefault(x => x.Data == userActivity.Data && 
+                                                x.Url == userActivity.Url);
+            } else {
+                exists = activities.FirstOrDefault(x => x.Data == userActivity.Data && 
+                                                x.IpAddress == userActivity.IpAddress && 
+                                                x.Url == userActivity.Url);
+            }
+            
+            if (exists != null)
+            {
+                RemoveUserActivity(exists);
+            }
+            SaveUserActivity(userActivity);
         }
 
-        public void SaveUserActivity(string data, string url, string user, string ipAddress)
+        public void SaveUserActivity(UserActivity userActivity)
         {
-            var userActivity = new UserActivity{
-                Data = data,
-                Url = url,
-                UserName = user,
-                IpAddress = ipAddress
-            };
+            _dbContext.UserActivities.Add(userActivity);
+            _dbContext.SaveChanges();
+        }
 
-            context.UserActivities.Add(userActivity);
-            context.SaveChanges();
+        public void RemoveUserActivity(UserActivity userActivity)
+        {
+            _dbContext.UserActivities.Remove(userActivity);
+            _dbContext.SaveChanges();
+        }
+
+        public List<UserActivity> UserActivities(string userEmail)
+        {
+            return _dbContext.UserActivities.Where(x => x.UserName == userEmail).ToList();
         }
     }
 }

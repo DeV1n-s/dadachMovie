@@ -14,10 +14,13 @@ namespace dadachMovie.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IAccountsService _accountsService;
+        private readonly IUserActivitiesService _userActivitiesService;
 
-        public AccountsController(IAccountsService accountsService)
+        public AccountsController(IAccountsService accountsService,
+                                IUserActivitiesService userActivitiesService)
         {
             _accountsService = accountsService;
+            _userActivitiesService = userActivitiesService;
         }
         
         [HttpPost("Register")]
@@ -148,6 +151,16 @@ namespace dadachMovie.Controllers
                 return NoContent();
             }
             
+        }
+
+        [HttpGet("CurrentUserActivities")]
+        [ValidateModelAttribute]
+        public async Task<ActionResult<Paging<UserActivityDTO>>> GetCurrentUserActivities([FromQuery] GridifyQuery gridifyQuery)
+        {
+            var userEmail = _accountsService.GetCurrentUserEmail();
+            var ipAddress = _accountsService.GetCurrentUserIpAddress();
+            gridifyQuery.SortBy = "ActivityDate";
+            return await _userActivitiesService.GetUserActivitiesPagingAsync(userEmail, ipAddress, gridifyQuery);
         }
     }
 }

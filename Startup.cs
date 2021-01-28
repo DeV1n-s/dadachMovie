@@ -71,6 +71,8 @@ namespace dadachMovie
             services.AddTransient<IFileStorageService, InAppStorageService>();
             services.AddTransient<IHostedService, MovieInTheaterService>();
             services.AddTransient<IHostedService, MovieRatesService>();
+        
+            services.AddScoped<UserActivityFilter>();
             
             services.AddScoped<IGenresService, GenresService>();
             services.AddScoped<ICountriesService, CountriesService>();
@@ -82,8 +84,8 @@ namespace dadachMovie
             services.AddScoped<IUserFavoriteMoviesService, UserFavoriteMoviesService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IRequestsService, RequestsService>();
+            services.AddScoped<IUserActivitiesService, UserActivitiesService>();
 
-            services.AddScoped<UserActivityFilter>();
 
             services.AddIdentity<User, Role>(opt =>
                 {

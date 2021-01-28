@@ -92,6 +92,8 @@ namespace dadachMovie.Helpers
             CreateMap<Request, RequestDTO>()
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId.ToString()))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+            
+            CreateMap<UserActivity, UserActivityDTO>();
         }
     }
 }

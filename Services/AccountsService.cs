@@ -334,5 +334,8 @@ namespace dadachMovie.Services
 
             return await _userFavoriteMoviesService.SaveUserFavoriteMoviesAsync(userFavoriteMoviesDTO);
         }
+
+        public string GetCurrentUserIpAddress() =>
+            _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
     }
 }

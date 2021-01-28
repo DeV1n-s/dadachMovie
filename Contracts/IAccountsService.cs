@@ -23,5 +23,6 @@ namespace dadachMovie.Contracts
         Task<UserToken> BuildToken(string emailAddress);
         Task<int> SaveUserRatingAsync(MovieRatingDTO movieRatingDTO);
         Task<int> SaveUserFavoriteMoviesAsync(UserFavoriteMoviesDTO userFavoriteMoviesDTO);
+        string GetCurrentUserIpAddress();
     }
 }
