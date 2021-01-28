@@ -117,6 +117,7 @@ namespace dadachMovie
             services.AddResponseCaching();
             services.AddSwaggerGen( c => 
                 {
+                    c.OperationFilter<IgnorePropertyFilter>();
                     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                     {
                         Type = SecuritySchemeType.Http,
@@ -140,8 +141,6 @@ namespace dadachMovie
                             new string[] { }
                         }
                     });
-
-                    c.OperationFilter<IgnorePropertyFilter>();
                 });
         }
 
