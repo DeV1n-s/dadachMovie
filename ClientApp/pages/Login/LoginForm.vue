@@ -108,7 +108,7 @@ export default {
       }
     },
     changeRoute() {
-      setTimeout(this.$router.push('/'), 3000);
+      setTimeout(this.$router.push('/home'), 3000);
     },
     async subData() {
       (this.canLog = true), (this.isFormValid = true);
