@@ -120,15 +120,15 @@ namespace dadachMovie.Services
             }
 
             this.AnnotateCastsOrder(movie);
-            await AddCategoryToPerson(movie);
-            await SetMovieRatingsAsync(movie);
             await SetMovieDirectorsGenresCastsListAsync(movie, movieCreationDTO);
+            await AddCategoryToPerson(movie);
 
             _dbContext.Add(movie);
             try
             {
                 await this.SaveChangesAsync();
                 _logger.LogInfo($"Movie with ID {movie.Id} was added successfully.");
+                await SetMovieRatingsAsync(movie);
             }
             catch (Exception ex)
             {
