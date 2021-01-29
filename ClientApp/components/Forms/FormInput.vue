@@ -3,11 +3,13 @@
     <p>
       <validation-provider rules="required" v-slot="{ errors }">
         <input
-          type="text"
+          :type="type"
           :id="id"
           :placeholder="label"
           :value="value"
           :required="required"
+          :max="max"
+          :min="min"
           v-on:input="updateValue($event.target.value)"
           class="form__field"
         />
@@ -52,6 +54,13 @@ export default {
     value: {
       type: String
     },
+    max: {
+      type: Number
+    },
+    min: {
+      type: Number
+    },
+    type: { type: String, default: 'text' },
     required: {
       type: Boolean,
       default: false

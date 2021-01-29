@@ -128,7 +128,7 @@
         @dismissed="dismissCountDown = 0"
         @dismiss-count-down="countDownChanged"
       >
-        <p>ژانر با موفقیت اضافه شد</p>
+        <p>بازیگر با موفقیت اضافه شد</p>
         <p>{{ dismissCountDown }}</p>
         <b-progress :max="dismissSecs" height="4px"></b-progress>
       </b-alert>
@@ -209,15 +209,11 @@ export default {
     },
     async SubmitData(form) {
       await axios
-        .post(
-          '/api/people',
-          {
-            headers: {
-              Authorization: ` Bearer ${this.token}`
-            }
-          },
-          form
-        )
+        .post('/api/people', form, {
+          headers: {
+            Authorization: ` Bearer ${this.token}`
+          }
+        })
         .then(res => {
           console.log(res.data);
           this.$router.push('/CastPanel');

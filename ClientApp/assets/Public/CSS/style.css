@@ -2814,6 +2814,12 @@
         color: #000;
     }
     
+    .cast .text.default {
+        margin-left: 1.8rem;
+        margin-top: 0.19rem;
+        color: #000;
+    }
+    
     .custom-file-label {
         padding-right: 5rem !important;
         margin-top: 0.5rem;

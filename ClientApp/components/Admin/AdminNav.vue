@@ -72,18 +72,18 @@
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <a href="/addPeople" class="btn btn-primary btn-block">
-              <i class="fa fa-plus"></i> اضافه کردن فیلم
-            </a>
+            <nuxt-link to="/addmovie" class="btn btn-primary btn-block">
+              <i class="fa fa-plus"></i> افزودن فیلم
+            </nuxt-link>
           </div>
           <div class="col-md-3">
             <nuxt-link to="/addpeople" class="btn btn-success btn-block">
-              <i class="fa fa-plus"></i> اضافه کردن هنرمند
+              <i class="fa fa-plus"></i> افزودن هنرمند
             </nuxt-link>
           </div>
           <div class="col-md-3">
             <a href="#" class="btn btn-warning btn-block">
-              <i class="fa fa-plus"></i> اضافه کردن اخبار
+              <i class="fa fa-plus"></i> افزودن اخبار
             </a>
           </div>
           <div class="col-md-3">
@@ -93,7 +93,7 @@
               data-toggle="modal"
               data-target="#addCategoryModal"
             >
-              <i class="fa fa-plus"></i> اضافه کردن ژانر
+              <i class="fa fa-plus"></i> افزودن ژانر
             </a>
           </div>
         </div>

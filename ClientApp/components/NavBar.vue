@@ -79,9 +79,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <nuxt-link class="nav-link" to="/userprofile">
                 <i class="fa fa-user"></i> پروفایل کاربری
-              </a>
+              </nuxt-link>
             </li>
             <li class="nav-item" v-if="isLogin">
               <nuxt-link class="nav-link" to="/admin" active-class="active">

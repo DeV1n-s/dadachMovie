@@ -70,10 +70,7 @@ export default {
           label: 'زمان',
           field: 'lenght'
         },
-        {
-          label: 'روی پرده سینما',
-          field: 'inTheaters'
-        },
+
         {
           label: 'تاریخ انتشار',
           field: 'releaseDate'
