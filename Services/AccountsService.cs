@@ -64,7 +64,7 @@ namespace dadachMovie.Services
 
         public async Task<Paging<UserDTO>> GetUsersPagingAsync(GridifyQuery gridifyQuery)
         {
-            var queryable = await _userManager.Users.GridifyQueryableAsync(gridifyQuery,null);
+            var queryable = await _userManager.Users.AsNoTracking().GridifyQueryableAsync(gridifyQuery,null);
 
             return new Paging<UserDTO> {Items = queryable.Query.ProjectTo<UserDTO>(_mapper.ConfigurationProvider).ToList(),
                                         TotalItems = queryable.TotalItems};
@@ -105,7 +105,7 @@ namespace dadachMovie.Services
             
 
         public async Task<List<string>> GetRolesListAsync() =>
-            await _dbContext.Roles.Select(x => x.Name).ToListAsync();
+            await _dbContext.Roles.AsNoTracking().Select(x => x.Name).ToListAsync();
 
         public async Task<int> AssignUserRoleAsync(EditRoleDTO editRoleDTO)
         {

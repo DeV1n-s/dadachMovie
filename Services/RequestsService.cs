@@ -79,7 +79,7 @@ namespace dadachMovie.Services
 
         public async Task<Paging<RequestDTO>> GetAllRequestsPagingAsync(GridifyQuery gridifyQuery)
         {
-            var queryable = await _dbContext.Requests.GridifyQueryableAsync(gridifyQuery,null);
+            var queryable = await _dbContext.Requests.AsNoTracking().GridifyQueryableAsync(gridifyQuery,null);
 
             return new Paging<RequestDTO> {Items = queryable.Query.ProjectTo<RequestDTO>(_mapper.ConfigurationProvider).ToList(),
                                         TotalItems = queryable.TotalItems};

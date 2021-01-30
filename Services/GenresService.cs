@@ -28,18 +28,18 @@ namespace dadachMovie.Services
             _logger = logger;
         }
 
-        public async Task<Paging<GenreDTO>> GetGenresPagingAsync(GridifyQuery gridifyQuery)
+        public async Task<Paging<GenreDetailsDTO>> GetGenresDetailsPagingAsync(GridifyQuery gridifyQuery)
         {
-            var queryable = await _dbContext.Genres.GridifyQueryableAsync(gridifyQuery,null);
-            return new Paging<GenreDTO> {Items = queryable.Query.ProjectTo<GenreDTO>(_mapper.ConfigurationProvider).ToList(),
-                                        TotalItems = queryable.TotalItems};
+            var queryable = await _dbContext.Genres.AsNoTracking().GridifyQueryableAsync(gridifyQuery,null);
+            return new Paging<GenreDetailsDTO> {Items = queryable.Query.ProjectTo<GenreDetailsDTO>(_mapper.ConfigurationProvider).ToList(),
+                                                TotalItems = queryable.TotalItems};
         }
 
-        public async Task<GenreDTO> GetGenreByIdAsync(int id)
-        {
-            var genre = await _dbContext.Genres.AsNoTracking().FirstOrDefaultAsync(g => g.Id == id);
-            return _mapper.Map<GenreDTO>(genre);
-        }
+        public async Task<GenreDetailsDTO> GetGenreDetailsByIdAsync(int id) =>
+            await _dbContext.Genres.AsNoTracking()
+                                .ProjectTo<GenreDetailsDTO>(_mapper.ConfigurationProvider)
+                                .FirstOrDefaultAsync(g => g.Id == id);
+
         public async Task<GenreDTO> AddGenreAsync(GenreCreationDTO genreCreationDTO)
         {
             var genre = _mapper.Map<Genre>(genreCreationDTO);
@@ -84,7 +84,7 @@ namespace dadachMovie.Services
 
         public async Task<int> DeleteGenreAsync(int id)
         {
-            var exists = await GetGenreByIdAsync(id);
+            var exists = await _dbContext.Genres.FirstOrDefaultAsync(x => x.Id == id);
             if (exists == null)
             {
                 _logger.LogWarn($"Genre with ID {id} was not found");

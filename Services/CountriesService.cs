@@ -34,7 +34,7 @@ namespace dadachMovie.Services
 
         public async Task<Paging<CountryDTO>> GetCountriesListAsync(GridifyQuery gridifyQuery)
         {
-            var queryable = await _dbContext.Countries.GridifyQueryableAsync(gridifyQuery,null);
+            var queryable = await _dbContext.Countries.AsNoTracking().GridifyQueryableAsync(gridifyQuery,null);
             return new Paging<CountryDTO> {Items = queryable.Query.ProjectTo<CountryDTO>(_mapper.ConfigurationProvider).ToList(),
                                         TotalItems = queryable.TotalItems};
         }

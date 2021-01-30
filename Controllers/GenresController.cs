@@ -27,9 +27,9 @@ namespace dadachMovie.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Paging<GenreDTO>>> Get([FromQuery] GridifyQuery gridifyQuery)
+        public async Task<ActionResult<Paging<GenreDetailsDTO>>> Get([FromQuery] GridifyQuery gridifyQuery)
         {
-            var genres = await _genresService.GetGenresPagingAsync(gridifyQuery);
+            var genres = await _genresService.GetGenresDetailsPagingAsync(gridifyQuery);
             if( genres == null)
                 return UnprocessableEntity("Failed to get Genres from service.");
 
@@ -37,9 +37,9 @@ namespace dadachMovie.Controllers
         }
 
         [HttpGet("{id}", Name = "getGenre")]
-        public async Task<ActionResult<GenreDTO>> GetById(int id)
+        public async Task<ActionResult<GenreDetailsDTO>> GetById(int id)
         {
-            var genreDTO = await _genresService.GetGenreByIdAsync(id);
+            var genreDTO = await _genresService.GetGenreDetailsByIdAsync(id);
             if (genreDTO == null)
                 return NotFound();
 
