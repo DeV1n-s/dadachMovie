@@ -44,18 +44,38 @@ namespace dadachMovie.Services
             _accountsService = accountsService;
             _peopleService = peopleService;
         }
-        public async Task<Paging<MovieDTO>> GetMoviesDetailsPagingAsync(GridifyQuery gridifyQuery)
+        public async Task<Paging<MovieDTO>> GetMoviesPagingAsync(int? genreId, GridifyQuery gridifyQuery)
         {
-            var queryable = await _dbContext.Movies.AsNoTracking()
-                                                .GridifyQueryableAsync(gridifyQuery,null);
+            var movies = _dbContext.Movies.AsNoTracking()
+                                        .Include(x => x.Genres);
+            
+            var queryable = await movies.GridifyQueryableAsync(gridifyQuery, null);
+
+            if (genreId != null)
+            {
+                queryable = await movies.Where(x => x.Genres.Any(x => x.Id == genreId))
+                                        .GridifyQueryableAsync(gridifyQuery, null);
+            }
+
             return new Paging<MovieDTO> {Items = queryable.Query.ProjectTo<MovieDTO>(_mapper.ConfigurationProvider).ToList(),
-                                                TotalItems = queryable.TotalItems};
+                                        TotalItems = queryable.TotalItems};
         }
 
         public async Task<MovieDetailsDTO> GetMovieByIdAsync(int id) =>
             await _dbContext.Movies.AsNoTracking()
                                 .ProjectTo<MovieDetailsDTO>(_mapper.ConfigurationProvider)
                                 .FirstOrDefaultAsync(m => m.Id == id);
+        
+        public async Task<Paging<MovieDTO>> GetMoviesByGenreIdPagingAsync(int id, GridifyQuery gridifyQuery)
+        {
+            var queryable = await _dbContext.Movies.AsNoTracking()
+                                                .Include(x => x.Genres)
+                                                .Where(x => x.Genres.Any(x => x.Id == id))
+                                                .GridifyQueryableAsync(gridifyQuery,null);
+
+            return new Paging<MovieDTO> {Items = queryable.Query.ProjectTo<MovieDTO>(_mapper.ConfigurationProvider).ToList(),
+                                        TotalItems = queryable.TotalItems};
+        }
             
         public async Task<Paging<MovieDTO>> GetUpcomingReleasesAsync(GridifyQuery gridifyQuery)
         {

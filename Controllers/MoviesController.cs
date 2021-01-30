@@ -32,8 +32,8 @@ namespace dadachMovie.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Paging<MovieDTO>>> Get([FromQuery] GridifyQuery gridifyQuery) =>
-            await _moviesService.GetMoviesDetailsPagingAsync(gridifyQuery);
+        public async Task<ActionResult<Paging<MovieDTO>>> Get(int? genreId, [FromQuery] GridifyQuery gridifyQuery) =>
+            await _moviesService.GetMoviesPagingAsync(genreId, gridifyQuery);
 
         [HttpGet("UpcomingReleases")]
         public async Task<ActionResult<Paging<MovieDTO>>> GetUpcomingReleases([FromQuery] GridifyQuery gridifyQuery) =>
