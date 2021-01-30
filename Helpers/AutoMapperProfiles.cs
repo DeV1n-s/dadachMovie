@@ -11,7 +11,8 @@ namespace dadachMovie.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Genre, GenreDTO>().ReverseMap();
+            CreateMap<Genre, GenreDTO>()
+                .ForMember(dest => dest.MoviesCount, opt => opt.MapFrom(src => src.Movies.Count));
 
             CreateMap<GenreCreationDTO, Genre>();
 
