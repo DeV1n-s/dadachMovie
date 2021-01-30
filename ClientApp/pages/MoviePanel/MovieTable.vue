@@ -24,7 +24,7 @@
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field == 'actions'">
               <nuxt-link
-                :to="{ name: 'PeopleEdit-id', params: { id: props.row.id } }"
+                :to="{ name: 'MovieEdit-id', params: { id: props.row.id } }"
               >
                 <button class="btn  btn-warning" @click="editBtn(props.row.id)">
                   ویرایش
