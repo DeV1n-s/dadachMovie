@@ -64,11 +64,15 @@
               tag-placeholder="Add this as new tag"
               placeholder="جست و جو در بین بازیگران"
               label="name"
-              track-by="code"
+              track-by="name"
               :options="PeaopleOption"
               :multiple="true"
               :taggable="true"
               @tag="addTag"
+              :close-on-select="false"
+              :clear-on-select="false"
+              :preserve-search="true"
+              :preselect-first="true"
             ></multiselect>
           </div>
         </div>
@@ -96,11 +100,15 @@
               tag-placeholder="Add this as new tag"
               placeholder="جست و جو در بین کشور های سازنده"
               label="text"
-              track-by="code"
+              track-by="name"
               :options="options"
               :multiple="true"
               :taggable="true"
               @tag="addTag"
+              :close-on-select="false"
+              :clear-on-select="false"
+              :preserve-search="true"
+              :preselect-first="true"
             ></multiselect>
           </div>
         </div>
@@ -112,11 +120,15 @@
               tag-placeholder="Add this as new tag"
               placeholder="جست و جو در ژانر ها"
               label="name"
-              track-by="code"
+              track-by="name"
               :options="GenreOption"
               :multiple="true"
               :taggable="true"
               @tag="addTag"
+              :close-on-select="false"
+              :clear-on-select="false"
+              :preserve-search="true"
+              :preselect-first="true"
             ></multiselect>
           </div>
         </div>
