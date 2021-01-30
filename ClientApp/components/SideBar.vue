@@ -111,33 +111,47 @@
       <hr />
       <div class="genre-list">
         <h5 class="mb-3">ژانر ها</h5>
-        <div class="row mr-2">
-          <P>اکشن </P>
-          <span class="mr-auto ">24</span>
-        </div>
-        <div class="row mr-2">
-          <P>اکشن </P>
-          <span class="mr-auto ">24</span>
-        </div>
-        <div class="row mr-2">
-          <P>اکشن </P>
-          <span class="mr-auto ">24</span>
-        </div>
-        <div class="row mr-2">
-          <P>اکشن </P>
-          <span class="mr-auto ">24</span>
+        <div class="row">
+          <div class="col-md-5 mr-3" v-for="genre in Genres" :key="genre.id">
+            <div class="d-flex">
+              <span class="mr-auto ">{{ genre.moviesCount }}</span>
+              <nuxt-link
+                class="genre-name-list"
+                :to="{ name: 'MovieGenre-id', params: { id: genre.id } }"
+              >
+                <P>{{ genre.name }}</P>
+              </nuxt-link>
+            </div>
+          </div>
         </div>
       </div>
+      <hr />
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    this.$store.dispatch('GetGenres');
+  },
+  computed: {
+    Genres: function() {
+      return this.$store.getters.GetGenres;
+    }
+  }
+};
 </script>
 
 <style scoped>
 .side-item {
   margin-right: 0rem !important;
+}
+.genre-name-list p {
+  margin-bottom: 5px !important;
+  font-size: 13px !important;
+}
+.genre-name-list p:hover {
+  color: #17a2b8 !important;
 }
 </style>
