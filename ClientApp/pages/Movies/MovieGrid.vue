@@ -25,32 +25,37 @@
           v-for="movie in movieData"
           :key="movie.id"
         >
-          <div class="main_card">
-            <div class="card_left">
-              <div class="img_container">
-                <img :src="movie.picture" alt="" />
+          <nuxt-link
+            class="genre-name-list"
+            :to="{ name: 'MovieSingle-id', params: { id: movie.id } }"
+          >
+            <div class="main_card">
+              <div class="card_left">
+                <div class="img_container">
+                  <img :src="movie.picture" alt="" />
+                </div>
               </div>
-            </div>
-            <div class="card_right mr-1">
-              <div class="card_datails mt-2">
-                <h4>نام فیلم : {{ movie.title }}</h4>
-                <div class="card_cat d-block">
-                  <p class="year">سال ساخت : {{ movie.releaseDate }}</p>
-                  <p class="genre">
-                    سبک : Action | Adventure
-                  </p>
-                  <p class="time">
-                    زمان :
-                    {{ movie.lenght }}
-                    دقیقه
+              <div class="card_right mr-1">
+                <div class="card_datails mt-2">
+                  <h4>نام فیلم : {{ movie.title }}</h4>
+                  <div class="card_cat d-block">
+                    <p class="year">سال ساخت : {{ movie.releaseDate }}</p>
+                    <p class="genre">
+                      سبک : Action | Adventure
+                    </p>
+                    <p class="time">
+                      زمان :
+                      {{ movie.lenght }}
+                      دقیقه
+                    </p>
+                  </div>
+                  <p class="disc">
+                    {{ movie.shortDescription }}
                   </p>
                 </div>
-                <p class="disc">
-                  {{ movie.shortDescription }}
-                </p>
               </div>
             </div>
-          </div>
+          </nuxt-link>
         </div>
       </div>
       <div class="pagination">
@@ -91,5 +96,8 @@ export default {
 <style scoped>
 .card_right.mr-1 {
   width: 350px;
+}
+wrapper:hover {
+  scale: 1.5;
 }
 </style>

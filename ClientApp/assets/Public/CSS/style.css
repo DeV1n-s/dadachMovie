@@ -618,7 +618,7 @@
     
     #single-header {
         height: 350px;
-        background-image: url('../Image/girl-in-the-spiders-web-e1537968723806.jpg');
+        /* background-image: url('../Image/girl-in-the-spiders-web-e1537968723806.jpg'); */
         background-repeat: no-repeat;
         background-position: center;
         background-attachment: fixed;
@@ -2842,4 +2842,12 @@
     
     .typo__label {
         font-size: 15px;
+    }
+    
+    .wrapper .mt-3 .mb-2 a {
+        text-decoration: none;
+    }
+    
+    a.genre-name-list {
+        text-decoration: none;
     }
