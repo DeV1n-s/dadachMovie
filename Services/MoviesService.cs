@@ -273,6 +273,7 @@ namespace dadachMovie.Services
         {
             var user = await _accountsService.GetCurrentUserAsync();
             commentCreationDTO.UserId = user.Id;
+            commentCreationDTO.Type = 1;
             
             return await _commentService.SaveCommentAsync(commentCreationDTO);
         }

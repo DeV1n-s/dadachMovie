@@ -87,7 +87,12 @@ namespace dadachMovie.Helpers
             
             CreateMap<CommentCreationDTO, Comment>();
             
-            CreateMap<Comment, MovieCommentDTO>();
+            CreateMap<Comment, MovieCommentDTO>()
+                .ForMember(dest => dest.UserFullName, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName))
+                .ForMember(dest => dest.UserPicture, opt => opt.MapFrom(src => src.User.Picture))
+                .ForMember(dest => dest.UserRate, 
+                    opt => opt.MapFrom(dest => dest.User.MoviesRatings.Any(x => x.MovieId == dest.MovieId) ?
+                    dest.User.MoviesRatings.FirstOrDefault(x => x.MovieId == dest.MovieId).Rate : 0));
 
             CreateMap<RequestCreationDTO, Request>()
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
@@ -98,7 +103,12 @@ namespace dadachMovie.Helpers
             
             CreateMap<UserActivity, UserActivityDTO>();
 
-            CreateMap<Comment, SerieCommentDTO>();
+            CreateMap<Comment, SerieCommentDTO>()
+                .ForMember(dest => dest.UserFullName, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName))
+                .ForMember(dest => dest.UserPicture, opt => opt.MapFrom(src => src.User.Picture))
+                .ForMember(dest => dest.UserRate, 
+                    opt => opt.MapFrom(dest => dest.User.SeriesRatings.Any(x => x.SerieId == dest.SerieId) ?
+                    dest.User.SeriesRatings.FirstOrDefault(x => x.SerieId == dest.SerieId).Rate : 0));
 
             CreateMap<SeriesCasts, CastDTO>()
                 .ForMember(dest => dest.PersonName, opt => opt.MapFrom(src => src.Person.Name));

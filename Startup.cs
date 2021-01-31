@@ -85,6 +85,7 @@ namespace dadachMovie
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IRequestsService, RequestsService>();
             services.AddScoped<IUserActivitiesService, UserActivitiesService>();
+            services.AddScoped<ISeriesService, SeriesService>();
 
 
             services.AddIdentity<User, Role>(opt =>
