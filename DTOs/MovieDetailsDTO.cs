@@ -4,6 +4,6 @@ namespace dadachMovie.DTOs
 {
     public class MovieDetailsDTO : MovieDTO
     {
-        public List<CommentDTO> Comments { get; set; }
+        public List<MovieCommentDTO> Comments { get; set; }
     }
 }

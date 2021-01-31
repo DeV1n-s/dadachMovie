@@ -11,6 +11,7 @@ namespace dadachMovie.Entities
         {
             MoviesRatings = new List<MoviesRating>();
             FavoriteMovies = new List<Movie>();
+            FavoriteSeries = new List<Serie>();
             Comments = new List<Comment>();
             Requests = new List<Request>();
         }
@@ -30,6 +31,7 @@ namespace dadachMovie.Entities
 
         public virtual ICollection<MoviesRating> MoviesRatings { get; set; }
         public virtual ICollection<Movie> FavoriteMovies { get; set; }
+        public virtual ICollection<Serie> FavoriteSeries { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
     }

@@ -12,61 +12,57 @@ using Microsoft.AspNetCore.Mvc;
 namespace dadachMovie.Controllers
 {
     [ApiController]
-    [Route("api/movies")]
-    public class MoviesController : ControllerBase
+    [Route("api/series")]
+    public class SeriesController : ControllerBase
     {
-        private readonly IMoviesService _moviesService;
+        private readonly ISeriesService _seriesService;
         private readonly IMapper _mapper;
 
-        public MoviesController(IMoviesService moviesService,
+        public SeriesController(ISeriesService seriesService,
                                 IMapper mapper)
         {
-            _moviesService = moviesService;
+            _seriesService = seriesService;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<Paging<MovieDTO>>> Get(int? genreId, [FromQuery] GridifyQuery gridifyQuery) =>
-            await _moviesService.GetMoviesPagingAsync(genreId, gridifyQuery);
-
-        [HttpGet("UpcomingReleases")]
-        public async Task<ActionResult<Paging<MovieDTO>>> GetUpcomingReleases([FromQuery] GridifyQuery gridifyQuery) =>
-            await _moviesService.GetUpcomingReleasesAsync(gridifyQuery);
+        public async Task<ActionResult<Paging<SerieDTO>>> GetSeries(int? genreId, [FromQuery] GridifyQuery gridifyQuery) =>
+            await _seriesService.GetSeriesPagingAsync(genreId, gridifyQuery);
         
-        [HttpGet("InTheaters")]
-        public async Task<ActionResult<Paging<MovieDTO>>> GetInTheaters([FromQuery] GridifyQuery gridifyQuery) =>
-            await _moviesService.GetInTheatersAsync(gridifyQuery);
-
-        [HttpGet("{id:int}", Name = "getMovie")]
+        [HttpGet("UpcomingReleases")]
+        public async Task<ActionResult<Paging<SerieDTO>>> GetUpcomingReleases([FromQuery] GridifyQuery gridifyQuery) =>
+            await _seriesService.GetUpcomingReleasesAsync(gridifyQuery);
+        
+        [HttpGet("{id:int}", Name = "getSerie")]
         [ServiceFilter(typeof(UserActivityFilter))]
-        public async Task<ActionResult<MovieDetailsDTO>> GetById(int id)
+        public async Task<ActionResult<SerieDetailsDTO>> GetSerieById(int id)
         {
-            var movie = await _moviesService.GetMovieByIdAsync(id);
-            if (movie == null)
+            var serie = await _seriesService.GetSerieDetailsByIdAsync(id);
+            if (serie == null)
                 return NotFound();
 
-            return movie;
+            return serie;
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateModelAttribute]
-        public async Task<ActionResult> Post([FromForm] MovieCreationDTO movieCreationDTO)
+        public async Task<ActionResult> PostSerie([FromForm] SerieCreationDTO serieCreationDTO)
         {
-            var exists = await _moviesService.CheckImdbIdAsync(movieCreationDTO.ImdbId);
+            var exists = await _seriesService.CheckImdbIdAsync(serieCreationDTO.ImdbId);
             if (exists == 1)
-                return BadRequest($"ImdbId {movieCreationDTO.ImdbId} already exists.");
+                return BadRequest($"ImdbId {serieCreationDTO.ImdbId} already exists.");
 
-            var movieDTO = await _moviesService.AddMovieAsync(movieCreationDTO);
-            return new CreatedAtRouteResult("getMovie", new { Id = movieDTO.Id }, movieDTO);
+            var serieDTO = await _seriesService.AddSerieAsync(serieCreationDTO);
+            return new CreatedAtRouteResult("getSerie", new { Id = serieDTO.Id }, serieDTO);
         }
 
         [HttpPut("{id:int}")]
         [Authorize(Roles = "Admin")]
         [ValidateModelAttribute]
-        public async Task<ActionResult> Put(int id, [FromForm] MovieCreationDTO movieCreationDTO)
+        public async Task<ActionResult> PutSerie(int id, [FromForm] SerieCreationDTO serieCreationDTO)
         {
-            var result = await _moviesService.UpdateMovieAsync(id, movieCreationDTO);
+            var result = await _seriesService.UpdateSerieAsync(id, serieCreationDTO);
             if (result == -1)
                 return NotFound();
             else if (result == 0)
@@ -78,20 +74,20 @@ namespace dadachMovie.Controllers
         [HttpPatch("{id:int}")]
         [Authorize(Roles = "Admin")]
         [ValidateModelAttribute]
-        public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<MoviePatchDTO> patchDocument)
+        public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<SeriePatchDTO> patchDocument)
         {
             if (patchDocument == null)
                 return BadRequest();
 
-            var entityFromDb = await _moviesService.GetMovieByIdAsync(id);
+            var entityFromDb = await _seriesService.GetSerieByIdAsync(id);
             if (entityFromDb == null)
                 return NotFound();
 
-            var entityDTO = _mapper.Map<MoviePatchDTO>(entityFromDb);
+            var entityDTO = _mapper.Map<SeriePatchDTO>(entityFromDb);
             patchDocument.ApplyTo(entityDTO, ModelState);
 
             _mapper.Map(entityDTO, entityFromDb);
-            await _moviesService.SaveChangesAsync();
+            await _seriesService.SaveChangesAsync();
 
             return NoContent();
         }
@@ -99,9 +95,9 @@ namespace dadachMovie.Controllers
         [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
         [ValidateModelAttribute]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteSerie(int id)
         {
-            var result = await _moviesService.DeleteMovieAsync(id);
+            var result = await _seriesService.DeleteSerieAsync(id);
             if (result == -1)
                 return NotFound();
             else if (result == 0)
@@ -115,7 +111,7 @@ namespace dadachMovie.Controllers
         [ValidateModel]
         public async Task<ActionResult> AddComment([FromBody] CommentCreationDTO commentCreationDTO)
         {
-            var result = await _moviesService.AddUserCommentAsync(commentCreationDTO);
+            var result = await _seriesService.AddUserCommentAsync(commentCreationDTO);
             if (result == -1)
                 return NotFound();
             else if (result == 0)
@@ -129,7 +125,7 @@ namespace dadachMovie.Controllers
         [ValidateModel]
         public async Task<ActionResult> RemoveComment(int id)
         {
-            var result = await _moviesService.DeleteUserCommentAsync(id);
+            var result = await _seriesService.DeleteUserCommentAsync(id);
             if (result == -1)
                 return NotFound();
             else if (result == 0)

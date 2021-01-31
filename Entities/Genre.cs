@@ -8,6 +8,7 @@ namespace dadachMovie.Entities
         public Genre()
         {
             Movies = new List<Movie>();
+            Series = new List<Serie>();
         }
         
         public int Id { get; set; }
@@ -16,5 +17,6 @@ namespace dadachMovie.Entities
         public string Name { get; set; }
         
         public virtual ICollection<Movie> Movies { get; set; }
+        public virtual ICollection<Serie> Series { get; set; }
     }
 }

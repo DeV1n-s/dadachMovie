@@ -1,6 +1,6 @@
 namespace dadachMovie.DTOs
 {
-    public class CommentDTO
+    public class MovieCommentDTO
     {
         public int Id { get; set; }
         public string UserId { get; set; }

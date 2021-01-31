@@ -11,6 +11,7 @@ namespace dadachMovie.Entities
         {
             Categories = new List<Category>();
             Movies = new List<Movie>();
+            Series = new List<Serie>();
         }
         
         public int Id { get; set; }
@@ -30,5 +31,6 @@ namespace dadachMovie.Entities
         
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<Movie> Movies { get; set; }
+        public virtual ICollection<Serie> Series { get; set; }
     }
 }

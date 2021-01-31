@@ -28,6 +28,9 @@ namespace dadachMovie
             modelBuilder.ApplyConfiguration(new MovieConfiguration());
             modelBuilder.ApplyConfiguration(new MoviesCastsConfiguration());
             modelBuilder.ApplyConfiguration(new MoviesRatingConfiguration());
+            modelBuilder.ApplyConfiguration(new SerieConfiguration());
+            modelBuilder.ApplyConfiguration(new SeriesRatingConfiguration());
+            modelBuilder.ApplyConfiguration(new SeriesCastsConfiguration());
         }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -39,6 +42,9 @@ namespace dadachMovie
         public DbSet<Request> Requests { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserActivity> UserActivities { get; set; }
+        public DbSet<Serie> Series { get; set; }
+        public DbSet<SeriesCasts> SeriesCasts { get; set; }
+        public DbSet<SeriesRating> SeriesRatings { get; set; }
 
         public override int SaveChanges()
         {

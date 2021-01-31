@@ -6,8 +6,9 @@ namespace dadachMovie.DTOs
     public class CommentCreationDTO
     {
         [JsonIgnore]
-        public string UserId { get; set; }
-        public int MovieId { get; set; }
+        public Guid UserId { get; set; }
+        public int? MovieId { get; set; }
+        public int? SerieId { get; set; }
         public string Content { get; set; }
     }
 }

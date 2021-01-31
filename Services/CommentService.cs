@@ -43,19 +43,36 @@ namespace dadachMovie.Services
 
         public async Task<int> SaveCommentAsync(CommentCreationDTO commentCreationDTO)
         {
-            var movie = await _dbContext.Movies.FirstOrDefaultAsync(x => x.Id == commentCreationDTO.MovieId);
-            var entity = _mapper.Map<Comment>(commentCreationDTO);
-            movie.Comments.Add(entity);
+            var movie = new Movie();
+            var serie = new Serie();
+            var comment = new Comment();
+
+            if (commentCreationDTO.MovieId != null)
+            {
+                movie = await _dbContext.Movies.FirstOrDefaultAsync(x => x.Id == commentCreationDTO.MovieId);
+                comment = _mapper.Map<Comment>(commentCreationDTO);
+                movie.Comments.Add(comment);
+
+            } else if (commentCreationDTO.SerieId != null)
+            {
+                serie = await _dbContext.Series.FirstOrDefaultAsync(x => x.Id == commentCreationDTO.SerieId);
+                comment = _mapper.Map<Comment>(commentCreationDTO);
+                serie.Comments.Add(comment);
+            } else 
+            {
+                _logger.LogWarn($"Failed to add new comment. No MovieId or SerieId was given.");
+                return -2;
+            }
 
             try
             {
                 await _dbContext.SaveChangesAsync();
-                _logger.LogInfo($"Comment with ID {entity.Id} was added successfully.");
+                _logger.LogInfo($"Comment with ID {comment.Id} was added successfully.");
                 return 1;
             }
             catch (System.Exception ex)
             {
-                _logger.LogWarn($"Failed to add comment with ID {entity.Id}. Exception: {ex}");
+                _logger.LogWarn($"Failed to add comment with ID {comment.Id}. Exception: {ex}");
                 return -1;
             }
         }

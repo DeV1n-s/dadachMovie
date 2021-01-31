@@ -271,11 +271,8 @@ namespace dadachMovie.Services
 
         public async Task<int> AddUserCommentAsync(CommentCreationDTO commentCreationDTO)
         {
-            if (commentCreationDTO.UserId == null)
-            {
-                var user = await _accountsService.GetCurrentUserAsync();
-                commentCreationDTO.UserId = user.Id.ToString();
-            }
+            var user = await _accountsService.GetCurrentUserAsync();
+            commentCreationDTO.UserId = user.Id;
             
             return await _commentService.SaveCommentAsync(commentCreationDTO);
         }
