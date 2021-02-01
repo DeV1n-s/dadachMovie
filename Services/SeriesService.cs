@@ -92,7 +92,7 @@ namespace dadachMovie.Services
             var today = DateTime.Today;
             var queryable = await _dbContext.Series
                 .AsNoTracking()
-                .Where(x => x.ReleaseDate > today)
+                .Where(x => x.StartDate > today)
                 .GridifyQueryableAsync(gridifyQuery,null);
 
             return new Paging<SerieDTO> {Items = queryable.Query.ProjectTo<SerieDTO>(_mapper.ConfigurationProvider).ToList(),

@@ -29,9 +29,10 @@ namespace dadachMovie.Entities
         public string Description { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime ReleaseDate { get; set; }
-        public int? StartYear { get; set; }
-        public int? EndYear { get; set; }
+        public DateTime StartDate { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? EndDate { get; set; }
         public int? Seasons { get; set; }
         public int? Episodes { get; set; }
         public SeriesStatus Status { get; set; }
