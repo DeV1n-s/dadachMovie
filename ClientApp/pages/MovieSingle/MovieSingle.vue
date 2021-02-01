@@ -3,7 +3,7 @@
     <nav-bar />
     <section id="home-section">
       <div class="container">
-        <div class="main">
+        <div class="maind">
           <div class="movie-single">
             <div class="header">
               <header
@@ -99,14 +99,12 @@
                     <div class="y-line"></div>
                     <div class="comment_block">
                       <div class="create_new_comment">
-                        <div class="user_avatar">
-                          <img src="" />
-                        </div>
                         <div class="row">
                           <div class="input_comment d-flex col-md-8">
                             <input
                               type="text"
                               placeholder="نظر خود را بنویسید "
+                              v-model="userComemnt.content"
                             />
                           </div>
                           <input
@@ -124,27 +122,32 @@
                       </div>
 
                       <div class="new_comment">
-                        <ul class="user_comment">
+                        <ul
+                          class="user_comment"
+                          v-for="c in comments"
+                          :key="c.id"
+                        >
                           <div class="user_avatar">
-                            <img src="" />
+                            <img :src="c.userPicture" />
                           </div>
                           <div class="comment_body">
                             <p>
-                              فیلم خیلی خوب و قشنگی بود مخصوصا اونجاش که پخش
-                              نمیشد خیلی ممنونم
+                              {{ c.content }}
                             </p>
                           </div>
 
                           <div class="comment_toolbar">
                             <div class="comment_details">
                               <ul>
-                                <li><i class="fa fa-clock-o"></i> 13:94</li>
                                 <li>
-                                  <i class="fa fa-calendar"></i> 04/01/2015
+                                  <i class="fa fa-calendar"></i
+                                  >{{ c.createdAt }}
                                 </li>
                                 <li>
                                   <i class="fa fa-pencil"></i>
-                                  <span class="user"> دانیال شکوه منش</span>
+                                  <span class="user">
+                                    {{ c.userFullName }}</span
+                                  >
                                 </li>
                               </ul>
                             </div>
@@ -221,6 +224,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
+      token: '',
       dismissSecs: 3,
       dismissCountDown: 0,
       showDismissibleAlert: false,
@@ -231,7 +235,7 @@ export default {
       comments: [],
       userComemnt: {
         movieId: this.$route.params.id,
-        comment: ''
+        content: ''
       }
     };
   },
@@ -252,8 +256,16 @@ export default {
         console.log(this.movieDetail);
       });
     },
+    postComment() {
+      axios.post('/api/movies/AddUserComment', this.userComemnt, {
+        headers: {
+          Authorization: `bearer ${this.token}`
+        }
+      });
+    },
     subComment() {
       this.showAlert();
+      this.postComment();
     }
   },
   components: {
@@ -262,6 +274,7 @@ export default {
   },
   mounted() {
     this.getMovie();
+    this.token = localStorage.getItem('token');
   }
 };
 </script>
