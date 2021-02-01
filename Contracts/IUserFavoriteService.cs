@@ -3,8 +3,9 @@ using dadachMovie.DTOs;
 
 namespace dadachMovie.Contracts
 {
-    public interface IUserFavoriteMoviesService
+    public interface IUserFavoriteService
     {
         Task<int> SaveUserFavoriteMoviesAsync(UserFavoriteMoviesDTO userFavoriteMoviesDTO);
+        Task<int> SaveUserFavoriteSeriesAsync(UserFavoriteSeriesDTO userFavoriteSeriesDTO);
     }
 }

@@ -21,6 +21,8 @@ namespace dadachMovie.Contracts
         Task<int> CheckImdbIdAsync(string imdbId);
         Task<int> AddUserCommentAsync(CommentCreationDTO commentCreationDTO);
         Task<int> DeleteUserCommentAsync(int id);
+        Task<int> SaveUserMovieRatingAsync(MovieRatingDTO movieRatingDTO);
+        Task<int> SaveUserFavoriteMoviesAsync(UserFavoriteMoviesDTO userFavoriteMoviesDTO);
 
         void AnnotateCastsOrder(Movie movie);
         Task SetMovieRatingsAsync(Movie movie);

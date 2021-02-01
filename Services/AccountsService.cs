@@ -32,8 +32,6 @@ namespace dadachMovie.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IFileStorageService _fileStorageService;
         private readonly ILoggerService _logger;
-        private readonly IRatingService _ratingService;
-        private readonly IUserFavoriteMoviesService _userFavoriteMoviesService;
         private readonly string _containerName = "users";
 
         public AccountsService(UserManager<User> userManager,
@@ -44,9 +42,7 @@ namespace dadachMovie.Services
                             IMapper mapper,
                             IHttpContextAccessor httpContextAccessor,
                             IFileStorageService fileStorageService,
-                            ILoggerService logger,
-                            IRatingService ratingService,
-                            IUserFavoriteMoviesService userFavoriteMoviesService)
+                            ILoggerService logger)
             : base(dbContext)
         {
             _userManager = userManager;
@@ -58,8 +54,6 @@ namespace dadachMovie.Services
             _httpContextAccessor = httpContextAccessor;
             _fileStorageService = fileStorageService;
             _logger = logger;
-            _ratingService = ratingService;
-            _userFavoriteMoviesService = userFavoriteMoviesService;
         }
 
         public async Task<Paging<UserDTO>> GetUsersPagingAsync(GridifyQuery gridifyQuery)
@@ -311,31 +305,13 @@ namespace dadachMovie.Services
         public string GetCurrentUserEmail() => 
             _httpContextAccessor.HttpContext.User.Identity.Name;
 
-        public async Task<int> SaveUserRatingAsync(MovieRatingDTO movieRatingDTO)
-        {
-            if (movieRatingDTO.UserId == null)
-            {
-                var userEmail = this.GetCurrentUserEmail();
-                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
-                movieRatingDTO.UserId = user.Id.ToString();
-            }
-
-            return await _ratingService.SaveRatingAsync(movieRatingDTO);
-        }
-
-        public async Task<int> SaveUserFavoriteMoviesAsync(UserFavoriteMoviesDTO userFavoriteMoviesDTO)
-        {
-            if (userFavoriteMoviesDTO.UserId == null)
-            {
-                var userEmail = this.GetCurrentUserEmail();
-                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
-                userFavoriteMoviesDTO.UserId = user.Id.ToString();
-            }
-
-            return await _userFavoriteMoviesService.SaveUserFavoriteMoviesAsync(userFavoriteMoviesDTO);
-        }
-
         public string GetCurrentUserIpAddress() =>
             _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+        
+        public async Task<Guid> GetCurrentUserIdAsync()
+        {
+            var currentUser = await GetCurrentUserAsync();
+            return currentUser.Id;
+        }
     }
 }

@@ -140,7 +140,7 @@ namespace dadachMovie.Helpers
                             
             CreateMap<SeriesRating, UserSerieRatingDTO>();
 
-            CreateMap<Serie, FavoriteMovieDTO>();
+            CreateMap<Serie, FavoriteSerieDTO>();
         }
     }
 }

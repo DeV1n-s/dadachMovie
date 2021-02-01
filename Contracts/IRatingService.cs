@@ -5,6 +5,7 @@ namespace dadachMovie.Contracts
 {
     public interface IRatingService
     {
-        Task<int> SaveRatingAsync(MovieRatingDTO movieRatingDTO);
+        Task<int> SaveMovieRatingAsync(MovieRatingDTO movieRatingDTO);
+        Task<int> SaveSerieRatingAsync(SerieRatingDTO serieRatingDTO);
     }
 }

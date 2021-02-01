@@ -133,5 +133,42 @@ namespace dadachMovie.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("SaveUserSerieRating")]
+        [ValidateModelAttribute]
+        [Authorize]
+        public async Task<ActionResult> SaveUserSerieRating([FromBody] SerieRatingDTO serieRatingDTO)
+        {
+            var result = await _seriesService.SaveUserSerieRatingAsync(serieRatingDTO);
+            if (result == -1)
+                return BadRequest(ModelState);
+            
+            return NoContent();
+        }
+
+        [HttpPost("SaveUserFavoriteSeries")]
+        [ValidateModelAttribute]
+        [Authorize]
+        public async Task<ActionResult> SaveUserFavoriteSeries([FromBody] UserFavoriteSeriesDTO userFavoriteSeriesDTO)
+        {
+            var result = await _seriesService.SaveUserFavoriteSeriesAsync(userFavoriteSeriesDTO);
+
+            if (result == -2) {
+                ModelState.TryAddModelError("movieId", $"Movie with ID {userFavoriteSeriesDTO.SerieId} was not found.");
+                return NotFound(ModelState);
+
+            } else if(result == -3) {
+                ModelState.TryAddModelError("userId", $"User with ID {userFavoriteSeriesDTO.UserId} was not found.");
+                return NotFound(ModelState);
+
+            } else if (result == -1) {
+                ModelState.TryAddModelError("saveChangesAsync", "Failed to save changes async.");
+                return NotFound(ModelState);
+                
+            } else {
+                return NoContent();
+            }
+            
+        }
     }
 }

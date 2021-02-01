@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using dadachMovie.DTOs;
@@ -21,8 +22,7 @@ namespace dadachMovie.Contracts
         Task<int> UpdateUserAsync(UserUpdateDTO userUpdateDTO);
         Task<UserToken> RenewUserBearerTokenAsync(string emailAddress);
         Task<UserToken> BuildToken(string emailAddress);
-        Task<int> SaveUserRatingAsync(MovieRatingDTO movieRatingDTO);
-        Task<int> SaveUserFavoriteMoviesAsync(UserFavoriteMoviesDTO userFavoriteMoviesDTO);
         string GetCurrentUserIpAddress();
+        Task<Guid> GetCurrentUserIdAsync();
     }
 }

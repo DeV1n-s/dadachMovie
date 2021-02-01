@@ -24,6 +24,8 @@ namespace dadachMovie.Services
         private readonly ICommentService _commentService;
         private readonly IAccountsService _accountsService;
         private readonly IPeopleService _peopleService;
+        private readonly IRatingService _ratingService;
+        private readonly IUserFavoriteService _userFavoriteService;
         private readonly string _containerName = "movies";
         private ApiLib _apiLib = new ApiLib("k_l3dksm3b");
 
@@ -33,7 +35,9 @@ namespace dadachMovie.Services
                             ILoggerService logger,
                             ICommentService commentService,
                             IAccountsService accountsService,
-                            IPeopleService peopleService)
+                            IPeopleService peopleService,
+                            IRatingService ratingService,
+                            IUserFavoriteService userFavoriteService)
             : base(dbContext)
         {
             _dbContext = dbContext;
@@ -43,6 +47,8 @@ namespace dadachMovie.Services
             _commentService = commentService;
             _accountsService = accountsService;
             _peopleService = peopleService;
+            _ratingService = ratingService;
+            _userFavoriteService = userFavoriteService;
         }
         public async Task<Paging<MovieDTO>> GetMoviesPagingAsync(int? genreId, GridifyQuery gridifyQuery)
         {
@@ -280,6 +286,18 @@ namespace dadachMovie.Services
 
         public async Task<int> DeleteUserCommentAsync(int id) =>
             await _commentService.DeleteCommentAsync(id);
+        
+        public async Task<int> SaveUserMovieRatingAsync(MovieRatingDTO movieRatingDTO)
+        {
+            movieRatingDTO.UserId = await _accountsService.GetCurrentUserIdAsync();
+            return await _ratingService.SaveMovieRatingAsync(movieRatingDTO);
+        }
+
+        public async Task<int> SaveUserFavoriteMoviesAsync(UserFavoriteMoviesDTO userFavoriteMoviesDTO)
+        {
+            userFavoriteMoviesDTO.UserId = await _accountsService.GetCurrentUserIdAsync();
+            return await _userFavoriteService.SaveUserFavoriteMoviesAsync(userFavoriteMoviesDTO);
+        }
         
         private async Task<List<Genre>> ListGenres(MovieCreationDTO movieCreationDTO)
         {

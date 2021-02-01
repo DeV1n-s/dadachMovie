@@ -48,6 +48,43 @@ namespace dadachMovie.Controllers
             return movie;
         }
 
+        [HttpPost("SaveUserRating")]
+        [ValidateModelAttribute]
+        [Authorize]
+        public async Task<ActionResult> SaveUserMovieRating([FromBody] MovieRatingDTO movieRatingDTO)
+        {
+            var result = await _moviesService.SaveUserMovieRatingAsync(movieRatingDTO);
+            if (result == -1)
+                return BadRequest(ModelState);
+            
+            return NoContent();
+        }
+
+        [HttpPost("SaveUserFavoriteMovies")]
+        [ValidateModelAttribute]
+        [Authorize]
+        public async Task<ActionResult> SaveUserFavoriteMovies([FromBody] UserFavoriteMoviesDTO userFavoriteMoviesDTO)
+        {
+            var result = await _moviesService.SaveUserFavoriteMoviesAsync(userFavoriteMoviesDTO);
+
+            if (result == -2) {
+                ModelState.TryAddModelError("movieId", $"Movie with ID {userFavoriteMoviesDTO.MovieId} was not found.");
+                return NotFound(ModelState);
+
+            } else if(result == -3) {
+                ModelState.TryAddModelError("userId", $"User with ID {userFavoriteMoviesDTO.UserId} was not found.");
+                return NotFound(ModelState);
+
+            } else if (result == -1) {
+                ModelState.TryAddModelError("saveChangesAsync", "Failed to save changes async.");
+                return NotFound(ModelState);
+                
+            } else {
+                return NoContent();
+            }
+            
+        }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateModelAttribute]
