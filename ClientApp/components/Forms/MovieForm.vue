@@ -74,6 +74,7 @@
               :preserve-search="true"
               :preselect-first="true"
             ></multiselect>
+            <p>{{ caValue }}</p>
           </div>
         </div>
         <div class="col-md-6">
@@ -306,8 +307,8 @@ export default {
       }
     },
     castMaker() {
-      let castObject = { personId: '', character: '' };
       this.caValue.forEach(q => {
+        let castObject = { personId: '', character: '' };
         castObject.personId = q.id;
         castObject.character = q.name;
         this.movieDetail.CastsJson.push(castObject);
