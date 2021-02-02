@@ -31,6 +31,8 @@ namespace dadachMovie
             modelBuilder.ApplyConfiguration(new SerieConfiguration());
             modelBuilder.ApplyConfiguration(new SeriesRatingConfiguration());
             modelBuilder.ApplyConfiguration(new SeriesCastsConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new RequestConfiguration());
         }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
