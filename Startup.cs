@@ -70,7 +70,7 @@ namespace dadachMovie
             
             services.AddTransient<IFileStorageService, InAppStorageService>();
             services.AddTransient<IHostedService, MovieInTheaterService>();
-            services.AddTransient<IHostedService, MovieRatesService>();
+            services.AddTransient<IHostedService, UpdateRatesService>();
         
             services.AddScoped<UserActivityFilter>();
             

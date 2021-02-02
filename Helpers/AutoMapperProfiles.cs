@@ -123,13 +123,13 @@ namespace dadachMovie.Helpers
 
             CreateMap<Serie, SerieDTO>()
                 .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate.Date))
-                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate.Value.Date))
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate.GetValueOrDefault().Date))
                 .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.SeriesRatings.Any() ? src.SeriesRatings.Average(x => x.Rate) : 0))
                 .ForMember(dest => dest.TotalUserRatesCount, opt => opt.MapFrom(src => src.SeriesRatings.Count));
 
             CreateMap<Serie, SerieDetailsDTO>()
                 .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate.Date))
-                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate.Value.Date))
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate.GetValueOrDefault().Date))
                 .ForMember(dest => dest.AverageUserRate, opt => opt.MapFrom(src => src.SeriesRatings.Any() ? src.SeriesRatings.Average(x => x.Rate) : 0))
                 .ForMember(dest => dest.TotalUserRatesCount, opt => opt.MapFrom(src => src.SeriesRatings.Count));
 

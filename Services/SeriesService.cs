@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -10,7 +11,7 @@ using dadachMovie.DTOs;
 using dadachMovie.Entities;
 using Gridify;
 using Gridify.EntityFramework;
-using IMDbApiLib;
+using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Services
@@ -27,7 +28,6 @@ namespace dadachMovie.Services
         private readonly IRatingService _ratingService;
         private readonly IUserFavoriteService _userFavoriteService;
         private readonly string _containerName = "series";
-        private ApiLib _apiLib = new ApiLib("k_l3dksm3b");
 
         public SeriesService(AppDbContext dbContext,
                             IMapper mapper,
@@ -204,13 +204,13 @@ namespace dadachMovie.Services
             
             this.AnnotateCastsOrder(serie);
             await AddCategoryToPerson(serie);
-            await SetSerieRatingsAsync(serie);
             await SetSerieDirectorsGenresCastsListAsync(serie, serieCreationDTO);
 
             try
             {
                 await _dbContext.SaveChangesAsync();
                 _logger.LogInfo($"Serie with ID {id} was updated successfully.");
+                await SetSerieRatingsAsync(serie);
                 return 1;
             }
             catch(Exception ex)
@@ -354,29 +354,19 @@ namespace dadachMovie.Services
 
         public async Task SetSerieRatingsAsync(Serie serie)
         {
-            try
+            HttpClient client = new HttpClient();
+            var response = await client.GetAsync("https://www.imdb.com/title/" + serie.ImdbId);
+            if (!response.IsSuccessStatusCode)
             {
-                var imdbRates = await _apiLib.UserRatingAsync(serie.ImdbId);
-                serie.ImdbRate = imdbRates.TotalRating;
-                serie.ImdbRatesCount = imdbRates.TotalRatingVotes;
-                _logger.LogInfo($"Successfully saved UserRating for serie {serie.Id} with ImdbId \"{serie.ImdbId}\"");
+                _logger.LogWarn($"Failed to get Ratings for serie {serie.Id} with ImdbId \"{serie.ImdbId}\".");
+                return;
             }
-            catch (Exception ex)
-            {
-                _logger.LogWarn($"Failed to get UserRating for serie {serie.Id} with ImdbId \"{serie.ImdbId}\". Exception: {ex}");
-            }
-            
-            try
-            {
-                var otherRates = await _apiLib.RatingsAsync(serie.ImdbId);
-                serie.MetacriticRate = otherRates.Metacritic;
-                _logger.LogInfo($"Successfully saved Ratings for serie {serie.Id} with ImdbId \"{serie.ImdbId}\"");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarn($"Failed to get Ratings for serie {serie.Id} with ImdbId \"{serie.ImdbId}\". Exception: {ex}");
-            }
-            
+            var pageContents = await response.Content.ReadAsStringAsync();
+            HtmlDocument pageDocument = new HtmlDocument();
+            pageDocument.LoadHtml(pageContents);
+            serie.ImdbRate = pageDocument.DocumentNode.SelectSingleNode("//strong/span[1]").InnerText;
+            serie.ImdbRatesCount = pageDocument.DocumentNode.SelectSingleNode("//span[@class='small']").InnerText;
+            _logger.LogInfo($"Successfully saved Ratings for serie {serie.Id} with ImdbId \"{serie.ImdbId}\"");
         }
 
         public async Task SetSerieDirectorsGenresCastsListAsync(Serie serie, SerieCreationDTO serieCreationDTO)

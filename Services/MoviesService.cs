@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -10,7 +11,7 @@ using dadachMovie.DTOs;
 using dadachMovie.Entities;
 using Gridify;
 using Gridify.EntityFramework;
-using IMDbApiLib;
+using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore;
 
 namespace dadachMovie.Services
@@ -27,7 +28,6 @@ namespace dadachMovie.Services
         private readonly IRatingService _ratingService;
         private readonly IUserFavoriteService _userFavoriteService;
         private readonly string _containerName = "movies";
-        private ApiLib _apiLib = new ApiLib("k_l3dksm3b");
 
         public MoviesService(AppDbContext dbContext,
                             IMapper mapper,
@@ -212,13 +212,13 @@ namespace dadachMovie.Services
             
             this.AnnotateCastsOrder(movieDb);
             await AddCategoryToPerson(movieDb);
-            await SetMovieRatingsAsync(movieDb);
             await SetMovieDirectorsGenresCastsListAsync(movieDb, movieCreationDTO);
 
             try
             {
                 await this.SaveChangesAsync();
                 _logger.LogInfo($"Movie with ID {id} was updated successfully.");
+                await SetMovieRatingsAsync(movieDb);
                 return 1;
             }
             catch(Exception ex)
@@ -362,29 +362,19 @@ namespace dadachMovie.Services
 
         public async Task SetMovieRatingsAsync(Movie movie)
         {
-            try
+            HttpClient client = new HttpClient();
+            var response = await client.GetAsync("https://www.imdb.com/title/" + movie.ImdbId);
+            if (!response.IsSuccessStatusCode)
             {
-                var imdbRates = await _apiLib.UserRatingAsync(movie.ImdbId);
-                movie.ImdbRate = imdbRates.TotalRating;
-                movie.ImdbRatesCount = imdbRates.TotalRatingVotes;
-                _logger.LogInfo($"Successfully saved UserRating for movie {movie.Id} with ImdbId \"{movie.ImdbId}\"");
+                _logger.LogWarn($"Failed to get Ratings for movie {movie.Id} with ImdbId \"{movie.ImdbId}\".");
+                return;
             }
-            catch (Exception ex)
-            {
-                _logger.LogWarn($"Failed to get UserRating for movie {movie.Id} with ImdbId \"{movie.ImdbId}\". Exception: {ex}");
-            }
-            
-            try
-            {
-                var otherRates = await _apiLib.RatingsAsync(movie.ImdbId);
-                movie.MetacriticRate = otherRates.Metacritic;
-                _logger.LogInfo($"Successfully saved Ratings for movie {movie.Id} with ImdbId \"{movie.ImdbId}\"");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarn($"Failed to get Ratings for movie {movie.Id} with ImdbId \"{movie.ImdbId}\". Exception: {ex}");
-            }
-            
+            var pageContents = await response.Content.ReadAsStringAsync();
+            HtmlDocument pageDocument = new HtmlDocument();
+            pageDocument.LoadHtml(pageContents);
+            movie.ImdbRate = pageDocument.DocumentNode.SelectSingleNode("//strong/span[1]").InnerText;
+            movie.ImdbRatesCount = pageDocument.DocumentNode.SelectSingleNode("//span[@class='small']").InnerText;
+            _logger.LogInfo($"Successfully saved Ratings for movie {movie.Id} with ImdbId \"{movie.ImdbId}\"");
         }
 
         public async Task SetMovieDirectorsGenresCastsListAsync(Movie movie, MovieCreationDTO movieCreationDTO)

@@ -3,20 +3,18 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using dadachMovie.Contracts;
-using IMDbApiLib;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace dadachMovie.Services
 {
-    public class MovieRatesService : IHostedService, IDisposable
+    public class UpdateRatesService : IHostedService, IDisposable
     {
         private readonly IServiceProvider _serviceProvider;
         private Timer _timer;
-        private ApiLib _apiLib = new ApiLib("k_l3dksm3b");
-
-        public MovieRatesService(IServiceProvider serviceProvider)
+        
+        public UpdateRatesService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
@@ -44,11 +42,21 @@ namespace dadachMovie.Services
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 var moviesService = scope.ServiceProvider.GetRequiredService<IMoviesService>();
+                var seriesService = scope.ServiceProvider.GetRequiredService<ISeriesService>();
                 var movies = await dbContext.Movies.ToListAsync();
+                var series = await dbContext.Series.ToListAsync();
+
+
                 foreach (var movie in movies)
                 {
                     await moviesService.SetMovieRatingsAsync(movie);
                 }
+
+                foreach (var serie in series)
+                {
+                    await seriesService.SetSerieRatingsAsync(serie);
+                }
+
                 await dbContext.SaveChangesAsync();
             }
         }
