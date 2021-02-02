@@ -17,6 +17,7 @@ namespace dadachMovie.DTOs
         public int? Seasons { get; set; }
         public int? Episodes { get; set; }
         public SeriesStatus Status { get; set; }
+        public DaysEnum? AirDay { get; set; }
 
         [JsonIgnore]
         public string ImdbRate { get; set; }

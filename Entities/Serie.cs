@@ -36,6 +36,7 @@ namespace dadachMovie.Entities
         public int? Seasons { get; set; }
         public int? Episodes { get; set; }
         public SeriesStatus Status { get; set; }
+        public DaysEnum? AirDay { get; set; }
         public string ImdbRate { get; set; }
         public string ImdbRatesCount { get; set; }
         public string MetacriticRate { get; set; }

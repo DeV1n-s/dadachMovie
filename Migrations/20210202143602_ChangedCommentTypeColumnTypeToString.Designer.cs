@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dadachMovie;
 
 namespace dadachMovie.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210202143602_ChangedCommentTypeColumnTypeToString")]
+    partial class ChangedCommentTypeColumnTypeToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2331,9 +2333,8 @@ namespace dadachMovie.Migrations
                     b.Property<string>("Message")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Subject")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

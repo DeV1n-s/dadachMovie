@@ -4,12 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace dadachMovie.Configurations
 {
-    public class SerieConfiguration : IEntityTypeConfiguration<Serie>
+    public class RequestConfiguration : IEntityTypeConfiguration<Request>
     {
-        public void Configure(EntityTypeBuilder<Serie> builder)
+        public void Configure(EntityTypeBuilder<Request> builder)
         {
-            builder.HasIndex(i => i.ImdbId).IsUnique();
-            builder.Property(p => p.AirDay).HasConversion<string>();
             builder.Property(p => p.Status).HasConversion<string>();
         }
     }
