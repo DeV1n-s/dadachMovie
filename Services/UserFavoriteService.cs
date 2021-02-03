@@ -34,6 +34,9 @@ namespace dadachMovie.Services
             if (user == null)
                 return -3;
             
+            if (user.FavoriteMovies.Contains(movie))
+                return 0;
+            
             user.FavoriteMovies.Add(movie);
 
             try
@@ -60,6 +63,9 @@ namespace dadachMovie.Services
                                             .FirstOrDefaultAsync(u => u.Id == userFavoriteSeriesDTO.UserId);
             if (user == null)
                 return -3;
+
+            if (user.FavoriteSeries.Contains(serie))
+                return 0;
             
             user.FavoriteSeries.Add(serie);
 

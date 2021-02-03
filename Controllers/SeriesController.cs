@@ -165,6 +165,10 @@ namespace dadachMovie.Controllers
                 ModelState.TryAddModelError("saveChangesAsync", "Failed to save changes async.");
                 return NotFound(ModelState);
                 
+            } else if (result == 0) {
+                ModelState.TryAddModelError("alreadyExists", "User already favorited this serie.");
+                return BadRequest(ModelState);
+
             } else {
                 return NoContent();
             }
