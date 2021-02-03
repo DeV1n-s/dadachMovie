@@ -21,8 +21,22 @@
               <div class="row">
                 <div class="col-md-3">
                   <img :src="movieDetail.picture" alt="" />
-                  <div class="btn mt-4">
-                    <button>مشاهده پیشنمایش</button>
+                  <div class="single-movie-btns">
+                    <div class="btn mt-3">
+                      <button>مشاهده پیشنمایش</button>
+                    </div>
+                    <button
+                      class="btn btn-danger mr-3 btn-favorit"
+                      @click="addFavoritMovie"
+                      :disabled="!canFavorit"
+                    >
+                      <i class="fa fa-heart" aria-hidden="true"></i> مورد علاقه
+                    </button>
+                    <small class="text-danger mt-1" v-if="!canFavorit">
+                      {{ movieDetail.title }}
+
+                      از پیش در لیست علاقه مندی شما وجود دارد !
+                    </small>
                   </div>
                   <div class="movie-details mt-4">
                     <p>
@@ -224,6 +238,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
+      canFavorit: true,
       token: '',
       dismissSecs: 3,
       dismissCountDown: 0,
@@ -240,6 +255,27 @@ export default {
     };
   },
   methods: {
+    async addFavoritMovie() {
+      try {
+        await axios
+          .post(
+            '/api/movies/SaveUserFavoriteMovies',
+            {
+              movieId: this.id
+            },
+            {
+              headers: {
+                Authorization: `bearer ${this.token}`
+              }
+            }
+          )
+          .then(res => console.log(res.data));
+      } catch (error) {
+        console.log(error);
+        this.canFavorit = false;
+        console.log(this.canFavorit);
+      }
+    },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
@@ -262,6 +298,7 @@ export default {
           Authorization: `bearer ${this.token}`
         }
       });
+      this.getMovie();
     },
     subComment() {
       this.showAlert();
@@ -301,5 +338,14 @@ export default {
 .input_comment.d-flex.col-md-8 {
   height: 59px !important;
   margin-top: 0.45px;
+}
+.btn-favorit {
+  width: 197px;
+}
+.single-movie-btns {
+  margin-right: 10%;
+}
+.movie-single .btn button {
+  width: 200px !important;
 }
 </style>
