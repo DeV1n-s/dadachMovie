@@ -48,14 +48,12 @@ namespace dadachMovie.Services
 
                 foreach (var movie in movies)
                 {
-                    if (movie != null)
-                        await moviesService.SetMovieRatingsAsync(movie);
+                    await moviesService.SetMovieRatingsAsync(movie);
                 }
 
                 foreach (var serie in series)
                 {
-                    if (serie != null)
-                        await seriesService.SetSerieRatingsAsync(serie);
+                    await seriesService.SetSerieRatingsAsync(serie);
                 }
 
                 await dbContext.SaveChangesAsync();

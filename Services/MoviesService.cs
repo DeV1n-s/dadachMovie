@@ -362,19 +362,27 @@ namespace dadachMovie.Services
 
         public async Task SetMovieRatingsAsync(Movie movie)
         {
-            HttpClient client = new HttpClient();
-            var response = await client.GetAsync("https://www.imdb.com/title/" + movie.ImdbId);
-            if (!response.IsSuccessStatusCode)
+            try
             {
-                _logger.LogWarn($"Failed to get Ratings for movie {movie.Id} with ImdbId \"{movie.ImdbId}\".");
-                return;
+                HttpClient client = new HttpClient();
+                var response = await client.GetAsync("https://www.imdb.com/title/" + movie.ImdbId);
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogWarn($"Failed to get Ratings for movie {movie.Id} with ImdbId \"{movie.ImdbId}\".");
+                    return;
+                }
+                var pageContents = await response.Content.ReadAsStringAsync();
+                HtmlDocument pageDocument = new HtmlDocument();
+                pageDocument.LoadHtml(pageContents);
+                movie.ImdbRate = pageDocument.DocumentNode.SelectSingleNode("//strong/span[1]").InnerText;
+                movie.ImdbRatesCount = pageDocument.DocumentNode.SelectSingleNode("//span[@class='small']").InnerText;
+                _logger.LogInfo($"Successfully saved Ratings for movie {movie.Id} with ImdbId \"{movie.ImdbId}\"");
             }
-            var pageContents = await response.Content.ReadAsStringAsync();
-            HtmlDocument pageDocument = new HtmlDocument();
-            pageDocument.LoadHtml(pageContents);
-            movie.ImdbRate = pageDocument.DocumentNode.SelectSingleNode("//strong/span[1]").InnerText;
-            movie.ImdbRatesCount = pageDocument.DocumentNode.SelectSingleNode("//span[@class='small']").InnerText;
-            _logger.LogInfo($"Successfully saved Ratings for movie {movie.Id} with ImdbId \"{movie.ImdbId}\"");
+            catch (Exception ex)
+            {
+                _logger.LogWarn($"SetMovieRatingsAsync thrown an exception: {ex}");
+            }
+            
         }
 
         public async Task SetMovieDirectorsGenresCastsListAsync(Movie movie, MovieCreationDTO movieCreationDTO)

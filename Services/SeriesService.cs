@@ -354,19 +354,27 @@ namespace dadachMovie.Services
 
         public async Task SetSerieRatingsAsync(Serie serie)
         {
-            HttpClient client = new HttpClient();
-            var response = await client.GetAsync("https://www.imdb.com/title/" + serie.ImdbId);
-            if (!response.IsSuccessStatusCode)
+            try
             {
-                _logger.LogWarn($"Failed to get Ratings for serie {serie.Id} with ImdbId \"{serie.ImdbId}\".");
-                return;
+                HttpClient client = new HttpClient();
+                var response = await client.GetAsync("https://www.imdb.com/title/" + serie.ImdbId);
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogWarn($"Failed to get Ratings for serie {serie.Id} with ImdbId \"{serie.ImdbId}\".");
+                    return;
+                }
+                var pageContents = await response.Content.ReadAsStringAsync();
+                HtmlDocument pageDocument = new HtmlDocument();
+                pageDocument.LoadHtml(pageContents);
+                serie.ImdbRate = pageDocument.DocumentNode.SelectSingleNode("//strong/span[1]").InnerText;
+                serie.ImdbRatesCount = pageDocument.DocumentNode.SelectSingleNode("//span[@class='small']").InnerText;
+                _logger.LogInfo($"Successfully saved Ratings for serie {serie.Id} with ImdbId \"{serie.ImdbId}\"");
             }
-            var pageContents = await response.Content.ReadAsStringAsync();
-            HtmlDocument pageDocument = new HtmlDocument();
-            pageDocument.LoadHtml(pageContents);
-            serie.ImdbRate = pageDocument.DocumentNode.SelectSingleNode("//strong/span[1]").InnerText;
-            serie.ImdbRatesCount = pageDocument.DocumentNode.SelectSingleNode("//span[@class='small']").InnerText;
-            _logger.LogInfo($"Successfully saved Ratings for serie {serie.Id} with ImdbId \"{serie.ImdbId}\"");
+            catch (Exception ex)
+            {
+                _logger.LogWarn($"SetSerieRatingsAsync thrown an exception: {ex}");
+            }
+            
         }
 
         public async Task SetSerieDirectorsGenresCastsListAsync(Serie serie, SerieCreationDTO serieCreationDTO)
