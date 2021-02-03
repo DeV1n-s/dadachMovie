@@ -46,15 +46,16 @@ namespace dadachMovie.Services
                 var movies = await dbContext.Movies.ToListAsync();
                 var series = await dbContext.Series.ToListAsync();
 
-
                 foreach (var movie in movies)
                 {
-                    await moviesService.SetMovieRatingsAsync(movie);
+                    if (movie != null)
+                        await moviesService.SetMovieRatingsAsync(movie);
                 }
 
                 foreach (var serie in series)
                 {
-                    await seriesService.SetSerieRatingsAsync(serie);
+                    if (serie != null)
+                        await seriesService.SetSerieRatingsAsync(serie);
                 }
 
                 await dbContext.SaveChangesAsync();
