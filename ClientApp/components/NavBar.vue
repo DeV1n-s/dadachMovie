@@ -78,12 +78,12 @@
                 <i class="fa fa-info"></i> درباره ما
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="isLogin">
               <nuxt-link class="nav-link" to="/userprofile">
                 <i class="fa fa-user"></i> پروفایل کاربری
               </nuxt-link>
             </li>
-            <li class="nav-item" v-if="isLogin">
+            <li class="nav-item" v-if="isAdmin">
               <nuxt-link class="nav-link" to="/admin" active-class="active">
                 <i class="fa fa-user-plus"></i>پنل ادمین
               </nuxt-link>
@@ -158,10 +158,18 @@ export default {
       currentUser: {},
       isLogin: false,
       tokenId: this.$store.getters.isAuthGet,
-      token: this.$store.getters.token
+      token: this.$store.getters.token,
+      isAdmin: false
     };
   },
   methods: {
+    adminChecker() {
+      console.log(this.currentUser);
+      // if (this.currentUser.roles[0] === 'Admin') {
+      //   this.isAdmin = true;
+      //   console.log('admin admine khode admine');
+      // }
+    },
     autoLog() {
       this.$store.dispatch('autoLog');
     },
@@ -183,7 +191,10 @@ export default {
           })
           .then(res => {
             this.currentUser = res.data;
-            console.log(this.currentUser);
+            // console.log(this.currentUser.roles[0]);
+            if (this.currentUser.roles[0] === 'Admin') {
+              this.isAdmin = true;
+            }
           });
       }
     }
@@ -192,7 +203,7 @@ export default {
     await this.autoLog();
     this.logCheck();
     this.getCurrentUser();
-    console.log(this.isLogin);
+    this.adminChecker();
   }
 };
 </script>

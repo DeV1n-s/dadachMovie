@@ -41,10 +41,12 @@
           <div class="movie-card__content">
             <div class="movie-card__header">
               <h1 class="movie-card__title">{{ series.title }}</h1>
-              <h4 class="movie-card__info">
+              <h4 class="movie-card__info mt-2">
                 تعداد فصل : {{ series.episodes }}
               </h4>
-              <h4 class="movie-card__info">روز پخش : {{ series.airDay }}</h4>
+              <h4 class="movie-card__info mt-2">
+                روز پخش : {{ series.airDay }}
+              </h4>
             </div>
             <p class="movie-card__desc">
               {{ series.shortDescription }}
