@@ -2059,6 +2059,10 @@
     }
     
     @media screen and (max-width: 1510px) {
+        .itemcont {
+            width: 85%;
+            margin-left: 10rem !important;
+        }
         .in-theater .row {
             width: 78% !important;
         }

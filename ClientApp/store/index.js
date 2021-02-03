@@ -7,7 +7,7 @@ import Peaple from './Modules/Peaple'
 import Post from './Modules/post'
 import Search from './Modules/Search'
 import Users from './Modules/Users'
-
+import Series from './Modules/Series'
 
 
 const createStore = () => {
@@ -21,7 +21,8 @@ const createStore = () => {
             Peaple,
             Post,
             Search,
-            Users
+            Users,
+            Series
         }
     });
 };

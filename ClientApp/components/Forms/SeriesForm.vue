@@ -27,7 +27,7 @@
       </div>
       <div class="row">
         <div class="col-md-6 mt-4">
-          <label for="start" class="d-block">تاریخ انتشار:</label>
+          <label for="start" class="d-block">تاریخ شروع :</label>
 
           <input
             class="w-100"
@@ -37,22 +37,22 @@
             value="2018-07-22"
             min="0000-01-01"
             max="2999-12-31"
-            v-model="movieData.releaseDate"
+            v-model="movieData.startYear"
           />
         </div>
+        <div class="col-md-6 mt-4">
+          <label for="start" class="d-block">تاریخ پایان:</label>
 
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="exampleFormControlInput1"></label>
-            <form-input
-              label="زمان  به دقیقه"
-              :required="true"
-              id="name"
-              v-model="movieData.lenght"
-              type="number"
-              min="0"
-            />
-          </div>
+          <input
+            class="w-100"
+            type="date"
+            id="start"
+            name="trip-start"
+            value="2018-07-22"
+            min="0000-01-01"
+            max="2999-12-31"
+            v-model="movieData.endYear"
+          />
         </div>
       </div>
       <div class="row mt-4">
@@ -134,22 +134,27 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6 mb-1">
-          <div class="check-box mr-4">
-            <div class="form-group f-check">
-              <div class="form-check mr-2">
-                <label class="form-check-label c-check " for="flexCheckDefault">
-                  روی پرده سینما :
-                </label>
-                <input
-                  class="form-check-input mr-5 mt-2"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                  v-model="movieData.inTheaters"
-                />
-              </div>
-            </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleFormControlInput1"></label>
+            <form-input
+              label="تعداد فصل"
+              :required="true"
+              id="name"
+              v-model="movieData.Seasons"
+              type="number"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleFormControlInput1"></label>
+            <form-input
+              label="وضعیت"
+              :required="true"
+              id="name"
+              v-model="movieData.status"
+            />
           </div>
         </div>
       </div>
@@ -274,12 +279,16 @@ export default {
         title: '',
         shortDescription: '',
         description: '',
-        releaseDate: '',
+        startYear: '',
+        endYear: '',
         lenght: '',
+        status: '',
         imdbId: '',
         picture: '',
         bannerImage: '',
-        inTheaters: false
+        seasons: '',
+        Lenght: 2,
+        episodes: 1
       },
       movieDetail: {
         CastsJson: [],
@@ -362,7 +371,7 @@ export default {
     async SubmitData(form) {
       await axios
         .post(
-          '/api/movies',
+          '/api/series',
 
           form,
           {

@@ -41,7 +41,7 @@
                 <a class="dropdown-item" href="movies"> سینمایی</a>
                 <div class="dropdown-divider"></div>
 
-                <a class="dropdown-item" href="#"> سریال</a>
+                <a class="dropdown-item" href="/series"> سریال</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">تریلر ها </a>
               </div>
