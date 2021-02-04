@@ -21,9 +21,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav">
             <li class="nav-item ">
-              <a class="nav-link" href="/home" active-class="active">
+              <nuxt-link class="nav-link" to="/home" active-class="active">
                 <i class="fa fa-home"></i> خانه
-              </a>
+              </nuxt-link>
             </li>
             <li class="nav-item dropdown">
               <a
@@ -38,7 +38,9 @@
                 <i class="fa fa-film"> </i> فیلم ها
               </a>
               <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="movies"> سینمایی</a>
+                <nuxt-link class="dropdown-item" to="/movies">
+                  سینمایی</nuxt-link
+                >
                 <div class="dropdown-divider"></div>
 
                 <a class="dropdown-item" href="/series"> سریال</a>
@@ -199,7 +201,7 @@ export default {
       }
     }
   },
-  async beforeMount() {
+  async created() {
     await this.autoLog();
     this.logCheck();
     this.getCurrentUser();
