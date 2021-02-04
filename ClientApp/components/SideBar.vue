@@ -28,39 +28,30 @@
       <div class="most-rate-movie">
         <h6 class="mb-1">آخرین سریال های بروز شده</h6>
         <div class="most-rate-box">
-          <div class="most-rate">
+          <div class="most-rate" v-for="series in lastSeries" :key="series.id">
             <img
-              src="https://www.uptvs.com/wp-contents/uploads/2021/01/halka-jadval.jpg"
+              :src="series.bannerImage"
               alt="Responsive image"
+              class="series-banner"
             />
             <div class="content">
-              <p class="mrate-detail">
-                فیلم های قشنگفیلم های قشنگفیلم های قشنگفیلم گ
-              </p>
+              <div class="row">
+                <h5 class="mrate-detail mt-2 mr-4 text-warning col-md-6">
+                  {{ series.title }}
+                </h5>
+                <p class="mb-2">
+                  روز پخش :
+                  {{ series.airDay }}
+                </p>
+              </div>
+              <div class="row">
+                <button class="btn btn-outline-success mr-4 mb-1">
+                  مشاهده
+                </button>
+              </div>
             </div>
           </div>
-          <div class="most-rate">
-            <img
-              src="https://www.uptvs.com/wp-contents/uploads/2021/01/halka-jadval.jpg"
-              alt="Responsive image"
-            />
-            <div class="content">
-              <p class="mrate-detail">
-                فیلم های قشنگفیلم های قشنگفیلم های قشنگفیلم گ
-              </p>
-            </div>
-          </div>
-          <div class="most-rate">
-            <img
-              src="https://www.uptvs.com/wp-contents/uploads/2021/01/halka-jadval.jpg"
-              alt="Responsive image"
-            />
-            <div class="content">
-              <p class="mrate-detail">
-                فیلم های قشنگفیلم های قشنگفیلم های قشنگفیلم گ
-              </p>
-            </div>
-          </div>
+
           <button class="btn btn-block btn-outline-info my-2">
             مشاهده همه فیلم ها
           </button>
@@ -131,9 +122,25 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+  data() {
+    return {
+      lastSeries: []
+    };
+  },
+  methods: {
+    async getLastSeries() {
+      await axios.get('/api/series?PageSize=5').then(res => {
+        this.lastSeries = res.data.items;
+        console.log(this.lastSeries);
+      });
+    }
+  },
+
   mounted() {
     this.$store.dispatch('GetGenres');
+    this.getLastSeries();
   },
   computed: {
     Genres: function() {
@@ -144,6 +151,9 @@ export default {
 </script>
 
 <style scoped>
+.series-banner {
+  height: 120px !important;
+}
 .side-item {
   margin-right: 0rem !important;
 }
@@ -153,5 +163,10 @@ export default {
 }
 .genre-name-list p:hover {
   color: #17a2b8 !important;
+}
+
+button.btn.btn-outline-success.mr-4.mb-1 {
+  height: 35px !important;
+  margin-bottom: 20px !important;
 }
 </style>

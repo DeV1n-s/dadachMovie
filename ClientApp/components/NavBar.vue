@@ -201,7 +201,7 @@ export default {
       }
     }
   },
-  async created() {
+  async beforeMount() {
     await this.autoLog();
     this.logCheck();
     this.getCurrentUser();
