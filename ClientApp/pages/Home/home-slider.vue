@@ -12,16 +12,10 @@
             img-height="480"
           >
             <b-carousel-slide
-              caption=""
-              img-src="https://valamovie.art/wp-content/uploads/DC-Justice-League.jpg"
-            ></b-carousel-slide>
-            <b-carousel-slide
-              caption="League"
-              img-src="https://valamovie.art/wp-content/uploads/DC-Justice-League.jpg"
-            ></b-carousel-slide>
-            <b-carousel-slide
-              caption="League"
-              img-src="https://valamovie.art/wp-content/uploads/DC-Justice-League.jpg"
+              v-for="movie in sliderData"
+              :key="movie.id"
+              :caption="movie.title"
+              :img-src="movie.bannerImage"
             ></b-carousel-slide>
           </b-carousel>
         </div>
@@ -31,7 +25,25 @@
 </template>
 
 <script>
-export default {};
+import axios from 'axios';
+export default {
+  data() {
+    return {
+      sliderData: []
+    };
+  },
+  methods: {
+    getSliderMovie() {
+      axios.get('api/movies?PageSize=3').then(res => {
+        this.sliderData = res.data.items;
+        console.log(this.sliderData);
+      });
+    }
+  },
+  mounted() {
+    this.getSliderMovie();
+  }
+};
 </script>
 
 <style scoped></style>

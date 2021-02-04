@@ -160,7 +160,7 @@ export default {
       currentUser: {},
       isLogin: false,
       tokenId: this.$store.getters.isAuthGet,
-      token: this.$store.getters.token,
+      token: '',
       isAdmin: false
     };
   },
@@ -176,7 +176,7 @@ export default {
       this.$store.dispatch('autoLog');
     },
     logCheck() {
-      if (this.tokenId) {
+      if (this.token != '') {
         this.isLogin = true;
       }
     },
@@ -201,11 +201,13 @@ export default {
       }
     }
   },
-  async beforeMount() {
-    await this.autoLog();
+  async created() {
+    this.autoLog();
+    this.token = localStorage.getItem('token');
     this.logCheck();
-    this.getCurrentUser();
     this.adminChecker();
+
+    await this.getCurrentUser();
   }
 };
 </script>
