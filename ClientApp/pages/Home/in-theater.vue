@@ -3,74 +3,47 @@
     <div class="in-theater">
       <h4 class="mr-4 "><i class="fa fa-film ml-1 "></i> روی پرده سینما ...</h4>
       <div class="row mr-4">
-        <div class="card col-md-3">
-          <a href="#">
-            <div class="img1"></div>
-            <div class="img2"></div>
-            <div class="title">سریال وایکینگز || قسمت اول 1</div>
+        <div
+          class="card col-md-3"
+          v-for="movie in inTheaterMovie"
+          :key="movie.id"
+        >
+          <nuxt-link
+            class="genre-name-list"
+            :to="{ name: 'MovieSingle-id', params: { id: movie.id } }"
+          >
+            <div
+              class="img1"
+              :style="{
+                backgroundImage: `url('${movie.picture}')`
+              }"
+            ></div>
+            <div
+              class="img2"
+              :style="{
+                backgroundImage: `url('${movie.picture}')`
+              }"
+            ></div>
+            <div class="title">{{ movie.title }}</div>
             <div class="text">
-              سریال وایکینگز با موضوعیت حمله ایله بختیاری به ایل قشقایی ساخته
-              شده
+              {{ movie.shortDescription }}
             </div>
             <a href="#"
-              ><div class="catagory">سریال <i class="fa fa-film"></i></div
-            ></a>
-            <a href="#"
-              ><div class="views">2020 <i class="fa fa-eye"></i></div
-            ></a>
-          </a>
-        </div>
-        <div class="card col-md-3">
-          <a href="#">
-            <div class="img1"></div>
-            <div class="img2"></div>
-            <div class="title">سریال وایکینگز || قسمت اول 1</div>
-            <div class="text">
-              سریال وایکینگز با موضوعیت حمله ایله بختیاری به ایل قشقایی ساخته
-              شده
-            </div>
-            <a href="#"
-              ><div class="catagory">سریال <i class="fa fa-film"></i></div
-            ></a>
-            <a href="#"
-              ><div class="views">2020 <i class="fa fa-eye"></i></div
-            ></a>
-          </a>
-        </div>
-        <div class="card col-md-3">
-          <a href="#">
-            <div class="img1"></div>
-            <div class="img2"></div>
-            <div class="title">سریال وایکینگز || قسمت اول 1</div>
-            <div class="text">
-              سریال وایکینگز با موضوعیت حمله ایله بختیاری به ایل قشقایی ساخته
-              شده
-            </div>
-            <a href="#"
-              ><div class="catagory">سریال <i class="fa fa-film"></i></div
-            ></a>
-            <a href="#"
-              ><div class="views">2020 <i class="fa fa-eye"></i></div
-            ></a>
-          </a>
-        </div>
+              ><div class="catagory">
+                <i class="fa fa-clock-o"></i>
 
-        <div class="card col-md-3">
-          <a href="#">
-            <div class="img1"></div>
-            <div class="img2"></div>
-            <div class="title">سریال وایکینگز || قسمت اول 1</div>
-            <div class="text">
-              سریال وایکینگز با موضوعیت حمله ایله بختیاری به ایل قشقایی ساخته
-              شده
-            </div>
+                {{ movie.lenght }}
+                دقیقه
+              </div>
+            </a>
             <a href="#"
-              ><div class="catagory">سریال <i class="fa fa-film"></i></div
-            ></a>
-            <a href="#"
-              ><div class="views">2020 <i class="fa fa-eye"></i></div
-            ></a>
-          </a>
+              ><div class="views">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+
+                {{ movie.releaseDate }}
+              </div>
+            </a>
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -78,7 +51,27 @@
 </template>
 
 <script>
-export default {};
+import axios from 'axios';
+export default {
+  data() {
+    return {
+      inTheaterMovie: []
+    };
+  },
+  methods: {
+    getInTheater() {
+      axios.get('/api/movies/InTheaters?PageSize=4').then(res => {
+        res.data.items.forEach(q => {
+          this.inTheaterMovie.push(q);
+        });
+        console.log(res.data.items);
+      });
+    }
+  },
+  mounted() {
+    this.getInTheater();
+  }
+};
 </script>
 
 <style scoped>
