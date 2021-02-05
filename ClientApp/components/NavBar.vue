@@ -176,7 +176,7 @@ export default {
       this.$store.dispatch('autoLog');
     },
     logCheck() {
-      if (this.token != '') {
+      if (this.token != null) {
         this.isLogin = true;
       }
     },
