@@ -68,22 +68,7 @@ namespace dadachMovie.Helpers
                             
             CreateMap<MoviesRating, UserMovieRatingDTO>();
 
-            CreateMap<Movie, FavoriteMovieDTO>();
-
-            CreateMap<User, UserDTO>()
-                .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src.Email))
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
-            
-            CreateMap<User, UserDetailsDTO>()
-                .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src.Email))
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
-
-            CreateMap<UserUpdateDTO, User>()
-                .ForMember(dest => dest.Picture, opt => opt.Ignore())
-                .ForMember(dest => dest.BannerPicture, opt => opt.Ignore())
-                .ForPath(dest => dest.Country.Id, opt => opt.MapFrom(src => src.CountryId));
+            CreateMap<Movie, UserFavoriteMovieDTO>();
             
             CreateMap<CommentCreationDTO, Comment>();
             
@@ -93,6 +78,10 @@ namespace dadachMovie.Helpers
                 .ForMember(dest => dest.UserRate, 
                     opt => opt.MapFrom(dest => dest.User.MoviesRatings.Any(x => x.MovieId == dest.MovieId) ?
                     dest.User.MoviesRatings.FirstOrDefault(x => x.MovieId == dest.MovieId).Rate : 0));
+            
+            CreateMap<Comment, UserMovieCommentDTO>();
+            
+            CreateMap<Comment, UserSerieCommentDTO>();
 
             CreateMap<RequestCreationDTO, Request>()
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
@@ -140,7 +129,30 @@ namespace dadachMovie.Helpers
                             
             CreateMap<SeriesRating, UserSerieRatingDTO>();
 
-            CreateMap<Serie, FavoriteSerieDTO>();
+            CreateMap<Serie, UserFavoriteSerieDTO>();
+
+            CreateMap<User, UserDTO>()
+                .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
+            
+            CreateMap<User, UserDetailsDTO>()
+                .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name))
+                .ForPath(dest => dest.MovieComments.Items, opt => opt.MapFrom(src => src.Comments.Where(x => x.Type == Enums.CommentType.Movie).ToList()))
+                .ForPath(dest => dest.MovieComments.TotalItems, opt => opt.MapFrom(src => src.Comments.Where(x => x.Type == Enums.CommentType.Movie).Count()))
+                .ForPath(dest => dest.SerieComments.Items, opt => opt.MapFrom(src => src.Comments.Where(x => x.Type == Enums.CommentType.Serie).ToList()))
+                .ForPath(dest => dest.SerieComments.TotalItems, opt => opt.MapFrom(src => src.Comments.Where(x => x.Type == Enums.CommentType.Serie).Count()))
+                .ForPath(dest => dest.FavoriteMovies.Items, opt => opt.MapFrom(src => src.FavoriteMovies.ToList()))
+                .ForPath(dest => dest.FavoriteMovies.TotalItems, opt => opt.MapFrom(src => src.FavoriteMovies.Count))
+                .ForPath(dest => dest.FavoriteSeries.Items, opt => opt.MapFrom(src => src.FavoriteSeries.ToList()))
+                .ForPath(dest => dest.FavoriteSeries.TotalItems, opt => opt.MapFrom(src => src.FavoriteSeries.Count));
+
+            CreateMap<UserUpdateDTO, User>()
+                .ForMember(dest => dest.Picture, opt => opt.Ignore())
+                .ForMember(dest => dest.BannerPicture, opt => opt.Ignore())
+                .ForPath(dest => dest.Country.Id, opt => opt.MapFrom(src => src.CountryId));
         }
     }
 }

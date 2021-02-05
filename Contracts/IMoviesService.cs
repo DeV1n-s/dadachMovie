@@ -22,7 +22,7 @@ namespace dadachMovie.Contracts
         Task<int> AddUserCommentAsync(CommentCreationDTO commentCreationDTO);
         Task<int> DeleteUserCommentAsync(int id);
         Task<int> SaveUserMovieRatingAsync(MovieRatingDTO movieRatingDTO);
-        Task<int> SaveUserFavoriteMoviesAsync(UserFavoriteMoviesDTO userFavoriteMoviesDTO);
+        Task<int> SaveUserFavoriteMoviesAsync(AddUserFavoriteMovieDTO addUserFavoriteMovieDTO);
         Task SetMovieRatingsAsync(Movie movie);
         void AnnotateCastsOrder(Movie movie);
         Task SetMovieDirectorsGenresCastsListAsync(Movie movie, MovieCreationDTO movieCreationDTO);

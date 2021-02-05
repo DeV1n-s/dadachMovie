@@ -21,16 +21,16 @@ namespace dadachMovie.Services
             _mapper = mapper;
             _logger = logger;
         }
-        public async Task<int> SaveUserFavoriteMoviesAsync(UserFavoriteMoviesDTO userFavoriteMoviesDTO)
+        public async Task<int> SaveUserFavoriteMovieAsync(AddUserFavoriteMovieDTO addUserFavoriteMovieDTO)
         {
             var movie = await _dbContext.Movies.AsTracking()
-                                            .FirstOrDefaultAsync(m => m.Id == userFavoriteMoviesDTO.MovieId);
+                                            .FirstOrDefaultAsync(m => m.Id == addUserFavoriteMovieDTO.MovieId);
             if (movie == null)
                 return -2;
             
             var user = await _dbContext.Users.AsTracking()
                                             .Include(x => x.FavoriteMovies)
-                                            .FirstOrDefaultAsync(u => u.Id == userFavoriteMoviesDTO.UserId);
+                                            .FirstOrDefaultAsync(u => u.Id == addUserFavoriteMovieDTO.UserId);
             if (user == null)
                 return -3;
             
@@ -51,16 +51,16 @@ namespace dadachMovie.Services
             }
         }
 
-        public async Task<int> SaveUserFavoriteSeriesAsync(UserFavoriteSeriesDTO userFavoriteSeriesDTO)
+        public async Task<int> SaveUserFavoriteSerieAsync(AddUserFavoriteSerieDTO addUserFavoriteSerieDTO)
         {
             var serie = await _dbContext.Series.AsTracking()
-                                            .FirstOrDefaultAsync(m => m.Id == userFavoriteSeriesDTO.SerieId);
+                                            .FirstOrDefaultAsync(m => m.Id == addUserFavoriteSerieDTO.SerieId);
             if (serie == null)
                 return -2;
             
             var user = await _dbContext.Users.AsTracking()
                                             .Include(x => x.FavoriteSeries)
-                                            .FirstOrDefaultAsync(u => u.Id == userFavoriteSeriesDTO.UserId);
+                                            .FirstOrDefaultAsync(u => u.Id == addUserFavoriteSerieDTO.UserId);
             if (user == null)
                 return -3;
 

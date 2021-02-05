@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace dadachMovie.DTOs
 {
-    public class UserFavoriteSeriesDTO
+    public class AddUserFavoriteSerieDTO
     {
         [JsonIgnore]
         public Guid UserId { get; set; }

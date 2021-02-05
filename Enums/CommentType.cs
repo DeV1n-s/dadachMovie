@@ -1,8 +1,8 @@
 namespace dadachMovie.Enums
 {
-    public enum CommentType
+    public enum CommentType : int
     {
-        Movie,
-        Serie
+        Movie = 1,
+        Serie =2
     }
 }

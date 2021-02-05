@@ -285,10 +285,10 @@ namespace dadachMovie.Services
             return await _ratingService.SaveSerieRatingAsync(serieRatingDTO);
         }
         
-        public async Task<int> SaveUserFavoriteSeriesAsync(UserFavoriteSeriesDTO userFavoriteSeriesDTO)
+        public async Task<int> SaveUserFavoriteSeriesAsync(AddUserFavoriteSerieDTO addUserFavoriteSerieDTO)
         {
-            userFavoriteSeriesDTO.UserId = await _accountsService.GetCurrentUserIdAsync();
-            return await _userFavoriteService.SaveUserFavoriteSeriesAsync(userFavoriteSeriesDTO);
+            addUserFavoriteSerieDTO.UserId = await _accountsService.GetCurrentUserIdAsync();
+            return await _userFavoriteService.SaveUserFavoriteSerieAsync(addUserFavoriteSerieDTO);
         }
         
         private async Task<List<Genre>> ListGenres(SerieCreationDTO serieCreationDTO)
