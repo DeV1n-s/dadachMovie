@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="mt-2">لیست فیلم ها</h3>
+    <h3 class="mt-2">لیست سریال</h3>
     <hr />
     <div class="row">
       <div class="col-md-12">
@@ -68,13 +68,13 @@ export default {
         },
 
         {
-          label: 'زمان',
-          field: 'lenght'
+          label: 'وضعیت',
+          field: 'status'
         },
 
         {
-          label: 'تاریخ انتشار',
-          field: 'releaseDate'
+          label: 'نمره IMDB',
+          field: 'imdbRate'
         },
         {
           label: '',
@@ -109,11 +109,11 @@ export default {
   },
   mounted() {
     this.token = localStorage.getItem('token');
-    this.$store.dispatch('getMovie');
+    this.$store.dispatch('getSeries');
   },
   computed: {
     Movies: function() {
-      return this.$store.getters.GetMovies;
+      return this.$store.getters.GetSeries;
     }
   },
   components: {

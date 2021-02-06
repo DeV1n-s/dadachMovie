@@ -25,7 +25,7 @@ const mutations = {
 
 const actions = {
     GetCountry({ commit }) {
-        axios.get('/api/Countries')
+        axios.get('/api/countries?PageSize=300')
             .then(response => {
                 commit('SET_COUNTRY', response.data)
             })

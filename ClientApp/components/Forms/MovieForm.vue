@@ -340,7 +340,7 @@ export default {
       return capitalized;
     },
     GetCountry() {
-      axios.get('/api/countries').then(res => {
+      axios.get('api/countries?PageSize=300').then(res => {
         res.data.items.forEach(q => {
           let cData = { value: '', text: '' };
           cData.value = q.id;
