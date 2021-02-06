@@ -30,10 +30,15 @@
           <p>
             {{ movie.shortDescription }}
           </p>
-          <button>
-            <i class="fa fa-eye"></i>
-            مشاهده
-          </button>
+          <nuxt-link
+            class="genre-name-list"
+            :to="{ name: 'MovieSingle-id', params: { id: movie.id } }"
+          >
+            <button>
+              <i class="fa fa-eye"></i>
+              مشاهده
+            </button>
+          </nuxt-link>
         </div>
       </div>
     </div>
