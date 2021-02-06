@@ -110,12 +110,14 @@
                       >
                         <div>
                           <span class="heading">
-                            22
+                            {{ coumentMovieCount }}
                           </span>
                           <span class="description"> نظرات </span>
                         </div>
                         <div>
-                          <span class="heading">10</span>
+                          <span class="heading">
+                            {{ favoritMovieCount }}
+                          </span>
                           <span class="description"> فیلم‌های مورد علاقه </span>
                         </div>
                       </div>
@@ -131,10 +133,9 @@
                     </div>
 
                     <hr class="my-4" />
+                    <p>تاریخ ثبت نام :</p>
                     <p>
-                      Ryan — the name taken by Melbourne-raised, Brooklyn-based
-                      Nick Murphy — writes, performs and records all of his own
-                      music.
+                      {{ currentUser.registerDate }}
                     </p>
                     <a
                       href="#!"
@@ -379,13 +380,15 @@ export default {
       token: '',
       currentUser: '',
       roles: [],
-      favoritMovie: []
+      favoritMovie: [],
+      favoritMovieCount: '',
+      coumentMovieCount: ''
     };
   },
   methods: {
-    getCurrentUser() {
+    async getCurrentUser() {
       console.log('ho');
-      axios
+      await axios
         .get('/api/accounts/CurrentUser', {
           headers: {
             Authorization: ` Bearer ${this.token}`
@@ -395,6 +398,8 @@ export default {
           this.currentUser = res.data;
           this.roles = res.data.roles;
           this.favoritMovie = res.data.favoriteMovies.items;
+          this.favoritMovieCount = res.data.favoriteMovies.totalItems;
+          this.coumentMovieCount = res.data.movieComments.totalItems;
           console.log(this.favoritMovie);
         });
     }
