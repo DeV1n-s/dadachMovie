@@ -79,9 +79,11 @@ namespace dadachMovie.Helpers
                     opt => opt.MapFrom(dest => dest.User.MoviesRatings.Any(x => x.MovieId == dest.MovieId) ?
                     dest.User.MoviesRatings.FirstOrDefault(x => x.MovieId == dest.MovieId).Rate : 0));
             
-            CreateMap<Comment, UserMovieCommentDTO>();
+            CreateMap<Comment, UserMovieCommentDTO>()
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Movie.Title));
             
-            CreateMap<Comment, UserSerieCommentDTO>();
+            CreateMap<Comment, UserSerieCommentDTO>()
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Serie.Title));;
 
             CreateMap<RequestCreationDTO, Request>()
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));

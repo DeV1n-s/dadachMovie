@@ -293,8 +293,11 @@ namespace dadachMovie.Services
             var user = await _userManager.Users.Include(x => x.FavoriteMovies)
                                             .Include(x => x.MoviesRatings)
                                             .Include(x => x.Country)
-                                            .Include(x => x.Comments)
+                                            .Include(x => x.Comments).ThenInclude(x => x.Movie)
+                                            .Include(x => x.Comments).ThenInclude(x => x.Serie)
                                             .Include(x => x.Requests)
+                                            .Include(x => x.SeriesRatings)
+                                            .Include(x => x.FavoriteSeries)
                                             .FirstOrDefaultAsync(x => x.Email == this.GetCurrentUserEmail());
             if (user == null)
                 return null;
