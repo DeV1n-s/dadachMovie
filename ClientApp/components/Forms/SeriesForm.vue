@@ -308,7 +308,7 @@ export default {
       if (this.id != undefined) {
         console.log(this.id);
         this.isEditMode = true;
-        axios.get('/api/movies/' + this.id).then(res => {
+        axios.get('/api/series/' + this.id).then(res => {
           this.movieData = res.data;
           console.log(res.data);
         });
@@ -387,7 +387,7 @@ export default {
     async EdittData($event) {
       await axios
         .put(
-          '/api/movies/' + this.id,
+          '/api/series/' + this.id,
 
           $event,
           {
