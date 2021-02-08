@@ -32,7 +32,12 @@
               <p class="copy">
                 {{ cast.shortBio }}
               </p>
-              <button class="btn">مشاهده</button>
+              <nuxt-link
+                class="genre-name-list"
+                :to="{ name: 'PeopleSingle-id', params: { id: cast.id } }"
+              >
+                <button class="btn">مشاهده</button>
+              </nuxt-link>
             </div>
           </div>
         </main>

@@ -109,7 +109,12 @@
                     </p>
                   </div>
                   <div class="comments">
-                    <h3>نظرات کاربران {{ comments.lenght }}</h3>
+                    <h3>
+                      نظرات کاربران
+                      <span class="comment-length text-muted">
+                        ({{ commentLength }})
+                      </span>
+                    </h3>
                     <div class="y-line"></div>
                     <div class="comment_block">
                       <div class="create_new_comment">
@@ -312,11 +317,19 @@ export default {
   mounted() {
     this.getMovie();
     this.token = localStorage.getItem('token');
+  },
+  computed: {
+    commentLength() {
+      return this.comments.length;
+    }
   }
 };
 </script>
 
 <style scoped>
+.comment-length {
+  font-size: 15px;
+}
 .alert-modal {
   float: left !important;
   margin-right: 1rem;
