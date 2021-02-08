@@ -267,6 +267,9 @@ h1 {
   background-size: cover;
   border-radius: 11px;
 }
+.row.itms.itemcont {
+  padding-bottom: 1rem;
+}
 
 #ave {
   box-shadow: 10px 10px 150px -45px rgba(199, 147, 75, 0.7);

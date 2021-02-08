@@ -99,6 +99,16 @@
                     </div>
                   </div>
                 </div>
+                <div class="custom-file" v-if="isEditMode">
+                  <label class="custom-file-label " for="customFile"
+                    >تصویر پروفایل را انتخاب کنید</label
+                  >
+                  <input
+                    type="file"
+                    class="custom-file-input"
+                    id="customFile"
+                  />
+                </div>
                 <div
                   class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4"
                 ></div>
@@ -165,12 +175,26 @@
                       <h3 class="mb-0">پروفایل کاربری</h3>
                     </div>
                     <div class="col-4 text-right">
-                      <a href="#!" class="btn btn-sm btn-primary"
+                      <a
+                        v-if="!isEditMode"
+                        href="#!"
+                        class="btn btn-sm btn-primary"
+                        @click="isEditMode = true"
                         >ویرایش پروفایل</a
                       >
+                      <div class="d-flex" v-if="isEditMode">
+                        <button
+                          class="btn btn-danger"
+                          @click="isEditMode = false"
+                        >
+                          بازگشت
+                        </button>
+                        <button class="btn btn-success mr-1">ثبت</button>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <!--  -->
                 <form v-if="!isMovieDetail">
                   <h6 class="heading-small text-muted mb-4">
                     اطلاعات شخصی
@@ -188,10 +212,11 @@
                             class="form-control form-control-alternative"
                             placeholder="نام کاربری"
                             value=""
+                            readonly
                           />
                         </div>
                       </div>
-                      <div class="col-lg-6">
+                      <div class="col-lg-6" v-if="!isEditMode">
                         <div class="form-group">
                           <label class="form-control-label" for="input-email"
                             >پست الکترونیکی</label
@@ -202,6 +227,36 @@
                             class="form-control form-control-alternative"
                             placeholder="email@gmail.com"
                             :value="currentUser.emailAddress"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" v-if="isEditMode">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-email"
+                            >پست الکترونیکی فعلی</label
+                          >
+                          <input
+                            type="email"
+                            id="input-email"
+                            class="form-control form-control-alternative"
+                            placeholder="email@gmail.com"
+                            :value="newUserData.CurrentEmailAddress"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-email"
+                            >پست الکترونیکی جدید</label
+                          >
+                          <input
+                            type="email"
+                            id="input-email"
+                            class="form-control form-control-alternative"
+                            placeholder="email@gmail.com"
+                            :value="newUserData.NewEmailAddress"
                           />
                         </div>
                       </div>
@@ -248,36 +303,6 @@
                   </h6>
                   <div class="pl-lg-4">
                     <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group focused">
-                          <label class="form-control-label" for="input-address"
-                            >آدرس کامل</label
-                          >
-                          <input
-                            id="input-address"
-                            class="form-control form-control-alternative"
-                            placeholder="آدرس کامل"
-                            value="کرج باغستان بوستان ۷ پلاک 39"
-                            type="text"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-4">
-                        <div class="form-group focused">
-                          <label class="form-control-label" for="input-city"
-                            >شهر</label
-                          >
-                          <input
-                            type="text"
-                            id="input-city"
-                            class="form-control form-control-alternative"
-                            placeholder="شهر"
-                            :value="currentUser.country"
-                          />
-                        </div>
-                      </div>
                       <div class="col-lg-4">
                         <div class="form-group focused">
                           <label class="form-control-label" for="input-country"
@@ -293,16 +318,16 @@
                         </div>
                       </div>
                       <div class="col-lg-4">
-                        <div class="form-group">
-                          <label class="form-control-label" for="input-country"
-                            >کد پستی</label
+                        <div class="form-group focused">
+                          <label class="form-control-label" for="input-city"
+                            >شهر</label
                           >
                           <input
-                            type="number"
-                            id="input-postal-code"
+                            type="text"
+                            id="input-city"
                             class="form-control form-control-alternative"
-                            placeholder="کد پستی"
-                            value="123456"
+                            placeholder="شهر"
+                            :value="currentUser.country"
                           />
                         </div>
                       </div>
@@ -323,6 +348,7 @@
                     </div>
                   </div>
                 </form>
+                <!--  -->
                 <div v-if="isMovieDetail">
                   <div class="card-body">
                     <div class="d-flex mb-2">
@@ -335,7 +361,7 @@
                     <div class="row">
                       <div class="movie-detail col-md-10 mr-4">
                         <div
-                          class="card mr-2"
+                          class="card mr-2 col-md-4"
                           v-for="fMovie in favoritMovie"
                           :key="fMovie.id"
                         >
@@ -350,10 +376,50 @@
                             <h4 class="mt-2">
                               <b class="mt-3">{{ fMovie.title }}</b>
                             </h4>
-                            <a href="#!" class="btn btn-sm btn-primary mb-2"
-                              >مشاهده</a
+                            <nuxt-link
+                              :to="{
+                                name: 'MovieSingle-id',
+                                params: { id: fMovie.id }
+                              }"
+                              class="btn btn-sm btn-primary mb-2"
+                              >مشاهده</nuxt-link
                             >
                           </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 class="mr-4 row">
+                    <i class="fa fa-comments-o  ml-1" aria-hidden="true"></i>
+
+                    نقد های کاربر
+                  </h3>
+                  <div class="row ml-1 mr-1">
+                    <div
+                      class="col-md-6"
+                      v-for="comment in comments"
+                      :key="comment.movieId"
+                    >
+                      <div class="card w-100">
+                        <div class="card-body">
+                          <h5 class="card-title">
+                            {{ comment.title }}
+                            <span class="text-muted">
+                              {{ comment.createdAt }}
+                            </span>
+                          </h5>
+                          <p class="card-text text-s">
+                            {{ comment.content }}
+                          </p>
+                          <nuxt-link
+                            class="btn btn-sm btn-primary mr-auto"
+                            :to="{
+                              name: 'MovieSingle-id',
+                              params: { id: comment.movieId }
+                            }"
+                          >
+                            مشاهده
+                          </nuxt-link>
                         </div>
                       </div>
                     </div>
@@ -376,16 +442,25 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      isEditMode: false,
       isMovieDetail: false,
       token: '',
       currentUser: '',
       roles: [],
       favoritMovie: [],
       favoritMovieCount: '',
-      coumentMovieCount: ''
+      coumentMovieCount: '',
+      comments: [],
+      newUserData: {
+        CurrentEmailAddress: '',
+        NewEmailAddress: ''
+      }
     };
   },
   methods: {
+    onFileSelectedTh(event) {
+      // this.movieData.picture = event.target.files[0];
+    },
     async getCurrentUser() {
       console.log('ho');
       await axios
@@ -400,6 +475,7 @@ export default {
           this.favoritMovie = res.data.favoriteMovies.items;
           this.favoritMovieCount = res.data.favoriteMovies.totalItems;
           this.coumentMovieCount = res.data.movieComments.totalItems;
+          this.comments = res.data.movieComments.items;
           console.log(this.favoritMovie);
         });
     }
@@ -416,6 +492,14 @@ export default {
 </script>
 
 <style scoped>
+.text-s {
+  font-size: 0.75rem;
+}
+.custom-file {
+  margin-top: 9rem !important;
+  margin-right: 1rem;
+  width: 85%;
+}
 form {
   margin-right: 10px;
 }
