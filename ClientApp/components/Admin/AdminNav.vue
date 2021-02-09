@@ -130,21 +130,27 @@ export default {
     logOut() {
       this.$store.dispatch('logOut');
     },
-    getCurrentUser() {
-      axios
-        .get('/api/accounts/CurrentUser', {
-          headers: {
-            Authorization: ` Bearer ${this.token}`
-          }
-        })
-        .then(res => {
-          this.currentUser = res.data;
-          // console.log(this.curentUser);
-        });
+    async getCurrentUser() {
+      try {
+        await axios
+          .get('/api/accounts/CurrentUser', {
+            headers: {
+              Authorization: ` Bearer ${this.token}`
+            }
+          })
+          .then(res => {
+            console.log(res);
+            this.currentUser = res.data;
+            // console.log(this.curentUser);
+          });
+      } catch (error) {
+        console.log(error);
+        this.$router.push('/home');
+      }
     }
   },
   async created() {
-    this.autoLog();
+    //this.autoLog();
     this.token = localStorage.getItem('token');
     this.logCheck();
     await this.getCurrentUser();
