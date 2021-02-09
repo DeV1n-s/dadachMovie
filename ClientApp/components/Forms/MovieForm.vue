@@ -232,6 +232,9 @@
         </button>
       </div>
     </form>
+    <div class="alert alert-danger mt-8" v-if="!isFormValid">
+      <p>خطا !‌لطفا تمامی موارد خواسته شده را وارد کنید</p>
+    </div>
     <div class="alert-modal">
       <b-alert
         :show="dismissCountDown"
@@ -257,6 +260,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      isFormValid: true,
       isEditMode: false,
       id: this.$route.params.id,
       name: '',
@@ -360,38 +364,48 @@ export default {
       setTimeout(this.$router.push('/admin'), 3000);
     },
     async SubmitData(form) {
-      await axios
-        .post(
-          '/api/movies',
+      try {
+        await axios
+          .post(
+            '/api/movies',
 
-          form,
-          {
-            headers: {
-              Authorization: `bearer ${this.token}`
+            form,
+            {
+              headers: {
+                Authorization: `bearer ${this.token}`
+              }
             }
-          }
-        )
-        .then(res => console.log(res.data));
-      this.showAlert();
-      this.changeRoute();
+          )
+          .then(res => console.log(res.data));
+        this.showAlert();
+        this.changeRoute();
+      } catch (error) {
+        console.log(error);
+        this.isFormValid = false;
+      }
     },
     async EdittData($event) {
-      await axios
-        .put(
-          '/api/movies/' + this.id,
+      try {
+        await axios
+          .put(
+            '/api/movies/' + this.id,
 
-          $event,
-          {
-            headers: {
-              Authorization: ` Bearer ${this.token}`
+            $event,
+            {
+              headers: {
+                Authorization: ` Bearer ${this.token}`
+              }
             }
-          }
-        )
-        .then(res => console.log(res.data));
+          )
+          .then(res => console.log(res.data));
 
-      this.isEditMode = false;
-      this.showAlert();
-      setTimeout(this.changeRoute(), 3000);
+        this.isEditMode = false;
+        this.showAlert();
+        setTimeout(this.changeRoute(), 3000);
+      } catch (error) {
+        console.log(error);
+        this.isFormValid = false;
+      }
     },
 
     sendData() {
@@ -444,6 +458,9 @@ export default {
 </script>
 
 <style scoped>
+.mt-8 {
+  margin-top: 5.5rem;
+}
 .th-img {
   width: 300px;
   height: 400px;

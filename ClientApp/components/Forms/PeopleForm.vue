@@ -121,6 +121,9 @@
         </button>
       </div>
     </form>
+    <div class="alert alert-danger mt-8" v-if="!isFormValid">
+      <p>خطا ! لطفا تمامی موارد خواسته شده را تکمیل کنید</p>
+    </div>
     <div class="alert-modal">
       <b-alert
         :show="dismissCountDown"
@@ -144,6 +147,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      isFormValid: true,
       isEditMode: false,
       id: this.$route.params.id,
       CastData: {
@@ -208,18 +212,23 @@ export default {
       this.$router.push('/admin');
     },
     async SubmitData(form) {
-      await axios
-        .post('/api/people', form, {
-          headers: {
-            Authorization: ` Bearer ${this.token}`
-          }
-        })
-        .then(res => {
-          console.log(res.data);
-          this.$router.push('/CastPanel');
-        });
-      this.showAlert();
-      setTimeout(this.changeRoute(), 3000);
+      try {
+        await axios
+          .post('/api/people', form, {
+            headers: {
+              Authorization: ` Bearer ${this.token}`
+            }
+          })
+          .then(res => {
+            console.log(res);
+            this.$router.push('/CastPanel');
+          });
+        this.showAlert();
+        setTimeout(this.changeRoute(), 3000);
+      } catch (error) {
+        console.log(error);
+        this.isFormValid = false;
+      }
     },
     async EdittData($event) {
       await axios
@@ -260,6 +269,9 @@ export default {
 </script>
 
 <style scoped>
+.mt-8 {
+  margin-top: 4.5rem !important;
+}
 .img-show img {
   height: 350px;
   width: 300px;

@@ -30,6 +30,9 @@
               افزودن
             </button>
           </div>
+          <p class="text-danger mr-2" v-if="!isFormValid">
+            خطا ! لطفا نام ژانر را وارد کنید
+          </p>
         </div>
       </div>
     </div>
@@ -54,6 +57,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      isFormValid: true,
       dismissSecs: 3,
       dismissCountDown: 0,
       showDismissibleAlert: false,
@@ -74,12 +78,17 @@ export default {
       this.dismissCountDown = this.dismissSecs;
     },
     async subGenre() {
-      await axios.post('/api/genres', this.genreData, {
-        headers: {
-          Authorization: ` Bearer ${this.token}`
-        }
-      });
-      this.showAlert();
+      try {
+        await axios.post('/api/genres', this.genreData, {
+          headers: {
+            Authorization: ` Bearer ${this.token}`
+          }
+        });
+        this.showAlert();
+      } catch (error) {
+        console.log(error);
+        this.isFormValid = false;
+      }
     }
   }
 };
