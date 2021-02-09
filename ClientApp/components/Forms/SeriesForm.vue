@@ -37,7 +37,7 @@
             value="2018-07-22"
             min="0000-01-01"
             max="2999-12-31"
-            v-model="movieData.startYear"
+            v-model="movieData.startDate"
           />
         </div>
         <div class="col-md-6 mt-4">
@@ -51,7 +51,7 @@
             value="2018-07-22"
             min="0000-01-01"
             max="2999-12-31"
-            v-model="movieData.endYear"
+            v-model="movieData.endDate"
           />
         </div>
       </div>
@@ -283,8 +283,8 @@ export default {
         title: '',
         shortDescription: '',
         description: '',
-        startYear: '',
-        endYear: '',
+        startDate: '',
+        endDate: '',
         lenght: '',
         status: '',
         imdbId: '',

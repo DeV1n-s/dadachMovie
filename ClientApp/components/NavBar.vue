@@ -165,13 +165,6 @@ export default {
     };
   },
   methods: {
-    adminChecker() {
-      console.log(this.currentUser);
-      // if (this.currentUser.roles[0] === 'Admin') {
-      //   this.isAdmin = true;
-      //   console.log('admin admine khode admine');
-      // }
-    },
     autoLog() {
       this.$store.dispatch('autoLog');
     },

@@ -4,59 +4,7 @@
     <div class="container">
       <div class="main-content">
         <!-- Top navbar -->
-        <nav
-          class="navbar navbar-top navbar-expand-md navbar-dark"
-          id="navbar-main"
-        >
-          <div class="container-fluid">
-            <!-- Brand -->
 
-            <!-- Form -->
-
-            <!-- User -->
-            <ul class="navbar-nav align-items-center d-none d-md-flex">
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link pr-0"
-                  href="#"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                </a>
-                <div
-                  class="dropdown-menu dropdown-menu-arrow dropdown-menu-right"
-                >
-                  <div class=" dropdown-header noti-title">
-                    <h6 class="text-overflow m-0">Welcome!</h6>
-                  </div>
-                  <a href="../examples/profile.html" class="dropdown-item">
-                    <i class="ni ni-single-02"></i>
-                    <span>My profile</span>
-                  </a>
-                  <a href="../examples/profile.html" class="dropdown-item">
-                    <i class="ni ni-settings-gear-65"></i>
-                    <span>Settings</span>
-                  </a>
-                  <a href="../examples/profile.html" class="dropdown-item">
-                    <i class="ni ni-calendar-grid-58"></i>
-                    <span>Activity</span>
-                  </a>
-                  <a href="../examples/profile.html" class="dropdown-item">
-                    <i class="ni ni-support-16"></i>
-                    <span>Support</span>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#!" class="dropdown-item">
-                    <i class="ni ni-user-run"></i>
-                    <span>Logout</span>
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
         <!-- Header -->
         <div
           class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
@@ -72,14 +20,24 @@
               <div class="col-lg-7 col-md-10">
                 <h1 class="display-2 text-white">
                   سلام
-
-                  {{ currentUser.firstName }} !
+                  <span class="d-block"> {{ currentUser.firstName }} ! </span>
                 </h1>
                 <p class="text-white mt-0 mb-5">
                   لورم ایپسوم متن قشنک و خفنیه برای تست کردن و سایر موارد
                 </p>
               </div>
             </div>
+          </div>
+          <div class="custom-file baner-upload-file" v-if="isEditMode">
+            <label class="custom-file-label " for="customFile"
+              >تصویر بنر را انتخاب کنید</label
+            >
+            <input
+              type="file"
+              class="custom-file-input"
+              id="customFile"
+              @change="onFileSelectedBn"
+            />
           </div>
         </div>
         <!-- Page content -->
@@ -107,6 +65,7 @@
                     type="file"
                     class="custom-file-input"
                     id="customFile"
+                    @change="onFileSelectedTh"
                   />
                 </div>
                 <div
@@ -135,7 +94,7 @@
                   </div>
                   <div class="text-center">
                     <h3>
-                      {{ currentUser.lastName + ' ' + currentUser.firstName }}
+                      {{ currentUser.firstName + ' ' + currentUser.lastName }}
                     </h3>
                     <span class="font-weight-light"> 24</span>
                     <div class="h5 font-weight-300">
@@ -189,7 +148,12 @@
                         >
                           بازگشت
                         </button>
-                        <button class="btn btn-success mr-1">ثبت</button>
+                        <button
+                          class="btn btn-success mr-1"
+                          @click="subEditData"
+                        >
+                          ثبت
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -238,11 +202,12 @@
                             >پست الکترونیکی فعلی</label
                           >
                           <input
+                            readonly
                             type="email"
                             id="input-email"
                             class="form-control form-control-alternative"
                             placeholder="email@gmail.com"
-                            :value="newUserData.CurrentEmailAddress"
+                            :value="currentUser.emailAddress"
                           />
                         </div>
                       </div>
@@ -256,7 +221,7 @@
                             id="input-email"
                             class="form-control form-control-alternative"
                             placeholder="email@gmail.com"
-                            :value="newUserData.NewEmailAddress"
+                            v-model="newUserData.NewEmailAddress"
                           />
                         </div>
                       </div>
@@ -274,7 +239,7 @@
                             id="input-first-name"
                             class="form-control form-control-alternative"
                             placeholder="نام"
-                            :value="currentUser.firstName"
+                            v-model="currentUser.firstName"
                           />
                         </div>
                       </div>
@@ -290,7 +255,7 @@
                             id="input-last-name"
                             class="form-control form-control-alternative"
                             placeholder="نام خانوادگی"
-                            :value="currentUser.lastName"
+                            v-model="currentUser.lastName"
                           />
                         </div>
                       </div>
@@ -309,12 +274,29 @@
                             >کشور</label
                           >
                           <input
+                            v-if="!isEditMode"
                             type="text"
                             id="input-country"
                             class="form-control form-control-alternative"
                             placeholder="کشور"
                             value="ایران"
                           />
+                          <multiselect
+                            v-if="isEditMode"
+                            v-model="cValue"
+                            tag-placeholder="Add this as new tag"
+                            placeholder="کشور"
+                            label="text"
+                            track-by="name"
+                            :options="options"
+                            :multiple="false"
+                            :taggable="true"
+                            @tag="addTag"
+                            :close-on-select="true"
+                            :clear-on-select="false"
+                            :preserve-search="true"
+                            :preselect-first="true"
+                          ></multiselect>
                         </div>
                       </div>
                       <div class="col-lg-4">
@@ -436,12 +418,16 @@
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect';
+
 import FooterApp from '../../components/FooterApp.vue';
 import NavBar from '../../components/NavBar.vue';
 import axios from 'axios';
 export default {
   data() {
     return {
+      options: [],
+      country: [],
       isEditMode: false,
       isMovieDetail: false,
       token: '',
@@ -451,15 +437,21 @@ export default {
       favoritMovieCount: '',
       coumentMovieCount: '',
       comments: [],
+      cValue: [],
       newUserData: {
         CurrentEmailAddress: '',
-        NewEmailAddress: ''
+        NewEmailAddress: '',
+        picture: '',
+        banerPicture: ''
       }
     };
   },
   methods: {
     onFileSelectedTh(event) {
-      // this.movieData.picture = event.target.files[0];
+      this.newUserData.picture = event.target.files[0];
+    },
+    onFileSelectedBn(event) {
+      this.newUserData.banerPicture = event.target.files[0];
     },
     async getCurrentUser() {
       console.log('ho');
@@ -478,20 +470,54 @@ export default {
           this.comments = res.data.movieComments.items;
           console.log(this.favoritMovie);
         });
+    },
+    countryMaker() {
+      console.log(this.cValue.id);
+      this.cValue.forEach(q => {
+        this.movieDetail.CountriesIdJson.push(q.value);
+      });
+      // this.movieDetail.CountriesIdJson.push(this.cValue.id);
+    },
+    GetCountry() {
+      axios.get('api/countries?PageSize=300').then(res => {
+        res.data.items.forEach(q => {
+          let cData = { value: '', text: '' };
+          cData.value = q.id;
+          cData.text = q.nationality;
+          this.options.push(cData);
+        });
+      });
+    },
+    subEditData() {
+      console.log(this.currentUser.firstName);
+      console.log(this.newUserData.NewEmailAddress);
+      console.log(this.currentUser.emailAddress);
+      console.log(this.cValue.value);
+      console.log(this.currentUser.lastName);
     }
   },
+
   async created() {
     this.token = localStorage.getItem('token');
     await this.getCurrentUser();
   },
   components: {
     NavBar,
-    FooterApp
+    FooterApp,
+    Multiselect
+  },
+  mounted() {
+    this.GetCountry();
   }
 };
 </script>
 
 <style scoped>
+.baner-upload-file {
+  margin-left: 1rem;
+  margin-bottom: 8rem;
+  width: 80%;
+}
 .text-s {
   font-size: 0.75rem;
 }

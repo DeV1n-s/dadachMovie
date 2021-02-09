@@ -171,7 +171,7 @@ export default {
       }
     },
     changeRoute() {
-      setTimeout(this.$router.push('/'), 4000);
+      setTimeout(this.$router.push('/login'), 4000);
     },
     subData() {
       (this.isFormValid = true), (this.isPassSame = true);

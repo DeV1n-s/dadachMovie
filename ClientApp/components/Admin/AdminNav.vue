@@ -63,7 +63,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <h1><i class="fa fa-cog"></i>داشبورد مدیریت</h1>
+            <h1><i class="fa fa-cog ml-1"></i>داشبورد مدیریت</h1>
           </div>
         </div>
       </div>
@@ -115,7 +115,8 @@ export default {
       currentUser: {},
       isLogin: false,
       tokenId: this.$store.getters.isAuthGet,
-      token: ''
+      token: '',
+      isAdmin: false
     };
   },
   methods: {
@@ -141,10 +142,16 @@ export default {
           .then(res => {
             console.log(res);
             this.currentUser = res.data;
+            if (this.currentUser.roles[0] === 'Admin') {
+              this.isAdmin = true;
+            }
             // console.log(this.curentUser);
           });
       } catch (error) {
         console.log(error);
+        this.$router.push('/home');
+      }
+      if (!this.isAdmin) {
         this.$router.push('/home');
       }
     }
