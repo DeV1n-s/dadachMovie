@@ -183,21 +183,27 @@ export default {
     logOut() {
       this.$store.dispatch('logOut');
     },
-    getCurrentUser() {
+    async getCurrentUser() {
       if (this.tokenId) {
-        axios
-          .get('/api/accounts/CurrentUser', {
-            headers: {
-              Authorization: ` Bearer ${this.token}`
-            }
-          })
-          .then(res => {
-            this.currentUser = res.data;
-            // console.log(this.currentUser.roles[0]);
-            if (this.currentUser.roles[0] === 'Admin') {
-              this.isAdmin = true;
-            }
-          });
+        try {
+          await axios
+            .get('/api/accounts/CurrentUser', {
+              headers: {
+                Authorization: ` Bearer ${this.token}`
+              }
+            })
+            .then(res => {
+              console.log(res);
+              this.currentUser = res.data;
+              // console.log(this.currentUser.roles[0]);
+              if (this.currentUser.roles[0] === 'Admin') {
+                this.isAdmin = true;
+              }
+            });
+        } catch (error) {
+          console.log(error);
+          this.$store.dispatch('logOut');
+        }
       }
     }
   },
