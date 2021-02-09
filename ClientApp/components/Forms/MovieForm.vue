@@ -234,6 +234,7 @@
     </form>
     <div class="alert alert-danger mt-8" v-if="!isFormValid">
       <p>خطا !‌لطفا تمامی موارد خواسته شده را وارد کنید</p>
+      <p v-if="!isImdbValid">شناسه IMDB باید با tt شروع شود</p>
     </div>
     <div class="alert-modal">
       <b-alert
@@ -260,6 +261,8 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      isImdbValid: true,
+
       isFormValid: true,
       isEditMode: false,
       id: this.$route.params.id,
@@ -299,6 +302,12 @@ export default {
     Multiselect
   },
   methods: {
+    imdbChecker() {
+      let n = this.movieData.imdbId.includes('tt');
+      if (!n) {
+        this.isImdbValid = false;
+      }
+    },
     checkEditMode() {
       if (this.id != undefined) {
         console.log(this.id);
@@ -413,6 +422,7 @@ export default {
       this.genreMaker();
       this.diractorMaker();
       this.countryMaker();
+      this.imdbChecker();
       console.log(this.movieData);
       const form = new FormData();
       for (const property in this.movieData) {

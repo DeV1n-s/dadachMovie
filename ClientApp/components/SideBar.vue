@@ -51,10 +51,11 @@
               </div>
             </div>
           </div>
-
-          <button class="btn btn-block btn-outline-info my-2">
-            مشاهده همه فیلم ها
-          </button>
+          <nuxt-link to="/series">
+            <button class="btn btn-block btn-outline-info my-2">
+              مشاهده همه سریال ها
+            </button>
+          </nuxt-link>
         </div>
       </div>
       <hr />
@@ -94,9 +95,11 @@
               </p>
             </div>
           </div>
-          <button class="btn btn-block btn-outline-info my-2">
-            مشاهده همه فیلم ها
-          </button>
+          <nuxt-link to="/movies">
+            <button class="btn btn-block btn-outline-info my-2">
+              مشاهده همه فیلم ها
+            </button>
+          </nuxt-link>
         </div>
       </div>
       <hr />

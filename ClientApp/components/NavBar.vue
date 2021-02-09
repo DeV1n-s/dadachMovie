@@ -117,10 +117,10 @@
                   class="profile-image img-circle"/><b class="caret"></b
               ></a>
               <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">
+                <nuxt-link class="dropdown-item" to="/userprofile">
                   ویرایش پروفایل
                   <i class="fa fa-cog"></i>
-                </a>
+                </nuxt-link>
                 <div class="dropdown-divider"></div>
 
                 <a class="dropdown-item" href="/home" @click="logOut">
@@ -204,7 +204,7 @@ export default {
     this.autoLog();
     this.token = localStorage.getItem('token');
     this.logCheck();
-    this.adminChecker();
+    //this.adminChecker();
 
     await this.getCurrentUser();
   }
