@@ -76,9 +76,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <nuxt-link class="nav-link" to="/AboutUs" active-class="active">
                 <i class="fa fa-info"></i> درباره ما
-              </a>
+              </nuxt-link>
             </li>
             <li class="nav-item" v-if="isLogin">
               <nuxt-link class="nav-link" to="/userprofile">
