@@ -14,6 +14,10 @@
         overflow-x: hidden;
     }
     
+    .ltr-dir {
+        direction: ltr !important;
+    }
+    
     #nav-bar {
         z-index: 999;
         border-bottom: rgb(8, 73, 83) solid 2px;

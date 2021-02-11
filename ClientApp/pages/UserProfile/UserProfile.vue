@@ -106,22 +106,45 @@
                     <p>
                       {{ currentUser.registerDate }}
                     </p>
-                    <a
-                      href="#!"
-                      class="btn  btn-primary mb-2"
-                      v-if="!isMovieDetail"
-                      @click="isMovieDetail = true"
-                    >
-                      آمار فیلم ها</a
-                    >
-                    <a
-                      href="#!"
-                      class="btn  btn-primary mb-2"
-                      v-if="isMovieDetail"
-                      @click="isMovieDetail = false"
-                    >
-                      اطلاعات کاربر</a
-                    >
+                    <div class="row mr-1">
+                      <button
+                        href="#!"
+                        class="btn btn-sm btn-primary mb-2 col-md-3"
+                        :disabled="isMyprofile"
+                        @click="
+                          isMyprofile = true;
+                          isMovieDetail = false;
+                          isMyRequest = false;
+                        "
+                      >
+                        اطلاعات من
+                      </button>
+                      <button
+                        href="#!"
+                        class="btn btn-sm btn-primary mb-2 col-md-3"
+                        :disabled="isMovieDetail"
+                        @click="
+                          isMovieDetail = true;
+                          isMyRequest = false;
+                          isMyprofile = false;
+                        "
+                      >
+                        آمار فیلم ها
+                      </button>
+
+                      <button
+                        href="#!"
+                        class="btn btn-sm btn-primary mb-2 col-md-3 mr-1"
+                        :disabled="isMyRequest"
+                        @click="
+                          isMyprofile = false;
+                          isMovieDetail = false;
+                          isMyRequest = true;
+                        "
+                      >
+                        درخواست‌
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -129,7 +152,16 @@
             <div class="col-xl-8 order-xl-1">
               <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
-                  <div class="row align-items-center" v-if="!isMovieDetail">
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    v-if="isMyRequest"
+                  >
+                    ثبت درخواست جدید
+                  </button>
+                  <div class="row align-items-center" v-if="isMyprofile">
                     <div class="col-8">
                       <h3 class="mb-0">پروفایل کاربری</h3>
                     </div>
@@ -141,6 +173,7 @@
                         @click="isEditMode = true"
                         >ویرایش پروفایل</a
                       >
+
                       <div class="d-flex" v-if="isEditMode">
                         <button
                           class="btn btn-danger"
@@ -159,7 +192,7 @@
                   </div>
                 </div>
                 <!--  -->
-                <form v-if="!isMovieDetail">
+                <form v-if="isMyprofile">
                   <h6 class="heading-small text-muted mb-4">
                     اطلاعات شخصی
                   </h6>
@@ -386,9 +419,11 @@
                         <div class="card-body">
                           <h5 class="card-title">
                             {{ comment.title }}
-                            <span class="text-muted">
-                              {{ comment.createdAt }}
-                            </span>
+                            <div class="ltr-dir">
+                              <small class="text-muted">
+                                {{ comment.createdAt }}
+                              </small>
+                            </div>
                           </h5>
                           <p class="card-text text-s">
                             {{ comment.content }}
@@ -407,6 +442,45 @@
                     </div>
                   </div>
                 </div>
+                <!--  -->
+                <div v-if="isMyRequest">
+                  <div class="card-body">
+                    <h3 class="mr-4 row">
+                      <i class="fa fa-comments-o  ml-1" aria-hidden="true"></i>
+
+                      درخواست های من
+                    </h3>
+
+                    <div class="row ml-1 mr-1">
+                      <div
+                        class="col-md-12"
+                        v-for="request in userRequest"
+                        :key="request.id"
+                      >
+                        <div class="card w-100">
+                          <div class="card-body">
+                            <h5 class="card-title">
+                              {{ request.subject }}
+                              <div class="ltr-dir">
+                                <small class="text-muted">
+                                  {{ request.updatedAt }}
+                                  : آخرین بروزرسانی
+                                </small>
+                              </div>
+                            </h5>
+                            <p class="card-text text-s">
+                              {{ request.message }}
+                            </p>
+                            <small>
+                              وضعیت :
+                              {{ request.status }}
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -414,6 +488,8 @@
       </div>
     </div>
     <footer-app />
+    <!--  -->
+    <request-form :token="token" />
   </div>
 </template>
 
@@ -423,6 +499,7 @@ import Multiselect from 'vue-multiselect';
 import FooterApp from '../../components/FooterApp.vue';
 import NavBar from '../../components/NavBar.vue';
 import axios from 'axios';
+import RequestForm from '../../components/Forms/RequestForm.vue';
 export default {
   data() {
     return {
@@ -430,6 +507,8 @@ export default {
       country: [],
       isEditMode: false,
       isMovieDetail: false,
+      isMyprofile: true,
+      isMyRequest: false,
       token: '',
       currentUser: '',
       roles: [],
@@ -443,7 +522,8 @@ export default {
         NewEmailAddress: '',
         picture: '',
         banerPicture: ''
-      }
+      },
+      userRequest: []
     };
   },
   methods: {
@@ -468,7 +548,7 @@ export default {
           this.favoritMovieCount = res.data.favoriteMovies.totalItems;
           this.coumentMovieCount = res.data.movieComments.totalItems;
           this.comments = res.data.movieComments.items;
-          console.log(this.favoritMovie);
+          this.userRequest = res.data.requests;
         });
     },
     countryMaker() {
@@ -504,7 +584,8 @@ export default {
   components: {
     NavBar,
     FooterApp,
-    Multiselect
+    Multiselect,
+    RequestForm
   },
   mounted() {
     this.GetCountry();
