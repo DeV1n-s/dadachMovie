@@ -35,6 +35,14 @@
                 >کاربران</nuxt-link
               >
             </li>
+            <li class="nav-item px-2">
+              <nuxt-link
+                to="requestpanel"
+                class="nav-link"
+                active-class="active"
+                >درخواست‌ها</nuxt-link
+              >
+            </li>
           </ul>
 
           <ul class="navbar-nav mr-auto">
