@@ -51,6 +51,18 @@
         </vue-good-table>
       </div>
     </div>
+    <div class="alert-modal">
+      <b-alert
+        :show="dismissCountDown"
+        variant="success"
+        @dismissed="dismissCountDown = 0"
+        @dismiss-count-down="countDownChanged"
+      >
+        <p>ایتم مورد نظر با موفقیت حذف شد</p>
+        <p>{{ dismissCountDown }}</p>
+        <b-progress :max="dismissSecs" height="4px"></b-progress>
+      </b-alert>
+    </div>
   </div>
 </template>
 
@@ -61,6 +73,9 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      dismissSecs: 3,
+      dismissCountDown: 0,
+      showDismissibleAlert: false,
       columns: [
         {
           label: 'نام فیلم',
@@ -99,12 +114,16 @@ export default {
     },
     deleteButton(id) {
       axios
-        .delete('/api/movies/' + id, {
+        .delete('/api/series/' + id, {
           headers: {
             Authorization: ` Bearer ${this.token}`
           }
         })
-        .then(res => console.log(res));
+        .then(res => {
+          console.log(res);
+          this.$store.dispatch('getSeries');
+        });
+      this.showAlert();
     }
   },
   mounted() {
