@@ -2859,3 +2859,44 @@
     a.genre-name-list {
         text-decoration: none;
     }
+    
+    .chkbx input[type='checkbox'] {
+        display: none;
+    }
+    
+    .chkbx {
+        position: relative;
+        cursor: pointer;
+    }
+    
+    .chkbx .x {
+        display: block;
+        width: 60px;
+        height: 20px;
+        border: 2px solid #d3d3be;
+        border-radius: 60px;
+        transition: 0.5s;
+    }
+    
+    .chkbx .x:before {
+        content: '';
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        left: 7px;
+        box-sizing: border-box;
+        background: #d3d3be;
+        border: 2px solid #d3d3be;
+        border-radius: 40px;
+        transition: 0.5s;
+    }
+    
+    .chkbx :checked~.x:before {
+        background: #28a745;
+        border-color: #28a745;
+        transform: translatex(38px);
+    }
+    
+    .chkbx :checked~.x {
+        border-color: #28a745;
+    }

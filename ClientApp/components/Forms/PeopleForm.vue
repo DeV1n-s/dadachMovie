@@ -19,25 +19,19 @@
               <label class="form-check-label c-check " for="flexCheckDefault">
                 بازیگر
               </label>
-              <input
-                class="form-check-input mr-5"
-                type="checkbox"
-                value=""
-                v-model="CastData.isCast"
-                id="flexCheckDefault"
-              />
+              <label class="chkbx">
+                <input type="checkbox" v-model="CastData.isCast" />
+                <span class="x"></span>
+              </label>
             </div>
             <div class="form-check">
               <label class="form-check-label" for="flexCheckDefault">
                 کارگردان
               </label>
-              <input
-                class="form-check-input mr-5"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
-                v-model="CastData.isDiractor"
-              />
+              <label class="chkbx">
+                <input type="checkbox" v-model="CastData.isDiractor" />
+                <span class="x"></span>
+              </label>
             </div>
           </div>
         </div>
@@ -58,7 +52,7 @@
         </div>
       </div>
       <div class="row mt-2">
-        <div class="col-md-6">
+        <div class="col-md-6 mt-4">
           <model-select
             class="nationality"
             :options="options"
@@ -69,17 +63,7 @@
         </div>
         <div class="col-md-6">
           <label for="start" class="d-block">تاریخ تولد :</label>
-
-          <input
-            class="w-100"
-            type="date"
-            id="start"
-            name="trip-start"
-            value="2018-07-22"
-            min="0000-01-01"
-            max="2999-12-31"
-            v-model="CastData.dateOfBirth"
-          />
+          <VueCtkDateTimePicker v-model="CastData.dateOfBirth" />
         </div>
       </div>
       <div class="row mt-5">
@@ -140,6 +124,8 @@
 </template>
 
 <script>
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 import 'vue-search-select/dist/VueSearchSelect.css';
 import { ModelSelect } from 'vue-search-select';
 import FormInput from './FormInput.vue';
@@ -170,7 +156,8 @@ export default {
   },
   components: {
     ModelSelect,
-    FormInput
+    FormInput,
+    VueCtkDateTimePicker: VueCtkDateTimePicker
   },
   methods: {
     checkEditMode() {
@@ -269,6 +256,10 @@ export default {
 </script>
 
 <style scoped>
+span.x {
+  margin-bottom: -0.85rem;
+  margin-right: 55px;
+}
 .mt-8 {
   margin-top: 4.5rem !important;
 }

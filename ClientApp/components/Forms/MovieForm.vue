@@ -29,16 +29,7 @@
         <div class="col-md-6 mt-4">
           <label for="start" class="d-block">تاریخ انتشار:</label>
 
-          <input
-            class="w-100"
-            type="date"
-            id="start"
-            name="trip-start"
-            value="2018-07-22"
-            min="0000-01-01"
-            max="2999-12-31"
-            v-model="movieData.releaseDate"
-          />
+          <VueCtkDateTimePicker v-model="movieData.releaseDate" />
         </div>
 
         <div class="col-md-6">
@@ -138,16 +129,13 @@
           <div class="check-box mr-4">
             <div class="form-group f-check">
               <div class="form-check mr-2">
-                <label class="form-check-label c-check " for="flexCheckDefault">
+                <label class="form-check-label c-check" for="flexCheckDefault">
                   روی پرده سینما :
                 </label>
-                <input
-                  class="form-check-input mr-5 mt-2"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                  v-model="movieData.inTheaters"
-                />
+                <label class="chkbx">
+                  <input type="checkbox" v-model="movieData.inTheaters" />
+                  <span class="x"></span>
+                </label>
               </div>
             </div>
           </div>
@@ -253,7 +241,8 @@
 
 <script>
 import Multiselect from 'vue-multiselect';
-
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 import 'vue-search-select/dist/VueSearchSelect.css';
 import { ModelSelect } from 'vue-search-select';
 import FormInput from './FormInput.vue';
@@ -262,7 +251,6 @@ export default {
   data() {
     return {
       isImdbValid: true,
-
       isFormValid: true,
       isEditMode: false,
       id: this.$route.params.id,
@@ -299,7 +287,8 @@ export default {
   components: {
     ModelSelect,
     FormInput,
-    Multiselect
+    Multiselect,
+    VueCtkDateTimePicker: VueCtkDateTimePicker
   },
   methods: {
     imdbChecker() {
@@ -314,6 +303,7 @@ export default {
         this.isEditMode = true;
         axios.get('/api/movies/' + this.id).then(res => {
           this.movieData = res.data;
+          this.movieData.releaseDate = '';
           console.log(res.data);
         });
       }
@@ -353,7 +343,7 @@ export default {
       return capitalized;
     },
     GetCountry() {
-      axios.get('api/countries?PageSize=300').then(res => {
+      axios.get('api/countries?PageSize=260').then(res => {
         res.data.items.forEach(q => {
           let cData = { value: '', text: '' };
           cData.value = q.id;
@@ -468,6 +458,10 @@ export default {
 </script>
 
 <style scoped>
+/*  */
+span.x {
+  margin-bottom: -0.85rem;
+}
 .mt-8 {
   margin-top: 5.5rem;
 }
