@@ -2900,3 +2900,11 @@
     .chkbx :checked~.x {
         border-color: #28a745;
     }
+    
+    .dropdown-menu {
+        left: -55px;
+    }
+    
+    .dropdown-item {
+        text-align: right;
+    }
