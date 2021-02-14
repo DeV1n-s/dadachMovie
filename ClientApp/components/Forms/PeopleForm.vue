@@ -166,6 +166,7 @@ export default {
         this.isEditMode = true;
         axios.get('/api/people/' + this.id).then(res => {
           this.CastData = res.data;
+          this.CastData.dateOfBirth = '';
           console.log(res.data);
         });
       }
