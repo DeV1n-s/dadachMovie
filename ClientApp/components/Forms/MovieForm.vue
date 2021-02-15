@@ -52,7 +52,7 @@
             <label class="typo__label">بازیگران</label>
             <multiselect
               v-model="caValue"
-              tag-placeholder="Add this as new tag"
+              tag-placeholder="افزودن"
               placeholder="جست و جو در بین بازیگران"
               label="name"
               track-by="name"
@@ -88,7 +88,7 @@
             <label class="typo__label">کشور سازنده</label>
             <multiselect
               v-model="cValue"
-              tag-placeholder="Add this as new tag"
+              tag-placeholder="افزودن"
               placeholder="جست و جو در بین کشور های سازنده"
               label="text"
               track-by="name"
@@ -108,7 +108,7 @@
             <label class="typo__label">ژانر</label>
             <multiselect
               v-model="gValue"
-              tag-placeholder="Add this as new tag"
+              tag-placeholder="افزودن"
               placeholder="جست و جو در ژانر ها"
               label="name"
               track-by="name"
