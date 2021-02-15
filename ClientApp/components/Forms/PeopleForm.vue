@@ -100,7 +100,11 @@
           <button class="btn btn-danger">بازگشت</button>
         </nuxt-link>
 
-        <button class="btn btn-success" @click.prevent="sendData">
+        <button
+          class="btn btn-success"
+          @click.prevent="sendData"
+          :disabled="isLoading"
+        >
           ثبت بازیگر
         </button>
       </div>
@@ -120,6 +124,7 @@
         <b-progress :max="dismissSecs" height="4px"></b-progress>
       </b-alert>
     </div>
+    <LoadingSpinner v-if="isLoading" />
   </div>
 </template>
 
@@ -129,10 +134,12 @@ import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 import 'vue-search-select/dist/VueSearchSelect.css';
 import { ModelSelect } from 'vue-search-select';
 import FormInput from './FormInput.vue';
+import LoadingSpinner from '../LoadingSpinner';
 import axios from 'axios';
 export default {
   data() {
     return {
+      isLoading: false,
       isFormValid: true,
       isEditMode: false,
       id: this.$route.params.id,
@@ -155,6 +162,7 @@ export default {
     };
   },
   components: {
+    LoadingSpinner,
     ModelSelect,
     FormInput,
     VueCtkDateTimePicker: VueCtkDateTimePicker
@@ -201,6 +209,7 @@ export default {
     },
     async SubmitData(form) {
       try {
+        this.isLoading = true;
         await axios
           .post('/api/people', form, {
             headers: {
@@ -216,6 +225,8 @@ export default {
       } catch (error) {
         console.log(error);
         this.isFormValid = false;
+      } finally {
+        this.isLoading = false;
       }
     },
     async EdittData($event) {
@@ -257,6 +268,10 @@ export default {
 </script>
 
 <style scoped>
+.loader-background {
+  opacity: 1;
+  background: none;
+}
 span.x {
   margin-bottom: -0.85rem;
   margin-right: 55px;

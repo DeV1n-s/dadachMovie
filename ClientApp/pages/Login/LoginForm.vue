@@ -72,16 +72,21 @@
         </div>
       </section>
     </div>
+    <loading-spinner v-if="isLoading" />
   </div>
 </template>
 <script>
 import FormInput from '../../components/Forms/FormInput';
+import LoadingSpinner from '../../components/LoadingSpinner.vue';
+
 export default {
   components: {
-    FormInput
+    FormInput,
+    LoadingSpinner
   },
   data() {
     return {
+      isLoading: false,
       canLog: true,
       isLogin: this.$store.getters.isAuthGet,
       dismissSecs: 3,
@@ -115,11 +120,14 @@ export default {
       this.valCheck();
       if (this.isFormValid) {
         try {
+          this.isLoading = true;
           await this.$store.dispatch('login', this.logData);
           this.showAlert();
           this.changeRoute();
         } catch {
           this.canLog = false;
+        } finally {
+          this.isLoading = false;
         }
       }
       console.log(this.isLogin);

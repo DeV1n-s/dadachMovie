@@ -215,7 +215,11 @@
           <button class="btn btn-danger">بازگشت</button>
         </nuxt-link>
 
-        <button class="btn btn-success" @click.prevent="sendData">
+        <button
+          class="btn btn-success"
+          @click.prevent="sendData"
+          :disabled="isLoading"
+        >
           ثبت فیلم
         </button>
       </div>
@@ -236,10 +240,12 @@
         <b-progress :max="dismissSecs" height="4px"></b-progress>
       </b-alert>
     </div>
+    <loading-spinner v-if="isLoading" />
   </div>
 </template>
 
 <script>
+import LoadingSpinner from '../LoadingSpinner';
 import Multiselect from 'vue-multiselect';
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
@@ -250,6 +256,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      isLoading: false,
       isImdbValid: true,
       isFormValid: true,
       isEditMode: false,
@@ -285,6 +292,7 @@ export default {
     };
   },
   components: {
+    LoadingSpinner,
     ModelSelect,
     FormInput,
     Multiselect,
@@ -364,6 +372,7 @@ export default {
     },
     async SubmitData(form) {
       try {
+        this.isLoading = true;
         await axios
           .post(
             '/api/movies',
@@ -381,9 +390,13 @@ export default {
       } catch (error) {
         console.log(error);
         this.isFormValid = false;
+      } finally {
+        this.isLoading = false;
       }
     },
     async EdittData($event) {
+      this.isLoading = true;
+
       try {
         await axios
           .put(
@@ -404,6 +417,8 @@ export default {
       } catch (error) {
         console.log(error);
         this.isFormValid = false;
+      } finally {
+        this.isLoading = false;
       }
     },
 
@@ -458,6 +473,10 @@ export default {
 </script>
 
 <style scoped>
+.loader-background {
+  opacity: 1;
+  background: none;
+}
 /*  */
 span.x {
   margin-bottom: -0.85rem;
