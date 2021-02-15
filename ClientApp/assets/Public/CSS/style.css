@@ -1998,7 +1998,7 @@
     .soon-movies .container .card {
         flex: 1;
         transition: all 1s ease-in-out;
-        height: 75vmin;
+        height: 50vmin;
         position: relative;
         width: 70px;
     }
