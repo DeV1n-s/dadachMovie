@@ -40,14 +40,12 @@
                   {{ series.title }}
                 </h5>
                 <p class="mb-2">
+                  <a href="" class="series-view-link">مشاهده</a>
+                </p>
+                <p class=" mr-5 mt-1">
                   روز پخش :
                   {{ series.airDay }}
                 </p>
-              </div>
-              <div class="row">
-                <button class="btn btn-outline-success mr-4 mb-1">
-                  مشاهده
-                </button>
               </div>
             </div>
           </div>
@@ -171,5 +169,14 @@ export default {
 button.btn.btn-outline-success.mr-4.mb-1 {
   height: 35px !important;
   margin-bottom: 20px !important;
+}
+.series-view-link {
+  font-size: 12px;
+  color: rgb(255, 255, 255);
+}
+
+.series-view-link:hover {
+  color: #17a2b8;
+  font-size: 15px;
 }
 </style>
