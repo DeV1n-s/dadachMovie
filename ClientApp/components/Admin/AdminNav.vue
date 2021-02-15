@@ -173,4 +173,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.btn-block {
+  box-shadow: 5px 5px 5px 5px #888888;
+}
+</style>

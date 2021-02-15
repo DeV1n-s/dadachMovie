@@ -26,9 +26,8 @@
       </div>
       <div class="card text-center bg-warning text-white mb-3">
         <div class="card-body">
-          <h3></h3>
+          <h3>اخبار</h3>
           <h4 class="display-4 ">
-            اخبار
             <span class="d-block"> <i class="fa fa-pencil "></i> 6 </span>
           </h4>
           <a href="posts.html" class="btn btn-outline-light btn-sm">مشاهده</a>
@@ -91,5 +90,9 @@ export default {
 <style scoped>
 .card {
   width: 200px;
+}
+.card-body {
+  box-shadow: 5px 5px 5px 5px #888888;
+  border-radius: 27px 0px 27px 0;
 }
 </style>
