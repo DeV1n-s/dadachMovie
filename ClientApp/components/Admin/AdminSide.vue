@@ -95,4 +95,10 @@ export default {
   box-shadow: 5px 5px 5px 5px #888888;
   border-radius: 27px 0px 27px 0;
 }
+.card {
+  transition: all 1s;
+}
+.card:hover {
+  transform: scale(1.1);
+}
 </style>
