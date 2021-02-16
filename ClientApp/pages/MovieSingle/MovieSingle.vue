@@ -108,8 +108,133 @@
                       {{ movieDetail.description }}
                     </p>
                   </div>
-                  <div class="comments">
+
+                  <div class="download-box d-block w-100 mb-2">
+                    <h3 class="text-white">
+                      <i class="fa fa-download mr-1" aria-hidden="true"></i>
+                      لینک دانلود
+                      <div class="y-line"></div>
+                      <div class="download-boxes mt-4 mb-3">
+                        <div class="col-md-12">
+                          <div class="panel-group margin_0" id="accordion1">
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h4 class="panel-title">
+                                  <a
+                                    class="collapsed"
+                                    data-toggle="collapse"
+                                    data-parent="#accordion1"
+                                    href="#collapse1"
+                                  >
+                                    <i class="rt-icon2-bubble highlight"></i>
+                                    کیفیت بالا
+                                  </a>
+                                </h4>
+                              </div>
+                              <div
+                                style="height: 0px;"
+                                id="collapse1"
+                                class="panel-collapse collapse"
+                              >
+                                <div class="panel-body">
+                                  <div class="download-text mr-4 mt-3">
+                                    <div class="row">
+                                      <span class="download-text-tt">
+                                        دانلود فیلم {{ movieDetail.title }}
+                                        با کیفیت بالا
+                                      </span>
+                                      <span class="mr-auto">
+                                        <button class="btn btn-success ml-4">
+                                          دانلود با لینک مستقیم
+                                        </button>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h4 class="panel-title">
+                                  <a
+                                    data-toggle="collapse"
+                                    data-parent="#accordion1"
+                                    href="#collapse2"
+                                    class="collapsed"
+                                  >
+                                    <i class="rt-icon2-bubble highlight"></i>
+                                    کیفیت متوسط
+                                  </a>
+                                </h4>
+                              </div>
+                              <div
+                                style="height: 0px;"
+                                id="collapse2"
+                                class="panel-collapse collapse"
+                              >
+                                <div class="panel-body">
+                                  <div class="download-text mr-4 mt-3">
+                                    <div class="row">
+                                      <span class="download-text-tt">
+                                        دانلود فیلم {{ movieDetail.title }}
+                                        با کیفیت بالا
+                                      </span>
+                                      <span class="mr-auto">
+                                        <button class="btn btn-success ml-4">
+                                          دانلود با لینک مستقیم
+                                        </button>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h4 class="panel-title">
+                                  <a
+                                    data-toggle="collapse"
+                                    data-parent="#accordion1"
+                                    href="#collapse3"
+                                    class="collapsed"
+                                  >
+                                    <i class="rt-icon2-bubble highlight"></i>
+                                    کیفیت پایین
+                                  </a>
+                                </h4>
+                              </div>
+                              <div
+                                style="height: 0px;"
+                                id="collapse3"
+                                class="panel-collapse collapse"
+                              >
+                                <div class="panel-body">
+                                  <div class="download-text mr-4 mt-3">
+                                    <div class="row">
+                                      <span class="download-text-tt">
+                                        دانلود فیلم {{ movieDetail.title }}
+                                        با کیفیت بالا
+                                      </span>
+                                      <span class="mr-auto">
+                                        <button class="btn btn-success ml-4">
+                                          دانلود با لینک مستقیم
+                                        </button>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </h3>
+                  </div>
+
+                  <div class="comments ">
                     <h3>
+                      <i class="fa fa-comments-o  ml-1" aria-hidden="true"></i>
+
                       نظرات کاربران
                       <span class="comment-length text-muted">
                         ({{ commentLength }})
@@ -327,6 +452,66 @@ export default {
 </script>
 
 <style scoped>
+.panel-default > .panel-heading {
+  background-color: transparent;
+  border: medium none;
+  border-radius: 0;
+  color: inherit;
+  padding: 0;
+  position: relative;
+}
+.panel-heading .panel-title > a {
+  background-color: #87c540;
+  border: medium none;
+  color: #ffffff;
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 28px;
+  padding: 11px 65px 11px 40px;
+  word-wrap: break-word;
+  box-shadow: 2px 2px 5px #87c540;
+}
+
+.panel-heading .panel-title > a::after {
+  bottom: 0;
+  content: '▲';
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: -1px;
+  line-height: 48px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 60px;
+}
+.panel-heading .panel-title > a.collapsed::after {
+  content: '▼';
+}
+.panel-body {
+  background: azure;
+  color: #171414;
+  height: 100px;
+  overflow: hidden;
+  font-size: 20px;
+}
+.download-text {
+  border: 1px solid #ffbc00;
+  background-color: #f7b500;
+  padding: 0.5rem 1.3rem 0.5rem 0.1rem;
+  margin-left: 8px;
+  border-radius: 8px;
+  text-shadow: 2px 2px 4px #000000;
+  box-shadow: 2px 2px 4px #ffbc00;
+}
+.download-text-tt {
+  margin-top: 5px;
+  margin-right: 5px;
+}
+.download-box {
+  margin-top: 25rem;
+}
 .comment-length {
   font-size: 15px;
 }

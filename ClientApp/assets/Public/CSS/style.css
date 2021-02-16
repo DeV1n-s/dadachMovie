@@ -1425,7 +1425,7 @@
     
     .movie-single .comments {
         display: block;
-        margin-top: 30rem;
+        /* margin-top: 30rem; */
         width: 100%;
     }
     
