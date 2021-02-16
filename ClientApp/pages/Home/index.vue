@@ -3,6 +3,7 @@
     <nav-bar />
     <side-bar />
     <div class="main">
+      <search-box class="mt-1" />
       <home-slider />
 
       <hr />
@@ -25,6 +26,7 @@ import HomeSlider from './home-slider.vue';
 import InTheater from './in-theater.vue';
 import HomeNews from './home-news';
 import SoonMovie from './soon-movie';
+import SearchBox from './Search-Box';
 export default {
   components: {
     FooterApp,
@@ -33,7 +35,8 @@ export default {
     SideBar,
     HomeSlider,
     InTheater,
-    SoonMovie
+    SoonMovie,
+    SearchBox
   }
 };
 </script>

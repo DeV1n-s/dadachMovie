@@ -1,20 +1,6 @@
 <template>
   <div class="sidenav container ">
     <div class="side-item ">
-      <div class="input-group search-box ">
-        <div class="form-outline ">
-          <input
-            type="search"
-            id="form1"
-            class="form-control"
-            placeholder="عنوان فیلم یا سریال "
-          />
-        </div>
-        <button type="button" class="btn btn-sm h-10 btn-primary">
-          <i class="fa fa-search"></i>
-        </button>
-        <hr />
-      </div>
       <div class="social-media">
         <h5>شبکه های اجتماعی ما</h5>
         <div class="row mr-auto">
