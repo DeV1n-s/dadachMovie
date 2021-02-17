@@ -26,11 +26,12 @@
                   {{ series.title }}
                 </h5>
                 <p class="mb-2">
-                  <a href="" class="series-view-link">مشاهده</a>
-                </p>
-                <p class=" mr-5 mt-1">
-                  روز پخش :
-                  {{ series.airDay }}
+                  <nuxt-link
+                    class="genre-name-list"
+                    :to="{ name: 'MovieSingle-id', params: { id: series.id } }"
+                  >
+                    <a href="" class="series-view-link">مشاهده</a>
+                  </nuxt-link>
                 </p>
               </div>
             </div>
