@@ -231,11 +231,12 @@ export default {
   changeRoute() {
     setTimeout(this.$router.push('/login'), 4000);
   },
-  subData() {
+  async subData() {
+    this.regData.password = password;
     (this.isFormValid = true), (this.isPassSame = true);
     this.valCheck();
     this.passCheck();
-    axios.post('/api/accounts/Register', this.regData).then(res => {
+    await axios.post('/api/accounts/Register', this.regData).then(res => {
       console.log(res.statusText);
       if (res.statusText == 'OK') {
         this.showAlert();
