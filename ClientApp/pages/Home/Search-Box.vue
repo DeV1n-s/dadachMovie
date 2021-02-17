@@ -4,6 +4,7 @@
       <div class="tb">
         <div class="td">
           <input
+            class="search-form"
             type="text"
             v-model="searchTitle"
             placeholder="جست و جو در بین فیلم ها "
@@ -37,6 +38,9 @@ export default {
 </script>
 
 <style scoped>
+input:focus {
+  outline: none;
+}
 .tb {
   display: table;
   width: 100%;

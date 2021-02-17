@@ -57,7 +57,7 @@
                       شامل حروف کوچک بزرگ
                     </li>
                     <li v-bind:class="{ is_valid: contains_special_character }">
-                      شامل اعداد
+                      شامل اعلام
                     </li>
                   </ul>
 
