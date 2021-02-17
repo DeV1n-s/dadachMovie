@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     subSearch() {
-      this.$router.push(`${this.searchTitle}`);
+      this.$router.push(`MovieSearch/${this.searchTitle}`);
     }
   }
 };
