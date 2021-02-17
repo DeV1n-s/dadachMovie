@@ -57,9 +57,9 @@ button {
 }
 
 #cover {
-  background-color: #ff7575;
+  background-color: #6c757d;
   border-radius: 10px;
-  box-shadow: 0 10px 40px #ff7c7c, 0 0 0 20px #ffffffeb;
+  box-shadow: 0 10px 40px #6c757d, 0 0 0 20px #ffffffeb;
   transform: scaley(0.6);
   width: 54%;
   margin-left: 23.5%;
@@ -78,7 +78,7 @@ input[type='text'] {
 }
 
 input[type='text']::placeholder {
-  color: #e16868;
+  color: #ccc;
 }
 
 #s-cover {

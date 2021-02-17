@@ -81,7 +81,11 @@
               </nuxt-link>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <nuxt-link class="nav-link" to="/userprofile">
+              <nuxt-link
+                class="nav-link"
+                to="/userprofile"
+                active-class="active"
+              >
                 <i class="fa fa-user"></i> پروفایل کاربری
               </nuxt-link>
             </li>

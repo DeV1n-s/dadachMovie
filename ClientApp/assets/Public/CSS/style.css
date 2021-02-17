@@ -2912,3 +2912,10 @@
     .vgt-inner-wrap {
         box-shadow: 1.8px 1.8px 1.8px 1.8px #888888;
     }
+    
+    .navbar-dark .navbar-nav .show>.nav-link,
+    .navbar-dark .navbar-nav .active>.nav-link,
+    .navbar-dark .navbar-nav .nav-link.show,
+    .navbar-dark .navbar-nav .nav-link.active {
+        color: #f5c518 !important
+    }

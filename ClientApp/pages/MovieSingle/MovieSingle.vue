@@ -84,11 +84,14 @@
                     <p class="d-block">
                       <span class="y-color">
                         <i class="fa fa-eercast" aria-hidden="true"></i>
-                        بازیگران: </span
-                      ><span class="d-block">
-                        <span v-for="cast in casts" :key="cast.personId">
-                          {{ cast.character }} ,
-                        </span>
+                        <a
+                          type="button"
+                          class=""
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter"
+                        >
+                          مشاهده عوامل
+                        </a>
                       </span>
                     </p>
                   </div>
@@ -357,6 +360,48 @@
         </b-alert>
       </div>
     </section>
+    <!--  -->
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">لیست عوامل</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="cast-list">
+              <h5>
+                بازیگران :
+              </h5>
+              <div>
+                <span class="d-block">
+                  <span v-for="cast in casts" :key="cast.personId">
+                    {{ cast.character }} ,
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              بستن
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
