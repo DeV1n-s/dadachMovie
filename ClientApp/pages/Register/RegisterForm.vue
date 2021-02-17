@@ -38,22 +38,47 @@
                 />
               </div>
               <div class="form-group">
-                <input
-                  type="password"
-                  class="form-input"
-                  name="password"
-                  id="password"
-                  placeholder="رمز عبور"
-                  v-model="regData.password"
-                />
+                <div class="input_container">
+                  <input
+                    type="password"
+                    @input="checkPassword"
+                    v-model="password"
+                    autocomplete="off"
+                    placeholder="رمز عبور"
+                  />
+                  <ul>
+                    <li v-bind:class="{ is_valid: contains_eight_characters }">
+                      شامل 6 کاراکتر
+                    </li>
+                    <li v-bind:class="{ is_valid: contains_number }">
+                      شامل اعداد
+                    </li>
+                    <li v-bind:class="{ is_valid: contains_uppercase }">
+                      شامل حروف کوچک بزرگ
+                    </li>
+                    <li v-bind:class="{ is_valid: contains_special_character }">
+                      شامل اعداد
+                    </li>
+                  </ul>
+
+                  <div
+                    class="checkmark_container"
+                    v-bind:class="{ show_checkmark: valid_password }"
+                  >
+                    <svg width="50%" height="50%" viewBox="0 0 140 100">
+                      <path
+                        class="checkmark"
+                        v-bind:class="{ checked: valid_password }"
+                        d="M10,50 l25,40 l95,-70"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
                 <span
                   toggle="#password"
                   class="zmdi zmdi-eye field-icon toggle-password"
                 ></span>
-                <small>
-                  رمز عبور باید شامل حروف کوچک و بزرگ لاتین به همراه اعلام
-                  باشد</small
-                >
               </div>
               <div class="form-group">
                 <input
@@ -128,6 +153,13 @@ export default {
   },
   data() {
     return {
+      password: null,
+      password_length: 0,
+      contains_eight_characters: false,
+      contains_number: false,
+      contains_uppercase: false,
+      contains_special_character: false,
+      valid_password: false,
       dismissSecs: 4,
       dismissCountDown: 0,
       showDismissibleAlert: false,
@@ -143,53 +175,194 @@ export default {
     };
   },
   methods: {
-    passCheck() {
-      if (this.cPassword != this.regData.password) {
-        this.isPassSame = false;
+    checkPassword() {
+      this.password_length = this.password.length;
+      const format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+      if (this.password_length > 6) {
+        this.contains_eight_characters = true;
+      } else {
+        this.contains_eight_characters = false;
       }
-    },
-    countDownChanged(dismissCountDown) {
-      this.dismissCountDown = dismissCountDown;
-    },
-    showAlert() {
-      this.dismissCountDown = this.dismissSecs;
-    },
-    valCheck() {
+
+      this.contains_number = /\d/.test(this.password);
+      this.contains_uppercase = /[A-Z]/.test(this.password);
+      this.contains_special_character = format.test(this.password);
+
       if (
-        this.regData.emailAddress == '' ||
-        this.regData.password == '' ||
-        this.regData.firstName == '' ||
-        this.regData.lastName == '' ||
-        this.cPassword == ''
+        this.contains_eight_characters === true &&
+        this.contains_special_character === true &&
+        this.contains_uppercase === true &&
+        this.contains_number === true
       ) {
-        this.isFormValid = false;
-        return;
+        this.valid_password = true;
+      } else {
+        this.valid_password = false;
       }
-      if (this.regData.password != this.cPassword) {
-        this.isPassSame = false;
-        return;
-      }
-    },
-    changeRoute() {
-      setTimeout(this.$router.push('/login'), 4000);
-    },
-    subData() {
-      (this.isFormValid = true), (this.isPassSame = true);
-      this.valCheck();
-      this.passCheck();
-      axios.post('/api/accounts/Register', this.regData).then(res => {
-        console.log(res.statusText);
-        if (res.statusText == 'OK') {
-          this.showAlert();
-          this.changeRoute();
-        }
-      });
     }
+  },
+  passCheck() {
+    if (this.cPassword != this.regData.password) {
+      this.isPassSame = false;
+    }
+  },
+  countDownChanged(dismissCountDown) {
+    this.dismissCountDown = dismissCountDown;
+  },
+  showAlert() {
+    this.dismissCountDown = this.dismissSecs;
+  },
+  valCheck() {
+    if (
+      this.regData.emailAddress == '' ||
+      this.regData.password == '' ||
+      this.regData.firstName == '' ||
+      this.regData.lastName == '' ||
+      this.cPassword == ''
+    ) {
+      this.isFormValid = false;
+      return;
+    }
+    if (this.regData.password != this.cPassword) {
+      this.isPassSame = false;
+      return;
+    }
+  },
+  changeRoute() {
+    setTimeout(this.$router.push('/login'), 4000);
+  },
+  subData() {
+    (this.isFormValid = true), (this.isPassSame = true);
+    this.valCheck();
+    this.passCheck();
+    axios.post('/api/accounts/Register', this.regData).then(res => {
+      console.log(res.statusText);
+      if (res.statusText == 'OK') {
+        this.showAlert();
+        this.changeRoute();
+      }
+    });
   }
 };
 </script>
 
 <style scoped>
+h2 {
+  text-align: center;
+  color: #fff;
+  font-weight: 400;
+}
+
+ul {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+li {
+  margin-bottom: 8px;
+  color: #525f7f;
+  position: relative;
+}
+
+li:before {
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: #2ecc71;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  display: block;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#app {
+  width: 400px;
+}
+
+/* Password Input --------- */
+
+.input_container {
+  position: relative;
+
+  border-radius: 6px;
+  background: #fff;
+}
+
+input[type='password'] {
+  line-height: 1.5;
+  display: block;
+  color: rgba(136, 152, 170, 1);
+  font-weight: 300;
+  width: 100%;
+  height: calc(2.75rem + 2px);
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  transition: border-color 0.4s ease;
+  border: 1px solid #cad1d7;
+  outline: 0;
+}
+
+input[type='password']:focus {
+  border-color: rgba(50, 151, 211, 0.45);
+}
+
+/* Checkmark & Strikethrough --------- */
+
+.is_valid {
+  color: rgba(136, 152, 170, 0.8);
+}
+.is_valid:before {
+  width: 100%;
+}
+
+.checkmark_container {
+  border-radius: 50%;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background: #2ecc71;
+  width: 50px;
+  height: 50px;
+  visibility: hidden;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.4s ease;
+}
+
+.show_checkmark {
+  visibility: visible;
+  opacity: 1;
+}
+
+.checkmark {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: white;
+  stroke-width: 15;
+  stroke-linecap: round;
+  stroke-dasharray: 180;
+  stroke-dashoffset: 180;
+}
+
+.checked {
+  animation: draw 0.5s ease forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
 register-form {
   height: 100vh;
 }
