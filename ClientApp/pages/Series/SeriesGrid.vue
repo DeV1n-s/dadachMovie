@@ -20,39 +20,41 @@
     </div>
     <div class="row itms itemcont">
       <div class="col-md-6 mb-3" v-for="series in seriesData" :key="series.id">
-        <div
-          class="movie-card bxs2"
-          :style="{
-            backgroundImage: `url('${series.picture}')`
-          }"
-        >
-          <div class="movie-card__overlay"></div>
-          <div class="movie-card__share">
-            <button class="movie-card__icon">
-              <i class="fa fa-heart"></i>
-            </button>
-            <button class="movie-card__icon">
-              <i class="fa fa-star"></i>
-            </button>
-            <button class="movie-card__icon">
-              <i class="fa fa-tv"></i>
-            </button>
-          </div>
-          <div class="movie-card__content">
-            <div class="movie-card__header">
-              <h1 class="movie-card__title">{{ series.title }}</h1>
-              <h4 class="movie-card__info mt-2">
-                تعداد فصل : {{ series.episodes }}
-              </h4>
-              <h4 class="movie-card__info mt-2">
-                روز پخش : {{ series.airDay }}
-              </h4>
+        <nuxt-link :to="{ name: 'SingleSeries-id', params: { id: series.id } }">
+          <div
+            class="movie-card bxs2"
+            :style="{
+              backgroundImage: `url('${series.picture}')`
+            }"
+          >
+            <div class="movie-card__overlay"></div>
+            <div class="movie-card__share">
+              <button class="movie-card__icon">
+                <i class="fa fa-heart"></i>
+              </button>
+              <button class="movie-card__icon">
+                <i class="fa fa-star"></i>
+              </button>
+              <button class="movie-card__icon">
+                <i class="fa fa-tv"></i>
+              </button>
             </div>
-            <p class="movie-card__desc">
-              {{ series.shortDescription }}
-            </p>
+            <div class="movie-card__content">
+              <div class="movie-card__header">
+                <h1 class="movie-card__title">{{ series.title }}</h1>
+                <h4 class="movie-card__info mt-2">
+                  تعداد فصل : {{ series.episodes }}
+                </h4>
+                <h4 class="movie-card__info mt-2">
+                  روز پخش : {{ series.airDay }}
+                </h4>
+              </div>
+              <p class="movie-card__desc">
+                {{ series.shortDescription }}
+              </p>
+            </div>
           </div>
-        </div>
+        </nuxt-link>
       </div>
     </div>
   </div>
