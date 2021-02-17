@@ -458,7 +458,12 @@ input[type='checkbox']:not(old):checked + label > span:before {
   text-align: center;
   /* font-weight: bold; */
 }
-
+input:-moz-placeholder {
+  text-align: right;
+}
+::-webkit-input-placeholder {
+  text-align: right;
+}
 .label-agree-term {
   font-size: 12px;
   font-weight: 600;

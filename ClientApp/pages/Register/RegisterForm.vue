@@ -703,7 +703,16 @@ input[type='checkbox']:not(old):checked + label > span:before {
   margin-top: 91px;
   margin-bottom: 5px;
 }
+input:-moz-placeholder {
+  text-align: right;
+}
+::-webkit-input-placeholder {
+  text-align: right;
+}
 
+ul {
+  font-size: 12px;
+}
 .loginhere-link {
   font-weight: 700;
   color: #222;
