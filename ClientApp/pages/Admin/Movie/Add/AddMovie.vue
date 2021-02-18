@@ -46,11 +46,11 @@
   </div>
 </template>
 <script>
-import AdminFooter from '../../components/Admin/AdminFooter.vue';
-import AdminNav from '../../components/Admin/AdminNav.vue';
-import AdminSide from '../../components/Admin/AdminSide.vue';
-import MovieForm from '../../components/Forms/MovieForm.vue';
-import SeriesForm from '../../components/Forms/SeriesForm.vue';
+import AdminFooter from '../../../../components/Admin/AdminFooter.vue';
+import AdminNav from '../../../../components/Admin/AdminNav.vue';
+import AdminSide from '../../../../components/Admin/AdminSide.vue';
+import MovieForm from '../../../../components/Forms/MovieForm.vue';
+import SeriesForm from '../../../../components/Forms/SeriesForm.vue';
 export default {
   components: { AdminNav, AdminFooter, AdminSide, MovieForm, SeriesForm },
   data() {

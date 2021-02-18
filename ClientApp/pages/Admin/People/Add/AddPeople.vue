@@ -16,10 +16,10 @@
   </div>
 </template>
 <script>
-import AdminFooter from '../../components/Admin/AdminFooter.vue';
-import AdminNav from '../../components/Admin/AdminNav.vue';
-import AdminSide from '../../components/Admin/AdminSide.vue';
-import PeopleForm from '../../components/Forms/PeopleForm.vue';
+import AdminFooter from '../../../../components/Admin/AdminFooter.vue';
+import AdminNav from '../../../../components/Admin/AdminNav.vue';
+import AdminSide from '../../../../components/Admin/AdminSide.vue';
+import PeopleForm from '../../../../components/Forms/PeopleForm.vue';
 export default {
   components: { AdminNav, AdminFooter, AdminSide, PeopleForm }
 };

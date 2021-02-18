@@ -350,8 +350,8 @@ export default {
 
       return capitalized;
     },
-    GetCountry() {
-      axios.get('api/countries?PageSize=260').then(res => {
+    async GetCountry() {
+      await axios.get('/api/countries?PageSize=200').then(res => {
         res.data.items.forEach(q => {
           let cData = { value: '', text: '' };
           cData.value = q.id;
@@ -359,6 +359,8 @@ export default {
           this.options.push(cData);
         });
       });
+      console.log(this.options);
+      console.log('helloo getcountry');
     },
 
     onFileSelectedTh(event) {
@@ -411,7 +413,7 @@ export default {
           )
           .then(res => console.log(res.data));
 
-        this.isEditMode = false;
+        this.isEditMode = this.GetCountryfalse;
         this.showAlert();
         setTimeout(this.changeRoute(), 3000);
       } catch (error) {
@@ -453,11 +455,12 @@ export default {
       else this.EdittData(form);
     }
   },
-  mounted() {
+  async mounted() {
+    console.log(this.options);
     this.token = localStorage.getItem('token');
     console.log(this.token);
     this.checkEditMode();
-    this.GetCountry();
+    await this.GetCountry();
     this.$store.dispatch('GetGenres');
     this.$store.dispatch('GetPeoples');
   },

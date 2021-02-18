@@ -2,7 +2,9 @@
   <div dir="rtl">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
       <div class="container">
-        <a href="home" class="navbar-brand">داداچ مویی</a>
+        <nuxt-link to="/home" class="nav-link " exact-active-class="active"
+          >داداچ مویی</nuxt-link
+        >
         <button
           class="navbar-toggler"
           data-toggle="collapse"
@@ -13,7 +15,10 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav">
             <li class="nav-item px-2">
-              <nuxt-link to="/admin" class="nav-link " active-class="active"
+              <nuxt-link
+                to="/admin"
+                class="nav-link "
+                exact-active-class="active"
                 >داشبورد</nuxt-link
               >
             </li>
@@ -21,17 +26,23 @@
               <nuxt-link
                 to="/moviepanel"
                 class="nav-link "
-                active-class="active"
+                exact-active-class="active"
                 >فیلم ها</nuxt-link
               >
             </li>
             <li class="nav-item px-2">
-              <nuxt-link to="PeoplePanel" class="nav-link" active-class="active"
+              <nuxt-link
+                to="PeoplePanel"
+                class="nav-link"
+                exact-active-class="active"
                 >هنرمندان</nuxt-link
               >
             </li>
             <li class="nav-item px-2">
-              <nuxt-link to="userpanel" class="nav-link" active-class="active"
+              <nuxt-link
+                to="userpanel"
+                class="nav-link"
+                exact-active-class="active"
                 >کاربران</nuxt-link
               >
             </li>
@@ -39,7 +50,7 @@
               <nuxt-link
                 to="requestpanel"
                 class="nav-link"
-                active-class="active"
+                exact-active-class="active"
                 >درخواست‌ها</nuxt-link
               >
             </li>
@@ -80,12 +91,12 @@
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <nuxt-link to="/addmovie" class="btn btn-primary btn-block">
+            <nuxt-link to="/admin/movie/add" class="btn btn-primary btn-block">
               <i class="fa fa-plus"></i> افزودن فیلم
             </nuxt-link>
           </div>
           <div class="col-md-3">
-            <nuxt-link to="/addpeople" class="btn btn-success btn-block">
+            <nuxt-link to="/admin/people/add" class="btn btn-success btn-block">
               <i class="fa fa-plus"></i> افزودن هنرمند
             </nuxt-link>
           </div>
