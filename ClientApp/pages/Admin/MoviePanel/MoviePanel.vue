@@ -40,9 +40,9 @@
   </div>
 </template>
 <script>
-import AdminFooter from '../../components/Admin/AdminFooter.vue';
-import AdminNav from '../../components/Admin/AdminNav.vue';
-import AdminSide from '../../components/Admin/AdminSide.vue';
+import AdminFooter from '../../../components/Admin/AdminFooter.vue';
+import AdminNav from '../../../components/Admin/AdminNav.vue';
+import AdminSide from '../../../components/Admin/AdminSide.vue';
 import MovieTable from './MovieTable.vue';
 import SeriesTable from './SeriesTable.vue';
 

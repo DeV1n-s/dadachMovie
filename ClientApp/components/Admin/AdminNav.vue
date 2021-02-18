@@ -2,7 +2,10 @@
   <div dir="rtl">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
       <div class="container">
-        <nuxt-link to="/home" class="nav-link " exact-active-class="active"
+        <nuxt-link
+          to="/home"
+          class="nav-link  nav-title"
+          exact-active-class="active"
           >داداچ مویی</nuxt-link
         >
         <button
@@ -24,7 +27,7 @@
             </li>
             <li class="nav-item px-2">
               <nuxt-link
-                to="/moviepanel"
+                to="/admin/moviepanel"
                 class="nav-link "
                 exact-active-class="active"
                 >فیلم ها</nuxt-link
@@ -32,7 +35,7 @@
             </li>
             <li class="nav-item px-2">
               <nuxt-link
-                to="PeoplePanel"
+                to="/admin/peoplepanel"
                 class="nav-link"
                 exact-active-class="active"
                 >هنرمندان</nuxt-link
@@ -40,7 +43,7 @@
             </li>
             <li class="nav-item px-2">
               <nuxt-link
-                to="userpanel"
+                to="/admin/userpanel"
                 class="nav-link"
                 exact-active-class="active"
                 >کاربران</nuxt-link
@@ -48,7 +51,7 @@
             </li>
             <li class="nav-item px-2">
               <nuxt-link
-                to="requestpanel"
+                to="/admin/requestpanel"
                 class="nav-link"
                 exact-active-class="active"
                 >درخواست‌ها</nuxt-link
@@ -185,6 +188,11 @@ export default {
 </script>
 
 <style scoped>
+.nav-title {
+  font-size: 20px;
+  color: #f5c518;
+  text-shadow: 2px 2px #8f0202;
+}
 .btn-block {
   box-shadow: 5px 5px 5px 5px #888888;
 }

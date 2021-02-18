@@ -8,7 +8,7 @@
             <i class="fa fa-film"></i>
             {{ movieCount }}
           </h4>
-          <nuxt-link to="/moviepanel" class="btn btn-outline-light btn-sm"
+          <nuxt-link to="/admin/moviepanel" class="btn btn-outline-light btn-sm"
             >مشاهده</nuxt-link
           >
         </div>
@@ -19,7 +19,9 @@
           <h4 class="display-4">
             <i class="fa fa-eercast ml-1"></i>{{ peopleCount }}
           </h4>
-          <nuxt-link to="/PeoplePanel" class="btn btn-outline-light btn-sm"
+          <nuxt-link
+            to="/admin/peoplepanel"
+            class="btn btn-outline-light btn-sm"
             >مشاهده</nuxt-link
           >
         </div>
@@ -39,7 +41,7 @@
           <h4 class="display-4">
             <i class="fa fa-users"></i> {{ usersCount }}
           </h4>
-          <nuxt-link to="/userpanel" class="btn btn-outline-light btn-sm"
+          <nuxt-link to="/admin/userpanel" class="btn btn-outline-light btn-sm"
             >مشاهده</nuxt-link
           >
         </div>
