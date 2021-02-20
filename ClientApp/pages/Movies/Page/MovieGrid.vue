@@ -49,8 +49,11 @@
                       دقیقه
                     </p>
                   </div>
-                  <p class="disc">
+                  <p class="disc" v-if="movie.shortDescription.length < 90">
                     {{ movie.shortDescription }}
+                  </p>
+                  <p class="disc" v-else>
+                    {{ movie.shortDescription.substring(0, 90) + '..' }}
                   </p>
                 </div>
               </div>
@@ -61,8 +64,8 @@
       <div class="pagination">
         <div class="num-container">
           <a href="#">&laquo;</a>
-          <a href="/movies/page/1">1</a>
-          <a href="/movies/page/2">2</a>
+          <nuxt-link to="/movies/page/1" active-class="active">1</nuxt-link>
+          <nuxt-link to="/movies/page/2" active-class="active">2</nuxt-link>
           <a href="#">3</a>
           <a href="#">4</a>
           <a href="#">5</a>

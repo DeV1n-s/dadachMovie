@@ -38,7 +38,7 @@
                 <i class="fa fa-film"> </i> فیلم ها
               </a>
               <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                <nuxt-link class="dropdown-item" to="/movies">
+                <nuxt-link class="dropdown-item" to="/movies/page/1">
                   سینمایی</nuxt-link
                 >
                 <div class="dropdown-divider"></div>
