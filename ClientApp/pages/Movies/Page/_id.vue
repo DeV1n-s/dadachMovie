@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import FooterApp from "../../components/FooterApp.vue";
-import NavBar from "../../components/NavBar.vue";
-import MovieGrid from "./MovieGrid.vue";
+import FooterApp from '../../../components/FooterApp.vue';
+import NavBar from '../../../components/NavBar.vue';
+import MovieGrid from './MovieGrid.vue';
 export default {
   components: {
     NavBar,

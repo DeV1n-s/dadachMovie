@@ -41,7 +41,7 @@
                   <div class="card_cat d-block">
                     <p class="year">سال ساخت : {{ movie.releaseDate }}</p>
                     <p class="genre">
-                      سبک : Action | Adventure
+                      ژانر : Action | Adventure
                     </p>
                     <p class="time">
                       زمان :
@@ -61,8 +61,8 @@
       <div class="pagination">
         <div class="num-container">
           <a href="#">&laquo;</a>
-          <a href="#">1</a>
-          <a href="#" class="active">2</a>
+          <a href="/movies/page/1">1</a>
+          <a href="/movies/page/2">2</a>
           <a href="#">3</a>
           <a href="#">4</a>
           <a href="#">5</a>
@@ -75,21 +75,30 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  // data() {
-  //   return {
-  //     movieData: this.$store.getters.GetMovies
-  //   };
-  // },
-
-  mounted() {
-    this.$store.dispatch('getMovie');
+  data() {
+    return {
+      id: this.$route.params.id,
+      movieData: ''
+    };
   },
-  computed: {
-    movieData: function() {
-      return this.$store.getters.GetMovies;
+  methods: {
+    getMovie() {
+      console.log('helllooo');
+      axios.get(`/api/movies?Page=${this.id}&PageSize=6`).then(res => {
+        this.movieData = res.data.items;
+      });
     }
+  },
+  mounted() {
+    this.getMovie();
   }
+  // computed: {
+  //   movieData: function() {
+  //     return this.$store.getters.GetMovies;
+  //   }
+  // }
 };
 </script>
 
