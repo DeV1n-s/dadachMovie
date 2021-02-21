@@ -56,24 +56,59 @@
           </div>
         </nuxt-link>
       </div>
+      <div class="pagination">
+        <div class="num-container">
+          <a href="#">&laquo;</a>
+          <nuxt-link
+            v-for="p in pagination"
+            :key="p"
+            active-class="active"
+            :to="{ name: 'series-Page-id', params: { id: p } }"
+            >{{ p }}</nuxt-link
+          >
+          <a href="#">&raquo;</a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  mounted() {
-    this.$store.dispatch('getSeries');
+  data() {
+    return {
+      id: this.$route.params.id,
+      seriesData: '',
+      pageNum: '',
+      pagination: []
+    };
   },
-  computed: {
-    seriesData: function() {
-      return this.$store.getters.GetSeries;
+  methods: {
+    async getMovie() {
+      await axios.get(`/api/series?Page=${this.id}&PageSize=6`).then(res => {
+        this.seriesData = res.data.items;
+        this.pageNum = Math.ceil(res.data.totalItems / 6);
+        this.pageMaker(this.pageNum);
+      });
+    },
+    pageMaker(p) {
+      for (let i = 1; i <= p; i++) {
+        this.pagination.push(i);
+      }
     }
+  },
+  mounted() {
+    this.getMovie();
   }
 };
 </script>
 
 <style scoped>
+.pagination {
+  width: 98.2%;
+  margin-left: 0.1rem !important;
+}
 .card_right.mr-1 {
   width: 350px;
 }

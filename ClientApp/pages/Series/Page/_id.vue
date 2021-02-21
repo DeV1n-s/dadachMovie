@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import FooterApp from '../../components/FooterApp.vue';
-import NavBar from '../../components/NavBar.vue';
+import FooterApp from '../../../components/FooterApp.vue';
+import NavBar from '../../../components/NavBar.vue';
 import SeriesGrid from './SeriesGrid.vue';
 export default {
   components: {
