@@ -64,12 +64,13 @@
       <div class="pagination">
         <div class="num-container">
           <a href="#">&laquo;</a>
-          <nuxt-link to="/movies/page/1" active-class="active">1</nuxt-link>
-          <nuxt-link to="/movies/page/2" active-class="active">2</nuxt-link>
-          <a href="#">3</a>
-          <a href="#">4</a>
-          <a href="#">5</a>
-          <a href="#">6</a>
+          <nuxt-link
+            v-for="p in pagination"
+            :key="p"
+            active-class="active"
+            :to="{ name: 'Movies-Page-id', params: { id: p } }"
+            >{{ p }}</nuxt-link
+          >
           <a href="#">&raquo;</a>
         </div>
       </div>
@@ -83,25 +84,28 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      movieData: ''
+      movieData: '',
+      pageNum: '',
+      pagination: []
     };
   },
   methods: {
-    getMovie() {
-      console.log('helllooo');
-      axios.get(`/api/movies?Page=${this.id}&PageSize=6`).then(res => {
+    async getMovie() {
+      await axios.get(`/api/movies?Page=${this.id}&PageSize=6`).then(res => {
         this.movieData = res.data.items;
+        this.pageNum = Math.ceil(res.data.totalItems / 6);
+        this.pageMaker(this.pageNum);
       });
+    },
+    pageMaker(p) {
+      for (let i = 1; i <= p; i++) {
+        this.pagination.push(i);
+      }
     }
   },
   mounted() {
     this.getMovie();
   }
-  // computed: {
-  //   movieData: function() {
-  //     return this.$store.getters.GetMovies;
-  //   }
-  // }
 };
 </script>
 
