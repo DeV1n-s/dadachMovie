@@ -11,7 +11,7 @@
             required
           />
         </div>
-        <div class="td" id="s-cover" @click="subSearch">
+        <div class="td" id="s-cover" @click.prevent="subSearch">
           <button type="submit" class="mb-1">
             <div id="s-circle"></div>
             <span></span>
@@ -63,10 +63,10 @@ button {
 #cover {
   background-color: #6c757d;
   border-radius: 10px;
-  box-shadow: 0 10px 40px #6c757d, 0 0 0 20px #ffffffeb;
+  box-shadow: 0 10px 20px #6c757d, 0 0 0 10px #ffffffeb;
   transform: scaley(0.6);
-  width: 54%;
-  margin-left: 23.5%;
+  width: 55%;
+  margin-left: 22.95%;
   height: 70px;
 }
 

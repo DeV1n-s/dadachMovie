@@ -19,6 +19,9 @@
       </div>
     </div>
     <div class="wrapper row">
+      <h1 v-if="movieData == ''" class="text-white mr-5 mt-4 not-found">
+        متاسفانه نتیجه ای یافت نشد :(
+      </h1>
       <div
         class="card mr-2 col-md-3"
         v-for="movie in movieData"
@@ -55,8 +58,8 @@ export default {
     };
   },
   methods: {
-    getGenreMovie() {
-      axios.get('/api/Movies?filter=Title=*' + this.id).then(res => {
+    async getGenreMovie() {
+      await axios.get('/api/Movies?filter=Title=*' + this.id).then(res => {
         this.movieData = res.data.items;
         // console.log(res.data);
       });
@@ -77,6 +80,9 @@ export default {
 </script>
 
 <style scoped>
+.not-found {
+  padding-bottom: 12rem;
+}
 .wrapper {
   /* background-color: #3d3d3d; */
   padding: 0px;
