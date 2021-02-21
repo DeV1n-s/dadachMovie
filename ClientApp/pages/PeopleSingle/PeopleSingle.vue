@@ -182,18 +182,18 @@ export default {
 }
 
 .header-image {
-  left: 0;
+  width: 100%;
   position: absolute;
   top: 0;
   z-index: -1;
   height: auto;
-  -webkit-animation: zoomEffect 35s infinite;
+  /* -webkit-animation: zoomEffect 35s infinite;
   animation: zoomEffect 35s infinite;
   -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
   -webkit-animation-direction: alternate;
   animation-direction: alternate;
-  -webkit-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; */
   backface-visibility: hidden;
 }
 

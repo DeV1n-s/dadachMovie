@@ -43,7 +43,9 @@
                 >
                 <div class="dropdown-divider"></div>
 
-                <a class="dropdown-item" href="/series"> سریال</a>
+                <nuxt-link class="dropdown-item" to="/series/page/1">
+                  سریال</nuxt-link
+                >
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">تریلر ها </a>
               </div>
