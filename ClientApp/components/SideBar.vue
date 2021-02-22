@@ -13,30 +13,25 @@
       <hr />
       <div class="most-rate-movie">
         <h6 class="mb-1">آخرین سریال های بروز شده</h6>
-        <div class="most-rate-box">
-          <div class="most-rate" v-for="series in lastSeries" :key="series.id">
-            <img
-              :src="series.bannerImage"
-              alt="Responsive image"
-              class="series-banner"
-            />
-            <div class="content">
-              <div class="row">
-                <h5 class="mrate-detail mt-2 mr-4 text-warning col-md-6">
-                  {{ series.title }}
-                </h5>
-                <p class="mb-2">
-                  <nuxt-link
-                    class="genre-name-list"
-                    :to="{ name: 'MovieSingle-id', params: { id: series.id } }"
-                  >
-                    <a href="" class="series-view-link">مشاهده</a>
-                  </nuxt-link>
-                </p>
-              </div>
-            </div>
+
+        <div class="most-rate-box row">
+          <div
+            class="most-rate col-md-3 pl-0"
+            v-for="series in lastSeries"
+            :key="series.id"
+          >
+            <nuxt-link
+              class="genre-name-list p-0 update-sr"
+              :to="{ name: 'MovieSingle-id', params: { id: series.id } }"
+            >
+              <img
+                :src="series.picture"
+                alt="Responsive image"
+                class="series-banner"
+              />
+            </nuxt-link>
           </div>
-          <nuxt-link to="/series">
+          <nuxt-link to="/series/page/1" class="mx-auto w-100">
             <button class="btn btn-block btn-outline-info my-2">
               مشاهده همه سریال ها
             </button>
@@ -165,5 +160,17 @@ button.btn.btn-outline-success.mr-4.mb-1 {
 .series-view-link:hover {
   color: #17a2b8;
   font-size: 15px;
+}
+
+.update-sr {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  transition: all 1s;
+}
+.update-sr:hover {
+  -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(0%);
+  transform: scale(1.1);
+  border-radius: 10px 0 10px 0;
 }
 </style>
