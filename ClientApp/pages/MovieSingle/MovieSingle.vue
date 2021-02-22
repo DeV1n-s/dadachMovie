@@ -101,10 +101,8 @@
                     <h2 class="mb-2">
                       <span class="movie-name">{{ movieDetail.title }}</span>
                       <span class="genre mb-2 d-block">
-                        <span v-for="g in genres" :key="g.id"
-                          >{{ g.name }} ,
-                        </span></span
-                      >
+                        {{ genres.map(g => g.name).join(' , ') }}
+                      </span>
                     </h2>
 
                     <p class="para">
@@ -112,10 +110,12 @@
                     </p>
                   </div>
 
-                  <div class="download-box d-block w-100 mb-2">
+                  <div class="download-box d-block w-100 mb-3">
                     <h3 class="text-white">
-                      <i class="fa fa-download mr-1" aria-hidden="true"></i>
-                      لینک دانلود
+                      <h4>
+                        <i class="fa fa-download mr-1" aria-hidden="true"></i>
+                        لینک دانلود
+                      </h4>
                       <div class="y-line"></div>
                       <div class="download-boxes mt-4 mb-3">
                         <div class="col-md-12">
@@ -236,12 +236,18 @@
 
                   <div class="comments ">
                     <h3>
-                      <i class="fa fa-comments-o  ml-1" aria-hidden="true"></i>
+                      <h4>
+                        <i
+                          class="fa fa-comments-o  ml-1"
+                          aria-hidden="true"
+                        ></i>
 
-                      نظرات کاربران
-                      <span class="comment-length text-muted">
-                        ({{ commentLength }})
-                      </span>
+                        نظرات کاربران
+
+                        <span class="comment-length text-muted">
+                          ({{ commentLength }})
+                        </span>
+                      </h4>
                     </h3>
                     <div class="y-line"></div>
                     <div class="comment_block">

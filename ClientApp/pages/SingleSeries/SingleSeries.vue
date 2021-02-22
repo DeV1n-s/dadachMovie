@@ -62,28 +62,28 @@
                     <p>
                       <span class="y-color">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                        روز پخش
+                        روز پخش :
                       </span>
                       {{ movieDetail.airDay }}
                     </p>
                     <p>
                       <span class="y-color">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                        تاریخ شروع
+                        تاریخ شروع :
                       </span>
                       {{ movieDetail.startDate }}
                     </p>
                     <p>
                       <span class="y-color">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
-                        تاریخ پایان
+                        تاریخ پایان :
                       </span>
                       {{ movieDetail.endDate }}
                     </p>
                     <p>
                       <span class="y-color">
                         <i class="fa far fa-eye" aria-hidden="true"></i>
-                        وضعیت
+                        وضعیت :
                       </span>
                       {{ movieDetail.status }}
                     </p>
@@ -115,11 +115,9 @@
                   <div class="image">
                     <h2 class="mb-2">
                       <span class="movie-name">{{ movieDetail.title }}</span>
-                      <span class="genre mb-2 d-block">
-                        <span v-for="g in genres" :key="g.id"
-                          >{{ g.name }} ,
-                        </span></span
-                      >
+                      <span class="genre mb-2 d-block"
+                        >{{ genres.map(g => g.name).join(' , ') }}
+                      </span>
                     </h2>
 
                     <p class="para">
@@ -129,8 +127,11 @@
 
                   <div class="download-box d-block w-100 mb-2">
                     <h3 class="text-white">
-                      <i class="fa fa-download mr-1" aria-hidden="true"></i>
-                      لینک دانلود
+                      <h4>
+                        <i class="fa fa-download mr-1" aria-hidden="true"></i>
+
+                        لینک دانلود
+                      </h4>
                       <div class="y-line"></div>
                       <div class="download-boxes mt-4 mb-3">
                         <div class="col-md-12">
@@ -249,14 +250,19 @@
                     </h3>
                   </div>
 
-                  <div class="comments ">
-                    <h3>
-                      <i class="fa fa-comments-o  ml-1" aria-hidden="true"></i>
+                  <div class="comments mt-2">
+                    <h3 class="mt-3">
+                      <h4 class="mt-3">
+                        <i
+                          class="fa fa-comments-o  ml-1"
+                          aria-hidden="true"
+                        ></i>
 
-                      نظرات کاربران
-                      <span class="comment-length text-muted">
-                        ({{ commentLength }})
-                      </span>
+                        نظرات کاربران
+                        <span class="comment-length text-muted">
+                          ({{ commentLength }})
+                        </span>
+                      </h4>
                     </h3>
                     <div class="y-line"></div>
                     <div class="comment_block">
