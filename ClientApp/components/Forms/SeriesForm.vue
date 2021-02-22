@@ -27,32 +27,14 @@
       </div>
       <div class="row">
         <div class="col-md-6 mt-4">
-          <label for="start" class="d-block">تاریخ شروع :</label>
+          <label for="start" class="d-block">تاریخ شروع</label>
 
-          <input
-            class="w-100"
-            type="date"
-            id="start"
-            name="trip-start"
-            value="2018-07-22"
-            min="0000-01-01"
-            max="2999-12-31"
-            v-model="movieData.startDate"
-          />
+          <VueCtkDateTimePicker v-model="movieData.startDate" />
         </div>
         <div class="col-md-6 mt-4">
-          <label for="start" class="d-block">تاریخ پایان:</label>
+          <label for="start" class="d-block">تاریخ پایان</label>
 
-          <input
-            class="w-100"
-            type="date"
-            id="start"
-            name="trip-start"
-            value="2018-07-22"
-            min="0000-01-01"
-            max="2999-12-31"
-            v-model="movieData.endDate"
-          />
+          <VueCtkDateTimePicker v-model="movieData.endDate" />
         </div>
       </div>
       <div class="row mt-4">
@@ -258,7 +240,8 @@
 
 <script>
 import Multiselect from 'vue-multiselect';
-
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 import 'vue-search-select/dist/VueSearchSelect.css';
 import { ModelSelect } from 'vue-search-select';
 import FormInput from './FormInput.vue';
@@ -307,7 +290,8 @@ export default {
   components: {
     ModelSelect,
     FormInput,
-    Multiselect
+    Multiselect,
+    VueCtkDateTimePicker: VueCtkDateTimePicker
   },
   methods: {
     imdbChecker() {
@@ -323,6 +307,8 @@ export default {
         this.isEditMode = true;
         axios.get('/api/series/' + this.id).then(res => {
           this.movieData = res.data;
+          this.movieData.endDate = '';
+          this.movieData.startDate = '';
           console.log(res.data);
         });
       }

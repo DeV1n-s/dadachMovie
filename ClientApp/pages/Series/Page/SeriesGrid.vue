@@ -105,6 +105,9 @@ export default {
 </script>
 
 <style scoped>
+.row.itms.itemcont {
+  margin-left: 0.4rem;
+}
 .pagination {
   width: 98.2%;
   margin-left: 0.1rem !important;

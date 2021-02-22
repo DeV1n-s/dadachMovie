@@ -58,19 +58,27 @@
                       </span>
                       {{ movieDetail.averageUserRate }}
                     </p>
-                    <p>
-                      <span class="y-color">
-                        <i class="fa fa-clock-o" aria-hidden="true"></i> زمان :
-                      </span>
-                      {{ movieDetail.lenght }}
-                      دقیقه
-                    </p>
+
                     <p>
                       <span class="y-color">
                         <i class="fa fa-calendar" aria-hidden="true"></i>
                         روز پخش
                       </span>
                       {{ movieDetail.airDay }}
+                    </p>
+                    <p>
+                      <span class="y-color">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        تاریخ شروع
+                      </span>
+                      {{ movieDetail.startDate }}
+                    </p>
+                    <p>
+                      <span class="y-color">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        تاریخ پایان
+                      </span>
+                      {{ movieDetail.endDate }}
                     </p>
                     <p>
                       <span class="y-color">
