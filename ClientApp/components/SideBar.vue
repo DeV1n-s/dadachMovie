@@ -1,7 +1,7 @@
 <template>
   <div class="sidenav container ">
     <div class="side-item ">
-      <div class="social-media">
+      <div class="social-media mt-1">
         <h5>شبکه های اجتماعی ما</h5>
         <div class="row mr-auto">
           <div class="social-container">

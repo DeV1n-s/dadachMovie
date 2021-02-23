@@ -97,17 +97,31 @@
                   </div>
                 </div>
                 <div class="col-md-8">
-                  <div class="image">
-                    <h2 class="mb-2">
-                      <span class="movie-name">{{ movieDetail.title }}</span>
-                      <span class="genre mb-2 d-block">
-                        {{ genres.map(g => g.name).join(' , ') }}
-                      </span>
-                    </h2>
-
-                    <p class="para">
-                      {{ movieDetail.description }}
-                    </p>
+                  <h2 class="mb-2 single-header text-white mt-3">
+                    <span class="movie-name y-color">{{
+                      movieDetail.title
+                    }}</span>
+                    <span class="genre mb-2 d-block">
+                      {{ genres.map(g => g.name).join(' , ') }}
+                    </span>
+                  </h2>
+                  <div class="image mt-4">
+                    <div class="single-body y-color">
+                      <b-tabs content-class="mt-3" fill>
+                        <b-tab title="داستان فیلم" active>
+                          <p class="para m-0">
+                            {{ movieDetail.description }}
+                          </p>
+                        </b-tab>
+                        <b-tab title="نقد و بررسی"
+                          ><p class="para m-0">I'm the second tab</p></b-tab
+                        >
+                        <b-tab title="جوایز و افتخارات">
+                          <p class="para m-0">I'm the second tab</p></b-tab
+                        >
+                      </b-tabs>
+                    </div>
+                    <!--  -->
                   </div>
 
                   <div class="download-box d-block w-100 mb-3">
@@ -561,7 +575,7 @@ export default {
   margin-right: 5px;
 }
 .download-box {
-  margin-top: 25rem;
+  margin-top: 15rem;
 }
 .comment-length {
   font-size: 15px;
@@ -596,5 +610,24 @@ export default {
 }
 .movie-single .btn button {
   width: 200px !important;
+}
+
+.single-body {
+  background-color: #edf0f5 !important;
+  color: rgb(175, 110, 30) !important;
+  font-size: 15px !important;
+}
+
+p.para.m-0 {
+  background-color: #acacac !important;
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: 4px 4px 4px 4px #8888;
+  color: #000000 !important;
+  font-size: 16px;
+}
+.single-body.y-color {
+  border-radius: 8px;
+  box-shadow: 2px 2px 2px 2px #8888;
 }
 </style>

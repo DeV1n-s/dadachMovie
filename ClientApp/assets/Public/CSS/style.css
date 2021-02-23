@@ -2923,3 +2923,8 @@
     .y-color {
         color: #f5c518 !important;
     }
+    
+    .nav .nav-tabs .nav-fill a {
+        color: bisque !important;
+        font-size: 15px !important;
+    }
