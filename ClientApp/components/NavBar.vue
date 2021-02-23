@@ -5,7 +5,12 @@
       class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark sticky-top"
     >
       <div class="container">
-        <a class="navbar-brand" href="#">داداچ مویی</a>
+        <nuxt-link class="navbar-brand" to="/home"
+          ><img
+            src="http://localhost:5000/logo/logo.png"
+            alt=""
+            class="logo-image"
+        /></nuxt-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -217,4 +222,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.logo-image {
+  height: 65px;
+  margin-right: 1.1rem;
+}
+</style>
