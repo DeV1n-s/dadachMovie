@@ -4,10 +4,22 @@
       <div class="social-media">
         <h5>شبکه های اجتماعی ما</h5>
         <div class="row mr-auto">
-          <a href="#" class="fa fa-facebook"></a>
-          <a href="#" class="fa fa-twitter"></a>
-          <a href="#" class="fa fa-telegram"></a>
-          <a href="#" class="fa fa-instagram"></a>
+          <div class="social-container">
+            <ul class="social-icons">
+              <li>
+                <a class="social-i" href="#"><i class="fa fa-instagram"></i></a>
+              </li>
+              <li>
+                <a class="social-i" href="#"><i class="fa fa-twitter"></i></a>
+              </li>
+              <li>
+                <a class="social-i" href="#"><i class="fa fa-linkedin"></i></a>
+              </li>
+              <li>
+                <a class="social-i" href="#"><i class="fa fa-codepen"></i></a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <hr />
@@ -22,7 +34,7 @@
           >
             <nuxt-link
               class="genre-name-list p-0 update-sr"
-              :to="{ name: 'MovieSingle-id', params: { id: series.id } }"
+              :to="{ name: 'SingleSeries-id', params: { id: series.id } }"
             >
               <img
                 :src="series.picture"
@@ -86,14 +98,14 @@
       <div class="genre-list">
         <h5 class="mb-3">ژانر ها</h5>
         <div class="row">
-          <div class="col-md-5 mr-3" v-for="genre in Genres" :key="genre.id">
+          <div class="col-md-4 " v-for="genre in Genres" :key="genre.id">
             <div class="d-flex">
-              <span class="mr-auto ">{{ genre.moviesCount }}</span>
+              <span class="">{{ genre.moviesCount }}</span>
               <nuxt-link
                 class="genre-name-list"
                 :to="{ name: 'MovieGenre-id', params: { id: genre.id } }"
               >
-                <P>{{ genre.name }}</P>
+                <P class="ml-auto">{{ genre.name }}</P>
               </nuxt-link>
             </div>
           </div>
@@ -134,6 +146,64 @@ export default {
 </script>
 
 <style scoped>
+.social-i {
+  padding: 0;
+}
+
+.social-container {
+  width: 400px;
+
+  text-align: center;
+}
+
+.social-icons {
+  padding: 0;
+  list-style: none;
+  margin: 1em;
+}
+.social-icons li {
+  display: inline-block;
+  margin: 0.15em;
+  position: relative;
+  font-size: 1.2em;
+}
+.social-icons i {
+  color: #fff;
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  transition: all 265ms ease-out;
+}
+.social-icons a {
+  display: inline-block;
+}
+.social-icons a:before {
+  transform: scale(1);
+  -ms-transform: scale(1);
+  -webkit-transform: scale(1);
+  content: ' ';
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  display: block;
+  background: linear-gradient(45deg, #00b5f5, #002a8f);
+  transition: all 265ms ease-out;
+}
+.social-icons a:hover:before {
+  transform: scale(0);
+  transition: all 265ms ease-in;
+}
+.social-icons a:hover i {
+  transform: scale(2.2);
+  -ms-transform: scale(2.2);
+  -webkit-transform: scale(2.2);
+  color: #00b5f5;
+  background: -webkit-linear-gradient(45deg, #00b5f5, #002a8f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 265ms ease-in;
+}
+
 .series-banner {
   height: 120px !important;
 }
@@ -172,5 +242,8 @@ button.btn.btn-outline-success.mr-4.mb-1 {
   filter: grayscale(0%);
   transform: scale(1.2, 1.1);
   border-radius: 10px 0 10px 0;
+}
+.genre-list span {
+  margin-left: 10%;
 }
 </style>

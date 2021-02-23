@@ -25,7 +25,7 @@ const mutations = {
 
 const actions = {
     GetGenres({ commit }) {
-        axios.get('/api/Genres')
+        axios.get('/api/genres?PageSize=990')
             .then(response => {
                 commit('SET_GENRES', response.data)
             })
