@@ -163,14 +163,14 @@ button.btn.btn-outline-success.mr-4.mb-1 {
 }
 
 .update-sr {
-  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 1s;
 }
 .update-sr:hover {
-  -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+  -webkit-filter: grayscale(0%);
   filter: grayscale(0%);
-  transform: scale(1.1);
+  transform: scale(1.2, 1.1);
   border-radius: 10px 0 10px 0;
 }
 </style>

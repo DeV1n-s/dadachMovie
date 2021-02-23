@@ -13,8 +13,18 @@
         </div>
         <div class="td" id="s-cover" @click.prevent="subSearch">
           <button type="submit" class="mb-1">
-            <div id="s-circle"></div>
-            <span></span>
+            <ul class="loading-frame">
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+            </ul>
           </button>
         </div>
       </div>
@@ -38,6 +48,71 @@ export default {
 </script>
 
 <style scoped>
+body {
+  background-color: #333;
+}
+.loading-frame {
+  position: absolute;
+  top: 25%;
+  left: 55%;
+}
+.circle {
+  position: absolute;
+  height: 9px;
+  width: 9px;
+  border-radius: 15px;
+  background-color: #3fc380;
+  animation: animate linear 2s infinite;
+}
+.circle:nth-child(1) {
+  animation-delay: 0.9s;
+}
+.circle:nth-child(2) {
+  animation-delay: 1.1s;
+  transform: translate(18px, 13px);
+}
+.circle:nth-child(3) {
+  animation-delay: 1.3s;
+  transform: translate(35px, 25px);
+}
+.circle:nth-child(4) {
+  animation-delay: 1.1s;
+  transform: translate(18px, 38px);
+}
+.circle:nth-child(5) {
+  animation-delay: 0.9s;
+  transform: translate(0px, 50px);
+}
+.circle:nth-child(6) {
+  animation-delay: 0.9s;
+  transform: translate(0, 25px);
+}
+.circle:nth-child(7) {
+  animation-delay: 0.7s;
+  transform: translate(-20px, 25px);
+}
+.circle:nth-child(8) {
+  animation-delay: 0.5s;
+  transform: translate(-40px, 25px);
+}
+.circle:nth-child(9) {
+  animation-delay: 0.3s;
+  transform: translate(-60px, 25px);
+}
+.circle:nth-child(10) {
+  animation-delay: 0.1s;
+  transform: translate(-80px, 25px);
+}
+@keyframes animate {
+  0%,
+  100% {
+    background-color: #3fc380;
+  }
+  50% {
+    background-color: #fff;
+  }
+}
+
 input:focus {
   outline: none;
 }
@@ -87,7 +162,7 @@ input[type='text']::placeholder {
 
 #s-cover {
   width: 1px;
-  padding-left: 35px;
+  padding-left: 55px;
   margin-bottom: 0.5rem !important;
 }
 
