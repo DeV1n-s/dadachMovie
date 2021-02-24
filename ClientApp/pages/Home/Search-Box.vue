@@ -152,7 +152,7 @@ form {
 input[type='text'] {
   width: 100%;
   height: 70px;
-  font-size: 40px;
+  font-size: 30px;
   line-height: 1;
 }
 
