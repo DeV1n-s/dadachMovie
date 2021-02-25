@@ -61,7 +61,7 @@
             />
             <div class="content">
               <p class="mrate-detail">
-                فیلم های قشنگفیلم های قشنگفیلم های قشنگفیلم گ
+                فیلم حلقه
               </p>
             </div>
           </div>
@@ -72,7 +72,7 @@
             />
             <div class="content">
               <p class="mrate-detail">
-                فیلم های قشنگفیلم های قشنگفیلم های قشنگفیلم گ
+                فیلم حلقه
               </p>
             </div>
           </div>
@@ -83,7 +83,7 @@
             />
             <div class="content">
               <p class="mrate-detail">
-                فیلم های قشنگفیلم های قشنگفیلم های قشنگفیلم گ
+                فیلم حلقه
               </p>
             </div>
           </div>
@@ -95,6 +95,31 @@
         </div>
       </div>
       <hr />
+      <div class="cast-show">
+        <h5 class="mb-3">بازیگران پیشنهادی</h5>
+        <div class="row" v-for="c in castTop" :key="c.id">
+          <div class="col-md-4">
+            <nuxt-link
+              :to="{ name: 'PeopleSingle-id', params: { id: c.id } }"
+              class=""
+            >
+              <img
+                :src="c.picture"
+                class="rounded-circle"
+                alt=""
+                width="85px"
+                height="70px"
+              />
+            </nuxt-link>
+          </div>
+          <div class="col-md-7 text-white mt-1">
+            <h6 class="mt-2">{{ c.name }}</h6>
+            <p>{{ c.nationality }}</p>
+          </div>
+        </div>
+      </div>
+      <hr />
+
       <div class="genre-list">
         <h5 class="mb-3">ژانر ها</h5>
         <div class="row">
@@ -121,14 +146,19 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      lastSeries: []
+      lastSeries: [],
+      castTop: []
     };
   },
   methods: {
     async getLastSeries() {
       await axios.get('/api/series?PageSize=5').then(res => {
         this.lastSeries = res.data.items;
-        console.log(this.lastSeries);
+      });
+    },
+    async getTopCast() {
+      await axios.get('/api/people?PageSize=5').then(res => {
+        this.castTop = res.data.items;
       });
     }
   },
@@ -136,6 +166,7 @@ export default {
   mounted() {
     this.$store.dispatch('GetGenres');
     this.getLastSeries();
+    this.getTopCast();
   },
   computed: {
     Genres: function() {
@@ -245,5 +276,46 @@ button.btn.btn-outline-success.mr-4.mb-1 {
 }
 .genre-list span {
   margin-left: 10%;
+}
+
+.mrate-detail {
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+  width: 100%;
+  transition: 0.5s ease;
+  opacity: 0;
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;
+}
+.container:hover .mrate-detail:hover {
+  opacity: 1;
+}
+
+.most-rate .content:hover {
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0);
+}
+.cast-show .row {
+  margin-top: 0.2rem;
+  margin-right: 3%;
+  transition: all 265ms ease-out;
+}
+.cast-show .row:hover {
+  /* -ms-transform: rotate(10deg);  */
+  /* transform: rotate(10deg); */
+  margin-right: 8%;
+  transform: scale(1.1);
+}
+.col-md-7.text-white.mt-1 {
+  font-size: 11px;
+  margin-right: auto;
+  direction: ltr !important;
+  float: left;
 }
 </style>
