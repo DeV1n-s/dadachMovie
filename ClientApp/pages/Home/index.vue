@@ -11,6 +11,8 @@
       <hr />
       <in-theater />
       <hr />
+      <series-calender />
+      <hr />
       <home-news />
 
       <footer-app />
@@ -27,6 +29,7 @@ import InTheater from './in-theater.vue';
 import HomeNews from './home-news';
 import SoonMovie from './soon-movie';
 import SearchBox from './Search-Box';
+import SeriesCalender from './series-calender.vue';
 export default {
   components: {
     FooterApp,
@@ -36,7 +39,8 @@ export default {
     HomeSlider,
     InTheater,
     SoonMovie,
-    SearchBox
+    SearchBox,
+    SeriesCalender
   }
 };
 </script>
