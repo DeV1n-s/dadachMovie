@@ -44,15 +44,35 @@
               </a>
               <div class="dropdown-menu " aria-labelledby="navbarDropdown">
                 <nuxt-link class="dropdown-item" to="/movies/page/1">
-                  سینمایی</nuxt-link
-                >
+                  <img
+                    class="nav-dd-img"
+                    src="http://localhost:5000/cinema.svg"
+                    alt=""
+                    height="25px"
+                  />
+                  <span class="mr-4"> سینمایی </span>
+                </nuxt-link>
                 <div class="dropdown-divider"></div>
 
                 <nuxt-link class="dropdown-item" to="/series/page/1">
-                  سریال</nuxt-link
-                >
+                  <img
+                    class="nav-dd-img"
+                    src="http://localhost:5000/clapperboard.svg"
+                    alt=""
+                    height="25px"
+                  />
+                  <span class="mr-4"> سریال </span>
+                </nuxt-link>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">تریلر ها </a>
+                <a class="dropdown-item" href="#">
+                  <img
+                    class="nav-dd-img"
+                    src="http://localhost:5000/film.svg"
+                    alt=""
+                    height="25px"
+                  />
+                  <span class="mr-4"> تریلر ها</span>
+                </a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -69,11 +89,25 @@
               </a>
               <div class="dropdown-menu " aria-labelledby="navbarDropdown">
                 <nuxt-link class="dropdown-item" to="/people/cast">
-                  بازیگران</nuxt-link
-                >
+                  <img
+                    class="nav-dd-img"
+                    src="http://localhost:5000/director.svg"
+                    alt=""
+                    height="25px"
+                  />
+                  <span class="mr-4"> بازیگران </span>
+                </nuxt-link>
                 <div class="dropdown-divider"></div>
 
-                <a class="dropdown-item" href="#"> کارگردانان</a>
+                <a class="dropdown-item" href="#">
+                  <img
+                    class="nav-dd-img"
+                    src="http://localhost:5000/director-chair.svg"
+                    alt=""
+                    height="25px"
+                  />
+                  <span class="mr-4"> کارگردانان </span>
+                </a>
               </div>
             </li>
 
@@ -226,5 +260,12 @@ export default {
 .logo-image {
   height: 65px;
   margin-right: 1.1rem;
+}
+.dropdown-menu {
+  width: 212px !important;
+}
+.nav-dd-img {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
 }
 </style>

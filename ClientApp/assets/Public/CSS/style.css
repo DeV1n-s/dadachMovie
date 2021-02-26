@@ -2902,11 +2902,21 @@
     }
     
     .dropdown-menu {
-        left: -55px;
+        top: 89%;
+        left: -128px;
+        background-color: #585e66!important;
+        opacity: 0.93;
+        border-radius: 8px;
     }
     
     .dropdown-item {
         text-align: right;
+        font-stretch: expanded;
+        color: beige;
+    }
+    
+    .dropdown-item:hover {
+        color: #1d2024;
     }
     
     .vgt-inner-wrap {
