@@ -415,10 +415,16 @@
                       v-for="comment in comments"
                       :key="comment.movieId"
                     >
-                      <div class="card w-100">
-                        <div class="card-body">
+                      <div class="card w-100 my-1">
+                        <div class="card-body cmtn-box">
                           <h5 class="card-title">
                             {{ comment.title }}
+                            <i
+                              @click="delCmnt(comment)"
+                              class="fa fa-times text-danger cmnt-cross"
+                              aria-hidden="true"
+                            ></i>
+
                             <div class="ltr-dir">
                               <small class="text-muted">
                                 {{ comment.createdAt }}
@@ -527,6 +533,10 @@ export default {
     };
   },
   methods: {
+    delCmnt(id) {
+      //axios.delete(`/api/movies/RemoveUserComment/${id}`);
+      console.log(id);
+    },
     onFileSelectedTh(event) {
       this.newUserData.picture = event.target.files[0];
     },
@@ -2617,5 +2627,23 @@ p {
 .display-2 span {
   font-weight: 300;
   display: block;
+}
+.cmnt-cross {
+  margin-right: 8.5rem;
+  font-size: 1.5rem;
+  transition: all 0.2s;
+}
+.cmnt-cross:hover {
+  transform: rotate(20deg) scale(1.5);
+  /* transform: scale(1.5); */
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+.cmtn-box {
+  box-shadow: 4px 4px 5px #888;
+  transition: all 0.8s;
+}
+.cmtn-box:hover {
+  transform: scale(1.05);
 }
 </style>
