@@ -42,14 +42,14 @@
             <div class="movie-card__content">
               <div class="movie-card__header">
                 <h1 class="movie-card__title">{{ series.title }}</h1>
-                <h4 class="movie-card__info mt-2">
+                <h4 class="movie-card__info mt-2 text-white">
                   تعداد فصل : {{ series.episodes }}
                 </h4>
-                <h4 class="movie-card__info mt-2">
+                <h4 class="movie-card__info mt-2 text-white">
                   روز پخش : {{ series.airDay }}
                 </h4>
               </div>
-              <p class="movie-card__desc">
+              <p class="movie-card__desc text-white">
                 {{ series.shortDescription }}
               </p>
             </div>
@@ -247,8 +247,8 @@ export default {
 }
 .movie-card__title {
   color: #ffffff;
-  margin-bottom: 0.25em;
-  opacity: 0.75;
+  margin-bottom: 0.75em;
+  opacity: 0.85;
 }
 .movie-card__info {
   letter-spacing: 2px;
@@ -322,10 +322,10 @@ h1 {
   box-shadow: -15px -10px 150px -35px rgba(255, 0, 0.7);
 }
 .bxs2 {
-  box-shadow: 15px -10px 150px -35px rgba(1, 255, 0.7);
+  box-shadow: 0px 0px 150px -45px rgba(255, 51, 0, 0.5);
 }
 .bxs3 {
-  box-shadow: -15px 10px 150px -35px rgba(1, 255, 0.7);
+  box-shadow: 0px 0px 150px -45px rgba(255, 51, 0, 0.5);
 }
 .bxs4 {
   box-shadow: 15px 10px 150px -35px rgba(255, 0, 0.7);
