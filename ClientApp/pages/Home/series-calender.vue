@@ -11,7 +11,7 @@
             <div class="col-md-2">
               <ul class="list-group list-group-flush">
                 <li class="calendar-day text-muted p-0">
-                  <p class="text-white">شنبه</p>
+                  <p class=" y-color p-0 m-0">شنبه</p>
                 </li>
                 <li class="calendar-day text-muted p-0">
                   <p class="text-white">یک‌شنبه</p>
@@ -87,7 +87,24 @@
 </template>
 
 <script>
-export default {};
+import axios from 'axios';
+export default {
+  data() {
+    return {
+      // dateOfWeek=1
+    };
+  },
+  methods: {
+    getSeries(date) {
+      axios.get(`/api/series?filter=Title=*${date}`).then(res => {
+        console.log(res.data.items);
+      });
+    }
+  },
+  mounted() {
+    this.getSeries(1);
+  }
+};
 </script>
 
 <style scoped>

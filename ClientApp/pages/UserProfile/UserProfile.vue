@@ -179,12 +179,14 @@
                           class="btn btn-danger"
                           @click="isEditMode = false"
                         >
+                          <i class="fa fa-undo"></i>
                           بازگشت
                         </button>
                         <button
                           class="btn btn-success mr-1"
                           @click="subEditData"
                         >
+                          <i class="fa fa-save"></i>
                           ثبت
                         </button>
                       </div>

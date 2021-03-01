@@ -32,17 +32,18 @@
           >
             <div class="info_section">
               <div class="movie_header">
-                <img class="locandina" :src="movie.picture" />
-                <h1>{{ movie.title }}</h1>
+                <!-- <img class="locandina" :src="movie.picture" /> -->
+                <h4 class="text-white mb-3">{{ movie.title }}</h4>
                 <div class="ltr-dir">
                   <h4 class="ltr-dir">{{ movie.releaseDate }}</h4>
                 </div>
                 <span class="minutes"> {{ movie.lenght }} دقیقه</span>
-                <a
-                  v-bind:href="'https://www.imdb.com/title/' + movie.imdbId"
-                  class="type d-block mt-3 y-color"
-                  >{{ movie.imdbId }}</a
-                >
+                <p class="movie-quality mt-3">
+                  <span class="y-color">4k</span> | 1080p | 720p
+                </p>
+                <p class="cast-list">
+                  رضا هیتون , سجاد اسپپان , علی کارپر , ....
+                </p>
               </div>
 
               <div class="movie_desc mr-5">
@@ -255,10 +256,10 @@ export default {
 }
 .text {
   color: white;
-  font-size: 17px;
+  font-size: 15px;
   position: absolute;
   top: 20%;
-  left: 13%;
+  left: 18%;
   transform: translate(-30%, -30%);
   text-align: right;
   width: inherit;
@@ -337,5 +338,13 @@ export default {
 }
 wrapper:hover {
   scale: 1.5;
+}
+.movie-quality {
+  font-size: 14px;
+  color: #fff;
+}
+.cast-list {
+  font-size: 12px;
+  color: #fff;
 }
 </style>
