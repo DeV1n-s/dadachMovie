@@ -114,7 +114,8 @@
           </div>
           <div class="col-md-7 text-white mt-1">
             <h6 class="mt-2">{{ c.name }}</h6>
-            <p>{{ c.nationality }}</p>
+            <p class="mb-0">{{ c.nationality }}</p>
+            <small>25 y.o</small>
           </div>
         </div>
       </div>
