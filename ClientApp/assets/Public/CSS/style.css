@@ -2938,3 +2938,7 @@
         color: bisque !important;
         font-size: 15px !important;
     }
+    
+    .cursor-pointer {
+        cursor: pointer
+    }

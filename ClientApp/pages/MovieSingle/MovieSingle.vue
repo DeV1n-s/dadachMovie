@@ -38,6 +38,31 @@
                       از پیش در لیست علاقه مندی شما وجود دارد !
                     </small>
                   </div>
+                  <div class="rate-star">
+                    <div class="star-wrapper">
+                      <a href="#" class="fas fa-star s1"></a>
+                      <a href="#" class="fas fa-star s2"></a>
+                      <a href="#" class="fas fa-star s3"></a>
+                      <a href="#" class="fas fa-star s4"></a>
+                      <a href="#" class="fas fa-star s5"></a>
+                    </div>
+                    <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+                    <div class="wraper">
+                      <script
+                        type="text/javascript"
+                        src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
+                        data-name="bmc-button"
+                        data-slug="gitlabBilal"
+                        data-color="#FFDD00"
+                        data-emoji=""
+                        data-font="Cookie"
+                        data-text="Buy me a coffee"
+                        data-outline-color="#000000"
+                        data-font-color="#000000"
+                        data-coffee-color="#ffffff"
+                      ></script>
+                    </div>
+                  </div>
                   <div class="movie-details mt-4">
                     <p>
                       <span class="y-color">
@@ -96,19 +121,23 @@
                     </p>
                   </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 main-movie-single">
                   <h2 class="mb-2 single-header text-white mt-3">
                     <span class="movie-name y-color">{{
                       movieDetail.title
                     }}</span>
-                    <span class="genre mb-2 d-block">
+                    <span class="genre mb-2 d-block mt-2">
                       {{ genres.map(g => g.name).join(' , ') }}
                     </span>
                   </h2>
-                  <div class="image mt-4">
+                  <!-- < class="image mt-4">
                     <div class="single-body y-color">
                       <b-tabs content-class="mt-3" fill>
-                        <b-tab title="داستان فیلم" active>
+                        <b-tab
+                          content-class="text-white"
+                          title="داستان فیلم"
+                          active
+                        >
                           <p class="para m-0">
                             {{ movieDetail.description }}
                           </p>
@@ -121,7 +150,114 @@
                         >
                       </b-tabs>
                     </div>
-                    <!--  -->
+                      -->
+                  <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a
+                        class="nav-link active d-color"
+                        id="home-tab"
+                        data-toggle="tab"
+                        href="#home"
+                        role="tab"
+                        aria-controls="home"
+                        aria-selected="true"
+                      >
+                        <i class="fa fa-paragraph"></i>
+                        خلاصه داستان</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link d-color"
+                        id="profile-tab"
+                        data-toggle="tab"
+                        href="#profile"
+                        role="tab"
+                        aria-controls="profile"
+                        aria-selected="false"
+                      >
+                        <i class="fa fa-comments"></i>
+                        نقد و بررسی</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link d-color"
+                        id="contact-tab"
+                        data-toggle="tab"
+                        href="#contact"
+                        role="tab"
+                        aria-controls="contact"
+                        aria-selected="false"
+                      >
+                        <i class="fa fa-award"></i>
+                        جوایز و افتخارات
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div
+                      class="tab-pane fade show active"
+                      id="home"
+                      role="tabpanel"
+                      aria-labelledby="home-tab"
+                    >
+                      <p class="para m-0">
+                        {{ movieDetail.description }}
+                      </p>
+                    </div>
+                    <div
+                      class="tab-pane fade"
+                      id="profile"
+                      role="tabpanel"
+                      aria-labelledby="profile-tab"
+                    >
+                      ...
+                    </div>
+                    <div
+                      class="tab-pane fade"
+                      id="contact"
+                      role="tabpanel"
+                      aria-labelledby="contact-tab"
+                    >
+                      <div class="para m-0">
+                        <div class="row">
+                          <div class="award-grid mr-3">
+                            <img
+                              src="http://localhost:5000/oscar.png"
+                              height="80px"
+                              alt=""
+                              class="mr-3 award-img"
+                            />
+                            <p class="award-title ">
+                              سیمرغ بلورین
+                            </p>
+                          </div>
+                          <div class="award-grid mr-3">
+                            <img
+                              src="http://localhost:5000/oscar.png"
+                              height="80px"
+                              alt=""
+                              class="mr-3 award-img"
+                            />
+                            <p class="award-title ">
+                              سیمرغ بلورین
+                            </p>
+                          </div>
+                          <div class="award-grid mr-3">
+                            <img
+                              src="http://localhost:5000/oscar.png"
+                              height="80px"
+                              alt=""
+                              class="mr-3 award-img"
+                            />
+                            <p class="award-title ">
+                              سیمرغ بلورین
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="download-box d-block w-100 mb-3">
@@ -158,6 +294,7 @@
                                             aria-expanded="true"
                                             aria-controls="collapseOne"
                                           >
+                                            <i class="fa fa-download"></i>
                                             لینک دانلود با کیفیت بالا
                                           </a>
                                         </h4>
@@ -169,7 +306,7 @@
                                         aria-labelledby="headingOne"
                                       >
                                         <div class="panel-body">
-                                          <p>
+                                          <p class="m-0">
                                             کیفیت :BluRay 1080 Full HD :::
                                             انکودر iFT حجم 11GB
                                           </p>
@@ -218,6 +355,7 @@
                                             aria-expanded="false"
                                             aria-controls="collapseTwo"
                                           >
+                                            <i class="fa fa-download"></i>
                                             لینک دانلود با کیفیت متوسط
                                           </a>
                                         </h4>
@@ -259,6 +397,7 @@
                                             aria-expanded="false"
                                             aria-controls="collapseThree"
                                           >
+                                            <i class="fa fa-download"></i>
                                             لینک دانلود با کیفیت پایین
                                           </a>
                                         </h4>
@@ -314,7 +453,7 @@
                       <div class="create_new_comment p-0 m-0">
                         <form>
                           <div class="row">
-                            <div class="group col-md-8">
+                            <div class="group col-md-11 d-flex mr-3">
                               <textarea
                                 type="textarea"
                                 rows="1"
@@ -323,15 +462,6 @@
                               ></textarea>
 
                               <label>نظر خود را بنویسید</label>
-                            </div>
-                            <div class="group col-md-1">
-                              <input type="number" required="required" /><span
-                                class="highlight"
-                              ></span
-                              ><span class="bar"></span>
-                              <label>نمره</label>
-                            </div>
-                            <div class="col-md-1">
                               <div class="multi-button sub-cm-btn">
                                 <button @click.prevent="subComment">
                                   ثبت نظر
@@ -356,33 +486,58 @@
                                   class="img img-rounded img-fluid"
                                 />
                                 <p class="text-secondary text-center">
-                                  <i class="fa fa-calendar"></i
+                                  <i class="fa fa-calendar ml-1"></i
                                   >{{ c.createdAt }}
                                 </p>
                               </div>
                               <div class="col-md-10">
-                                <p>
-                                  <a class="float-left"
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <strong>{{ c.userFullName }}</strong>
+                                  </div>
+                                  <div class="col-md-8 ">
+                                    <i
+                                      class="fa fa-heart text-danger fa-2x ml-2  cursor-pointer float-left"
+                                    ></i>
+                                    <i
+                                      class="fa fa-reply fa-2x ml-3 cursor-pointer float-left"
+                                    ></i>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <span class="float-right"
+                                      ><i class="text-warning fa fa-star"></i
+                                    ></span>
+                                    <span class="float-right"
+                                      ><i class="text-warning fa fa-star"></i
+                                    ></span>
+                                    <span class="float-right"
+                                      ><i class="text-warning fa fa-star"></i
+                                    ></span>
+                                    <span class="float-right"
+                                      ><i class="text-warning fa fa-star"></i
+                                    ></span>
+                                  </div>
+                                </div>
+                                <div class="row mt-2">
+                                  <div class="col-md-8">
+                                    {{ c.content }}
+                                  </div>
+                                </div>
+                                <!-- <p class="d-block row">
+                                  <a class="float-right "
                                     ><strong>{{ c.userFullName }}</strong></a
                                   >
-                                  <span class="float-right"
-                                    ><i class="text-warning fa fa-star"></i
-                                  ></span>
-                                  <span class="float-right"
-                                    ><i class="text-warning fa fa-star"></i
-                                  ></span>
-                                  <span class="float-right"
-                                    ><i class="text-warning fa fa-star"></i
-                                  ></span>
-                                  <span class="float-right"
-                                    ><i class="text-warning fa fa-star"></i
-                                  ></span>
                                 </p>
+                                <div class="mr-auto">
+                                  <i class="fa fa-thumbs-up"></i>
+                                </div>
                                 <div class="clearfix"></div>
                                 <p>
                                   {{ c.content }}
                                 </p>
-                                <p class="mt-4">
+                                <p class=" float-left">
                                   <a
                                     class="float-right btn btn-outline-primary  ml-2"
                                   >
@@ -393,7 +548,7 @@
                                   >
                                     <i class="fa fa-heart"></i> پسندیدن</a
                                   >
-                                </p>
+                                </p> -->
                               </div>
                             </div>
                           </div>
@@ -437,10 +592,10 @@
               </div>
             </div>
           </div>
-
-          <footer-app />
         </div>
       </div>
+      <footer-app />
+
       <div class="alert-modal">
         <b-alert
           :show="dismissCountDown"
@@ -648,7 +803,7 @@ export default {
   margin-right: 5px;
 }
 .download-box {
-  margin-top: 15rem;
+  margin-top: 5rem;
 }
 .comment-length {
   font-size: 15px;
@@ -700,7 +855,7 @@ export default {
   font-size: 15px !important;
 }
 
-p.para.m-0 {
+.para.m-0 {
   background-color: rgb(224, 221, 221);
   -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
     5px 5px 15px 5px rgba(0, 0, 0, 0);
@@ -721,14 +876,18 @@ p.para.m-0 {
   background: linear-gradient(to right, #4e42b9, #e98223);
   padding-top: 1rem;
   border-radius: 20px;
-  -webkit-box-shadow: 5px 5px 15px 5px #ff8080, -9px 5px 15px 5px #ffe488,
+  -webkit-box-shadow: 0px 0px 0px 5px #a0a0a0, inset 0px 10px 27px -8px #141414,
+    inset 0px -10px 27px -8px #a31925, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 0px 5px #a0a0a0, inset 0px 10px 27px -8px #141414,
+    inset 0px -10px 27px -8px #a31925, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  /* -webkit-box-shadow: 5px 5px 15px 5px #ff8080, -9px 5px 15px 5px #ffe488,
     -7px -5px 15px 5px #8cff85, 12px -5px 15px 5px #80c7ff,
     12px 10px 15px 7px #e488ff, -10px 10px 15px 7px #ff616b,
     -10px -7px 27px 1px #8e5cff, -50px -50px 0px -30px rgba(255, 154, 26, 0);
   box-shadow: 5px 5px 5px 5px #ff8080, -5px 5px 5px 5px #ffe488,
     -7px -5px 5px 5px #8cff85, -2px -5px 6px 4px #80c7fe,
     2px 0px 7px 7px #e488ff, -10px 10px 5px 7px #ff616b,
-    -10px -7px 5px 1px #8e5cff, -50px -50px 0px -30px rgb(255 154 26 / 0%);
+    -10px -7px 5px 1px #8e5cff, -50px -50px 0px -30px rgb(255 154 26 / 0%); */
 }
 a:hover,
 a:focus {
@@ -1003,7 +1162,7 @@ label {
 }
 .sub-cm-btn {
   margin-top: 3.6rem;
-  margin-right: 3rem;
+  margin-right: 0.75rem;
 }
 multi-button {
   filter: drop-shadow(3px 10px 15px rgba(0, 0, 0, 0.45));
@@ -1053,5 +1212,90 @@ button:active {
 }
 .cm-box:hover {
   transform: scale(0.97);
+}
+.col-md-8 i {
+  transition: all 0.8s;
+}
+.col-md-8 i:hover {
+  transform: rotate(-30deg) scale(1.1);
+}
+.star-wrapper {
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  direction: rtl; */
+  margin-right: 3.8rem;
+}
+.star-wrapper a {
+  font-size: 2em;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.5s;
+  margin-top: 1rem;
+}
+.star-wrapper a:hover {
+  color: gold;
+  transform: scale(1.3);
+}
+.s1:hover ~ a {
+  color: gold;
+}
+.s2:hover ~ a {
+  color: gold;
+}
+.s3:hover ~ a {
+  color: gold;
+}
+.s4:hover ~ a {
+  color: gold;
+}
+.s5:hover ~ a {
+  color: gold;
+}
+.wraper {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+}
+
+ul#myTab {
+  background: #0005ce;
+  background: -moz-linear-gradient(left, #0005ce 0%, #24a491 54%, #c50000 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #0005ce 0%,
+    #24a491 54%,
+    #c50000 100%
+  );
+  background: linear-gradient(to right, #0005ce 0%, #24a491 54%, #c50000 100%);
+}
+li.nav-item {
+  margin-right: 1.5rem;
+}
+.nav-link {
+  font-size: 15px;
+}
+.d-color {
+  color: #240202;
+}
+
+.main-movie-single {
+  border-right: 5px ridge #a41414;
+  border-radius: 0px 40px 0px 0px;
+}
+
+.award-title {
+  font-size: 11px;
+  margin-top: 0.25rem;
+}
+.award-img {
+  transition: all 0.8s;
+}
+.award-img:hover {
+  transform: scale(1.08);
+}
+i.fa.fa-download {
+  margin-right: 1.3rem;
 }
 </style>
