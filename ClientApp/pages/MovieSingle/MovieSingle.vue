@@ -778,9 +778,7 @@ export default {
   top: 0;
   width: 60px;
 }
-.panel-heading .panel-title > a.collapsed::after {
-  /* content: '▼'; */
-}
+ 
 .panel-body {
   height: 180px;
   background: azure;

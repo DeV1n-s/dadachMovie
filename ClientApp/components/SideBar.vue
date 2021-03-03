@@ -54,7 +54,7 @@
       <div class="most-rate-movie">
         <h6 class="mb-1">محبوب ترین ها از دیدگاه کاربران</h6>
         <div class="most-rate-box">
-          <div class="most-rate">
+          <div class="most-rate most-rate-shaddow">
             <img
               src="https://www.uptvs.com/wp-contents/uploads/2021/01/halka-jadval.jpg"
               alt="Responsive image"
@@ -65,7 +65,7 @@
               </p>
             </div>
           </div>
-          <div class="most-rate">
+          <div class="most-rate most-rate-shaddow">
             <img
               src="https://www.uptvs.com/wp-contents/uploads/2021/01/halka-jadval.jpg"
               alt="Responsive image"
@@ -76,7 +76,7 @@
               </p>
             </div>
           </div>
-          <div class="most-rate">
+          <div class="most-rate most-rate-shaddow">
             <img
               src="https://www.uptvs.com/wp-contents/uploads/2021/01/halka-jadval.jpg"
               alt="Responsive image"
@@ -105,10 +105,10 @@
             >
               <img
                 :src="c.picture"
-                class="rounded-circle"
+                class="cast-img"
                 alt=""
-                width="85px"
-                height="70px"
+                width="80px"
+                height="85px"
               />
             </nuxt-link>
           </div>
@@ -231,7 +231,7 @@ export default {
   -webkit-transform: scale(2.2);
   color: #00b5f5;
   background: -webkit-linear-gradient(45deg, #00b5f5, #002a8f);
-  -webkit-background-clip: text;
+  /* -webkit-background-clip: text; */
   -webkit-text-fill-color: transparent;
   transition: all 265ms ease-in;
 }
@@ -318,5 +318,19 @@ button.btn.btn-outline-success.mr-4.mb-1 {
   margin-right: auto;
   direction: ltr !important;
   float: left;
+}
+.cast-img {
+  border-radius: 10px;
+  -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+.most-rate-shaddow {
+  border-radius: 8px;
+  -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 </style>
