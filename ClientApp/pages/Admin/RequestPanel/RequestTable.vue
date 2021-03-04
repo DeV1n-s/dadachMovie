@@ -51,16 +51,11 @@
         >
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field == 'actions'">
-              <router-link
-                :to="{
-                  name: 'CastEdit',
-                  params: { id: props.row.id }
-                }"
-              >
+              <nuxt-link to="/admin/request/1">
                 <button class="btn  btn-success">
                   مشاهده
                 </button>
-              </router-link>
+              </nuxt-link>
             </span>
             <span v-else>
               {{ props.formattedRow[props.column.field] }}

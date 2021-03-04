@@ -5,7 +5,7 @@
         <img
           src="http://localhost:5000/series/54ba415a-c1d9-4460-aa3d-ebd75ab2788e.jpg"
           alt="rounded"
-          class="rounded-circle"
+          class="rounded-circle cursor-pointer"
           height="109"
           width="110"
         />
@@ -32,10 +32,12 @@
         </div>
         <div class="col-md-2 mt-4 req-side h-100">
           <p class="text-muted mr-1">
-            سعید رضایان
+            <a href="" class="profile-link">
+              Saied-Rezaie
+            </a>
           </p>
           <p class="text-muted mr-1">
-            Saied-Rezaie
+            سعید رضایان
           </p>
           <p class="text-muted mr-1">
             کاربر ویژه
@@ -48,11 +50,13 @@
               src="http://localhost:5000/SocialIcon/WhatsApp.svg"
               height="30px"
               alt=""
+              class="cursor-pointer"
             />
             <img
               src="http://localhost:5000/SocialIcon/telegram.svg"
               height="22px"
               alt=""
+              class="cursor-pointer"
             />
           </div>
         </div>
@@ -69,22 +73,26 @@
         </div>
       </footer>
     </div>
-    <div class="answer-box mt-3" v-if="isAnswerMode">
-      <div class="card-title">
-        <h5 class="mr-2">
-          پاسخ جدید
-        </h5>
+    <transition name="slide-fade">
+      <div class="answer-box mt-3 card-body" v-if="isAnswerMode">
+        <div class="card-header mb-4">
+          <h6>
+            <i class="fa fa-check text-success"></i>
+            افزودن پاسخ جدید
+          </h6>
+        </div>
+
+        <textarea
+          placeholder="پاسخ خود را بنویسید"
+          name=""
+          id=""
+          cols="80"
+          rows="6"
+          class="mr-4 form-control"
+        ></textarea>
       </div>
-      <textarea
-        placeholder="پاسخ خود را بنویسید"
-        name=""
-        id=""
-        cols="80"
-        rows="10"
-        class="mr-4 form-control"
-      ></textarea>
-    </div>
-    <div class="btns mt-5">
+    </transition>
+    <div class="btns mt-5 mb-4">
       <button
         class="btn btn-success"
         @click="isAnswerMode = true"
@@ -270,9 +278,43 @@ export default {
   border-radius: 5px;
   background: #fffffb;
   position: relative;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 textarea {
   width: 740px;
+}
+.social-icons img {
+  transition: 0.7s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.2);
+}
+.profile-img img {
+  transition: 0.7s;
+}
+
+.profile-img img:hover {
+  transform: scale(1.3);
+}
+.profile-link {
+  text-decoration: none;
+  transition: 0.7s;
+}
+.profile-link:hover {
+  font-size: 13.5px;
+  color: #01dffc;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
