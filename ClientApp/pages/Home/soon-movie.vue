@@ -9,19 +9,19 @@
       </h4>
       <div class="container mt-1">
         <div class="card">
-          <img src="https://valamovie.art/wp-content/uploads/vikander.jpg" />
+          <img src="http://localhost:5000/SeedData/tombraider.jpg" />
           <div class="card__head">TombRaider</div>
         </div>
         <div class="card">
-          <img src="https://valamovie.art/wp-content/uploads/vikander.jpg" />
+          <img src="http://localhost:5000/SeedData/tombraider.jpg" />
           <div class="card__head">TombRaider</div>
         </div>
         <div class="card">
-          <img src="https://valamovie.art/wp-content/uploads/vikander.jpg" />
+          <img src="http://localhost:5000/SeedData/tombraider.jpg" />
           <div class="card__head">TombRaider</div>
         </div>
         <div class="card">
-          <img src="https://valamovie.art/wp-content/uploads/vikander.jpg" />
+          <img src="http://localhost:5000/SeedData/tombraider.jpg" />
           <div class="card__head">TombRaider</div>
         </div>
       </div>
@@ -33,4 +33,8 @@
 export default {};
 </script>
 
-<style></style>
+<style scoped>
+.container .mt-1 {
+  box-shadow: 0px 6px 12px 0px #8888;
+}
+</style>

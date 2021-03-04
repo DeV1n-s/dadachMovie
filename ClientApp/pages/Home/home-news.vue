@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container home-news-grid">
     <div class="home-news">
       <h4 class="mr-3 mb-4">
         <i class="fa fa-newspaper-o" aria-hidden="true"></i> اخبار
@@ -88,4 +88,4 @@
 export default {};
 </script>
 
-<style></style>
+<style scoped></style>

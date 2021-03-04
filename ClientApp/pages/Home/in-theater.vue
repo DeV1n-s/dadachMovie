@@ -75,6 +75,12 @@ export default {
 </script>
 
 <style scoped>
+.row.mr-4 {
+  box-shadow: aqua;
+  box-shadow: 1px 1px 2px 2px #8888;
+  border-radius: 11px;
+}
+
 .row .mr-4 {
   margin-top: 0 !important;
   padding-top: 0 !important;
