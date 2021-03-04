@@ -112,9 +112,13 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <nuxt-link
+                to="/news/page/1"
+                active-class="active"
+                class="nav-link"
+              >
                 <i class="fa fa-newspaper-o"></i> اخبار
-              </a>
+              </nuxt-link>
             </li>
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/AboutUs" active-class="active">
@@ -257,6 +261,10 @@ export default {
 </script>
 
 <style scoped>
+.active {
+  border-bottom: 3px outset rgba(207, 53, 53, 0.71);
+  border-radius: 5px 0px 18px 0px;
+}
 .logo-image {
   height: 65px;
   margin-right: 1.1rem;
