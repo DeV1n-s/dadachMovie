@@ -38,7 +38,7 @@
                 نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
                 کتابهای زیادی در شصت و سه درصد گذشته،&hellip;
               </p>
-              <a href="#" class="news-card__read-more"
+              <a href="#" class="news-card__read-more text-center"
                 >مشاهده<i class="fas fa-long-arrow-alt-right"></i
               ></a>
             </div>
@@ -62,7 +62,7 @@
                 نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
                 کتابهای زیادی در شصت و سه درصد گذشته،&hellip;
               </p>
-              <a href="#" class="news-card__read-more"
+              <a href="#" class="news-card__read-more text-center"
                 >مشاهده<i class="fas fa-long-arrow-alt-right"></i
               ></a>
             </div>
@@ -86,7 +86,7 @@
                 نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
                 کتابهای زیادی در شصت و سه درصد گذشته،&hellip;
               </p>
-              <a href="#" class="news-card__read-more"
+              <a href="#" class="news-card__read-more text-center"
                 >مشاهده<i class="fas fa-long-arrow-alt-right"></i
               ></a>
             </div>
@@ -110,7 +110,7 @@
                 نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
                 کتابهای زیادی در شصت و سه درصد گذشته،&hellip;
               </p>
-              <a href="#" class="news-card__read-more"
+              <a href="#" class="news-card__read-more text-center"
                 >مشاهده<i class="fas fa-long-arrow-alt-right"></i
               ></a>
             </div>
@@ -134,7 +134,7 @@
                 نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
                 کتابهای زیادی در شصت و سه درصد گذشته،&hellip;
               </p>
-              <a href="#" class="news-card__read-more"
+              <a href="#" class="news-card__read-more text-center"
                 >مشاهده<i class="fas fa-long-arrow-alt-right"></i
               ></a>
             </div>
@@ -413,6 +413,10 @@ h1 {
   margin-left: auto;
   position: relative;
   z-index: 5;
+  transition: all 0.6s;
+}
+.news-card__read-more:hover {
+  transform: scale(1.05);
 }
 
 .news-card__read-more i {
