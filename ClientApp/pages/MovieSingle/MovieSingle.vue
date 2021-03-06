@@ -18,6 +18,7 @@
                   </div>
                 </div>
               </header>
+
               <div class="row">
                 <div class="col-md-3">
                   <img :src="movieDetail.picture" alt="" />
@@ -121,16 +122,23 @@
                     </p>
                   </div>
                 </div>
-                <div class="col-md-8 main-movie-single">
-                  <h2 class="mb-2 single-header text-white mt-3">
-                    <span class="movie-name y-color">{{
-                      movieDetail.title
-                    }}</span>
-                    <span class="genre mb-2 d-block mt-2">
-                      {{ genres.map(g => g.name).join(' , ') }}
-                    </span>
-                  </h2>
-                  <!-- < class="image mt-4">
+                <div class="col-md-9 main-movie-single ">
+                  <div class="movie-layout">
+                    <div class="d-flex text-white">
+                      <p class="movie-title m-0">{{ movieDetail.title }}</p>
+                      <p class="mr-auto genres">
+                        {{ genres.map(g => g.name).join(' , ') }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card main-card">
+                    <!-- <h2 class="mb-2 single-header text-white mt-3">
+                      <p class="movie-name ">{{ movieDetail.title }}</p>
+                      <p class="genre mb-1 text-dark mt-0 ">
+                        {{ genres.map(g => g.name).join(' , ') }}
+                      </p>
+                    </h2> -->
+                    <!-- < class="image mt-4">
                     <div class="single-body y-color">
                       <b-tabs content-class="mt-3" fill>
                         <b-tab
@@ -151,275 +159,280 @@
                       </b-tabs>
                     </div>
                       -->
-                  <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
-                    <li class="nav-item">
-                      <a
-                        class="nav-link active d-color"
-                        id="home-tab"
-                        data-toggle="tab"
-                        href="#home"
-                        role="tab"
-                        aria-controls="home"
-                        aria-selected="true"
+                    <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
+                      <li class="nav-item">
+                        <a
+                          class="nav-link active d-color"
+                          id="home-tab"
+                          data-toggle="tab"
+                          href="#home"
+                          role="tab"
+                          aria-controls="home"
+                          aria-selected="true"
+                        >
+                          <i class="fa fa-paragraph"></i>
+                          خلاصه داستان</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link d-color"
+                          id="profile-tab"
+                          data-toggle="tab"
+                          href="#profile"
+                          role="tab"
+                          aria-controls="profile"
+                          aria-selected="false"
+                        >
+                          <i class="fa fa-comments"></i>
+                          نقد و بررسی</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link d-color"
+                          id="contact-tab"
+                          data-toggle="tab"
+                          href="#contact"
+                          role="tab"
+                          aria-controls="contact"
+                          aria-selected="false"
+                        >
+                          <i class="fa fa-award"></i>
+                          جوایز و افتخارات
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                      <div
+                        class="tab-pane fade show active"
+                        id="home"
+                        role="tabpanel"
+                        aria-labelledby="home-tab"
                       >
-                        <i class="fa fa-paragraph"></i>
-                        خلاصه داستان</a
+                        <p class="para m-0">
+                          {{ movieDetail.description }}
+                        </p>
+                      </div>
+                      <div
+                        class="tab-pane fade"
+                        id="profile"
+                        role="tabpanel"
+                        aria-labelledby="profile-tab"
                       >
-                    </li>
-                    <li class="nav-item">
-                      <a
-                        class="nav-link d-color"
-                        id="profile-tab"
-                        data-toggle="tab"
-                        href="#profile"
-                        role="tab"
-                        aria-controls="profile"
-                        aria-selected="false"
+                        ...
+                      </div>
+                      <div
+                        class="tab-pane fade"
+                        id="contact"
+                        role="tabpanel"
+                        aria-labelledby="contact-tab"
                       >
-                        <i class="fa fa-comments"></i>
-                        نقد و بررسی</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a
-                        class="nav-link d-color"
-                        id="contact-tab"
-                        data-toggle="tab"
-                        href="#contact"
-                        role="tab"
-                        aria-controls="contact"
-                        aria-selected="false"
-                      >
-                        <i class="fa fa-award"></i>
-                        جوایز و افتخارات
-                      </a>
-                    </li>
-                  </ul>
-                  <div class="tab-content" id="myTabContent">
-                    <div
-                      class="tab-pane fade show active"
-                      id="home"
-                      role="tabpanel"
-                      aria-labelledby="home-tab"
-                    >
-                      <p class="para m-0">
-                        {{ movieDetail.description }}
-                      </p>
-                    </div>
-                    <div
-                      class="tab-pane fade"
-                      id="profile"
-                      role="tabpanel"
-                      aria-labelledby="profile-tab"
-                    >
-                      ...
-                    </div>
-                    <div
-                      class="tab-pane fade"
-                      id="contact"
-                      role="tabpanel"
-                      aria-labelledby="contact-tab"
-                    >
-                      <div class="para m-0">
-                        <div class="row">
-                          <div class="award-grid mr-3">
-                            <img
-                              src="http://localhost:5000/oscar.png"
-                              height="80px"
-                              alt=""
-                              class="mr-3 award-img"
-                            />
-                            <p class="award-title ">
-                              سیمرغ بلورین
-                            </p>
-                          </div>
-                          <div class="award-grid mr-3">
-                            <img
-                              src="http://localhost:5000/oscar.png"
-                              height="80px"
-                              alt=""
-                              class="mr-3 award-img"
-                            />
-                            <p class="award-title ">
-                              سیمرغ بلورین
-                            </p>
-                          </div>
-                          <div class="award-grid mr-3">
-                            <img
-                              src="http://localhost:5000/oscar.png"
-                              height="80px"
-                              alt=""
-                              class="mr-3 award-img"
-                            />
-                            <p class="award-title ">
-                              سیمرغ بلورین
-                            </p>
+                        <div class="para m-0">
+                          <div class="row">
+                            <div class="award-grid mr-3">
+                              <img
+                                src="http://localhost:5000/oscar.png"
+                                height="80px"
+                                alt=""
+                                class="mr-3 award-img"
+                              />
+                              <p class="award-title ">
+                                سیمرغ بلورین
+                              </p>
+                            </div>
+                            <div class="award-grid mr-3">
+                              <img
+                                src="http://localhost:5000/oscar.png"
+                                height="80px"
+                                alt=""
+                                class="mr-3 award-img"
+                              />
+                              <p class="award-title ">
+                                سیمرغ بلورین
+                              </p>
+                            </div>
+                            <div class="award-grid mr-3">
+                              <img
+                                src="http://localhost:5000/oscar.png"
+                                height="80px"
+                                alt=""
+                                class="mr-3 award-img"
+                              />
+                              <p class="award-title ">
+                                سیمرغ بلورین
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="download-box d-block w-100 mb-3">
-                    <h3 class="text-white">
-                      <h4>
-                        <i class="fa fa-download mr-1" aria-hidden="true"></i>
-                        لینک دانلود
-                      </h4>
-                      <div class="y-line"></div>
-                      <div class="download-boxes my-5">
-                        <div class="col-md-12">
-                          <div class="demo">
-                            <div class="container">
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div
-                                    class="panel-group"
-                                    id="accordion"
-                                    role="tablist"
-                                    aria-multiselectable="true"
-                                  >
-                                    <div class="panel panel-default">
-                                      <div
-                                        class="panel-heading"
-                                        role="tab"
-                                        id="headingOne"
-                                      >
-                                        <h4 class="panel-title">
-                                          <a
-                                            role="button"
-                                            data-toggle="collapse"
-                                            data-parent="#accordion"
-                                            href="#collapseOne"
-                                            aria-expanded="true"
-                                            aria-controls="collapseOne"
-                                          >
-                                            <i class="fa fa-download"></i>
-                                            لینک دانلود با کیفیت بالا
-                                          </a>
-                                        </h4>
-                                      </div>
-                                      <div
-                                        id="collapseOne"
-                                        class="panel-collapse collapse in"
-                                        role="tabpanel"
-                                        aria-labelledby="headingOne"
-                                      >
-                                        <div class="panel-body">
-                                          <p class="m-0">
-                                            کیفیت :BluRay 1080 Full HD :::
-                                            انکودر iFT حجم 11GB
-                                          </p>
-                                          <div class="dl-btns">
-                                            <div class="flex-grid-center">
-                                              <div
-                                                class="pure-button fuller-button blue"
-                                              >
-                                                <i class="fa fa-link  fa-x"></i>
-                                                لینک دانلود مستقیم
-                                              </div>
-                                              <div
-                                                class="pure-button fuller-button red"
-                                              >
-                                                <i
-                                                  class="fa fa-image align-middle"
-                                                ></i>
-                                                نمونه کیفیت
-                                              </div>
-                                              <div
-                                                class="pure-button fuller-button white"
-                                              >
-                                                <i
-                                                  class="fa fa-tv align-middle"
-                                                ></i>
-                                                پخش آنلاین
+                    <div class="download-box d-block w-100 mb-3">
+                      <h3 class="text-white">
+                        <h4 class="text-dark item-title">
+                          <i class="fa fa-download mr-1" aria-hidden="true"></i>
+                          لینک دانلود
+                        </h4>
+                        <div class="y-line"></div>
+                        <div class="download-boxes my-5">
+                          <div class="col-md-12">
+                            <div class="demo">
+                              <div class="container">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div
+                                      class="panel-group"
+                                      id="accordion"
+                                      role="tablist"
+                                      aria-multiselectable="true"
+                                    >
+                                      <div class="panel panel-default">
+                                        <div
+                                          class="panel-heading"
+                                          role="tab"
+                                          id="headingOne"
+                                        >
+                                          <h4 class="panel-title">
+                                            <a
+                                              role="button"
+                                              data-toggle="collapse"
+                                              data-parent="#accordion"
+                                              href="#collapseOne"
+                                              aria-expanded="true"
+                                              aria-controls="collapseOne"
+                                            >
+                                              <i class="fa fa-download"></i>
+                                              لینک دانلود با کیفیت بالا
+                                            </a>
+                                          </h4>
+                                        </div>
+                                        <div
+                                          id="collapseOne"
+                                          class="panel-collapse collapse in"
+                                          role="tabpanel"
+                                          aria-labelledby="headingOne"
+                                        >
+                                          <div class="panel-body">
+                                            <p class="m-0">
+                                              کیفیت :BluRay 1080 Full HD :::
+                                              انکودر iFT حجم 11GB
+                                            </p>
+                                            <div class="dl-btns">
+                                              <div class="flex-grid-center">
+                                                <div
+                                                  class="pure-button fuller-button blue"
+                                                >
+                                                  <i
+                                                    class="fa fa-link  fa-x"
+                                                  ></i>
+                                                  لینک دانلود مستقیم
+                                                </div>
+                                                <div
+                                                  class="pure-button fuller-button red"
+                                                >
+                                                  <i
+                                                    class="fa fa-image align-middle"
+                                                  ></i>
+                                                  نمونه کیفیت
+                                                </div>
+                                                <div
+                                                  class="pure-button fuller-button white"
+                                                >
+                                                  <i
+                                                    class="fa fa-tv align-middle"
+                                                  ></i>
+                                                  پخش آنلاین
+                                                </div>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                      <div
-                                        class="panel-heading"
-                                        role="tab"
-                                        id="headingTwo"
-                                      >
-                                        <h4 class="panel-title">
-                                          <a
-                                            class="collapsed"
-                                            role="button"
-                                            data-toggle="collapse"
-                                            data-parent="#accordion"
-                                            href="#collapseTwo"
-                                            aria-expanded="false"
-                                            aria-controls="collapseTwo"
-                                          >
-                                            <i class="fa fa-download"></i>
-                                            لینک دانلود با کیفیت متوسط
-                                          </a>
-                                        </h4>
-                                      </div>
-                                      <div
-                                        id="collapseTwo"
-                                        class="panel-collapse collapse"
-                                        role="tabpanel"
-                                        aria-labelledby="headingTwo"
-                                      >
-                                        <div class="panel-body">
-                                          <p>
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipiscing elit.
-                                            Praesent nisl lorem, dictum id
-                                            pellentesque at, vestibulum ut arcu.
-                                            Curabitur erat libero, egestas eu
-                                            tincidunt ac, rutrum ac justo.
-                                            Vivamus condimentum laoreet lectus,
-                                            blandit posuere tortor aliquam
-                                            vitae. Curabitur molestie eros.
-                                          </p>
+                                      <div class="panel panel-default">
+                                        <div
+                                          class="panel-heading"
+                                          role="tab"
+                                          id="headingTwo"
+                                        >
+                                          <h4 class="panel-title">
+                                            <a
+                                              class="collapsed"
+                                              role="button"
+                                              data-toggle="collapse"
+                                              data-parent="#accordion"
+                                              href="#collapseTwo"
+                                              aria-expanded="false"
+                                              aria-controls="collapseTwo"
+                                            >
+                                              <i class="fa fa-download"></i>
+                                              لینک دانلود با کیفیت متوسط
+                                            </a>
+                                          </h4>
+                                        </div>
+                                        <div
+                                          id="collapseTwo"
+                                          class="panel-collapse collapse"
+                                          role="tabpanel"
+                                          aria-labelledby="headingTwo"
+                                        >
+                                          <div class="panel-body">
+                                            <p>
+                                              Lorem ipsum dolor sit amet,
+                                              consectetur adipiscing elit.
+                                              Praesent nisl lorem, dictum id
+                                              pellentesque at, vestibulum ut
+                                              arcu. Curabitur erat libero,
+                                              egestas eu tincidunt ac, rutrum ac
+                                              justo. Vivamus condimentum laoreet
+                                              lectus, blandit posuere tortor
+                                              aliquam vitae. Curabitur molestie
+                                              eros.
+                                            </p>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                      <div
-                                        class="panel-heading"
-                                        role="tab"
-                                        id="headingThree"
-                                      >
-                                        <h4 class="panel-title">
-                                          <a
-                                            class="collapsed"
-                                            role="button"
-                                            data-toggle="collapse"
-                                            data-parent="#accordion"
-                                            href="#collapseThree"
-                                            aria-expanded="false"
-                                            aria-controls="collapseThree"
-                                          >
-                                            <i class="fa fa-download"></i>
-                                            لینک دانلود با کیفیت پایین
-                                          </a>
-                                        </h4>
-                                      </div>
-                                      <div
-                                        id="collapseThree"
-                                        class="panel-collapse collapse"
-                                        role="tabpanel"
-                                        aria-labelledby="headingThree"
-                                      >
-                                        <div class="panel-body">
-                                          <p>
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipiscing elit.
-                                            Praesent nisl lorem, dictum id
-                                            pellentesque at, vestibulum ut arcu.
-                                            Curabitur erat libero, egestas eu
-                                            tincidunt ac, rutrum ac justo.
-                                            Vivamus condimentum laoreet lectus,
-                                            blandit posuere tortor aliquam
-                                            vitae. Curabitur molestie eros.
-                                          </p>
+                                      <div class="panel panel-default">
+                                        <div
+                                          class="panel-heading"
+                                          role="tab"
+                                          id="headingThree"
+                                        >
+                                          <h4 class="panel-title">
+                                            <a
+                                              class="collapsed"
+                                              role="button"
+                                              data-toggle="collapse"
+                                              data-parent="#accordion"
+                                              href="#collapseThree"
+                                              aria-expanded="false"
+                                              aria-controls="collapseThree"
+                                            >
+                                              <i class="fa fa-download"></i>
+                                              لینک دانلود با کیفیت پایین
+                                            </a>
+                                          </h4>
+                                        </div>
+                                        <div
+                                          id="collapseThree"
+                                          class="panel-collapse collapse"
+                                          role="tabpanel"
+                                          aria-labelledby="headingThree"
+                                        >
+                                          <div class="panel-body">
+                                            <p>
+                                              Lorem ipsum dolor sit amet,
+                                              consectetur adipiscing elit.
+                                              Praesent nisl lorem, dictum id
+                                              pellentesque at, vestibulum ut
+                                              arcu. Curabitur erat libero,
+                                              egestas eu tincidunt ac, rutrum ac
+                                              justo. Vivamus condimentum laoreet
+                                              lectus, blandit posuere tortor
+                                              aliquam vitae. Curabitur molestie
+                                              eros.
+                                            </p>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -429,103 +442,102 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </h3>
-                  </div>
+                      </h3>
+                    </div>
 
-                  <div class="comments ">
-                    <h3>
-                      <h4>
-                        <i
-                          class="fa fa-comments-o  ml-1"
-                          aria-hidden="true"
-                        ></i>
+                    <div class="comments ">
+                      <h4 class="d-flex">
+                        <div class="text-dark item-title">
+                          <i
+                            class="fa fa-comments-o  ml-1"
+                            aria-hidden="true"
+                          ></i>
 
-                        نظرات کاربران
-
+                          نظرات کاربران
+                        </div>
                         <span class="comment-length text-muted">
                           ({{ commentLength }})
                         </span>
                       </h4>
-                    </h3>
-                    <div class="y-line"></div>
-                    <div class="comment_block">
-                      <div class="create_new_comment p-0 m-0">
-                        <form>
-                          <div class="row">
-                            <div class="group col-md-11 d-flex mr-3">
-                              <textarea
-                                type="textarea"
-                                rows="1"
-                                required="required"
-                                v-model="userComemnt.content"
-                              ></textarea>
 
-                              <label>نظر خود را بنویسید</label>
-                              <div class="multi-button sub-cm-btn">
-                                <button @click.prevent="subComment">
-                                  ثبت نظر
-                                </button>
+                      <div class="y-line"></div>
+                      <div class="comment_block">
+                        <div class="create_new_comment p-0 m-0">
+                          <form>
+                            <div class="row">
+                              <div class="group col-md-11 d-flex mr-3">
+                                <textarea
+                                  type="textarea"
+                                  rows="1"
+                                  required="required"
+                                  v-model="userComemnt.content"
+                                ></textarea>
+
+                                <label class="">نظر خود را بنویسید</label>
+                                <div class="multi-button sub-cm-btn">
+                                  <button @click.prevent="subComment">
+                                    ثبت نظر
+                                  </button>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </form>
-                      </div>
+                          </form>
+                        </div>
 
-                      <div class="container">
-                        <div
-                          class="card mt-2 cm-box"
-                          v-for="c in comments"
-                          :key="c.id"
-                        >
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-md-2">
-                                <img
-                                  :src="c.userPicture"
-                                  class="img img-rounded img-fluid"
-                                />
-                                <p class="text-secondary text-center">
-                                  <i class="fa fa-calendar ml-1"></i
-                                  >{{ c.createdAt }}
-                                </p>
-                              </div>
-                              <div class="col-md-10">
-                                <div class="row">
-                                  <div class="col-md-4">
-                                    <strong>{{ c.userFullName }}</strong>
-                                  </div>
-                                  <div class="col-md-8 ">
-                                    <i
-                                      class="fa fa-heart text-danger fa-2x ml-2  cursor-pointer float-left"
-                                    ></i>
-                                    <i
-                                      class="fa fa-reply fa-2x ml-3 cursor-pointer float-left"
-                                    ></i>
-                                  </div>
+                        <div class="container">
+                          <div
+                            class="card mt-2 cm-box"
+                            v-for="c in comments"
+                            :key="c.id"
+                          >
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-md-2">
+                                  <img
+                                    :src="c.userPicture"
+                                    class="img img-rounded img-fluid"
+                                  />
+                                  <p class="text-secondary text-center">
+                                    <i class="fa fa-calendar ml-1"></i
+                                    >{{ c.createdAt }}
+                                  </p>
                                 </div>
-                                <div class="row">
-                                  <div class="col-md-4">
-                                    <span class="float-right"
-                                      ><i class="text-warning fa fa-star"></i
-                                    ></span>
-                                    <span class="float-right"
-                                      ><i class="text-warning fa fa-star"></i
-                                    ></span>
-                                    <span class="float-right"
-                                      ><i class="text-warning fa fa-star"></i
-                                    ></span>
-                                    <span class="float-right"
-                                      ><i class="text-warning fa fa-star"></i
-                                    ></span>
+                                <div class="col-md-10">
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <strong>{{ c.userFullName }}</strong>
+                                    </div>
+                                    <div class="col-md-8 ">
+                                      <i
+                                        class="fa fa-heart text-danger fa-2x ml-2  cursor-pointer float-left"
+                                      ></i>
+                                      <i
+                                        class="fa fa-reply fa-2x ml-3 cursor-pointer float-left"
+                                      ></i>
+                                    </div>
                                   </div>
-                                </div>
-                                <div class="row mt-2">
-                                  <div class="col-md-8">
-                                    {{ c.content }}
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <span class="float-right"
+                                        ><i class="text-warning fa fa-star"></i
+                                      ></span>
+                                      <span class="float-right"
+                                        ><i class="text-warning fa fa-star"></i
+                                      ></span>
+                                      <span class="float-right"
+                                        ><i class="text-warning fa fa-star"></i
+                                      ></span>
+                                      <span class="float-right"
+                                        ><i class="text-warning fa fa-star"></i
+                                      ></span>
+                                    </div>
                                   </div>
-                                </div>
-                                <!-- <p class="d-block row">
+                                  <div class="row mt-2">
+                                    <div class="col-md-8">
+                                      {{ c.content }}
+                                    </div>
+                                  </div>
+                                  <!-- <p class="d-block row">
                                   <a class="float-right "
                                     ><strong>{{ c.userFullName }}</strong></a
                                   >
@@ -549,6 +561,7 @@
                                     <i class="fa fa-heart"></i> پسندیدن</a
                                   >
                                 </p> -->
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -778,7 +791,7 @@ export default {
   top: 0;
   width: 60px;
 }
- 
+
 .panel-body {
   height: 180px;
   background: azure;
@@ -1100,6 +1113,7 @@ textarea {
 }
 input {
   width: 100px;
+  color: #222222;
 }
 input:focus ~ .bar:before {
   width: 50px;
@@ -1107,7 +1121,7 @@ input:focus ~ .bar:before {
 input,
 textarea {
   background: none;
-  color: #c6c6c6;
+  color: #222222;
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   display: block;
@@ -1126,7 +1140,7 @@ textarea:focus ~ label,
 textarea:valid ~ label {
   top: -14px;
   font-size: 12px;
-  color: #ffbc00;
+  color: #8d6803;
 }
 
 textarea:focus ~ .bar:before {
@@ -1138,7 +1152,7 @@ input[type='password'] {
 }
 
 label {
-  color: #c6c6c6;
+  color: #222222;
   font-size: 16px;
   font-weight: normal;
   position: absolute;
@@ -1176,32 +1190,47 @@ multi-button {
   padding: 0;
   stroke: black;
   outline: none;
-  background: linear-gradient(to bottom, #bada55, #da55bb);
   transition: all 1s;
+  -webkit-box-shadow: -4px 4px 10px 5px rgba(136, 136, 136, 0.88);
+  box-shadow: -4px 4px 10px 5px rgba(136, 136, 136, 0.88);
+  background: #40fa13;
+  background: -moz-linear-gradient(left, #40fa13 0%, #53a410 32%, #1e5c17 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #40fa13 0%,
+    #53a410 32%,
+    #1e5c17 100%
+  );
+  background: linear-gradient(to right, #40fa13 0%, #53a410 32%, #1e5c17 100%);
 }
 .multi-button :nth-child(1) {
-  border-radius: 20px 0 0 20px;
-}
-.multi-button :nth-child(3) {
-  border-radius: 0 20px 20px 0;
+  border-radius: 20px 4px 4px 20px;
 }
 
 button:hover {
   cursor: pointer;
   filter: drop-shadow(3px 5px 5px rgba(0, 0, 0, 0.45));
-  background: linear-gradient(to bottom, #ade004, #e714b6);
   transition: all 1s;
-  transform: scale(1.04);
+  transform: scale(1.01);
 }
 button:active {
   filter: none;
   transform: scale(0.95);
 }
 .movie-name {
-  color: #e0dfdc;
-  text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 3px 0 #2a2a2a, 0 4px 0 #282828,
-    0 5px 0 #262626, 0 7px 0 #222, 0 8px 0 #202020, 0 10px 0 #1c1c1c,
-    -40px -33px 0px rgba(206, 89, 55, 0);
+  color: #000000;
+  /* background: #ffffff; */
+  text-shadow: 2px 2px 0 #bcbcbc, 4px 4px 0 #9c9c9c;
+  ont-size: 27px;
+  letter-spacing: 1.6px;
+  word-spacing: -1.2px;
+  color: #000000;
+  font-weight: 400;
+  /* text-decoration: underline solid rgb(68, 68, 68); */
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: capitalize;
+  font-weight: 500;
 }
 .cm-box {
   border-radius: 20px;
@@ -1258,15 +1287,15 @@ button:active {
 }
 
 ul#myTab {
-  background: #0005ce;
-  background: -moz-linear-gradient(left, #0005ce 0%, #24a491 54%, #c50000 100%);
+  background: #786f6e;
+  background: -moz-linear-gradient(left, #786f6e 0%, #8b96a4 50%, #6b6365 100%);
   background: -webkit-linear-gradient(
     left,
-    #0005ce 0%,
-    #24a491 54%,
-    #c50000 100%
+    #786f6e 0%,
+    #8b96a4 50%,
+    #6b6365 100%
   );
-  background: linear-gradient(to right, #0005ce 0%, #24a491 54%, #c50000 100%);
+  background: linear-gradient(to right, #786f6e 0%, #8b96a4 50%, #6b6365 100%);
 }
 li.nav-item {
   margin-right: 1.5rem;
@@ -1279,8 +1308,9 @@ li.nav-item {
 }
 
 .main-movie-single {
-  border-right: 5px ridge #a41414;
-  border-radius: 0px 40px 0px 0px;
+  top: -48px;
+  /* border-right: 5px ridge #a41414;
+  border-radius: 0px 40px 0px 0px; */
 }
 
 .award-title {
@@ -1295,5 +1325,50 @@ li.nav-item {
 }
 i.fa.fa-download {
   margin-right: 1.3rem;
+}
+.main-card {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-top: 5rem;
+  background-color: #b5b4b4;
+  width: 99.8%;
+  border-radius: 15px;
+  box-shadow: 3px 3px 3px 3px rgba(158, 155, 155, 0.432);
+}
+.movie-layout {
+  background-color: #00131d;
+  position: absolute;
+  right: -6px;
+  width: 99%;
+  padding: 5px 7px;
+  border-top: 1.4px dashed #313131;
+  opacity: 0.9;
+}
+.movie-title {
+  font-size: 25px;
+  margin-right: 0.5rem !important;
+  transition: all 0.7s;
+
+  letter-spacing: 1.6px;
+  word-spacing: -1.2px;
+  font-weight: 400;
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: none;
+}
+
+.genres {
+  margin-left: 1rem !important;
+  margin-top: 0.65rem !important;
+  font-size: 13px;
+  color: #d81717;
+  transition: all 0.7s;
+}
+.movie-title:hover,
+.genres:hover {
+  color: yellow !important;
+}
+.item-title {
+  text-shadow: 2px 2px 0 #bcbcbc, 4px 4px 0 #9c9c9c;
 }
 </style>
