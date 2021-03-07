@@ -111,14 +111,41 @@
               </div>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item dropdown">
               <nuxt-link
                 to="/news/page/1"
+                class="nav-link dropdown-toggle"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
                 active-class="active"
-                class="nav-link"
               >
                 <i class="fa fa-newspaper-o"></i> اخبار
               </nuxt-link>
+              <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                <nuxt-link class="dropdown-item" to="/people/cast">
+                  <img
+                    class="nav-dd-img"
+                    src="http://localhost:5000/movie.svg"
+                    alt=""
+                    height="25px"
+                  />
+                  <span class="mr-4">اخبار سینما </span>
+                </nuxt-link>
+                <div class="dropdown-divider"></div>
+
+                <a class="dropdown-item" href="#">
+                  <img
+                    class="nav-dd-img"
+                    src="http://localhost:5000/tv.svg"
+                    alt=""
+                    height="25px"
+                  />
+                  <span class="mr-4"> اخبار سریال</span>
+                </a>
+              </div>
             </li>
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/AboutUs" active-class="active">
@@ -262,7 +289,14 @@ export default {
 
 <style scoped>
 .active {
-  border-bottom: 3px outset rgba(207, 53, 53, 0.71);
+  border-bottom: 2px outset rgba(235, 80, 80, 0.71);
+  border-radius: 5px 0px 18px 0px;
+}
+.nav-link {
+  transition: all 0.8s;
+}
+.nav-link:hover {
+  border-bottom: 2px outset rgba(235, 80, 80, 0.71);
   border-radius: 5px 0px 18px 0px;
 }
 .logo-image {

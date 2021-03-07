@@ -88,4 +88,10 @@
 export default {};
 </script>
 
-<style scoped></style>
+<style scoped>
+.item {
+  margin: 0.15rem;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px #8888;
+}
+</style>
