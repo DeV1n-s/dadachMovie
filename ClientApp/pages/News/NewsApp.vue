@@ -8,29 +8,58 @@
             <h5 class="news-title mb-3">
               ساخت سریال لایو اکشن فرنچایز ‘’G.I. Joe’’ تایید شد
             </h5>
-            <small class="text-muted mb-2">
-              <i class="fa fa-calendar"></i>
-              23 مهر 1397
-            </small>
+
+            <div class="row author-row">
+              <div class="author-avatar">
+                <img
+                  class="author-img"
+                  src="http://localhost:5000/nehrnoosh.jpeg"
+                  alt=""
+                />
+              </div>
+              <div class="author-detail">
+                <small class="d-block ">
+                  <!-- <i class="fa fa-user fa-2x"></i> -->
+                  <span class=" ">
+                    <a href="#" class="author-link">
+                      مرضیه حسینی
+                    </a>
+                  </span>
+                  <span>
+                    <i class="fa fa-calendar"></i>
+                    یکشنبه, ۱۷ اسفند ۹۹ ساعت ۲۳:۴۸
+                  </span>
+                </small>
+              </div>
+              <div class="author-sicial-media float-left mr-auto">
+                <img
+                  src="http://localhost:5000/SocialIcon/Instagram.svg.png"
+                  width="22px"
+                  alt=""
+                />
+                <img
+                  src="http://localhost:5000/SocialIcon/telegram.svg"
+                  width="22px"
+                  alt=""
+                />
+                <img
+                  src="http://localhost:5000/SocialIcon/WhatsApp.svg"
+                  width="24px"
+                  alt=""
+                />
+              </div>
+            </div>
             <img
-              class="newssingle-img mt-3"
+              class="newssingle-img mt-0"
               src="http://localhost:5000/SeedData/newssingle.jpg"
               alt=""
             />
-            <small class="d-block mt-4 mb-2">
-              <i class="fa fa-user "></i>
-              <span class=" news-writer">
-                نوشته شده توسط
-                <a href="#" class="author-link">
-                  دانیال شکوه منش
-                </a>
-              </span>
-              <span class="badge bg-warning text-dark">
-                <a href="" class="category-link">سریال های خارجی</a>
-              </span>
-            </small>
+            <div class="topicCategories">
+              <div class="GroupName">اخبار سریال خارجی</div>
+            </div>
 
-            <p class="news-body">
+            <p class="news-body mt-4">
+              <i class="fa fa-paragraph fa-2x ml-1"></i>
               پس از انتشار فیلم‌های ‘’G.I Joe: The Rise of Cobra’’ و ‘’G.I. Joe:
               Retaliation’’، کمپانی پارامونت پیکچرز تصمیم گرفت تا با شروع پروسه
               تولید فیلم ‘’Snake Eyes: G.I. Joe Origins’’ و پرداختن به ریشه‌های
@@ -50,6 +79,10 @@
               Palicki) ایفاگر نقش این شخصیت بوده است اما مشخص نیست که آیا وی در
               این سریال مجددا در قالب شخصیت مذکور بازمی‌گردد یا خیر.
             </p>
+
+            <div class="source-box d-flex mb-3">
+              <div class="source">منبع : IMDB</div>
+            </div>
             <p class="tag text-primary">
               <i class="fa fa-tag"></i>
               برچسب ها :
@@ -76,26 +109,45 @@
                 <i class="fa fa-comments"></i>
                 نظرات کاربران
               </h5>
-              <div class="y-line"></div>
               <div class="row">
-                <div class="col-md-10">
-                  <div class="form__group">
-                    <textarea
-                      id="message"
-                      class="form__field"
-                      placeholder="نظر خود را بنویسید"
-                      rows="2"
-                    ></textarea>
-                    <label for="message" class="form__label"
-                      >نظر خود را بنویسید
-                    </label>
+                <form action="" class="form-group mt-2 bg-light p-3">
+                  <textarea
+                    name=""
+                    id=""
+                    cols="20"
+                    rows="9"
+                    class="form-group form-control"
+                    placeholder="نظر خود را بنویسید"
+                  ></textarea>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <input
+                        type="name"
+                        class="form-control"
+                        placeholder="نام و نام خانوادگی"
+                      />
+                    </div>
+                    <div class="col-md-4">
+                      <input
+                        type="email"
+                        class="form-control"
+                        placeholder="پست الکترونیکی"
+                      />
+                    </div>
+                    <div class="col-md-4">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="تارنما"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-2">
-                  <button class="btn btn-block btn-success">
+                  <button class="btn btn-primary float-left mt-2">
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+
                     ثبت نظر
                   </button>
-                </div>
+                </form>
               </div>
               <div class="cm-card">
                 <div class="card mt-2 cm-box">
@@ -141,13 +193,13 @@
         </div>
       </div>
       <div class="col-md-3">
-        <div class="card category-card">
-          <h5 class="mr-2 mt-1">
+        <div class="card category-card p-2">
+          <h5 class="mr-2 mt-1 mb-0">
             <i class="fa fa-list-alt" aria-hidden="true"></i>
 
             دسته بندی ها
           </h5>
-          <ul>
+          <ul class="m-0 cat-list">
             <li>
               <i class="fa fa-chevron-left"></i>
               <a href="" class="list-link">
@@ -178,7 +230,7 @@
             </li>
           </ul>
         </div>
-        <div class="card suggest-article-card mt-3">
+        <div class="card suggest-article-card mt-3 p-2">
           <h5 class="mr-2 mt-1">
             <i class="fa fa-newspaper-o"></i>
 
@@ -189,15 +241,19 @@
               <a href="" class="d-flex">
                 <img
                   src="http://localhost:5000/SeedData/sugnews.jpg"
-                  height="40px"
-                  width="70px"
+                  height="70px"
+                  width="60px"
                   alt=""
                   class="sug-news-img"
                 />
               </a>
             </div>
-            <div class="col-md-7">
-              <p>ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+            <div class="col-md-8">
+              <p class="mb-0">ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+              <small class="sug-date">
+                <i class="fa fa-calendar"></i>
+                یکشنبه, ۱۷ اسفند ۹۹
+              </small>
             </div>
           </div>
           <div class="row sug-row">
@@ -205,15 +261,19 @@
               <a href="" class="d-flex">
                 <img
                   src="http://localhost:5000/SeedData/sugnews.jpg"
-                  height="40px"
-                  width="70px"
+                  height="70px"
+                  width="60px"
                   alt=""
                   class="sug-news-img"
                 />
               </a>
             </div>
-            <div class="col-md-7">
-              <p>ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+            <div class="col-md-8">
+              <p class="mb-0">ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+              <small class="sug-date">
+                <i class="fa fa-calendar"></i>
+                یکشنبه, ۱۷ اسفند ۹۹
+              </small>
             </div>
           </div>
           <div class="row sug-row">
@@ -221,15 +281,19 @@
               <a href="" class="d-flex">
                 <img
                   src="http://localhost:5000/SeedData/sugnews.jpg"
-                  height="40px"
-                  width="70px"
+                  height="70px"
+                  width="60px"
                   alt=""
                   class="sug-news-img"
                 />
               </a>
             </div>
-            <div class="col-md-7">
-              <p>ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+            <div class="col-md-8">
+              <p class="mb-0">ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+              <small class="sug-date">
+                <i class="fa fa-calendar"></i>
+                یکشنبه, ۱۷ اسفند ۹۹
+              </small>
             </div>
           </div>
           <div class="row sug-row">
@@ -237,15 +301,19 @@
               <a href="" class="d-flex">
                 <img
                   src="http://localhost:5000/SeedData/sugnews.jpg"
-                  height="40px"
-                  width="70px"
+                  height="70px"
+                  width="60px"
                   alt=""
                   class="sug-news-img"
                 />
               </a>
             </div>
-            <div class="col-md-7">
-              <p>ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+            <div class="col-md-8">
+              <p class="mb-0">ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+              <small class="sug-date">
+                <i class="fa fa-calendar"></i>
+                یکشنبه, ۱۷ اسفند ۹۹
+              </small>
             </div>
           </div>
           <div class="row sug-row">
@@ -253,15 +321,19 @@
               <a href="" class="d-flex">
                 <img
                   src="http://localhost:5000/SeedData/sugnews.jpg"
-                  height="40px"
-                  width="70px"
+                  height="70px"
+                  width="60px"
                   alt=""
                   class="sug-news-img"
                 />
               </a>
             </div>
-            <div class="col-md-7">
-              <p>ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+            <div class="col-md-8">
+              <p class="mb-0">ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+              <small class="sug-date">
+                <i class="fa fa-calendar"></i>
+                یکشنبه, ۱۷ اسفند ۹۹
+              </small>
             </div>
           </div>
           <div class="row sug-row">
@@ -269,25 +341,29 @@
               <a href="" class="d-flex">
                 <img
                   src="http://localhost:5000/SeedData/sugnews.jpg"
-                  height="40px"
-                  width="70px"
+                  height="70px"
+                  width="60px"
                   alt=""
                   class="sug-news-img"
                 />
               </a>
             </div>
-            <div class="col-md-7">
-              <p>ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+            <div class="col-md-8">
+              <p class="mb-0">ساخت فیلم ‘’Ray Donovan’’ تایید شد</p>
+              <small class="sug-date">
+                <i class="fa fa-calendar"></i>
+                یکشنبه, ۱۷ اسفند ۹۹
+              </small>
             </div>
           </div>
         </div>
         <div class="card  mt-3">
-          <h5 class="mr-2 mt-1">
+          <h5 class="mr-2 mt-1 p-2">
             <i class="fa fa-tag"></i>
 
             برچسب ها
           </h5>
-          <div class="card-tags mb-2 mr-3">
+          <div class="card-tags mb-2 px-3">
             <span
               style="
             font-size:18px
@@ -304,12 +380,24 @@
             <span class="badge bg-light text-dark">فیلم جدید</span>
           </div>
         </div>
-        <div class="card joinus-card mt-3">
+        <div class="card  mt-3 p-2">
+          <h5 class="mr-2 mt-1 mb-1 ">
+            <i class="fa fa-share-alt"></i>
+
+            اشتراک گذاری
+          </h5>
+          <div class="d-flex s-icons mt-0">
+            <a href="#" class="fa ca  fa-facebook"></a>
+            <a href="#" class="fa ca fa-twitter"></a>
+            <a href="#" class="fa ca fa-instagram"></a>
+          </div>
+        </div>
+        <div class="card joinus-card mt-3 p-2">
           <h5 class="text-white mr-2 mt-2">
             <i class="fa fa-rss"></i>
             به ما بپیوندید
           </h5>
-          <p class="text-white mr-1">
+          <p class="text-white joinus-text p-2">
             با عضویت در باشگاه اطلاع رسانی ما همواره از آخرین اخبار دنیای سینما
             و سریال مطلع باشید
           </p>
@@ -362,11 +450,13 @@ small {
     7px 6px 1px #cccccc;
 }
 .author-link {
+  font-size: 15px;
   text-decoration: none;
   transition: all 0.6s;
+  color: #ebe8e8;
 }
 .author-link:hover {
-  font-size: 13px;
+  color: #cac703;
 }
 .news-body {
   font-size: 13px;
@@ -440,11 +530,12 @@ span.badge-num.badge-primary {
   margin-right: 0.7rem;
 }
 .sug-row {
-  margin-right: 0.1px;
+  margin-right: -11.9px;
 }
 .sug-news-img {
   border-radius: 5px;
   box-shadow: 2px 2px 2px 2px #8888;
+  margin-bottom: 0.5rem;
 }
 p.tag {
   margin-bottom: 3px;
@@ -527,12 +618,136 @@ button.btn.btn-success {
 .cm-card-body {
   background-color: #eeeeee;
   border-radius: 8px;
-  -webkit-box-shadow: 0px 0px 0px 5px #a0a0a0, inset 0px 10px 27px -8px #141414,
-    5px 5px 15px 5px rgba(0, 0, 0, 0);
-  box-shadow: 0px 0px 0px 5px #a0a0a0, inset 0px 10px 27px -8px #141414,
-    5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 .img-rounded {
   border-radius: 50%;
+}
+.author-row {
+  background: #383838;
+  height: 40px;
+  position: relative;
+  z-index: 3;
+}
+.author-avatar {
+  position: absolute;
+  right: 0;
+}
+.author-img {
+  border: 2px solid #383838;
+  margin: 3px 32px 0 0;
+  background: #fbfbfb;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+}
+.author-detail {
+  margin-right: 90px;
+  color: #fff;
+  padding: 10px 0 0;
+  float: right;
+  margin-bottom: 1rem;
+}
+.author-sicial-media {
+  margin-top: 0.45rem;
+  margin-left: 1.5rem;
+}
+.author-sicial-media img {
+  margin-left: 0.3rem;
+}
+.topicCategories {
+  position: absolute;
+  bottom: 11px;
+  padding: -0px 6px;
+  font-size: 15px;
+  height: 21px;
+  z-index: 9;
+  overflow: hidden;
+  top: 591px;
+  right: 30px;
+}
+.GroupName {
+  z-index: 999;
+  background: #ff7830;
+  color: #fff;
+  padding-right: 5px;
+  padding-left: 5px;
+  padding-top: 0px;
+  border-radius: 2px;
+}
+.source {
+  position: relative;
+  display: inline-block;
+  background-color: #ee2d58;
+  color: #fff;
+  padding: 5px 12px 5px;
+  font-size: 12px;
+  font-weight: normal;
+  margin-bottom: 0;
+  height: auto;
+  min-width: 50px !important;
+  border-radius: 0;
+}
+.news-body {
+  background-color: #f0eeee;
+  padding: 0.5rem;
+  padding-bottom: 1.5rem;
+  border-right: 1px solid #1225;
+}
+.cat-list {
+  padding-right: 0.75rem;
+}
+.sug-date {
+  font-size: 11px;
+  color: #4b4a4a;
+}
+.joinus-text {
+}
+
+.ca {
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 50%;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  transition: all 0.8s;
+}
+
+.ca:hover {
+  opacity: 0.7;
+  border-radius: 20%;
+}
+
+.fa-facebook {
+  background: #3b5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55acee;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+.s-icons {
+  margin-right: 2.8rem;
 }
 </style>
