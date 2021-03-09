@@ -8,22 +8,22 @@
             <div class="panel-header">
               <h3 class="title">آمار</h3>
             </div>
+            <div class="panel-body d-flex justify-content-around ">
+              <h5 class="text-dark">
+                درخواست های باز
+                <span class="badge bg-primary text-white">{{
+                  totalRequests
+                }}</span>
+              </h5>
 
-            <div class="panel-body">
-              <div class="categories d-flex">
-                <div class="category">
-                  <span> کل درخواست‌ها</span>
-                  <span>{{ totalRequests }}</span>
-                </div>
-                <div class="category">
-                  <span>درخواست‌های باز</span>
-                  <span>127</span>
-                </div>
-                <div class="category">
-                  <span>درخواست های بسته شده</span>
-                  <span>8.648</span>
-                </div>
-              </div>
+              <h5 class="text-dark">
+                درخواست های باز
+                <span class="badge bg-danger text-white">15</span>
+              </h5>
+              <h5 class="text-dark">
+                درخواست های باز
+                <span class="badge bg-success text-white">30</span>
+              </h5>
             </div>
           </div>
         </div>
@@ -240,5 +240,12 @@ export default {
 }
 .windows-os span {
   background: #f8e71c;
+}
+.panel-body {
+  margin-top: 2rem;
+}
+.badge {
+  border-radius: 50%;
+  padding: 0.4rem;
 }
 </style>
