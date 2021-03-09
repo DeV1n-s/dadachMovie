@@ -43,11 +43,23 @@
             enabled: true,
             prevLabel: 'قبل',
             nextLabel: 'بعد',
-            rowsPerPageLabel: 'تعداد رکورد'
+            rowsPerPageLabel: 'تعداد رکورد',
+
+            ofLabel: 'از',
+            pageLabel: 'صفحه', // for 'pages' mode
+            allLabel: 'همه',
+            firstRecordOnPage: 'index of the first record on the current page',
+            lastRecordOnPage: 'index of the last record on the current page',
+            totalRecords: 'total number of records',
+            currentPage: 'current page',
+            totalPage: 'total number of pages',
+            infoFn: params => `my own page ${params.firstRecordOnPage}`
           }"
           :search-options="{
             enabled: true
           }"
+          theme="nocturnal"
+          styleClass="vgt-table striped"
         >
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field == 'actions'">

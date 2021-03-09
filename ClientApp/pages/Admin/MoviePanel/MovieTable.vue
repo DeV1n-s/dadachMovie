@@ -22,6 +22,8 @@
             :search-options="{
               enabled: true
             }"
+            theme="nocturnal"
+            styleClass="vgt-table striped"
           >
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'actions'">
