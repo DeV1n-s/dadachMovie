@@ -29,7 +29,10 @@
           />
           <div class="news-card__text-wrapper">
             <h2 class="news-card__title">خبر جدید</h2>
-            <div class="news-card__post-date">23/مهر/1398</div>
+            <div class="news-card__post-date badge badge-dark p-1">
+              <i class="fa fa-calendar"></i>
+              23/مهر/1398
+            </div>
             <div class="news-card__details-wrapper">
               <p class="news-card__excerpt">
                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
@@ -53,7 +56,64 @@
           />
           <div class="news-card__text-wrapper">
             <h2 class="news-card__title">خبر جدید</h2>
-            <div class="news-card__post-date">23/مهر/1398</div>
+            <div class="news-card__post-date badge badge-dark p-1">
+              <i class="fa fa-calendar"></i>
+              23/مهر/1398
+            </div>
+            <div class="news-card__details-wrapper">
+              <p class="news-card__excerpt">
+                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
+                در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد
+                نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                کتابهای زیادی در شصت و سه درصد گذشته،&hellip;
+              </p>
+              <a href="#" class="news-card__read-more text-center"
+                >مشاهده<i class="fas fa-long-arrow-alt-right"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="news-card">
+          <a href="#" class="news-card__card-link"></a>
+          <img
+            src="http://localhost:5000/SeedData/news.jpg"
+            alt=""
+            class="news-card__image"
+          />
+          <div class="news-card__text-wrapper">
+            <h2 class="news-card__title ">خبر جدید</h2>
+            <div class="news-card__post-date badge badge-dark p-1">
+              <i class="fa fa-calendar"></i>
+              23/مهر/1398
+            </div>
+            <div class="news-card__details-wrapper">
+              <p class="news-card__excerpt">
+                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
+                در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد
+                نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                کتابهای زیادی در شصت و سه درصد گذشته،&hellip;
+              </p>
+              <a href="#" class="news-card__read-more text-center"
+                >مشاهده<i class="fas fa-long-arrow-alt-right"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="news-card">
+          <a href="#" class="news-card__card-link"></a>
+          <img
+            src="http://localhost:5000/SeedData/news.jpg"
+            alt=""
+            class="news-card__image"
+          />
+          <div class="news-card__text-wrapper">
+            <h2 class="news-card__title ">خبر جدید</h2>
+            <div class="news-card__post-date badge badge-dark p-1">
+              <i class="fa fa-calendar"></i>
+              23/مهر/1398
+            </div>
             <div class="news-card__details-wrapper">
               <p class="news-card__excerpt">
                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
@@ -77,55 +137,10 @@
           />
           <div class="news-card__text-wrapper">
             <h2 class="news-card__title">خبر جدید</h2>
-            <div class="news-card__post-date">23/مهر/1398</div>
-            <div class="news-card__details-wrapper">
-              <p class="news-card__excerpt">
-                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
-                در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد
-                نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-                کتابهای زیادی در شصت و سه درصد گذشته،&hellip;
-              </p>
-              <a href="#" class="news-card__read-more text-center"
-                >مشاهده<i class="fas fa-long-arrow-alt-right"></i
-              ></a>
+            <div class="news-card__post-date badge badge-dark p-1">
+              <i class="fa fa-calendar"></i>
+              23/مهر/1398
             </div>
-          </div>
-        </div>
-        <div class="news-card">
-          <a href="#" class="news-card__card-link"></a>
-          <img
-            src="http://localhost:5000/SeedData/news.jpg"
-            alt=""
-            class="news-card__image"
-          />
-          <div class="news-card__text-wrapper">
-            <h2 class="news-card__title">خبر جدید</h2>
-            <div class="news-card__post-date">23/مهر/1398</div>
-            <div class="news-card__details-wrapper">
-              <p class="news-card__excerpt">
-                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
-                در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد
-                نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-                کتابهای زیادی در شصت و سه درصد گذشته،&hellip;
-              </p>
-              <a href="#" class="news-card__read-more text-center"
-                >مشاهده<i class="fas fa-long-arrow-alt-right"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="news-card">
-          <a href="#" class="news-card__card-link"></a>
-          <img
-            src="http://localhost:5000/SeedData/news.jpg"
-            alt=""
-            class="news-card__image"
-          />
-          <div class="news-card__text-wrapper">
-            <h2 class="news-card__title">خبر جدید</h2>
-            <div class="news-card__post-date">23/مهر/1398</div>
             <div class="news-card__details-wrapper">
               <p class="news-card__excerpt">
                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
@@ -362,6 +377,7 @@ h1 {
 .news-card__title {
   transition: color 1s ease;
   margin-bottom: 0.5rem;
+  font-size: 20px;
 }
 
 .news-card__post-date {
