@@ -5,13 +5,36 @@
         <div class="col-md-3">
           <p>مرتب سازی بر اساس :</p>
         </div>
-        <div class="col-md 7">
+        <div class="col-md-9">
           <div class="sort-select">
-            <div class="select">
-              <select name="slct" id="slct">
-                <option value="1"><span>نام</span> </option>
-                <option value="2"><span>سن</span> </option>
-              </select>
+            <div class="select d-flex justify-content-around">
+              <p
+                class="srt-option mt-2"
+                @click="getMovieSrtTitle"
+                :class="[isSrtName ? 'srt-option-active' : 'srt-option']"
+              >
+                <i class="fa fa-paragraph"></i>
+                نام بازیگر
+              </p>
+              <p
+                class="srt-option mt-2"
+                @click="getMovieSrtReleaseDate"
+                :class="[isSrtRealeseDate ? 'srt-option-active' : 'srt-option']"
+              >
+                <i class="fa fa-calendar"></i>
+                تاریه تولد
+              </p>
+              <!-- <p class="srt-option mt-2">
+                <i class="fa fa-clock-o"></i>
+                زمان فیلم
+              </p> -->
+              <!-- <select name="slct" id="slct">
+                <option value="1"><span>تاریخ فیلم</span> </option>
+                <option value="2"
+                  ><span @change="getMovieSrtTitle">زمان فیلم</span>
+                </option>
+                <option value="3"><span> نمره IMDB</span></option>
+              </select> -->
             </div>
           </div>
         </div>
@@ -47,12 +70,35 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  // data() {
-  //   return {
-  //     Cast: this.$store.getters.GetPeaple
-  //   };
-  // },
+  data() {
+    return {
+      isSrtName: false,
+      isSrtRealeseDate: false
+    };
+  },
+  methods: {
+    async getMovieSrtReleaseDate() {
+      await axios
+        .get(`/api/movies?SortBy=releaseDate&Page=${this.id}&PageSize=6`)
+        .then(res => {
+          this.movieData = res.data.items;
+
+          this.isSrtName = true;
+          this.isSrtName = false;
+          this.isSrtRealeseDate = true;
+        });
+    },
+    async getMovieSrtTitle() {
+      await axios.get(`/api/people?Filter=name`).then(res => {
+        this.movieData = res.data.items;
+
+        this.isSrtName = true;
+        this.isSrtRealeseDate = false;
+      });
+    }
+  },
   mounted() {
     this.$store.dispatch('GetPeoples');
     console.log(this.Cast);

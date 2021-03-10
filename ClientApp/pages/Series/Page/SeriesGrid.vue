@@ -5,14 +5,36 @@
         <div class="col-md-3">
           <p>مرتب سازی بر اساس :</p>
         </div>
-        <div class="col-md 7">
+        <div class="col-md-9">
           <div class="sort-select">
-            <div class="select">
-              <select name="slct" id="slct">
-                <option value="1"><span>نمره</span> </option>
-                <option value="2"><span>زمان</span> </option>
-                <option value="3"><span>تاریخ</span></option>
-              </select>
+            <div class="select d-flex justify-content-around">
+              <p
+                class="srt-option mt-2"
+                @click="getMovieSrtReleaseDate"
+                :class="[isSrtRealeseDate ? 'srt-option-active' : 'srt-option']"
+              >
+                <i class="fa fa-calendar"></i>
+                تاریخ اکران
+              </p>
+              <p
+                class="srt-option mt-2"
+                @click="getMovieSrtTitle"
+                :class="[isSrtName ? 'srt-option-active' : 'srt-option']"
+              >
+                <i class="fa fa-paragraph"></i>
+                نام فیلم
+              </p>
+              <!-- <p class="srt-option mt-2">
+                <i class="fa fa-clock-o"></i>
+                زمان فیلم
+              </p> -->
+              <!-- <select name="slct" id="slct">
+                <option value="1"><span>تاریخ فیلم</span> </option>
+                <option value="2"
+                  ><span @change="getMovieSrtTitle">زمان فیلم</span>
+                </option>
+                <option value="3"><span> نمره IMDB</span></option>
+              </select> -->
             </div>
           </div>
         </div>
@@ -81,10 +103,36 @@ export default {
       id: this.$route.params.id,
       seriesData: '',
       pageNum: '',
-      pagination: []
+      pagination: [],
+      isSrtName: false,
+      isSrtRealeseDate: false
     };
   },
   methods: {
+    async getMovieSrtReleaseDate() {
+      await axios
+        .get(`/api/series?SortBy=releaseDate&Page=${this.id}&PageSize=6`)
+        .then(res => {
+          this.seriesData = res.data.items;
+          this.pageNum = Math.ceil(res.data.totalItems / 6);
+          this.pageMaker(this.pageNum);
+          this.isSrtName = true;
+          this.isSrtName = false;
+          this.isSrtRealeseDate = true;
+        });
+    },
+    async getMovieSrtTitle() {
+      await axios
+        .get(`/api/series?SortBy=title&Page=${this.id}&PageSize=6`)
+        .then(res => {
+          this.seriesData = res.data.items;
+          this.pageNum = Math.ceil(res.data.totalItems / 6);
+          this.pageMaker(this.pageNum);
+          this.isSrtName = true;
+          this.isSrtRealeseDate = false;
+        });
+    },
+
     async getMovie() {
       await axios.get(`/api/series?Page=${this.id}&PageSize=6`).then(res => {
         this.seriesData = res.data.items;

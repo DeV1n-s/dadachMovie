@@ -175,9 +175,7 @@ export default {
     },
     async getMovieSrtTitle() {
       await axios
-        .get(
-          `http://localhost:5000/api/movies?SortBy=title&Page=${this.id}&PageSize=6`
-        )
+        .get(`/api/movies?SortBy=title&Page=${this.id}&PageSize=6`)
         .then(res => {
           this.movieData = res.data.items;
           this.pageNum = Math.ceil(res.data.totalItems / 6);
