@@ -2,16 +2,16 @@
   <div>
     <div class="sort-row mr-1">
       <div class="row mr-5">
-        <div class="col-md-3">
+        <div class="col-md-3 mt-3">
           <p>مرتب سازی بر اساس :</p>
         </div>
         <div class="col-md 7">
           <div class="sort-select">
             <div class="select">
               <select name="slct" id="slct">
-                <option value="1"><span>نمره</span> </option>
+                <option value="1"><span>تاریخ</span> </option>
                 <option value="2"><span>زمان</span> </option>
-                <option value="3"><span>تاریخ</span></option>
+                <option value="3"><span>نمره</span></option>
               </select>
             </div>
           </div>

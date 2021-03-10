@@ -2929,3 +2929,22 @@
         pointer-events: none;
         user-select: none;
     }
+    
+    .srt-option {
+        color: rgb(155, 149, 149) !important;
+        transition: all 0.5s;
+    }
+    
+    .srt-option:hover {
+        color: #fbc02d !important;
+        cursor: -webkit-grab;
+        cursor: grab;
+        border-bottom: 1px solid #fbc02d;
+    }
+    
+    .srt-option-active {
+        color: #fbc02d !important;
+        cursor: -webkit-grab;
+        cursor: grab;
+        border-bottom: 1px solid #fbc02d;
+    }
