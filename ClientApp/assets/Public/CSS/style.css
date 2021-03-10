@@ -1021,7 +1021,8 @@
     }
     
     .sort-row {
-        border: 0.5px solid #ffbc00;
+        background: #00131d;
+        opacity: 0.8;
         width: 97.4%;
     }
     
@@ -1032,89 +1033,11 @@
         padding: 0 !important;
     }
     
-    .sort-row .row {
-        margin-right: 20% !important;
-    }
-    
     .sort-row span {
         font-size: 15px;
         margin-top: 5px;
         color: #58c78f;
         padding: 0 !important;
-    }
-    
-    .sort-select {
-        margin-right: 12rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        /* height: 40px; */
-        width: 10px !important;
-    }
-    
-    .sort-select option {
-        font-size: 17px;
-        margin-right: 2rem;
-        text-align: center;
-    }
-    
-    select {
-        margin-top: 0.5rem !important;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -ms-appearance: none;
-        appearance: none;
-        outline: 0;
-        box-shadow: none;
-        border: 0 !important;
-        background: #2c3e50;
-        background-image: none;
-    }
-    /* Remove IE arrow */
-    
-    select::-ms-expand {
-        display: none;
-    }
-    /* Custom Select */
-    
-    .select {
-        position: relative;
-        display: flex;
-        width: 280px;
-        height: 32px;
-        line-height: 3;
-        background: #2c3e50;
-        overflow: hidden;
-        border-radius: .25em;
-        margin-top: 0.3rem;
-    }
-    
-    select {
-        flex: 1;
-        /* padding: 0 .5em; */
-        color: #fff;
-        cursor: pointer;
-    }
-    /* Arrow */
-    
-    .select::after {
-        content: '\25BC';
-        position: absolute;
-        top: 0;
-        right: 0;
-        /* padding: 0 1em; */
-        background: #34495e;
-        cursor: pointer;
-        pointer-events: none;
-        -webkit-transition: .25s all ease;
-        -o-transition: .25s all ease;
-        transition: .25s all ease;
-    }
-    /* Transition */
-    
-    .select:hover::after {
-        color: #f39c12;
     }
     
     .people-list-grid {
@@ -2937,4 +2860,72 @@
     
     .cursor-pointer {
         cursor: pointer
+    }
+    
+    .select {
+        position: relative;
+        width: 250px;
+    }
+    
+    .select svg {
+        position: absolute;
+        right: 12px;
+        top: calc(50% - 3px);
+        width: 10px;
+        height: 6px;
+        stroke-width: 2px;
+        stroke: #9098a9;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        pointer-events: none;
+    }
+    
+    .select select {
+        -webkit-appearance: none;
+        padding: 7px 30px 4px 5px;
+        width: 100%;
+        border: 1px solid #e8eaed;
+        border-radius: 5px;
+        background: #f7f7f7;
+        background: -moz-linear-gradient(left, #f7f7f7 0%, #f2ebe5 50%, #fff9f2 100%);
+        background: -webkit-linear-gradient( left, #f7f7f7 0%, #f2ebe5 50%, #fff9f2 100%);
+        background: linear-gradient(to right, #f7f7f7 0%, #f2ebe5 50%, #fff9f2 100%);
+        box-shadow: 0 1px 3px -2px #9098a9;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 16px;
+        transition: all 150ms ease;
+    }
+    
+    .select select:required:invalid {
+        color: #202020;
+        font-size: 18px;
+    }
+    
+    .select select option {
+        color: #223254;
+        font-size: 16px;
+    }
+    
+    .select select option[value=''][disabled] {
+        display: none;
+    }
+    
+    .select select:focus {
+        outline: none;
+        border-color: #07f;
+        box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.2);
+    }
+    
+    .select select:hover+svg {
+        stroke: #07f;
+    }
+    
+    .sprites {
+        position: absolute;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+        user-select: none;
     }

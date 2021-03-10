@@ -1,21 +1,31 @@
 <template>
   <div>
-    <div class="sort-row mr-1">
+    <div class="sort-row mr-0">
       <div class="row mr-5">
-        <div class="col-md-3">
-          <p>مرتب سازی بر اساس :</p>
-        </div>
-        <div class="col-md 7">
-          <div class="sort-select">
-            <div class="select">
-              <select name="slct" id="slct">
-                <option value="1"><span>نمره</span> </option>
-                <option value="2"><span>زمان</span> </option>
-                <option value="3"><span>تاریخ</span></option>
-              </select>
-            </div>
-          </div>
-        </div>
+        <label class="select" for="slct">
+          <select id="slct" required="required">
+            <option value="" disabled="disabled" selected="selected">
+              <i class="fa fa-sort-numeric-up"></i>
+              <img src="http://localhost:5000/sort.svg" alt="" />
+
+              مرتب سازی بر اساس</option
+            >
+            <option value="#">
+              <i class="fa fa-sort"></i>
+              <img src="http://localhost:5000/sort.svg" alt="" />
+
+              عنوان خبر
+            </option>
+            <option value="#">
+              <img src="http://localhost:5000/sort.svg" alt="" />
+
+              تاریخ خبر
+            </option>
+          </select>
+          <svg>
+            <use xlink:href="#select-arrow-down"></use>
+          </svg>
+        </label>
       </div>
     </div>
     <div class="row itms itemcont">
@@ -28,7 +38,9 @@
             class="news-card__image"
           />
           <div class="news-card__text-wrapper">
-            <h2 class="news-card__title">خبر جدید</h2>
+            <h2 class="news-card__title">
+              خبر جدید
+            </h2>
             <div class="news-card__post-date badge badge-dark p-1">
               <i class="fa fa-calendar"></i>
               23/مهر/1398
