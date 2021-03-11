@@ -1312,28 +1312,6 @@
         box-shadow: 0 0px 8px white;
     }
     
-    .movie-single .more {
-        margin-bottom: 2rem;
-    }
-    
-    .movie-single .more h2 {
-        color: aliceblue;
-        margin-left: 2%;
-        margin-top: 2%;
-    }
-    
-    .movie-single .more img {
-        width: 50%;
-        margin-top: -1%;
-        transition: 0.5s;
-        margin-right: 3rem;
-    }
-    
-    .more img:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px;
-    }
-    
     .movie-single .row .col-md-3 {
         top: -150px
     }
@@ -2225,7 +2203,6 @@
         z-index: 1;
         margin-bottom: -300px;
         font-size: 10px;
-        font-family: "fira-sans-2", Verdana, sans-serif;
     }
     
     #ticks .tick {
@@ -2596,7 +2573,6 @@
         height: 100%;
         position: absolute;
         width: 100%;
-        font-family: monospace;
         font-size: 1.5rem;
     }
     
@@ -2893,7 +2869,6 @@
         background: linear-gradient(to right, #f7f7f7 0%, #f2ebe5 50%, #fff9f2 100%);
         box-shadow: 0 1px 3px -2px #9098a9;
         cursor: pointer;
-        font-family: inherit;
         font-size: 16px;
         transition: all 150ms ease;
     }
@@ -2947,4 +2922,16 @@
         cursor: -webkit-grab;
         cursor: grab;
         border-bottom: 1px solid #fbc02d;
+    }
+    
+    .btn-orange {
+        background-color: rgb(224, 147, 4);
+    }
+    
+    .btn-orange:hover {
+        background-color: rgb(190, 125, 3);
+    }
+    
+    .bg-light-custom {
+        background-color: rgba(165, 161, 161, 0.897);
     }

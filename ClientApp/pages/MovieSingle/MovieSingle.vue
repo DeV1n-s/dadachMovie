@@ -22,10 +22,13 @@
               <div class="row">
                 <div class="col-md-3">
                   <img :src="movieDetail.picture" alt="" />
-                  <div class="single-movie-btns">
-                    <div class="btn mt-3">
-                      <button>مشاهده پیشنمایش</button>
-                    </div>
+                  <div class="single-movie-btns mt-4">
+                    <button
+                      class="btn  btn-favorit mr-3 text-white mb-1 btn-orange"
+                    >
+                      <i class="fab fa-youtube"></i>
+                      مشاهده پیشنمایش
+                    </button>
                     <button
                       class="btn btn-danger mr-3 btn-favorit"
                       @click="addFavoritMovie"
@@ -159,8 +162,8 @@
                       </b-tabs>
                     </div>
                       -->
-                    <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
-                      <li class="nav-item">
+                    <ul class="nav nav-tabs p-0 mt-5" id="myTab" role="tablist">
+                      <li class="nav-item col-md-4 ">
                         <a
                           class="nav-link active d-color"
                           id="home-tab"
@@ -174,7 +177,8 @@
                           خلاصه داستان</a
                         >
                       </li>
-                      <li class="nav-item">
+
+                      <li class="nav-item col-md-4">
                         <a
                           class="nav-link d-color"
                           id="profile-tab"
@@ -188,7 +192,8 @@
                           نقد و بررسی</a
                         >
                       </li>
-                      <li class="nav-item">
+
+                      <li class="nav-item col-md-4">
                         <a
                           class="nav-link d-color"
                           id="contact-tab"
@@ -293,7 +298,7 @@
                                           role="tab"
                                           id="headingOne"
                                         >
-                                          <h4 class="panel-title">
+                                          <h4 class="panel-title ">
                                             <a
                                               role="button"
                                               data-toggle="collapse"
@@ -302,7 +307,9 @@
                                               aria-expanded="true"
                                               aria-controls="collapseOne"
                                             >
-                                              <i class="fa fa-download"></i>
+                                              <i
+                                                class="fa fa-download dl-right"
+                                              ></i>
                                               لینک دانلود با کیفیت بالا
                                             </a>
                                           </h4>
@@ -365,7 +372,9 @@
                                               aria-expanded="false"
                                               aria-controls="collapseTwo"
                                             >
-                                              <i class="fa fa-download"></i>
+                                              <i
+                                                class="fa fa-download  dl-right "
+                                              ></i>
                                               لینک دانلود با کیفیت متوسط
                                             </a>
                                           </h4>
@@ -408,7 +417,9 @@
                                               aria-expanded="false"
                                               aria-controls="collapseThree"
                                             >
-                                              <i class="fa fa-download"></i>
+                                              <i
+                                                class="fa fa-download  dl-right"
+                                              ></i>
                                               لینک دانلود با کیفیت پایین
                                             </a>
                                           </h4>
@@ -465,21 +476,55 @@
                         <div class="create_new_comment p-0 m-0">
                           <form>
                             <div class="row">
-                              <div class="group col-md-11 d-flex mr-3">
+                              <form
+                                action=""
+                                class="form-group mt-2 bg-light-custom p-3 comnet-box"
+                              >
                                 <textarea
-                                  type="textarea"
-                                  rows="1"
-                                  required="required"
+                                  name=""
+                                  id=""
+                                  cols="20"
+                                  rows="9"
+                                  class="form-group form-control"
+                                  placeholder="نظر خود را بنویسید"
                                   v-model="userComemnt.content"
                                 ></textarea>
-
-                                <label class="">نظر خود را بنویسید</label>
-                                <div class="multi-button sub-cm-btn">
-                                  <button @click.prevent="subComment">
-                                    ثبت نظر
-                                  </button>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <input
+                                      type="name"
+                                      class="form-control"
+                                      placeholder="نام و نام خانوادگی"
+                                    />
+                                  </div>
+                                  <div class="col-md-4">
+                                    <input
+                                      type="email"
+                                      class="form-control"
+                                      placeholder="پست الکترونیکی"
+                                    />
+                                  </div>
+                                  <div class="col-md-4">
+                                    <input
+                                      type="text"
+                                      class="form-control w-100"
+                                      placeholder="تارنما"
+                                    />
+                                  </div>
                                 </div>
-                              </div>
+
+                                <button
+                                  class="btn btn-primary float-left mt-2"
+                                  @click.prevent="subComment"
+                                >
+                                  <i
+                                    class="fa fa-paper-plane"
+                                    aria-hidden="true"
+                                  ></i>
+
+                                  ثبت نظر
+                                </button>
+                              </form>
                             </div>
                           </form>
                         </div>
@@ -575,32 +620,87 @@
               <div class="photo"></div>
 
               <div class="more ">
-                <h2>فیلم های محبوب</h2>
-                <div class="d-flex justify-content-center">
-                  <a href="">
-                    <img
-                      src="https://valamovie.art/wp-content/uploads/A1FJwUVg84sQSjHVz5jVMXQvifJ.jpg"
-                      alt=""
-                    />
-                  </a>
-                  <a href="">
-                    <img
-                      src="https://valamovie.art/wp-content/uploads/A1FJwUVg84sQSjHVz5jVMXQvifJ.jpg"
-                      alt=""
-                    />
-                  </a>
-                  <a href="">
-                    <img
-                      src="https://valamovie.art/wp-content/uploads/A1FJwUVg84sQSjHVz5jVMXQvifJ.jpg"
-                      alt=""
-                    />
-                  </a>
-                  <a href="">
-                    <img
-                      src="https://valamovie.art/wp-content/uploads/A1FJwUVg84sQSjHVz5jVMXQvifJ.jpg"
-                      alt=""
-                    />
-                  </a>
+                <div class="wrapper">
+                  <h2>
+                    <strong>فیلم های محبوب</strong>
+                  </h2>
+
+                  <div class="cards">
+                    <figure class="card">
+                      <img
+                        src="http://localhost:5000/movies/sug-movie-seed.jpg"
+                      />
+
+                      <figcaption class="fav-movies-title">
+                        Finding Ghana
+                      </figcaption>
+                    </figure>
+                    <figure class="card">
+                      <img
+                        src="http://localhost:5000/movies/sug-movie-seed.jpg"
+                      />
+
+                      <figcaption class="fav-movies-title">
+                        Finding Ghana
+                      </figcaption>
+                    </figure>
+                    <figure class="card">
+                      <img
+                        src="http://localhost:5000/movies/sug-movie-seed.jpg"
+                      />
+
+                      <figcaption class="fav-movies-title">
+                        Finding Ghana
+                      </figcaption>
+                    </figure>
+                    <figure class="card">
+                      <img
+                        src="http://localhost:5000/movies/sug-movie-seed.jpg"
+                      />
+
+                      <figcaption class="fav-movies-title">
+                        Finding Ghana
+                      </figcaption>
+                    </figure>
+                  </div>
+
+                  <h2><strong>آخرین فیلم ها</strong></h2>
+
+                  <div class="news">
+                    <figure class="article">
+                      <img
+                        src="http://localhost:5000/movies/663ad98e-9fd1-48d8-8ce3-326a2fbeefc8.jpg"
+                      />
+
+                      <figcaption>
+                        <h3 class="mb-2">ماتریکس ۳</h3>
+
+                        <p>
+                          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
+                          چاپ و با استفاده از طراحان گرافیک است. چاپگرها و با
+                          هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در
+                          شصت و سه درصد گذشته،
+                        </p>
+                      </figcaption>
+                    </figure>
+
+                    <figure class="article">
+                      <img
+                        src="http://localhost:5000/movies/8186b3ee-8898-43aa-88a5-5a7fb6372008.jpg"
+                      />
+
+                      <figcaption>
+                        <h3 class="mb-2">لورم ایپسوم</h3>
+
+                        <p>
+                          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
+                          چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون
+                          بلکه روزنامه و مجله در ستون و سطرآنچنان که لصت و سه
+                          درصد گذشته،
+                        </p>
+                      </figcaption>
+                    </figure>
+                  </div>
                 </div>
               </div>
             </div>
@@ -867,16 +967,12 @@ export default {
 }
 
 .para.m-0 {
-  background-color: rgb(224, 221, 221);
-  -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
-    5px 5px 15px 5px rgba(0, 0, 0, 0);
-  box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
-    5px 5px 15px 5px rgba(0, 0, 0, 0);
+  background-color: #c5c5c5;
+  border-top: 0.5px solid rgb(14, 13, 13);
   padding: 1rem;
   color: #000000 !important;
-  font-size: 16px;
+  font-size: 15px;
   border: 5px hidden #1c6ea4;
-  border-radius: 0px 0px 0px 40px;
 }
 .single-body.y-color {
   border-radius: 8px;
@@ -884,21 +980,15 @@ export default {
 }
 
 .demo {
-  background: linear-gradient(to right, #4e42b9, #e98223);
+  background: linear-gradient(to right, #4e42b9, #ec9544);
   padding-top: 1rem;
-  border-radius: 20px;
-  -webkit-box-shadow: 0px 0px 0px 5px #a0a0a0, inset 0px 10px 27px -8px #141414,
-    inset 0px -10px 27px -8px #a31925, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-  box-shadow: 0px 0px 0px 5px #a0a0a0, inset 0px 10px 27px -8px #141414,
-    inset 0px -10px 27px -8px #a31925, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-  /* -webkit-box-shadow: 5px 5px 15px 5px #ff8080, -9px 5px 15px 5px #ffe488,
-    -7px -5px 15px 5px #8cff85, 12px -5px 15px 5px #80c7ff,
-    12px 10px 15px 7px #e488ff, -10px 10px 15px 7px #ff616b,
-    -10px -7px 27px 1px #8e5cff, -50px -50px 0px -30px rgba(255, 154, 26, 0);
-  box-shadow: 5px 5px 5px 5px #ff8080, -5px 5px 5px 5px #ffe488,
-    -7px -5px 5px 5px #8cff85, -2px -5px 6px 4px #80c7fe,
-    2px 0px 7px 7px #e488ff, -10px 10px 5px 7px #ff616b,
-    -10px -7px 5px 1px #8e5cff, -50px -50px 0px -30px rgb(255 154 26 / 0%); */
+  border-radius: 10px;
+  -webkit-box-shadow: 8px 0px 0px 0px #dcd0c0, 0px 8px 0px 0px #b1938b,
+    -8px 0px 0px 0px #4e4e56, 0px 0px 0px 8px #da635d,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 8px 0px 0px 0px #dcd0c0, 0px 8px 0px 0px #b1938b,
+    -8px 0px 0px 0px #4e4e56, 0px 0px 0px 8px #da635d,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 a:hover,
 a:focus {
@@ -939,7 +1029,6 @@ a:focus {
 #accordion .panel-title a:before,
 #accordion .panel-title a.collapsed:before {
   content: '\f107';
-  font-family: 'Font Awesome 5 Free';
   width: 30px;
   height: 30px;
   line-height: 27px;
@@ -988,9 +1077,9 @@ a:focus {
   color: white;
   background: none;
   border-radius: 0;
-  padding: 0.4em 0.6em;
-  letter-spacing: 2.05px;
-  font-size: 0.7em;
+  padding: 0.4em 0.8em;
+  letter-spacing: 0.55px;
+  font-size: 0.8em;
   transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
   margin: 1em;
 }
@@ -1107,42 +1196,6 @@ form .emoji {
   margin: 45px 0;
 }
 
-textarea {
-  resize: none;
-  width: 100%;
-}
-input {
-  width: 100px;
-  color: #222222;
-}
-input:focus ~ .bar:before {
-  width: 50px;
-}
-input,
-textarea {
-  background: none;
-  color: #222222;
-  font-size: 18px;
-  padding: 10px 10px 10px 5px;
-  display: block;
-  /* width: 520px; */
-  border: none;
-  border-radius: 0;
-  border-bottom: 1px solid #c6c6c6;
-}
-input:focus,
-textarea:focus {
-  outline: none;
-}
-input:focus ~ label,
-input:valid ~ label,
-textarea:focus ~ label,
-textarea:valid ~ label {
-  top: -14px;
-  font-size: 12px;
-  color: #8d6803;
-}
-
 textarea:focus ~ .bar:before {
   width: 320px;
 }
@@ -1233,7 +1286,7 @@ button:active {
   font-weight: 500;
 }
 .cm-box {
-  border-radius: 20px;
+  border-radius: 5px;
   box-shadow: 3px 3px 3px 3px #8888;
   transition: all 1s;
 }
@@ -1297,9 +1350,7 @@ ul#myTab {
   );
   background: linear-gradient(to right, #786f6e 0%, #8b96a4 50%, #6b6365 100%);
 }
-li.nav-item {
-  margin-right: 1.5rem;
-}
+
 .nav-link {
   font-size: 15px;
 }
@@ -1361,14 +1412,257 @@ i.fa.fa-download {
   margin-left: 1rem !important;
   margin-top: 0.65rem !important;
   font-size: 13px;
-  color: #d81717;
+  color: yellow;
+
   transition: all 0.7s;
 }
-.movie-title:hover,
+.movie-title:hover {
+  color: yellow;
+}
 .genres:hover {
-  color: yellow !important;
+  color: #d81717;
 }
 .item-title {
   text-shadow: 2px 2px 0 #bcbcbc, 4px 4px 0 #9c9c9c;
+}
+ul li {
+  padding: 0 !important;
+}
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  font-size: 17px !important;
+  margin-left: 1rem;
+}
+
+.nav-tabs .nav-link,
+.nav-tabs .nav-item .nav-link {
+  font-size: 16px;
+  margin-left: 1rem;
+}
+.dl-right {
+  margin-right: 1.8rem !important;
+}
+.btn-primary {
+  background: #00b1ff;
+  background: -moz-linear-gradient(left, #00b1ff 0%, #007bff 50%, #0562ff 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #00b1ff 0%,
+    #007bff 50%,
+    #0562ff 100%
+  );
+  background: linear-gradient(to right, #00b1ff 0%, #007bff 50%, #0562ff 100%);
+}
+.abs,
+h2:after,
+.cards .card figcaption,
+.cards .card:after,
+.news .card figcaption,
+.news .card:after,
+.news .article figcaption {
+  position: absolute;
+}
+.rel,
+h2,
+h2 strong,
+.cards .card,
+.news .card,
+.news .article {
+  position: relative;
+}
+.fix {
+  position: fixed;
+}
+.dfix {
+  display: inline;
+}
+.dib {
+  display: inline-block;
+}
+.db {
+  display: block;
+}
+.dn {
+  display: none;
+}
+.df,
+.cards,
+.news {
+  display: flex;
+}
+.dif {
+  display: inline-flex;
+}
+.dg {
+  display: grid;
+}
+.dig {
+  display: inline-grid;
+}
+.vm,
+h2,
+h2 strong,
+h2 span {
+  vertical-align: middle;
+}
+body {
+  background: #24282f;
+}
+.wrapper {
+  padding: 15px;
+}
+h2 {
+  padding: 10px;
+  padding-left: 25px;
+  color: #ccc;
+  margin: 0;
+}
+h2 strong {
+  z-index: 2;
+  background: #24282f;
+  padding: 4px 8px;
+}
+h2 span {
+  font-size: 0.7em;
+  color: #aaa;
+  margin-left: 10px;
+}
+h2:after {
+  content: '';
+  z-index: 1;
+  bottom: 50%;
+  margin-bottom: -2px;
+  height: 2px;
+  left: 0;
+  right: 0;
+  background: #373d47;
+}
+.cards,
+.news {
+  flex-flow: row wrap;
+}
+.cards .card,
+.news .card {
+  margin: 20px;
+  width: 180px;
+  height: 270px;
+  overflow: hidden;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+  transform-origin: center top;
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  transition: 0.3s;
+}
+.cards .card img,
+.news .card img {
+  width: 100%;
+  min-height: 100%;
+}
+.cards .card figcaption,
+.news .card figcaption {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  background: none;
+  color: #fff;
+  transform: translateY(100%);
+  transition: 0.3s;
+}
+.cards .card:after,
+.news .card:after {
+  content: '';
+  z-index: 10;
+  width: 200%;
+  height: 100%;
+  top: -90%;
+  left: -20px;
+  opacity: 0.1;
+  transform: rotate(45deg);
+  background: linear-gradient(
+    to top,
+    transparent,
+    #fff 15%,
+    rgba(255, 255, 255, 0.5)
+  );
+  transition: 0.3s;
+}
+.cards .card:hover,
+.news .card:hover,
+.cards .card:focus,
+.news .card:focus,
+.cards .card:active,
+.news .card:active {
+  box-shadow: 0 8px 16px 3px rgba(0, 0, 0, 0.6);
+  transform: translateY(-3px) scale(1.05) rotateX(15deg);
+}
+.cards .card:hover figcaption,
+.news .card:hover figcaption,
+.cards .card:focus figcaption,
+.news .card:focus figcaption,
+.cards .card:active figcaption,
+.news .card:active figcaption {
+  transform: none;
+}
+.cards .card:hover:after,
+.news .card:hover:after,
+.cards .card:focus:after,
+.news .card:focus:after,
+.cards .card:active:after,
+.news .card:active:after {
+  transform: rotate(25deg);
+  top: -40%;
+  opacity: 0.15;
+}
+.news .article {
+  overflow: hidden;
+  width: 350px;
+  height: 235px;
+  margin: 20px;
+}
+.news .article img {
+  width: 100%;
+  min-height: 100%;
+  transition: 0.2s;
+}
+.news .article figcaption {
+  font-size: 14px;
+  text-shadow: 0 1px 0 rgba(51, 51, 51, 0.3);
+  color: #fff;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 40px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  background: rgba(6, 18, 53, 0.6);
+  opacity: 0;
+  transform: scale(1.15);
+  transition: 0.2s;
+}
+.news .article figcaption h3 {
+  color: #3792e3;
+  font-size: 16px;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.news .article:hover img,
+.news .article:focus img,
+.news .article:active img {
+  filter: blur(3px);
+  transform: scale(0.97);
+}
+.news .article:hover figcaption,
+.news .article:focus figcaption,
+.news .article:active figcaption {
+  opacity: 1;
+  transform: none;
+}
+.fav-movies-title {
+  background-color: #000000 !important;
+  opacity: 0.8;
+  padding: 1rem 0 1rem 0 !important;
 }
 </style>
