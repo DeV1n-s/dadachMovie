@@ -2935,3 +2935,29 @@
     .bg-light-custom {
         background-color: rgba(165, 161, 161, 0.897);
     }
+    
+    .the-selector-of-expand-icon-you-found {
+        display: none;
+    }
+    
+    .the-selector-of-expand-icon-you-found {
+        visibility: hidden;
+    }
+    
+    #accordion .panel-title a[data-v-374c7078]:before,
+    #accordion .panel-title a.collapsed[data-v-374c7078]:before {
+        display: none;
+        content: '\f107';
+        width: 30px;
+        height: 30px;
+        line-height: 27px;
+        text-align: center;
+        font-size: 25px;
+        font-weight: 900;
+        color: #fff;
+        position: absolute;
+        top: 15px;
+        right: 30px;
+        transform: rotate( 180deg);
+        transition: all 0.4s cubic-bezier(0.08, 1.09, 0.32, 1.275);
+    }

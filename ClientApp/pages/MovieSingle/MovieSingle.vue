@@ -1440,7 +1440,7 @@ ul li {
   margin-left: 1rem;
 }
 .dl-right {
-  margin-right: 1.8rem !important;
+  margin-right: 0rem !important;
 }
 .btn-primary {
   background: #00b1ff;
