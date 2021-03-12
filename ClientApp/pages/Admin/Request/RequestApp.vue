@@ -69,7 +69,7 @@
           </p>
         </div>
         <div class="projects">
-          <p class="bg-danger req-footer-text px-1">بررسی نشده</p>
+          <p class="bg-danger req-footer-text  px-2">بررسی نشده</p>
         </div>
       </footer>
     </div>
@@ -267,10 +267,6 @@ export default {
   border-radius: 7px;
 }
 .btn {
-  -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
-    5px 5px 15px 5px rgba(111, 255, 36, 0);
-  box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
-    5px 5px 15px 5px rgba(111, 255, 36, 0);
 }
 .answer-box {
   width: 800px;
@@ -292,11 +288,13 @@ textarea {
 }
 .profile-img img {
   transition: 0.7s;
+  box-shadow: 0 5px 35px 0px rgba(0, 0, 0, 0.1);
 }
 
 .profile-img img:hover {
-  transform: scale(1.3);
+  transform: scale(1.18);
 }
+
 .profile-link {
   text-decoration: none;
   transition: 0.7s;
@@ -316,5 +314,13 @@ textarea {
 /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(10px);
   opacity: 0;
+}
+.req-footer-text {
+  margin-top: 15px;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+}
+.card-header {
+  background-color: #fff;
 }
 </style>
