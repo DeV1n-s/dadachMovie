@@ -102,14 +102,33 @@
                     </div>
 
                     <hr class="my-4" />
-                    <p>تاریخ ثبت نام :</p>
-                    <p>
+                    <p class="text-danger">
+                      <i class="fa fa-calendar"></i>
+                      تاریخ ثبت نام :
+                    </p>
+                    <p class="ltr-dir">
                       {{ currentUser.registerDate }}
                     </p>
-                    <div class="row mr-1">
+                    <hr class="my-4" />
+                    <p class="float-right role-title text-danger">
+                      <i class="fa fa-id-badge" aria-hidden="true"></i>
+
+                      نقش ها :
+                    </p>
+                    <ul
+                      class="d-block mt-3 ml-3 list-group list-group-flush float-left"
+                    >
+                      <li
+                        class=" role-list badge badge-success  py-1"
+                        v-for="r in roles"
+                        :key="r"
+                      >
+                        {{ r }}
+                      </li>
+                    </ul>
+                    <div class="user-side-btns  d-block ">
                       <button
-                        href="#!"
-                        class="btn btn-sm btn-primary mb-2 col-md-3"
+                        class="btn btn-block btn-primary mr-0 "
                         :disabled="isMyprofile"
                         @click="
                           isMyprofile = true;
@@ -117,11 +136,11 @@
                           isMyRequest = false;
                         "
                       >
-                        اطلاعات من
-                      </button>
-                      <button
-                        href="#!"
-                        class="btn btn-sm btn-primary mb-2 col-md-3"
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                        اطلاعات من</button
+                      ><button
+                        class="btn btn-block btn-primary mr-0"
                         :disabled="isMovieDetail"
                         @click="
                           isMovieDetail = true;
@@ -129,12 +148,10 @@
                           isMyprofile = false;
                         "
                       >
-                        آمار فیلم ها
-                      </button>
-
-                      <button
-                        href="#!"
-                        class="btn btn-sm btn-primary mb-2 col-md-3 mr-1"
+                        <i class="fa fa-bar-chart"></i>
+                        آمار فیلم ها</button
+                      ><button
+                        class="btn btn-block btn-primary"
                         :disabled="isMyRequest"
                         @click="
                           isMyprofile = false;
@@ -142,7 +159,9 @@
                           isMyRequest = true;
                         "
                       >
-                        درخواست‌
+                        <i class="fa fa-bell" aria-hidden="true"></i>
+
+                        درخواست
                       </button>
                     </div>
                   </div>
@@ -169,9 +188,11 @@
                       <a
                         v-if="!isEditMode"
                         href="#!"
-                        class="btn btn-sm btn-primary"
+                        class="btn btn-warning text-wite"
                         @click="isEditMode = true"
-                        >ویرایش پروفایل</a
+                      >
+                        <i class="fa fa-edit"></i>
+                        ویرایش پروفایل</a
                       >
 
                       <div class="d-flex" v-if="isEditMode">
@@ -546,7 +567,6 @@ export default {
       this.newUserData.banerPicture = event.target.files[0];
     },
     async getCurrentUser() {
-      console.log('ho');
       await axios
         .get('/api/accounts/CurrentUser', {
           headers: {
@@ -562,6 +582,7 @@ export default {
           this.comments = res.data.movieComments.items;
           this.userRequest = res.data.requests;
         });
+      console.log(this.roles);
     },
     countryMaker() {
       console.log(this.cValue.id);
@@ -576,7 +597,7 @@ export default {
           let cData = { value: '', text: '' };
           cData.value = q.id;
           cData.text = q.nationality;
-          this.options.push(cData);
+          console.log(this.cData);
         });
       });
     },
@@ -2647,5 +2668,26 @@ p {
 }
 .cmtn-box:hover {
   transform: scale(1.05);
+}
+ul li {
+  list-style: none;
+}
+.user-side-btns button {
+  margin-bottom: 0.01px;
+  margin-top: 5px;
+}
+.btn-warning {
+  background-color: var(--yellow);
+}
+.text-wite {
+  color: #000;
+}
+.role-list {
+  width: 110%;
+  font-size: 13px;
+  margin-bottom: 0.25rem;
+}
+.role-title {
+  font-size: 17px;
 }
 </style>
