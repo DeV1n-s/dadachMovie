@@ -305,13 +305,11 @@ button.btn.btn-outline-success.mr-4.mb-1 {
 .cast-show .row {
   margin-top: 0.2rem;
   margin-right: 3%;
-  transition: all 265ms ease-out;
+  transition: all 265ms;
 }
 .cast-show .row:hover {
   /* -ms-transform: rotate(10deg);  */
   /* transform: rotate(10deg); */
-  margin-right: 8%;
-  transform: scale(1.1);
 }
 .col-md-7.text-white.mt-1 {
   font-size: 11px;
@@ -320,17 +318,13 @@ button.btn.btn-outline-success.mr-4.mb-1 {
   float: left;
 }
 .cast-img {
-  border-radius: 10px;
-  -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
-    5px 5px 15px 5px rgba(0, 0, 0, 0);
-  box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
-    5px 5px 15px 5px rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  transition: all 265ms;
+}
+.cast-img:hover {
+  border-radius: 50%;
 }
 .most-rate-shaddow {
   border-radius: 8px;
-  -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
-    5px 5px 15px 5px rgba(0, 0, 0, 0);
-  box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000,
-    5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 </style>
