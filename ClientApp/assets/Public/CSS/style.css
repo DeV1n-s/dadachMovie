@@ -753,43 +753,6 @@
         opacity: 0.7;
         margin: 0;
     }
-    
-    #main-footer {
-        background: #333;
-        color: white;
-        height: 5rem;
-    }
-    
-    footer {
-        background: #16222A;
-        background: -webkit-linear-gradient(59deg, #3A6073, #16222A);
-        background: linear-gradient(59deg, #3A6073, #16222A);
-        color: white;
-        margin-top: 10px;
-    }
-    
-    footer a {
-        color: #fff;
-        font-size: 14px;
-        transition-duration: 0.2s;
-    }
-    
-    footer a:hover {
-        color: #FA944B;
-        text-decoration: none;
-    }
-    
-    .copy {
-        font-size: 12px;
-        padding: 10px;
-        border-top: 1px solid #FFFFFF;
-    }
-    
-    .footer-middle {
-        width: 97%;
-        padding-top: 1rem;
-        color: white;
-    }
     /*SOCİAL İCONS*/
     /* footer social icons */
     
