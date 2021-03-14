@@ -1,31 +1,38 @@
 <template>
   <div>
-    <div class="sort-row mr-0">
+    <div class="sort-row mr-1">
       <div class="row mr-5">
-        <label class="select" for="slct">
-          <select id="slct" required="required">
-            <option value="" disabled="disabled" selected="selected">
-              <i class="fa fa-sort-numeric-up"></i>
-              <img src="http://localhost:5000/sort.svg" alt="" />
-
-              مرتب سازی بر اساس</option
-            >
-            <option value="#">
-              <i class="fa fa-sort"></i>
-              <img src="http://localhost:5000/sort.svg" alt="" />
-
-              عنوان خبر
-            </option>
-            <option value="#">
-              <img src="http://localhost:5000/sort.svg" alt="" />
-
-              تاریخ خبر
-            </option>
-          </select>
-          <svg>
-            <use xlink:href="#select-arrow-down"></use>
-          </svg>
-        </label>
+        <div class="col-md-3">
+          <p class="mt-2 pb-0">
+            <i class="fa fa-sort"></i>
+            مرتب سازی بر اساس :
+          </p>
+        </div>
+        <div class="col-md-9">
+          <div class="sort-select">
+            <div class="select d-flex justify-content-around">
+              <p class="srt-option mt-2">
+                <i class="fa fa-calendar"></i>
+                تاریخ انتشار
+              </p>
+              <p class="srt-option mt-2">
+                <i class="fa fa-paragraph"></i>
+                عنوان خبر
+              </p>
+              <!-- <p class="srt-option mt-2">
+                <i class="fa fa-clock-o"></i>
+                زمان فیلم
+              </p> -->
+              <!-- <select name="slct" id="slct">
+                <option value="1"><span>تاریخ فیلم</span> </option>
+                <option value="2"
+                  ><span @change="getMovieSrtTitle">زمان فیلم</span>
+                </option>
+                <option value="3"><span> نمره IMDB</span></option>
+              </select> -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row itms itemcont">
@@ -168,18 +175,92 @@
           </div>
         </div>
       </div>
-      <div class="pagination">
-        <div class="num-container">
+      <div class="pagination py-1">
+        <div class="pagination:container">
+          <div class="pagination:number arrow">
+            <svg width="18" height="18">
+              <use xlink:href="#left" />
+            </svg>
+            <span class="arrow:text">قبل</span>
+          </div>
+          <div class="pagination:number">
+            <nuxt-link
+              v-for="p in pagination"
+              :key="p"
+              active-class="active"
+              :to="{ name: 'Movies-Page-id', params: { id: p } }"
+              >{{ p }}</nuxt-link
+            >
+          </div>
+          <!-- <div class="pagination:number">
+            1
+          </div>
+          <div class="pagination:number">
+            2
+          </div>
+
+          <div class="pagination:number pagination:active">
+            3
+          </div>
+
+          <div class="pagination:number">
+            4
+          </div>
+
+          <div class="pagination:number">
+            540
+          </div> -->
+
+          <div class="pagination:number arrow">
+            <span class="arrow:text">بعد</span>
+            <svg width="18" height="18">
+              <use xlink:href="#right" />
+            </svg>
+          </div>
+        </div>
+
+        <svg class="hide">
+          <symbol
+            id="left"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            ></path>
+          </symbol>
+          <symbol
+            id="right"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </symbol>
+        </svg>
+
+        <!-- <div class="num-container">
           <a href="#">&laquo;</a>
           <nuxt-link
             v-for="p in pagination"
             :key="p"
             active-class="active"
-            :to="{ name: 'series-Page-id', params: { id: p } }"
+            :to="{ name: 'Movies-Page-id', params: { id: p } }"
             >{{ p }}</nuxt-link
           >
           <a href="#">&raquo;</a>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -217,6 +298,94 @@ export default {
 </script>
 
 <style scoped>
+:root {
+  --bg-page: #1a1a1a;
+  --text-color: #f3f3f3;
+  --card-bg: #de6161;
+  --icon-bg: #45423c;
+  --blue: #0870f8;
+  --blue-rgb: 8, 112, 248;
+  --orange: #ff9232;
+  --g-purple: linear-gradient(30deg, #85f, #9966ff);
+  --g-yellow: linear-gradient(30deg, #fc0, #fc0);
+  --g-red: linear-gradient(30deg, #f36, #f24);
+  --g-blue: linear-gradient(30deg, #0cf, #0af);
+  --g-purple: linear-gradient(30deg, #85f, #9966ff);
+  --range: 0%;
+  --shadow: rgba(0, 6, 39, 0.1);
+  --light-shadow: rgba(255, 255, 255, 0.8);
+  --light-shadow-2: rgba(255, 255, 255, 0.1);
+}
+svg {
+  color: white;
+}
+span.arrow\:text {
+  color: white;
+}
+.pagination {
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: var(--bg-page);
+  color: var(--text-color);
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: 400;
+  user-select: none;
+  transition: all 200ms ease;
+}
+
+.hide {
+  display: none;
+  visibility: hidden;
+  height: 0;
+}
+
+.pagination\:container {
+  display: flex;
+  align-items: center;
+}
+
+.arrow\:text {
+  display: block;
+  vertical-align: middle;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.pagination\:number {
+  --size: 32px;
+  --margin: 6px;
+  margin: 0 var(--margin);
+  border-radius: 6px;
+  background: #de6161;
+  max-width: auto;
+  min-width: var(--size);
+  height: var(--size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0 6px;
+}
+@media (hover: hover) {
+  .pagination\:number:hover {
+    background: #ffbc00;
+  }
+}
+.pagination\:number:active {
+  background: #ffbc00;
+}
+
+.pagination\:active {
+  background: #ffbc00;
+  position: relative;
+}
+.active:hover {
+  color: #0d0d0c !important;
+}
 .row.itms.itemcont {
   margin-left: 0.4rem;
 }
