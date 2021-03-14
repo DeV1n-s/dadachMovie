@@ -102,7 +102,7 @@
                     </div>
 
                     <hr class="my-4" />
-                    <p class="text-danger">
+                    <p>
                       <i class="fa fa-calendar"></i>
                       تاریخ ثبت نام :
                     </p>
@@ -217,6 +217,7 @@
                 <!--  -->
                 <form v-if="isMyprofile">
                   <h6 class="heading-small text-muted mb-4">
+                    <div class="fa fa-info-circle"></div>
                     اطلاعات شخصی
                   </h6>
                   <div class="pl-lg-4">
@@ -316,10 +317,28 @@
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group focused">
+                          <label
+                            class="form-control-label"
+                            for="input-first-name"
+                            >شماره تماس
+                          </label>
+                          <input
+                            type="text"
+                            id="input-first-name"
+                            class="form-control form-control-alternative"
+                            placeholder="09XXXXXXXX"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <hr class="my-4" />
                   <!-- Address -->
                   <h6 class="heading-small text-muted mb-4">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
                     آدرس
                   </h6>
                   <div class="pl-lg-4">
@@ -372,8 +391,67 @@
                     </div>
                   </div>
                   <hr class="my-4" />
+                  <h6 class="heading-small text-muted mb-4 s-header">
+                    <i class="fa fa-hashtag"></i> شبکه های اجتماعی
+                  </h6>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label
+                          class="form-control-label"
+                          for="input-first-name"
+                        >
+                          <i class="fa fa-telegram"></i>
+                          شناسه تلگرام
+                        </label>
+                        <input
+                          type="text"
+                          id="input-first-name"
+                          class="form-control form-control-alternative"
+                          placeholder="@Dev1n"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-last-name">
+                          <i class="fa fa-instagram"></i>
+                          شناسه اینستاگرام
+                        </label>
+                        <input
+                          type="text"
+                          id="input-last-name"
+                          class="form-control form-control-alternative"
+                          placeholder="danial.shokouhmanesh"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label
+                          class="form-control-label"
+                          for="input-first-name"
+                        >
+                          <i class="fa fa-whatsapp"></i>
+                          شماره واتساپ
+                        </label>
+                        <input
+                          type="text"
+                          id="input-first-name"
+                          class="form-control form-control-alternative"
+                          placeholder="09339689095"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="my-4" />
                   <!-- Description -->
-                  <h6 class="heading-small text-muted mb-4">درباره من</h6>
+                  <h6 class="heading-small text-muted mb-4">
+                    <i class="fa fa-address-card"></i> درباره من
+                  </h6>
                   <div class="pl-lg-4">
                     <div class="form-group focused">
                       <textarea
@@ -2689,5 +2767,8 @@ ul li {
 }
 .role-title {
   font-size: 17px;
+}
+.s-header {
+  font-size: 18px;
 }
 </style>
