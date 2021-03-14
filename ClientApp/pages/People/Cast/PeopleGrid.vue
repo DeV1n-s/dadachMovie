@@ -22,7 +22,7 @@
                 :class="[isSrtRealeseDate ? 'srt-option-active' : 'srt-option']"
               >
                 <i class="fa fa-calendar"></i>
-                تاریه تولد
+                تاریخ تولد
               </p>
               <!-- <p class="srt-option mt-2">
                 <i class="fa fa-clock-o"></i>
