@@ -3,11 +3,13 @@
     class="container mb-5"
     dir="rtl"
     data-aos="fade-right"
-    data-aos-duration="3500"
+    data-aos-duration="1000"
   >
-    <h4 class="mr-3 mb-4 y-color">
-      <i class="fa fa-calendar" aria-hidden="true"></i>
-      جدول هفتگی پخش سریال‌ها
+    <h4 class="mr-0 mb-3">
+      <strong class="y-color">
+        <i class="fa fa-calendar" aria-hidden="true"></i> جدول هفتگی پخش
+        سریال‌ها</strong
+      >
     </h4>
     <div class="series-calendar mt-4">
       <div class="card main-card">
@@ -117,6 +119,32 @@ export default {
 </script>
 
 <style scoped>
+h4 {
+  padding: 10px;
+  padding-left: 25px;
+  color: #ccc;
+  margin: 0;
+}
+h4 strong {
+  z-index: 2;
+  background: #24282f;
+  padding: 4px 8px;
+}
+h4 span {
+  font-size: 0.7em;
+  color: #aaa;
+  margin-left: 10px;
+}
+h4:after {
+  content: '';
+  z-index: 1;
+  bottom: 50%;
+  margin-bottom: -2px;
+  height: 2px;
+  left: 0;
+  right: 0;
+  background: #1f63d8;
+}
 .series-calendar {
   width: 85%;
   margin-right: 2.5rem;

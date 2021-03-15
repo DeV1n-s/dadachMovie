@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="in-theater" data-aos="fade-up" data-aos-duration="2500">
-      <h4 class="mr-4 "><i class="fa fa-film ml-1 "></i> روی پرده سینما ...</h4>
+      <h4 class="mr-0 mb-3">
+        <strong><i class="fa fa-film ml-1 "></i> روی پرده سینما ...</strong>
+      </h4>
       <div class="row mr-4">
         <div
           class="card col-md-3"
@@ -80,6 +82,32 @@ export default {
 </script>
 
 <style scoped>
+h4 {
+  padding: 10px;
+  padding-left: 25px;
+  color: #ccc;
+  margin: 0;
+}
+h4 strong {
+  z-index: 2;
+  background: #24282f;
+  padding: 4px 8px;
+}
+h4 span {
+  font-size: 0.7em;
+  color: #aaa;
+  margin-left: 10px;
+}
+h4:after {
+  content: '';
+  z-index: 1;
+  bottom: 50%;
+  margin-bottom: -2px;
+  height: 2px;
+  left: 0;
+  right: 0;
+  background: #1f63d8;
+}
 .row.mr-4 {
   box-shadow: aqua;
   box-shadow: 1px 1px 2px 2px #8888;

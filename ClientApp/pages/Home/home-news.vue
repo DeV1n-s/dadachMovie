@@ -1,8 +1,10 @@
 <template>
   <div class="container home-news-grid">
     <div class="home-news">
-      <h4 class="mr-3 mb-4">
-        <i class="fa fa-newspaper-o" aria-hidden="true"></i> اخبار
+      <h4 class="mr-0 mb-3">
+        <strong
+          ><i class="fa fa-newspaper-o" aria-hidden="true"></i> اخبار</strong
+        >
       </h4>
       <section id="work-a" class="text-center py-3 mr-1">
         <div class="container">
@@ -89,6 +91,32 @@ export default {};
 </script>
 
 <style scoped>
+h4 {
+  padding: 10px;
+  padding-left: 25px;
+  color: #ccc;
+  margin: 0;
+}
+h4 strong {
+  z-index: 2;
+  background: #24282f;
+  padding: 4px 8px;
+}
+h4 span {
+  font-size: 0.7em;
+  color: #aaa;
+  margin-left: 10px;
+}
+h4:after {
+  content: '';
+  z-index: 1;
+  bottom: 50%;
+  margin-bottom: -2px;
+  height: 2px;
+  left: 0;
+  right: 0;
+  background: #1f63d8;
+}
 .item {
   margin: 0.15rem;
   border-radius: 5px;
