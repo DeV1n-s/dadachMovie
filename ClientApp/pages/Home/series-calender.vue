@@ -4,7 +4,7 @@
     dir="rtl"
     data-aos="fade-right"
     data-aos-duration="1000"
-    data-aos-delay="300"
+    data-aos-delay="250"
   >
     <h4 class="mr-0 mb-3">
       <strong class="y-color">

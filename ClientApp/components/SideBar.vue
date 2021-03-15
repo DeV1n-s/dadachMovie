@@ -44,7 +44,7 @@
             </nuxt-link>
           </div>
           <nuxt-link to="/series/page/1" class="mx-auto w-100">
-            <button class="btn btn-block btn-outline-info my-2">
+            <button class="btn btn-block btn-outline-info my-2 mr-2">
               مشاهده همه سریال ها
             </button>
           </nuxt-link>

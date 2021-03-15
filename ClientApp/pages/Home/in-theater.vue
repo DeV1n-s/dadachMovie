@@ -6,7 +6,7 @@
       data-aos-delay="250"
       data-aos-duration="2500"
     >
-      <h4 class="mr-0 mb-3">
+      <h4 class="mr-0 mb-0">
         <strong><i class="fa fa-film ml-1 "></i> روی پرده سینما ...</strong>
       </h4>
       <div class="row mr-4">
