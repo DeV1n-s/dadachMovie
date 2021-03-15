@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <div class="in-theater" data-aos="fade-up" data-aos-duration="2500">
+    <div
+      class="in-theater"
+      data-aos="fade-up"
+      data-aos-delay="250"
+      data-aos-duration="2500"
+    >
       <h4 class="mr-0 mb-3">
         <strong><i class="fa fa-film ml-1 "></i> روی پرده سینما ...</strong>
       </h4>
@@ -110,7 +115,7 @@ h4:after {
 }
 .row.mr-4 {
   box-shadow: aqua;
-  box-shadow: 1px 1px 2px 2px #8888;
+  /* box-shadow: 1px 1px 2px 2px #8888; */
   border-radius: 11px;
 }
 

@@ -57,7 +57,7 @@ h4:after {
   right: 0;
   background: #373d47;
 }
-.container .mt-1 {
+/* .container .mt-1 {
   box-shadow: 0px 6px 12px 0px #8888;
-}
+} */
 </style>
