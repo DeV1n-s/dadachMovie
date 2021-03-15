@@ -1,5 +1,10 @@
 <template>
-  <div class="container mb-5" dir="rtl">
+  <div
+    class="container mb-5"
+    dir="rtl"
+    data-aos="fade-right"
+    data-aos-duration="3500"
+  >
     <h4 class="mr-3 mb-4 y-color">
       <i class="fa fa-calendar" aria-hidden="true"></i>
       جدول هفتگی پخش سریال‌ها
@@ -88,6 +93,9 @@
 
 <script>
 import axios from 'axios';
+//import VueAos from 'vue-aos';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 export default {
   data() {
     return {
@@ -103,6 +111,7 @@ export default {
   },
   mounted() {
     this.getSeries(1);
+    AOS.init();
   }
 };
 </script>

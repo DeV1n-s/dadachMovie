@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="in-theater">
+    <div class="in-theater" data-aos="fade-up" data-aos-duration="2500">
       <h4 class="mr-4 "><i class="fa fa-film ml-1 "></i> روی پرده سینما ...</h4>
       <div class="row mr-4">
         <div
@@ -52,6 +52,9 @@
 
 <script>
 import axios from 'axios';
+//import VueAos from 'vue-aos';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 export default {
   data() {
     return {
@@ -68,8 +71,10 @@ export default {
       });
     }
   },
+  created() {},
   mounted() {
     this.getInTheater();
+    AOS.init();
   }
 };
 </script>
