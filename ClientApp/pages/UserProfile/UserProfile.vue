@@ -96,7 +96,7 @@
                     <h3>
                       {{ currentUser.firstName + ' ' + currentUser.lastName }}
                     </h3>
-                    <span class="font-weight-light"> 24</span>
+                    <span class="font-weight-bolder"> 24</span>
                     <div class="h5 font-weight-300">
                       <i class="ni location_pin mr-2"></i>
                     </div>
@@ -402,7 +402,7 @@
                           for="input-first-name"
                         >
                           <i class="fa fa-telegram"></i>
-                          شناسه تلگرام
+                          تلگرام
                         </label>
                         <input
                           type="text"
@@ -417,7 +417,7 @@
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-last-name">
                           <i class="fa fa-instagram"></i>
-                          شناسه اینستاگرام
+                          اینستاگرام
                         </label>
                         <input
                           type="text"
@@ -436,7 +436,7 @@
                           for="input-first-name"
                         >
                           <i class="fa fa-whatsapp"></i>
-                          شماره واتساپ
+                          واتساپ
                         </label>
                         <input
                           type="text"
