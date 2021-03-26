@@ -559,4 +559,7 @@ ul li {
 .contact-ul {
   margin-left: 5rem;
 }
+.dk-footer-box-info {
+  width: 90%;
+}
 </style>
