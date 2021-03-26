@@ -112,9 +112,9 @@
             </nuxt-link>
           </div>
           <div class="col-md-3">
-            <a href="#" class="btn btn-warning btn-block">
+            <nuxt-link to="/admin/news/add" class="btn btn-warning btn-block">
               <i class="fa fa-plus"></i> افزودن اخبار
-            </a>
+            </nuxt-link>
           </div>
           <div class="col-md-3">
             <a
