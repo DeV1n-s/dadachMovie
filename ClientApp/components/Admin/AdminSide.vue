@@ -32,7 +32,9 @@
           <h4 class="display-4 ">
             <span class="d-block"> <i class="fa fa-pencil "></i> 6 </span>
           </h4>
-          <a href="posts.html" class="btn btn-outline-light btn-sm">مشاهده</a>
+          <nuxt-link to="/admin/newspanel" class="btn btn-outline-light btn-sm"
+            >مشاهده</nuxt-link
+          >
         </div>
       </div>
       <div class="card text-center bg-danger text-white mb-3">

@@ -43,6 +43,14 @@
             </li>
             <li class="nav-item px-2">
               <nuxt-link
+                to="/admin/newspanel"
+                class="nav-link"
+                exact-active-class="active"
+                >اخبار</nuxt-link
+              >
+            </li>
+            <li class="nav-item px-2">
+              <nuxt-link
                 to="/admin/userpanel"
                 class="nav-link"
                 exact-active-class="active"
